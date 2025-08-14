@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>学校と社会をつなぐ | CLAFT</title>
+  <meta name="description" content="学校での学びと社会のギャップを可視化し、正解がひとつでない問いに向き合う学びへ。CLAFTの解決案を提示します。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--brand:#34c6be;--pink:#f06a6a;--cream:#ffd66b;--green:#58c3a2;--ink-900:#1f2937;--ink-700:#374151;--ink-500:#6b7280;--bg:#fbfefe;--card:#fff;--shadow:0 10px 30px rgba(31,41,55,.08);--radius:20px;--radius-lg:28px}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui}
+    a{color:var(--brand);text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1120px,92%);margin-inline:auto}
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav{display:flex;align-items:center;gap:18px;padding:12px 0}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo img{height:36px}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:999px;color:var(--ink-700)}
+    nav a:hover{background:rgba(52,198,190,.12)}
+    .spacer{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-line{background:#06c755;color:#fff}
+    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
+
+    .hero{padding:54px 0 28px}
+    h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0}
+    .lead{color:var(--ink-700)}
+
+    .section{padding:48px 0}
+    .section h2{font-size:clamp(22px,2.2vw,32px);margin:0 0 12px}
+    .sub{color:var(--ink-500);margin:0 0 20px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(52,198,190,.12),rgba(255,214,107,.18));box-shadow:var(--shadow);display:grid;place-items:center;margin:10px 0}
+    .ph span{background:#fff;padding:8px 12px;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
+
+    footer{padding:36px 0;background:#fff;border-top:1px solid rgba(0,0,0,.06)}
+    @media (max-width:980px){nav{display:none}.grid-2{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="logo" href="index.html#top" aria-label="CLAFT トップへ"><img src="assets/logo.jpg" alt="CLAFT ロゴ"/><strong>CLAFT</strong></a>
+    <nav aria-label="グローバル">
+      <ul>
+        <li><a href="school-society.html">学校と社会をつなぐ</a></li>
+        <li><a href="about.html">CLAFTとは？</a></li>
+        <li><a href="career.html">キャリアコース</a></li>
+        <li><a href="minecraft.html">マイクラコース</a></li>
+        <li><a href="yononaka.html">Yononakaコース</a></li>
+        <li><a href="futurecraft.html">ミライクラフト</a></li>
+        <li><a href="contact.html">体験/問合せ</a></li>
+      </ul>
+    </nav>
+    <div class="spacer"></div>
+    <div style="display:flex;gap:10px">
+      <a class="btn btn-primary" href="contact.html#apply">体験申込</a>
+      <a class="btn btn-line" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">LINEで相談</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero container">
+    <h1>学校と社会をつなぐ</h1>
+    <p class="lead">問題提起 → 解決案（CLAFTの学び）</p>
+    <div class="ph"><span>キービジュアル（問題提起の図や写真）</span></div>
+  </section>
+
+  <section class="section container" id="problem">
+    <h2>問題提起</h2>
+    <p><strong>「学校で一生懸命勉強したのに、社会に出たら全然違ってた」</strong></p>
+    <p>「自分が本当にやりたいことって、なんだろう…？」</p>
+    <p>そんな声が、今の日本社会にはあふれています。</p>
+    <ul>
+      <li>新入社員が「スキル不足」を感じている・・・67%</li>
+      <li>社会人が3年以内に離職している・・・34%</li>
+      <li>日本の教育を「良い」と評価する人の割合・・・19%</li>
+    </ul>
+    <p><strong>原因は、決して本人の努力不足ではありません。</strong></p>
+    <p>むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。</p>
+    <p>その理由は、とてもシンプル。</p>
+    <h2>「社会の変化に、学びが追いついていない」</h2>
+    <p><strong>技術の進歩、価値観の多様化、社会課題の顕在化など。</strong></p>
+    <p>こうした時代において、「正解を早く答える」勉強だけでは、生きていく力になりません。</p>
+    <div class="ph"><span>図：VUCAや社会の変化イラスト</span></div>
+    <p>学校や塾で重視されるのは</p>
+    <p>正解がある問題を、速く、正確に解く力・・・認知能力</p>
+    <p>でも社会で求められるのは</p>
+    <p>正解がひとつではない問題に対して、自分の意見を持ち、伝え、行動する力・・・非認知能力</p>
+    <p><strong>また、昨今のAIによる進化はすさまじく、認知能力はコンピュータの方が得意な時代に。</strong></p>
+    <p>入試のための勉強から、”社会を知り未来を予測するための学び”へと、変えていく必要があるとCLAFTでは考えています。</p>
+  </section>
+
+  <section class="section container" id="gap">
+    <h2>正解がない社会と、正解を覚える学校教育</h2>
+    <p>現代社会は情報があふれています。スマホによって、情報へ辿り着くスピードが早くなりました。情報の発信者が増え、コンテンツが多様化しました。それにより人類が歴史を通じて記述してきた言葉を上回るほどの情報量になったと言われています。</p>
+    <p>しかし、どの情報が「正しい」のかは、個々の状況や立場によって異なります。そんな現代社会は、予測不可能であいまいな社会「VUCA」と呼ばれています。</p>
+    <p>それなのに、教科書に書いてある情報を覚えて、正解を早く正確に回答する能力の高さを、変わらず重視している日本の教育。知識不足を前提に、先生が知識を教え、生徒がそれを記憶し、テストで成果を測る。このような偏差値重視のシステムが進路を決める基盤となっています。</p>
+    <p>その結果、教育と社会の間に大きなギャップが生まれ、数々の問題を引き起こしています。</p>
+    <p>社会課題：自殺・不登校・退職の増加</p>
+    <p>その根本原因として、「自己肯定感の低さ」が挙げられます。自己肯定感が低いと、</p>
+    <ol>
+      <li>自分には価値や可能性がないと感じる</li>
+      <li>失敗を恐れ、完璧主義に陥る</li>
+      <li>何を目指したらいいかわからない</li>
+    </ol>
+    <div class="ph"><span>図：学校↔社会のギャップ対比</span></div>
+  </section>
+
+  <section class="section container" id="solution">
+    <h2>解決案：人生100年時代、自分を語れる人へ</h2>
+    <p>社会が大きく変動する中で、大学入試の形式にも変化が見られます。</p>
+    <p>一般選抜、いわゆるテスト入試は50%を下回り、総合型選抜（志望理由書・小論文・面接）による選抜の比率が増えています。これからますます多様化が進むでしょう。</p>
+    <p>また、テクノロジーの進化と長寿化の進展により、「人生100年時代」を迎えています。これまでの「学ぶ→働く→引退する」という従来の人生パターンは崩れ、「学習→仕事」というサイクルを何度も繰り返しながらキャリアを築いていく時代へと変わりつつあります。</p>
+    <p>特に引退後や家庭、生活のために学習と仕事を続けるだけでは、心身のバランスを維持することが難しくなる可能性があります。これからは、持続可能な働き方と学び方が求められるでしょう。</p>
+    <p>仕事の在り方も変わり、既存の職業を組み合わせて新しい仕事を創っていくことが求められていきます。これからの時代に求められるのは、知識の単なる獲得ではなく、その知識を実社会で活用するスキルと姿勢です。</p>
+    <p>知識の獲得を目指す生徒から、「知識を実社会に活用する学習者」への転換が必要なのです。</p>
+    <div class="ph"><span>写真：実践の様子 / 異年齢の対話</span></div>
+    <div class="card" style="margin-top:12px">
+      <strong>CLAFTのアプローチ</strong>
+      <p>正解がひとつでない問いに、対話と探究で向き合い、実践で試す。学校と社会をつなぐ学びを提供します。</p>
+      <p><a class="btn btn-primary" href="contact.html#apply">体験/問合せ</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container" style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:10px"><img src="assets/logo.jpg" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
+    <nav aria-label="フッター">
+      <a href="index.html#top">TOP</a> · <a href="school-society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
