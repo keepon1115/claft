@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yononaka（対話型ワークショップ） | CLAFT</title>
+
+  <!-- メタ（保護者向け価値訴求） -->
+  <meta name="description" content="生活に身近なテーマをもとに、正解がひとつでない問いを対話で探究。考える力・表現力・他者理解を育むオンラインの学び場です。" />
+  <meta property="og:title" content="Yononaka（対話型ワークショップ） | CLAFT" />
+  <meta property="og:description" content="身近なテーマで対話。正解がひとつでない問いに、自分の言葉で向き合う習慣が身につくオンラインワークショップ。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og_yononaka.jpg" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+      --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280; --bg:#fbfefe; --card:#fff;
+      --shadow:0 10px 30px rgba(31,41,55,.08); --radius:20px; --radius-lg:28px;
+      --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
+    }
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#fff;color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui}
+    img{max-width:100%;display:block}
+    a{color:var(--brand);text-decoration:none}
+    .container{width:min(1120px,92%);margin-inline:auto}
+    .stack > * + * {margin-top:var(--s4)}
+
+    /* ===== Header（共通） ===== */
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) 0}
+    .logo{display:flex;align-items:center;gap:var(--s3)}
+    .logo img{height:36px}
+    nav ul{display:flex;gap:var(--s3);list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:999px;color:var(--ink-700)}
+    nav a:hover{background:rgba(52,198,190,.12)}
+    .spacer{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:var(--s2);padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-line{background:#06c755;color:#fff}
+    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
+    .btn[disabled]{opacity:.5;cursor:not-allowed}
+
+    /* ハンバーガー & サイドメニュー */
+    .hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:60}
+    .hamburger span{width:24px;height:2px;background:var(--ink-700);border-radius:2px;transition:all .3s}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px)}
+    .hamburger.active span:nth-child(2){opacity:0}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -6px)}
+    .side-menu{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;box-shadow:2px 0 10px rgba(0,0,0,.1);transition:left .3s;z-index:55;padding:20px 0}
+    .side-menu.active{left:0}
+    .side-menu-header{padding:20px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:12px}
+    .side-menu-header img{height:32px}
+    .side-menu ul{list-style:none;margin:0;padding:0}
+    .side-menu li{border-bottom:1px solid rgba(0,0,0,.08)}
+    .side-menu a{display:block;padding:15px 20px;color:var(--ink-700);text-decoration:none;font-weight:500}
+    .side-menu a:hover{background:rgba(52,198,190,.12)}
+    
+    /* Submenu for ミライクラフト */
+    .menu-item-with-submenu{position:relative}
+    .menu-item-with-submenu > a{position:relative}
+    .menu-item-with-submenu > a::after{content:"▼";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:12px;transition:transform 0.3s ease}
+    .menu-item-with-submenu.active > a::after{transform:translateY(-50%) rotate(180deg)}
+    .submenu{max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:rgba(52,198,190,.06)}
+    .submenu.active{max-height:200px}
+    .submenu li{border-bottom:none}
+    .submenu a{padding:12px 20px 12px 40px;font-size:14px;color:var(--ink-600)}
+    .side-menu-cta{padding:16px 20px}
+    .side-menu-cta .btn{display:block;text-align:center}
+    
+    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s;z-index:54}
+    .menu-overlay.active{opacity:1;visibility:visible}
+
+    /* ===== Hero ===== */
+    .hero{padding:var(--s8) 0 var(--s6);position:relative;overflow:hidden}
+    .breadcrumbs{font-size:14px;color:var(--ink-500)}
+    .breadcrumbs a{color:var(--ink-500)}
+    h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
+    .lead{color:var(--ink-700)}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+    .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:
+        linear-gradient(135deg, rgba(255,214,107,.25), rgba(240,106,106,.20));
+        box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink-500);border:1px dashed rgba(0,0,0,.18)}
+    .ph span{padding:6px 10px;background:#fff;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
+    .bubble-back{position:absolute;inset:auto -10% -20% -10%;height:240px;background:
+      radial-gradient(closest-side, rgba(255,214,107,.35), transparent 60%) -10% 50%/320px 220px no-repeat,
+      radial-gradient(closest-side, rgba(52,198,190,.28), transparent 60%) 40% 0/360px 220px no-repeat,
+      radial-gradient(closest-side, rgba(240,106,106,.25), transparent 60%) 90% 60%/300px 220px no-repeat;
+      filter:blur(10px);opacity:.6;pointer-events:none}
+
+    /* ===== 今日の問い ===== */
+    .questions{margin-top:var(--s8)}
+    .q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+    .q-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);padding:var(--s5);display:flex;flex-direction:column;gap:12px}
+    .q-tag{display:inline-flex;align-items:center;gap:8px;background:#fff3c4;border:1px solid #f6e08c;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
+    .q-thumb{width:100%;aspect-ratio:4/3;border-radius:12px;background:
+      linear-gradient(135deg, rgba(255,214,107,.20), rgba(52,198,190,.15));
+      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500)}
+    .q-thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
+    .q-title{font-weight:700}
+
+    /* ===== 成果カード ===== */
+    .outcomes{margin-top:var(--s8)}
+    .out-lead{font-weight:700}
+    .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
+    .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
+    .oc-thumb{width:100%;aspect-ratio:4/3;border-radius:12px;margin-bottom:10px;background:
+      linear-gradient(135deg, rgba(52,198,190,.18), rgba(240,106,106,.12));
+      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500)}
+    .oc-thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
+    .oc h3{margin:.2em 0 .6em;font-size:18px}
+    .oc p{margin:.5em 0}
+
+    /* ===== セクション：自己理解は関係性の中で育つ ===== */
+    .relate{margin-top:var(--s8)}
+    .relate .wrap{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
+    .relate h2{margin-top:0}
+
+    /* ===== セッションの流れ ===== */
+    .flow{margin-top:var(--s8)}
+    .flow-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s4)}
+    .step{position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
+    .step .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--brand);color:#fff;font-weight:700;margin-bottom:8px}
+    .step strong{display:block;margin-bottom:6px}
+    .flow-note{color:var(--ink-500);font-size:14px;margin-top:var(--s3)}
+
+    /* ===== 参加者の声 ===== */
+    .voices{margin-top:var(--s8)}
+    .vc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s4)}
+    .vc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow);position:relative}
+    .vc:before{content:"“";position:absolute;top:-10px;left:12px;font-size:40px;color:rgba(0,0,0,.12);font-weight:700}
+
+    /* ===== 学びの循環 ===== */
+    .cycle{margin-top:var(--s8)}
+    .cycle .wrap{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
+    .cycle h2{margin-top:0}
+
+    /* ===== サービス（関連コンテンツ） ===== */
+    .services{margin-top:var(--s8)}
+    .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+    .svc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+    .svc-thumb{width:100%;aspect-ratio:16/9;border-radius:12px;background:
+      linear-gradient(135deg, rgba(255,214,107,.20), rgba(52,198,190,.15));
+      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500)}
+    .svc-thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
+    .svc h3{margin:.2em 0 .4em}
+
+    /* ===== Footer ===== */
+    footer{margin-top:var(--s8);padding:var(--s7) 0;background:#fff;border-top:1px solid rgba(0,0,0,.06)}
+
+    /* ===== Responsive ===== */
+    @media (max-width:980px){
+      nav{display:none}
+      .hamburger{display:flex}
+      .hero-grid{grid-template-columns:1fr}
+      .q-grid{grid-template-columns:1fr}
+      .oc-grid{grid-template-columns:1fr}
+      .flow-list{grid-template-columns:1fr}
+      .vc-grid{grid-template-columns:1fr}
+      .svc-grid{grid-template-columns:1fr}
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Course",
+    "name":"Yononaka（対話型ワークショップ）",
+    "description":"身近なテーマをもとに、正解がひとつでない問いを対話で探究。考える力・表現力・他者理解を育むオンラインの学び場。",
+    "provider":{"@type":"Organization","name":"CLAFT"}
+  }
+  </script>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="logo" href="index.html#top" aria-label="CLAFT トップへ">
+      <img src="assets/logo.png" alt="CLAFT ロゴ" />
+    </a>
+    <nav aria-label="グローバル">
+      <ul>
+        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
+        <li><a href="about.html">CLAFTとは？</a></li>
+        <li><a href="career.html">キャリアコース</a></li>
+        <li><a href="minecraft.html">マイクラコース</a></li>
+        <li><a href="yononaka.html" aria-current="page">Yononakaコース</a></li>
+        <li><a href="futurecraft.html">ミライクラフト</a></li>
+        <li><a href="contact.html">体験/問合せ</a></li>
+      </ul>
+    </nav>
+    <div class="spacer"></div>
+    <div style="display:flex;gap:var(--s3)">
+      <a class="btn btn-primary" href="contact.html#apply">体験申込</a>
+      <a class="btn btn-line" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">LINEで相談</a>
+    </div>
+
+    <!-- サイドメニュー -->
+    <div class="side-menu" id="sideMenu">
+      <div class="side-menu-header"><img src="assets/logo.png" alt="CLAFT ロゴ" /><strong>CLAFT</strong></div>
+      <ul>
+        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
+        <li><a href="about.html">CLAFTとは？</a></li>
+        <li><a href="career.html">キャリアコース</a></li>
+        <li><a href="minecraft.html">マイクラコース</a></li>
+        <li><a href="yononaka.html" aria-current="page">Yononakaコース</a></li>
+        <li class="menu-item-with-submenu">
+          <a href="futurecraft.html">ミライクラフト</a>
+          <ul class="submenu">
+            <li><a href="play-claft.html">スクールフェスタ計画</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">体験/問合せ</a></li>
+      </ul>
+      <div class="side-menu-cta">
+        <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
+      </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+  </div>
+</header>
+
+<main>
+  <!-- パンくず & ヒーロー -->
+  <section class="container hero">
+    <div class="bubble-back" aria-hidden="true"></div>
+    <nav class="breadcrumbs" aria-label="パンくず">
+      <a href="index.html#top">TOP</a> ＞ <a href="yononaka.html">ワーク</a> ＞ Yononaka
+    </nav>
+    <h1>Yononaka（対話型ワークショップ）</h1>
+
+    <div class="hero-grid">
+      <div class="stack">
+        <p class="lead" style="font-weight:700;font-size:clamp(18px,1.8vw,22px)">他者との会話で世の中について考える</p>
+        <p class="lead">生活に身近なことがテーマ。正解がひとつでないお題に、参加者同士で会話しながら理解を深める学びの場。</p>
+      </div>
+      <!-- 画像プレースホルダ（後で差し替え）
+           例：<img src="assets/yononaka_hero.webp" alt="対話型ワークショップの様子（オンライン）"> -->
+      <figure class="ph"><span>ヒーロー画像：assets/yononaka_hero.webp</span></figure>
+    </div>
+  </section>
+
+  <!-- 今日の問い -->
+  <section class="container questions">
+    <h2>今日の問い</h2>
+    <div class="q-grid">
+      <article class="q-card">
+        <span class="q-tag">問い</span>
+        <figure class="q-thumb"><span>画像：assets/yononaka_q1.webp</span></figure>
+        <div class="q-title">お金持ちが働き続けるのはどうして？</div>
+      </article>
+      <article class="q-card">
+        <span class="q-tag">問い</span>
+        <figure class="q-thumb"><span>画像：assets/yononaka_q2.webp</span></figure>
+        <div class="q-title">世にまだない「料理」を考えよう</div>
+      </article>
+      <article class="q-card">
+        <span class="q-tag">問い</span>
+        <figure class="q-thumb"><span>画像：assets/yononaka_q3.webp</span></figure>
+        <div class="q-title">なんで学ばなきゃいけないの？</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 成果（3カード） -->
+  <section class="container outcomes">
+    <p class="out-lead">身の周りのことを自分ごととして捉える習慣が身につく！</p>
+    <div class="oc-grid">
+      <article class="oc">
+        <figure class="oc-thumb"><span>画像：assets/yononaka_outcome_01.webp</span></figure>
+        <h3>何事においても立ち止まって考える習慣が身につく！</h3>
+        <p>正解が一つではない問いに向き合い、自分なりの答えを導き出す経験を通じて、「考える力」を養います。</p>
+        <p>また、他者の意見に触れることで「自分ならどう考えるか」を繰り返し、時には「本当にそうなのか？」と問い直すことで、当たり前や常識に立ち止まって、多様な視点から深く考える力が身につきます。</p>
+      </article>
+      <article class="oc">
+        <figure class="oc-thumb"><span>画像：assets/yononaka_outcome_02.webp</span></figure>
+        <h3>コミュニケーションへの不安や恐怖がなくなる！</h3>
+        <p>「人を傷つけないことであれば何を言ってもOK」というルールで、心理的安全性を重視しています。</p>
+        <p>「わからないこと」や「失敗すること」を恐れずに意見を交わせる体験を通じて、話すことへの自信が身につきます。そのうえで、わかりやすく話す力、表現する力、他者の考えを聴く力などが養われるのだと思います。</p>
+      </article>
+      <article class="oc">
+        <figure class="oc-thumb"><span>画像：assets/yononaka_outcome_03.webp</span></figure>
+        <h3>自己理解が深まり、やりたいことが湧いてくる！</h3>
+        <p>会話をしながら自分の意見を見直すことで、自分自身の価値観や考え方の癖に気づくことができます。</p>
+        <p>さまざまなテーマについて話し合う中で、自分の興味や得意なことに気づいたり、また、これから挑戦したいことや探究したいことが心の底から自然と湧いてきます。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 自己理解は「関係性」の中で育つ（新設：成果の見える化の代替） -->
+  <section class="container relate">
+    <div class="wrap">
+      <h2>自己理解は「関係性」の中で育つ</h2>
+      <p>自己理解というと、本や自己分析ツールで一人で取り組む姿を思い浮かべがちですが、それだけでは<strong>自己満足で終わる</strong>こともあります。</p>
+      <p>本当の意味での自己理解は、<strong>他者との対比</strong>の中でこそ深まる——私たちはそう考えています。</p>
+      <p>価値観や得意分野は、自分だけを見ていても見えにくいもの。<strong>異なる背景や年齢の人との会話</strong>を通じて、はじめて輪郭がくっきりします。</p>
+      <p>そのため、CLAFTでは異年齢が集まり意見を交わす時間 <strong>「Yononaka」</strong> を設けています。自分をより立体的に理解するきっかけになります。</p>
+    </div>
+  </section>
+
+  <!-- セッションの流れ -->
+  <section class="container flow">
+    <h2>セッションの流れ</h2>
+    <div class="flow-list">
+      <div class="step">
+        <span class="n">1</span>
+        <strong>Step 1</strong>
+        よのなかにある身近なモノをテーマにします。「おかねって何だろう」「自分のまちについて話そう」「こころとからだの関係について考えよう」などです。
+      </div>
+      <div class="step">
+        <span class="n">2</span>
+        <strong>Step 2</strong>
+        テーマに関するお題が3,4つあります。「お金持ちってどんなイメージ？」「あなたのまちのなかで、つい行ってしまう場所はどこ？」「緊張を和らげるためにはどんな方法があるだろう」などです。それに対して、まずは1人で考えます。
+      </div>
+      <div class="step">
+        <span class="n">3</span>
+        <strong>Step 3</strong>
+        次にグループ共有を行います。各回約20名参加しますが、少数のグループで1人1人順番に発言できるので安心です。 また、正解を求められることがないため、意見が否定される心配や、劣等感を感じることもありません。
+      </div>
+    </div>
+  </section>
+
+  <!-- 参加者の声 -->
+  <section class="container voices">
+    <h2>参加者の声</h2>
+    <div class="vc-grid">
+      <article class="vc">
+        <p><strong>小学6年生：</strong>誰もが、自分の思う意見を思う存分話せる場所、間違えてても、遠慮はしない。なぜかというと、人それぞれが意見を持っているから。そして、その人が持っている意見を理解し合える場所じゃないかなと自分は思ってます。</p>
+      </article>
+      <article class="vc">
+        <p><strong>大学3年生：</strong>幅広い世代の人と話せる環境。先生や教授のようにとっても詳しい人でもいいが、ある程度知っている人と一緒に探求できるような環境。身近な存在から楽しんで学べるところがいいなと思います。</p>
+      </article>
+      <article class="vc">
+        <p><strong>高校1年生：</strong>論理的なことを言われたら勉強になるし、自分がどう思うのかも理解できる場所。考えを見つけ出すのはできるようになった気がして、それを図化できるのに、言葉にはできず、語彙力が足りないことを実感しています。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Yononaka→問い→探究→共創（新設） -->
+  <section class="container cycle">
+    <div class="wrap">
+      <h2>Yononaka→問い→探究→共創</h2>
+      <p>コミュニケーションの中で興味を見つけ、クリエイティブに探究し、成果を発表して仲間とつながる——CLAFTが大切にする学びの循環です。</p>
+
+      <p><strong>①常識や当たり前に問いを立てる</strong></p>
+      <p>社会の捉え方は1人1人違います。常識や当たり前は本当にそうでしょうか？時代や場所によって、年齢や立場によって変わるものではないでしょうか？</p>
+      <p>そういった世間のラベルをはがし、自分の切り口で考え、他者と意見共有していきます。</p>
+
+      <p><strong>②自分の興味を探究し、発表する</strong></p>
+      <p>他者とのコミュニケーションのなかで、自分は何が好きか、何ができるのか、が見えてきます。</p>
+      <p>「やってみたい！」という想いを大切に、そのテーマの学びを深めるために、クリエイティブ活動を行います。</p>
+      <p>自分のアイデアをカタチにできれば、人前での発表を通して他者に共有。フィードバックを受けながらさらに探究を進めていきます。</p>
+
+      <p><strong>③仲間を増やし、未来を共創する</strong></p>
+      <p>自分が納得でき、かつ他者も納得できる解答を「納得解」といいます。</p>
+      <p>その納得解を共有すると、自然とあなたの仲間が増えるでしょう。他者の納得解から新たな気づきを得るかもしれません。</p>
+      <p>互いの納得解が交わることで新たな気づきが生まれ、<strong>異なるバックグラウンド</strong>が掛け合わさって、次のアイデアや解決策が生まれていきます。</p>
+    </div>
+  </section>
+
+  <!-- サービス（画像・概要・リンク） -->
+  <section class="container services">
+    <h2>関連コンテンツ</h2>
+    <div class="svc-grid">
+      <!-- Yononaka Story -->
+      <article class="svc">
+        <figure class="svc-thumb"><span>画像：assets/yononaka_story.webp</span></figure>
+        <h3>Yononaka Story</h3>
+        <p>ゲストのこれまでのキャリアストーリーや、現在の活動、その始まりのきっかけ、そしてこれからのビジョンについて深く伺っていくインタビュー。<br>一人ひとり異なるキャリアの軌跡を知ることで、キャリアを見つめ直すヒントや新しい視点を得られるきっかけになれば幸いです。</p>
+        <div><a class="btn btn-ghost" href="https://www.youtube.com/playlist?list=PLg8PlJHz4ogs0wfyxguL7TCkwg_3GGeEz" target="_blank" rel="noopener">YouTubeで見る</a></div>
+      </article>
+
+      <!-- Yononaka レディオ -->
+      <article class="svc">
+        <figure class="svc-thumb"><span>画像：assets/yononaka_radio.webp</span></figure>
+        <h3>Yononaka レディオ</h3>
+        <p>何かのために話すというより、ただおしゃべりを楽しむ先にぽろりと生まれるものを大切にしたい──そんなゆるい番組です。<br>カチッと言えば「創造的対話」。会話の波に乗ったり降りたりしながら、これまでの経験をもとに意見を共有したり、価値観をそっと手放したりしつつ、新しい見方・考え方を試しています。<br>ここで芽生えたアイデアから、いつかモノやサービスが生まれたらいいなぁ──そんな願いも込めた“実験室”です。よろしければ、本編をのぞいてみてください。</p>
+        <div><a class="btn btn-ghost" href="https://podcasts.apple.com/jp/podcast/yononaka-radio/id1766887467" target="_blank" rel="noopener">Podcastで聴く</a></div>
+      </article>
+
+      <!-- 創造的対話カードゲーム -->
+      <article class="svc">
+        <figure class="svc-thumb"><span>画像：assets/yononaka_cardgame.webp</span></figure>
+        <h3>創造的対話カードゲーム</h3>
+        <p>※準備中です</p>
+        <div><button class="btn btn-ghost" disabled>Coming Soon</button></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container" style="display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:var(--s3)"><img src="assets/logo.png" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
+    <nav aria-label="フッター">
+      <a href="index.html#top">TOP</a> · <a href="school_society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Hamburger Menu Functionality
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    hamburgerBtn.classList.toggle('active');
+    sideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    hamburgerBtn.classList.remove('active');
+    sideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', toggleMenu);
+  menuOverlay.addEventListener('click', closeMenu);
+
+  // Close menu when clicking on menu links (except submenu parent)
+  sideMenu.querySelectorAll('a').forEach(link => {
+    if (!link.parentElement.classList.contains('menu-item-with-submenu')) {
+      link.addEventListener('click', closeMenu);
+    }
+  });
+
+  // Submenu toggle functionality
+  const submenuItems = sideMenu.querySelectorAll('.menu-item-with-submenu > a');
+  submenuItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      const parentLi = this.parentElement;
+      const submenu = parentLi.querySelector('.submenu');
+      
+      // Toggle active state
+      parentLi.classList.toggle('active');
+      submenu.classList.toggle('active');
+    });
+  });
+
+  // Close submenu items when clicked
+  sideMenu.querySelectorAll('.submenu a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sideMenu.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ミライクラフト（実践プログラム） | CLAFT</title>
+
+  <!-- メタ（保護者向けの価値訴求：おまかせ） -->
+  <meta name="description" content="学びで得た知識やスキルを、実際の活動に移すステージ。仲間とチームを組み、イベント企画・地域課題解決・商品制作などに挑戦。失敗も経験として積み上げ「自分だからできること」を見つけます。" />
+  <meta property="og:title" content="ミライクラフト（実践プログラム） | CLAFT" />
+  <meta property="og:description" content="つくる・届ける・伝わるまでが学び。実践を通じて“自分だからできる”に出会う。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og_futurecraft.jpg" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+      --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280; --bg:#fbfefe; --card:#fff;
+      --shadow:0 10px 30px rgba(31,41,55,.08); --radius:20px; --radius-lg:28px;
+      --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
+    }
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#fff;color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui}
+    img{max-width:100%;display:block}
+    a{color:var(--brand);text-decoration:none}
+    .container{width:min(1120px,92%);margin-inline:auto}
+    .stack > * + * {margin-top:var(--s4)}
+
+    /* ===== Header（既存と統一） ===== */
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) 0}
+    .logo{display:flex;align-items:center;gap:var(--s3)}
+    .logo img{height:36px}
+    nav ul{display:flex;gap:var(--s3);list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:999px;color:var(--ink-700)}
+    nav a:hover{background:rgba(52,198,190,.12)}
+    .spacer{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:var(--s2);padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-line{background:#06c755;color:#fff}
+    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
+    .btn[disabled]{opacity:.5;cursor:not-allowed}
+
+    /* ハンバーガー & サイドメニュー */
+    .hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:60}
+    .hamburger span{width:24px;height:2px;background:var(--ink-700);border-radius:2px;transition:all .3s}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px)}
+    .hamburger.active span:nth-child(2){opacity:0}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -6px)}
+    .side-menu{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;box-shadow:2px 0 10px rgba(0,0,0,.1);transition:left .3s;z-index:55;padding:20px 0}
+    .side-menu.active{left:0}
+    .side-menu-header{padding:20px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:12px}
+    .side-menu-header img{height:32px}
+    .side-menu ul{list-style:none;margin:0;padding:0}
+    .side-menu li{border-bottom:1px solid rgba(0,0,0,.08)}
+    .side-menu a{display:block;padding:15px 20px;color:var(--ink-700);text-decoration:none;font-weight:500}
+    .side-menu a:hover{background:rgba(52,198,190,.12)}
+    
+    /* Submenu for ミライクラフト */
+    .menu-item-with-submenu{position:relative}
+    .menu-item-with-submenu > a{position:relative}
+    .menu-item-with-submenu > a::after{content:"▼";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:12px;transition:transform 0.3s ease}
+    .menu-item-with-submenu.active > a::after{transform:translateY(-50%) rotate(180deg)}
+    .submenu{max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:rgba(52,198,190,.06)}
+    .submenu.active{max-height:200px}
+    .submenu li{border-bottom:none}
+    .submenu a{padding:12px 20px 12px 40px;font-size:14px;color:var(--ink-600)}
+    .side-menu-cta{padding:16px 20px}
+    .side-menu-cta .btn{display:block;text-align:center}
+    
+    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s;z-index:54}
+    .menu-overlay.active{opacity:1;visibility:visible}
+
+    /* ===== Hero ===== */
+    .hero{padding:var(--s8) 0 var(--s6)}
+    .breadcrumbs{font-size:14px;color:var(--ink-500)}
+    .breadcrumbs a{color:var(--ink-500)}
+    h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
+    .lead{color:var(--ink-700)}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+    .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:
+        linear-gradient(135deg, rgba(88,195,162,.20), rgba(255,214,107,.22));
+        box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink-500);border:1px dashed rgba(0,0,0,.18)}
+    .ph span{padding:6px 10px;background:#fff;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
+
+    /* ===== リード ===== */
+    .intro{margin-top:var(--s8)}
+    .intro .wrap{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
+
+    /* ===== ギャラリー（共通） ===== */
+    .gallery{margin-top:var(--s6)}
+    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card .thumb{width:100%;aspect-ratio:16/9;background:
+      linear-gradient(135deg, rgba(52,198,190,.18), rgba(240,106,106,.12));
+      border-bottom:1px dashed rgba(0,0,0,.12);display:grid;place-items:center;color:var(--ink-500)}
+    .card .thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
+    .card .body{padding:16px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .card p{margin:0;color:var(--ink-700)}
+
+    /* ===== コースとの接続 ===== */
+    .connect{margin-top:var(--s8)}
+    .link-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+    .link-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+    .link-card .thumb{width:100%;aspect-ratio:16/9;background:
+      linear-gradient(135deg, rgba(255,214,107,.20), rgba(52,198,190,.15));
+      border-bottom:1px dashed rgba(0,0,0,.12);display:grid;place-items:center;color:var(--ink-500)}
+    .link-card .thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
+    .link-card .body{padding:16px}
+    .link-card h3{margin:0 0 8px}
+    .link-card .btn-ghost{margin-top:8px}
+
+    /* ===== 長文セクション（各見出し下に画像枠） ===== */
+    .essay{margin-top:var(--s8)}
+    .essay h2{margin-bottom:var(--s3)}
+    .essay .topic + .topic{margin-top:var(--s7)}
+    .essay .ph{margin-bottom:var(--s4)} /* 各見出し直下の画像枠 */
+
+    /* ===== Footer ===== */
+    footer{margin-top:var(--s8);padding:var(--s7) 0;background:#fff;border-top:1px solid rgba(0,0,0,.06)}
+
+    /* ===== Responsive ===== */
+    @media (max-width:980px){
+      nav{display:none}
+      .hamburger{display:flex}
+      .hero-grid{grid-template-columns:1fr}
+      .gal-grid{grid-template-columns:1fr}
+      .link-grid{grid-template-columns:1fr}
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Course",
+    "name":"ミライクラフト（実践プログラム）",
+    "description":"学びを社会で試す実践プログラム。イベント企画・地域課題解決・商品制作などにチームで挑戦し、“自分だからできる”を発見します。",
+    "provider":{"@type":"Organization","name":"CLAFT"}
+  }
+  </script>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="logo" href="index.html#top" aria-label="CLAFT トップへ">
+      <img src="assets/logo.png" alt="CLAFT ロゴ" />
+    </a>
+    <nav aria-label="グローバル">
+      <ul>
+        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
+        <li><a href="about.html">CLAFTとは？</a></li>
+        <li><a href="career.html">キャリアコース</a></li>
+        <li><a href="minecraft.html">マイクラコース</a></li>
+        <li><a href="yononaka.html">Yononakaコース</a></li>
+        <li><a href="futurecraft.html" aria-current="page">ミライクラフト</a></li>
+        <li><a href="contact.html">体験/問合せ</a></li>
+      </ul>
+    </nav>
+    <div class="spacer"></div>
+    <div style="display:flex;gap:var(--s3)">
+      <a class="btn btn-primary" href="contact.html#apply">体験申込</a>
+      <a class="btn btn-line" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">LINEで相談</a>
+    </div>
+
+    <!-- サイドメニュー -->
+    <div class="side-menu" id="sideMenu">
+      <div class="side-menu-header"><img src="assets/logo.png" alt="CLAFT ロゴ" /><strong>CLAFT</strong></div>
+      <ul>
+        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
+        <li><a href="about.html">CLAFTとは？</a></li>
+        <li><a href="career.html">キャリアコース</a></li>
+        <li><a href="minecraft.html">マイクラコース</a></li>
+        <li><a href="yononaka.html">Yononakaコース</a></li>
+        <li class="menu-item-with-submenu">
+          <a href="futurecraft.html" aria-current="page">ミライクラフト</a>
+          <ul class="submenu">
+            <li><a href="play-claft.html">スクールフェスタ計画</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">体験/問合せ</a></li>
+      </ul>
+      <div class="side-menu-cta">
+        <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
+      </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+  </div>
+</header>
+
+<main>
+  <!-- 0) パンくず & 1) ヒーロー -->
+  <section class="container hero">
+    <nav class="breadcrumbs" aria-label="パンくず">
+      <a href="index.html#top">TOP</a> ＞ <a href="futurecraft.html">ワーク</a> ＞ ミライクラフト
+    </nav>
+    <h1>ミライクラフト（実践プログラム）</h1>
+
+    <div class="hero-grid">
+      <div class="stack">
+        <p class="lead" style="font-weight:700;font-size:clamp(18px,1.8vw,22px)">身に付けた力を試し、仲間と協働！</p>
+        <p class="lead">学びで得た知識やスキルを、実際の活動に移すステージ。仲間とチームを組み、自分の「好き」や「得意」を活かしてイベント企画、地域課題解決、商品制作などに挑戦します。</p>
+      </div>
+      <!-- 画像プレースホルダ（差し替え例：<img src="assets/fc_hero.webp" alt="実践プログラムの様子">） -->
+      <figure class="ph"><span>ヒーロー画像：assets/fc_hero.webp</span></figure>
+    </div>
+  </section>
+
+  <!-- 2) リード -->
+  <section class="container intro">
+    <div class="wrap">
+      <p><strong>失敗も含めて経験を積み重ねることで、「自分だからできること」に気づく。</strong></p>
+    </div>
+  </section>
+
+  <!-- 4) 発表会：つくる→つたえる→つたわる -->
+  <section class="container gallery" id="showcase">
+    <h2>発表会：「つくる → つたえる → つたわる」までが学び</h2>
+    <div class="gal-grid">
+      <!-- 4〜6枚想定：プレースホルダ。差し替え例：assets/fc_showcase_01.webp -->
+      <article class="card"><div class="thumb"><span>画像：assets/fc_showcase_01.webp</span></div><div class="body"><h3>ショーケース01</h3><p>発表会の様子や作品</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_showcase_02.webp</span></div><div class="body"><h3>ショーケース02</h3><p>作品の一例</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_showcase_03.webp</span></div><div class="body"><h3>ショーケース03</h3><p>来場者との対話</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_showcase_04.webp</span></div><div class="body"><h3>ショーケース04</h3><p>フィードバックの様子</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_showcase_05.webp</span></div><div class="body"><h3>ショーケース05</h3><p>ポスター/動画発表</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_showcase_06.webp</span></div><div class="body"><h3>ショーケース06</h3><p>次の挑戦へ</p></div></article>
+    </div>
+  </section>
+
+  <!-- 4) イベント企画 -->
+  <section class="container gallery" id="event">
+    <h2>イベント企画：「どんなワクワクを届ける？」から考え、チームで商品サービス制作</h2>
+    <div class="gal-grid">
+      <article class="card"><div class="thumb"><span>画像：assets/fc_event_01.webp</span></div><div class="body"><h3>イベント01</h3><p>体験型ブース</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_event_02.webp</span></div><div class="body"><h3>イベント02</h3><p>ワークショップ運営</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_event_03.webp</span></div><div class="body"><h3>イベント03</h3><p>PR/広報企画</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_event_04.webp</span></div><div class="body"><h3>イベント04</h3><p>商品・サービス試作</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_event_05.webp</span></div><div class="body"><h3>イベント05</h3><p>測定と改善</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_event_06.webp</span></div><div class="body"><h3>イベント06</h3><p>次回企画へ</p></div></article>
+    </div>
+  </section>
+
+  <!-- 4) 地域課題解決 -->
+  <section class="container gallery" id="community">
+    <h2>地域課題解決：「今の社会の課題は？」から“自分にできること”を考え、行動へ。</h2>
+    <div class="gal-grid">
+      <article class="card"><div class="thumb"><span>画像：assets/fc_local_01.webp</span></div><div class="body"><h3>地域01</h3><p>地域の聞き取り</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_local_02.webp</span></div><div class="body"><h3>地域02</h3><p>課題の可視化</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_local_03.webp</span></div><div class="body"><h3>地域03</h3><p>提案と実装</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_local_04.webp</span></div><div class="body"><h3>地域04</h3><p>成果共有</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_local_05.webp</span></div><div class="body"><h3>地域05</h3><p>検証と改善</p></div></article>
+      <article class="card"><div class="thumb"><span>画像：assets/fc_local_06.webp</span></div><div class="body"><h3>地域06</h3><p>継続の仕組み化</p></div></article>
+    </div>
+  </section>
+
+  <!-- 8) コースとの接続 -->
+  <section class="container connect">
+    <h2>コースとの接続</h2>
+    <div class="link-grid">
+      <article class="link-card">
+        <div class="thumb"><span>画像：assets/link_career.webp</span></div>
+        <div class="body">
+          <h3>キャリアコース</h3>
+          <p>発表会で、課題解決型学習（PBL）の作品を発表し、フィードバックから次回の課題を設定していきます。</p>
+          <a class="btn btn-ghost" href="career.html">詳しく見る</a>
+        </div>
+      </article>
+      <article class="link-card">
+        <div class="thumb"><span>画像：assets/link_minecraft.webp</span></div>
+        <div class="body">
+          <h3>マイクラコース</h3>
+          <p>授業で育んだアイデアを形にする創造性を、いつもと違う発表会やイベント、実際の課題解決ワークで仲間とともに試します。</p>
+          <a class="btn btn-ghost" href="minecraft.html">詳しく見る</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 長文セクション（各見出し直下に画像スペース） -->
+  <section class="container essay">
+    <div class="topic">
+      <h2>失敗は本当に悪いこと？</h2>
+      <figure class="ph"><span>画像：assets/fc_topic_01.webp</span></figure>
+      <p>「失敗したらどう思われるだろう？」「一度失敗したら次はないかもしれない」「立ち直れる自信がない・・・」 そういった「失敗＝悪」という考えを、私たちは払拭したいと考えております。 「失敗はつらい。でもやらない後悔はもっとつらい。」心の底では誰もがそう感じているのではないでしょうか。</p>
+      <p>実際、コーネル大学の心理学者トーマス・ギロヴィッチの研究で、「行動による後悔」よりも「行動しなかったことによる後悔」の方が大きいと示されています。これは「感情の持続性」が関係しているとされています。 行動による後悔は、時間とともに薄れていく傾向がある一方で、行動しなかったことによる後悔は心に長く残りやすい。「もしあの時やっていたら…」という思いが、いつまでも残りやすいからです。</p>
+    </div>
+
+    <div class="topic">
+      <h2>それでも「やめといた方がいいよ」とつい言ってしまう</h2>
+      <figure class="ph"><span>画像：assets/fc_topic_02.webp</span></figure>
+      <p>自分の失敗経験や一般的なケースにあてはめて、良かれと思ってアドバイスをしてしまうことがありますよね。 「子どもには同じ経験をさせたくない」「できるだけ失敗は避けてほしい」・・これは思いやりでありつつ、お節介なのかもしれません。</p>
+      <p>子どもにとっては、多くのことが新たなチャレンジであり、挑戦そのものが大きな学びになるでしょう。時代が変われば、昔の経験が通用しないことも多々あります。 「それは危ないよ」「失敗したらどうするの？」という声が、チャレンジの機会を奪い、成長を阻んでいるかもしれません。</p>
+    </div>
+
+    <div class="topic">
+      <h2>挑戦と失敗がつくる「学習経験」</h2>
+      <figure class="ph"><span>画像：assets/fc_topic_03.webp</span></figure>
+      <p>「学習経験」という言葉があります。自分がやってみて得られた経験のことです。勉強や読書のインプットだけでなく、実際に体験しながら学び、時には失敗し、そこから得た気づきや学びが深く記憶に残るという意味です。 たとえば、初めて自転車に乗れたときを思い出してください。最初はうまくバランスをとれず、失敗して転んでしまったと思います。「こうやってハンドルを持って、ペダルをこぐんだよ」と教えられても、実際に自転車に乗ると思うようにいかない。でも、その「転んだ経験」から、次はどうやったらバランスが取れるか体で覚え、少しずつ乗れるようになっていきます。</p>
+      <p>このように、たとえ失敗しても、それを繰り返しながら少しずつ自信をつけ、最終的には自分の力でできるようになるプロセスこそが「学習経験」です。失敗も含めた学習経験は、感情とともに自分自身を成長させる大きな学びの機会です。 一方で、失敗を恐れ挑戦しないでいると、どうしても安全な体験しか得られなくなります。そうなると、困難な問題に自分の力で立ち向かい、解決できたという経験が少なくなってしまいます。</p>
+    </div>
+
+    <div class="topic">
+      <h2>自己肯定感・自己有用感が低い国、ニッポン。</h2>
+      <figure class="ph"><span>画像：assets/fc_topic_04.webp</span></figure>
+      <p>自分の力で何かを解決した経験が乏しい。また、自分の可能性を信じることができない。 こうした背景が、日本の若者の自己肯定感や自己有用感の低さにつながっているのかもしれません。内閣府が実施した「我が国と諸外国のこどもと若者の意識に関する調査（2023年度）」では、13～29歳の日本の若者の回答は以下の通りでした。</p>
+      <p>私は、自分自身に満足している(57.4%)<br>自分には長所があると感じている(65.6%)<br>今の自分が好きだ(53.4%)</p>
+      <p>この結果は調査対象国の中で最下位。諸外国と比べ日本は自己肯定感、自己有用感が低くなっています。 私たちは、この原因のひとつに「正解主義の教育」があると考えています。現在は情報があふれ、何が正解かわからない時代です。それでも学校教育においては「正解を暗記し、偏差値の高さで競う」のがまだまだ主流。 このスタイルが、子どもたちの自己肯定感や自己有用感を損なうだけでなく、不登校の増加にも影響を与えているのではないでしょうか。 2022年度の不登校の児童生徒数は299,048人にのぼります。この数は年々増加し、過去10年で2倍にまでなっています。（参考：文部科学省 児童生徒の問題行動・不登校等生徒指導上の諸課題に関する調査）</p>
+      <p>このような場面で必要とされるのが、「失敗を含めた学習経験」です。挑戦を恐れ、他の人と同じような経験ばかりを積んでしまうと、「自分とは何か」という問いに答えることが難しくなってしまいます。自ら経験し、失敗も乗り越えることで、自分らしさが見つかるのだと思います。</p>
+    </div>
+
+    <div class="topic">
+      <h2>失敗OK！自分が学んだことを試し、自分ならではの経験をつくるコミュニティ</h2>
+      <figure class="ph"><span>画像：assets/fc_topic_05.webp</span></figure>
+      <p>学校には、教育や社会性、子どもの発達をサポートする場としての機能があります。しかし、学んだことを実際に試し、経験を積む「実践の場」としての機能は少ないと思っています。</p>
+      <p>現在は情報があふれ、変化が激しい社会です。かつての正解らしきものも問い直され、見直されている世の中において、学んだことをすぐに試し、失敗しても改善策を見つけて動き続けることが大切だと私たちは考えています。</p>
+      <p>CLAFTは、子どもたちが自ら課題を設定し、その解決策を個人やチームで考え、すぐに試せる場を提供していきます。自らアイデアを持ち寄って、それを形にしていく過程で、自分にしかない経験を積み重ね、自信を育むことができると考えています。</p>
+      <p>また、CLAFTは同じ志を持った仲間が集まるコミュニティでもあります。今の子どもたちの活動範囲は、主に家庭と学校が中心です。それでは社会を知るきっかけが不足しているように思います。 評価の基準も限られていて、多様な個性や才能が十分に活かされにくいのが現状です。だからこそ、私たちは「ナナメの関係」が大切だと考えます。</p>
+      <p>企業や団体、地域住民、習い事や教室など、いわゆる「弱いつながり」を持つことです。親や先生とのタテ関係、兄妹や友達とのヨコ関係にはないコミュニケーションや関わり合いが生まれることで、子どもたちが世の中を知る貴重な機会になると思っています。 あなたもぜひ、私たちと一緒に「ナナメの関係」を築きながら、子どもたちの活動をサポートしていきませんか？</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container" style="display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:var(--s3)"><img src="assets/logo.png" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
+    <nav aria-label="フッター">
+      <a href="index.html#top">TOP</a> · <a href="school_society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Hamburger Menu Functionality
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    hamburgerBtn.classList.toggle('active');
+    sideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    hamburgerBtn.classList.remove('active');
+    sideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', toggleMenu);
+  menuOverlay.addEventListener('click', closeMenu);
+
+  // Close menu when clicking on menu links (except submenu parent)
+  sideMenu.querySelectorAll('a').forEach(link => {
+    if (!link.parentElement.classList.contains('menu-item-with-submenu')) {
+      link.addEventListener('click', closeMenu);
+    }
+  });
+
+  // Submenu toggle functionality
+  const submenuItems = sideMenu.querySelectorAll('.menu-item-with-submenu > a');
+  submenuItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      const parentLi = this.parentElement;
+      const submenu = parentLi.querySelector('.submenu');
+      
+      // Toggle active state
+      parentLi.classList.toggle('active');
+      submenu.classList.toggle('active');
+    });
+  });
+
+  // Close submenu items when clicked
+  sideMenu.querySelectorAll('.submenu a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sideMenu.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+</script>
+</body>
+</html>
