@@ -1,0 +1,18 @@
+items:
+  - label: "学校と社会をつなぐ"
+    url: "/school_society.html"
+  - label: "CLAFTとは？"
+    url: "/about.html"
+  - label: "キャリアコース"
+    url: "/career.html"
+  - label: "マイクラコース"
+    url: "/minecraft.html"
+  - label: "Yononakaコース"
+    url: "/yononaka.html"
+  - label: "ミライクラフト"
+    url: "/futurecraft.html"
+    children:
+      - label: "PLAY CLAFT"
+        url: "/play-claft.html"
+  - label: "体験/問合せ"
+    url: "/contact.html"

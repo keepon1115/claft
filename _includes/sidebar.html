@@ -1,0 +1,25 @@
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <img src="{{ site.baseurl }}{{ site.brand.logo }}" alt="CLAFT ロゴ" />
+    <strong>CLAFT</strong>
+  </div>
+  <ul>
+    {% for item in site.data.nav.items %}
+      {% assign has_children = item.children %}
+      <li class="{% if has_children %}has-sub{% endif %}">
+        <a href="{{ site.baseurl }}{{ item.url }}">{{ item.label }}</a>
+        {% if has_children %}
+          <ul class="sub">
+            {% for child in item.children %}
+              <li><a href="{{ site.baseurl }}{{ child.url }}">{{ child.label }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="side-menu-cta">
+    <a class="btn btn-primary" href="{{ site.brand.student_portal }}" target="_blank" rel="noopener">スクール生用ページ</a>
+  </div>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>

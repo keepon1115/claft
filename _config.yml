@@ -1,0 +1,36 @@
+title: "CLAFT — 自分の手で創るキャリア"
+description: "探究×対話×実践で“自分の軸”をつくるオンラインスクール。小中高を対象に、キャリア／マイクラSDGs／Yononaka（対話）／ミライクラフト（実践）を提供。相談→体験→入会でスタート。"
+url: "https://keepon1115.github.io"
+baseurl: "/claft"   # ← プロジェクトサイトなので必須
+timezone: Asia/Tokyo
+lang: ja
+
+# 共有リンク／連絡先
+brand:
+  logo: "/assets/logo.png"
+  line: "https://lin.ee/bsNomJG"
+  student_portal: "https://claft-next.vercel.app"
+  instagram: "https://www.instagram.com/keepon.labo"
+  note: "https://note.com/yononaka_career"
+  youtube: "https://www.youtube.com/@CLAFT-keepon"
+  email: "s.kawahara@keeponlearning.fun"
+  og_default: "/assets/og/og.jpg"
+
+# GitHub Pages 公式対応プラグイン
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# 既定レイアウト
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: "page"
+      image: "/assets/og/og.jpg"
+
+# ビルド除外
+exclude:
+  - node_modules
+  - README.md
+  - Gemfile
+  - Gemfile.lock

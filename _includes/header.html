@@ -1,0 +1,37 @@
+<header class="c-header">
+  <div class="container nav">
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="logo" href="{{ site.baseurl }}/" aria-label="CLAFT トップへ">
+      <img src="{{ site.baseurl }}{{ site.brand.logo }}" alt="CLAFT ロゴ" />
+      <strong>CLAFT</strong>
+    </a>
+
+    <nav class="g-nav" aria-label="グローバル">
+      <ul>
+        {% for item in site.data.nav.items %}
+          {% assign has_children = item.children %}
+          <li class="{% if has_children %}has-sub{% endif %}">
+            <a href="{{ site.baseurl }}{{ item.url }}">{{ item.label }}</a>
+            {% if has_children %}
+              <ul class="sub">
+                {% for child in item.children %}
+                  <li><a href="{{ site.baseurl }}{{ child.url }}">{{ child.label }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="spacer"></div>
+    <div class="cta-row">
+      <a class="btn btn-primary btn-cta" href="{{ site.brand.line }}" target="_blank" rel="noopener">無料体験実施中</a>
+    </div>
+  </div>
+
+  {% include sidebar.html %}
+</header>
