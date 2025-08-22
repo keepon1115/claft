@@ -185,3 +185,19 @@ summary{cursor:pointer;font-weight:700}
 
 /* サイドメニュー用サイズ微調整（必要に応じて） */
 .side-menu-header .logo-btn{inline-size:160px}
+
+/* === Header logo: フラット表示（影・背景なし） === */
+.c-header .logo-btn{
+  box-shadow: none !important;
+  background: transparent !important;
+  border: none !important;
+}
+.c-header .logo-btn img{
+  filter: none !important;
+  border-radius: 0 !important;
+}
+/* （必要ならサイドメニューのロゴもフラットに） */
+.side-menu-header .logo-btn{
+  box-shadow: none !important;
+  background: transparent !important;
+}

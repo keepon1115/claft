@@ -1,220 +1,109 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>キャリアコース | CLAFT</title>
+---
+layout: page
+title: キャリアコース
+description: "好き・得意を自分の武器に変えるカリキュラム。対話と実践で“自分の軸”を育て、キャリアを自分でクラフトする学び。"
+---
 
-  <!-- メタ -->
-  <meta name="description" content="好き・得意を自分の武器に変えるカリキュラム。正解がひとつでない問題に対して、自分の意見を持ち、他者に共有することを習慣化し、自分で自分のキャリアをクラフトしていきます。" />
-  <meta property="og:title" content="キャリアコース | CLAFT" />
-  <meta property="og:description" content="好き・得意を自分の武器に変えるカリキュラム。対話と実践で“自分の軸”を育て、キャリアを自分でクラフトする学び。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og_career.jpg" />
-  <meta property="og:locale" content="ja_JP" />
+<style>
+/* ===== Career page scoped styles ===== */
+.career{
+  --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+  --ink-900:#1f2937; --ink-700:#374151; --ink-600:#4b5563; --ink-500:#6b7280;
+  --shadow:0 10px 30px rgba(31,41,55,.08);
+  --radius:20px; --radius-lg:28px;
+  --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
+  color:var(--ink-900); font-family:"Zen Maru Gothic","Noto Sans JP",system-ui; line-height:1.9; letter-spacing:.02em;
+}
+.career img{max-width:100%;display:block}
+.career a{color:var(--brand);text-decoration:none}
+.career .container{width:min(1120px,92%);margin-inline:auto}
+.career .stack > * + *{margin-top:var(--s4)}
+.career h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
+.career h2{font-size:clamp(22px,2.4vw,28px);margin:.2em 0 .6em}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+/* Hero */
+.career .hero{padding:var(--s8) 0 var(--s6)}
+.career .breadcrumbs{font-size:14px;color:var(--ink-500)}
+.career .breadcrumbs a{color:var(--ink-500)}
+.career .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+.career .hero-img{aspect-ratio:16/9;border-radius:var(--radius-lg);box-shadow:var(--shadow);object-fit:cover;border:1px solid rgba(0,0,0,.08)}
 
-  <style>
-    :root{
-      --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
-      --ink-900:#1f2937; --ink-700:#374151; --ink-600:#4b5563; --ink-500:#6b7280;
-      --bg:#fbfefe; --card:#fff;
-      --shadow:0 10px 30px rgba(31,41,55,.08); --radius:20px; --radius-lg:28px;
-      --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
-    }
-    html{scroll-behavior:smooth}
-    body{margin:0;background:#fff;color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui}
-    img{max-width:100%;display:block}
-    a{color:var(--brand);text-decoration:none}
-    .container{width:min(1120px,92%);margin-inline:auto}
-    .stack > * + * {margin-top:var(--s4)}
-    h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
-    h2{font-size:clamp(22px,2.4vw,28px);margin:.2em 0 .6em}
+/* クイック情報 */
+.career .qinfo{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin-top:var(--s5)}
+.career .qi{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.career .qi svg{width:20px;height:20px;flex:0 0 20px}
+.career .qi b{display:block}
 
-    /* Header（共通） */
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
-    .nav{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) 0}
-    .logo{display:flex;align-items:center;gap:var(--s3)}
-    .logo img{height:36px}
-    nav ul{display:flex;gap:var(--s3);list-style:none;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:999px;color:var(--ink-700)}
-    nav a:hover{background:rgba(52,198,190,.12)}
-    .spacer{flex:1}
-    .btn{display:inline-flex;align-items:center;gap:var(--s2);padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-line{background:#06c755;color:#fff}
-    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
+/* アウトカム */
+.career .outcomes{margin-top:var(--s8)}
+.career .out-lead{font-weight:700;color:#111}
+.career .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
+.career .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
+.career .oc h3{margin:.2em 0 .6em;font-size:18px;min-height:2.5em;}
+.career .oc ul{margin:0;padding-left:1.1em}
+.career .oc li + li{margin-top:6px}
+.career .oc-thumb{width:100%;aspect-ratio:16/9;border-radius:12px;margin-bottom:10px;object-fit:cover;border:1px solid rgba(0,0,0,.12);box-shadow:var(--shadow)}
+.career .linkline{margin-top:10px;color:var(--ink-600)}
 
-    /* ハンバーガー & サイドメニュー */
-    .hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:60}
-    .hamburger span{width:24px;height:2px;background:var(--ink-700);border-radius:2px;transition:all .3s}
-    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px)}
-    .hamburger.active span:nth-child(2){opacity:0}
-    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -6px)}
-    .side-menu{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;box-shadow:2px 0 10px rgba(0,0,0,.1);transition:left .3s;z-index:55;padding:20px 0}
-    .side-menu.active{left:0}
-    .side-menu-header{padding:20px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:12px}
-    .side-menu-header img{height:32px}
-    .side-menu ul{list-style:none;margin:0;padding:0}
-    .side-menu li{border-bottom:1px solid rgba(0,0,0,.08)}
-    .side-menu a{display:block;padding:15px 20px;color:var(--ink-700);text-decoration:none;font-weight:500}
-    .side-menu a:hover{background:rgba(52,198,190,.12)}
-    .menu-item-with-submenu{position:relative}
-    .menu-item-with-submenu > a{position:relative}
-    .menu-item-with-submenu > a::after{content:"▼";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:12px;transition:transform 0.3s ease}
-    .menu-item-with-submenu.active > a::after{transform:translateY(-50%) rotate(180deg)}
-    .submenu{max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:rgba(52,198,190,.06)}
-    .submenu.active{max-height:200px}
-    .submenu a{padding:12px 20px 12px 40px;font-size:14px;color:var(--ink-600)}
-    .side-menu-cta{padding:16px 20px}
-    .side-menu-cta .btn{display:block;text-align:center}
-    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s;z-index:54}
-    .menu-overlay.active{opacity:1;visibility:visible}
+/* 全体像（図解） */
+.career .overview{margin-top:var(--s8)}
+.career .diagram img{aspect-ratio:16/9;border-radius:var(--radius-lg);object-fit:cover;border:1px solid rgba(0,0,0,.1);box-shadow:var(--shadow)}
 
-    /* Hero */
-    .hero{padding:var(--s8) 0 var(--s6)}
-    .breadcrumbs{font-size:14px;color:var(--ink-500)}
-    .breadcrumbs a{color:var(--ink-500)}
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
-    .hero-img{aspect-ratio:16/9;border-radius:var(--radius-lg);box-shadow:var(--shadow);object-fit:cover;border:1px solid rgba(0,0,0,.08)}
+/* 学びの流れ */
+.career .flow{margin-top:var(--s8)}
+.career .flow-list{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4)}
+.career .step{position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
+.career .step .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--brand);color:#fff;font-weight:700;margin-bottom:8px}
+.career .step strong{display:block;margin-bottom:6px}
+.career .step:after{content:"";position:absolute;top:calc(50% - 1px);right:-12px;width:24px;height:2px;background:linear-gradient(90deg, var(--brand), transparent)}
+.career .step:last-child:after{display:none}
 
-    /* クイック情報 */
-    .qinfo{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin-top:var(--s5)}
-    .qi{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
-    .qi svg{width:20px;height:20px;flex:0 0 20px}
-    .qi b{display:block}
+/* 作品ギャラリー（カード3枚） */
+.career .works{margin-top:var(--s8)}
+.career .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.career .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.career .card .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid rgba(0,0,0,.08)}
+.career .card .body{padding:16px;display:flex;flex-direction:column;gap:8px}
+.career .card h3{margin:0 0 2px;font-size:18px}
+.career .card p{margin:0;color:var(--ink-700)}
+.career .btn{display:inline-flex;align-items:center;gap:var(--s2);padding:10px 14px;border-radius:999px;font-weight:700;border:1px solid rgba(0,0,0,.08);background:#fff;box-shadow:var(--shadow);color:var(--ink-700)}
+.career .btn:hover{background:rgba(52,198,190,.06)}
 
-    /* アウトカム */
-    .outcomes{margin-top:var(--s8)}
-    .out-lead{font-weight:700;color:#111}
-    .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
-    .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
-    .oc h3{margin:.2em 0 .6em;font-size:18px;min-height:2.5em;} /* Added min-height for consistent card height */
-    .oc ul{margin:0;padding-left:1.1em}
-    .oc li + li{margin-top:6px}
-    .oc-thumb{width:100%;aspect-ratio:16/9;border-radius:12px;margin-bottom:10px;object-fit:cover;border:1px solid rgba(0,0,0,.12);box-shadow:var(--shadow)}
+/* 料金・資料 */
+.career .price{display:grid;grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s8)}
+.career .price .card h2{margin-top:0}
+.career .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(52,198,190,.12);color:#0f766e;font-weight:700;margin-right:8px}
+.career .note{color:var(--ink-600);font-size:14px}
 
-    /* 全体像（図解） */
-    .overview{margin-top:var(--s8)}
-    .diagram img{aspect-ratio:16/9;border-radius:var(--radius-lg);object-fit:cover;border:1px solid rgba(0,0,0,.1);box-shadow:var(--shadow)}
+/* Responsive */
+@media (max-width:980px){
+  .career .hero-grid{grid-template-columns:1fr}
+  .career .qinfo{grid-template-columns:1fr}
+  .career .oc-grid{grid-template-columns:1fr}
+  .career .flow-list{grid-template-columns:1fr 1fr}
+  .career .work-grid{grid-template-columns:1fr}
+  .career .step:after{display:none}
+}
+</style>
 
-    /* 受講フロー */
-    .flow{margin-top:var(--s8)}
-    .flow-list{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4)}
-    .step{position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
-    .step .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--brand);color:#fff;font-weight:700;margin-bottom:8px}
-    .step strong{display:block;margin-bottom:6px}
-    .step:after{content:"";position:absolute;top:calc(50% - 1px);right:-12px;width:24px;height:2px;background:linear-gradient(90deg, var(--brand), transparent)}
-    .step:last-child:after{display:none}
+<!-- JSON-LD（本文内配置でもOK） -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"EducationalOccupationalProgram",
+  "name":"キャリアコース",
+  "description":"好き・得意を自分の武器に変えるカリキュラム。正解がひとつでない問題に対して、自分の意見を持ち、共有する学び。オンライン実施。",
+  "provider":{"@type":"Organization","name":"CLAFT"},
+  "offers":{"@type":"Offer","price":"7700","priceCurrency":"JPY"},
+  "timeOfDay":"オンライン"
+}
+</script>
 
-    /* 作品ギャラリー（カード3枚） */
-    .works{margin-top:var(--s8)}
-    .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
-    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
-    .card .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid rgba(0,0,0,.08)}
-    .card .body{padding:16px;display:flex;flex-direction:column;gap:8px}
-    .card h3{margin:0 0 2px;font-size:18px}
-    .card p{margin:0;color:var(--ink-700)}
-    .card .btn-ghost{align-self:flex-start;margin-top:6px}
-
-    /* Footer */
-    footer{padding:var(--s7) 0;background:#fff;border-top:1px solid rgba(0,0,0,.06);margin-top:var(--s8)}
-
-    /* Responsive */
-    @media (max-width:980px){
-      nav{display:none}
-      .hamburger{display:flex}
-      .hero-grid{grid-template-columns:1fr}
-      .qinfo{grid-template-columns:1fr}
-      .oc-grid{grid-template-columns:1fr}
-      .flow-list{grid-template-columns:1fr 1fr}
-      .works .work-grid{grid-template-columns:1fr}
-      .step:after{display:none}
-    }
-  </style>
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"EducationalOccupationalProgram",
-    "name":"キャリアコース",
-    "description":"好き・得意を自分の武器に変えるカリキュラム。正解がひとつでない問題に対して、自分の意見を持ち、共有する学び。オンライン実施。",
-    "provider":{"@type":"Organization","name":"CLAFT"},
-    "offers":{"@type":"Offer","price":"7700","priceCurrency":"JPY"},
-    "timeOfDay":"オンライン"
-  }
-  </script>
-</head>
-<body>
-<header class="c-header">
-  <div class="container nav">
-    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
-    </button>
-
-    <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-      <img src="assets/logo.png" alt="CLAFT ロゴ">
-    </a>
-
-    <nav class="g-nav" aria-label="グローバル">
-      <ul>
-        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-        <li><a href="about.html">CLAFTとは？</a></li>
-        <li><a href="career.html" aria-current="page">キャリアコース</a></li>
-        <li><a href="minecraft.html">マイクラコース</a></li>
-        <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li class="has-sub">
-          <a href="futurecraft.html">ミライクラフト</a>
-          <ul class="sub">
-            <li><a href="play-claft.html">PLAY CLAFT</a></li>
-          </ul>
-        </li>
-        <li><a href="contact.html">体験/問合せ</a></li>
-      </ul>
-    </nav>
-
-    <div class="spacer"></div>
-    <div class="cta-row">
-      <a class="btn btn-primary btn-cta" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">無料体験実施中</a>
-    </div>
-  </div>
-
-  <div class="side-menu" id="sideMenu">
-    <div class="side-menu-header">
-      <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-        <img src="assets/logo.png" alt="CLAFT ロゴ">
-      </a>
-    </div>
-    <ul>
-      <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-      <li><a href="about.html">CLAFTとは？</a></li>
-      <li><a href="career.html" aria-current="page">キャリアコース</a></li>
-      <li><a href="minecraft.html">マイクラコース</a></li>
-      <li><a href="yononaka.html">Yononakaコース</a></li>
-      <li class="has-sub">
-        <a href="futurecraft.html">ミライクラフト</a>
-        <ul class="sub">
-          <li><a href="play-claft.html">PLAY CLAFT</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html">体験/問合せ</a></li>
-    </ul>
-    <div class="side-menu-cta">
-      <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
-    </div>
-  </div>
-  <div class="menu-overlay" id="menuOverlay"></div>
-</header>
-
-<main>
+<div class="career">
   <!-- パンくず & タイトル -->
   <section class="container hero">
     <nav class="breadcrumbs" aria-label="パンくず">
-      <a href="index.html#top">TOP</a> ＞ <a href="career.html">コース</a> ＞ キャリアコース
+      <a href="{{ '/index.html#top' | relative_url }}">TOP</a> ＞ <a href="{{ '/career.html' | relative_url }}">コース</a> ＞ キャリアコース
     </nav>
     <h1>キャリアコース</h1>
 
@@ -224,8 +113,7 @@
         <p class="lead" style="font-weight:700;font-size:clamp(18px,1.8vw,22px)">キミの『好き』が未来を創る！</p>
         <p class="lead">好き・得意を自分の武器に変えるカリキュラム。正解がひとつでない問題に対して、"自分の意見を持ち、他者に共有する"ことを習慣化し、自分で自分のキャリアを"クラフト"していきます。</p>
       </div>
-      <!-- 差し替え：assets/career/hero.jpg -->
-      <img class="hero-img" src="assets/career/hero.jpg" alt="キャリアコースの学びの様子（ヒーロー）">
+      <img class="hero-img" src="{{ '/assets/career/hero.jpg' | relative_url }}" alt="キャリアコースの学びの様子（ヒーロー）">
     </div>
 
     <!-- クイック情報バー -->
@@ -245,22 +133,22 @@
     </div>
   </section>
 
-  <!-- 3) こんな力が育つ -->
+  <!-- こんな力が育つ -->
   <section class="container outcomes">
     <p class="out-lead">"好き"や"気になる"から「人生をかけてやりたいこと」に出会う!?</p>
     <div class="oc-grid">
       <article class="oc">
-        <img class="oc-thumb" src="assets/career/outcome_01.jpg" alt="問いを深掘りし自己理解を深める様子">
+        <img class="oc-thumb" src="{{ '/assets/career/outcome_01.jpg' | relative_url }}" alt="問いを深掘りし自己理解を深める様子">
         <h3>正解がひとつでないお題で、自己理解を深める！</h3>
         <ul>
           <li>問いを深掘り：「なぜ好き？」「なぜ知りたい？」を丁寧に言葉に。興味・得意・価値観を手がかりに「本当にやりたいこと」「選びたい生き方」まで描きます。</li>
           <li>伝えて磨く：自分の意見を相手に届ける練習を重ね、就職・起業・進学の場で“自分をアピール”できる力を育てます。</li>
         </ul>
-        <p class="linkline">( <a href="yononaka.html">▶Yononakaを詳しく見る</a> )</p>
+        <p class="linkline">( <a href="{{ '/yononaka.html' | relative_url }}">▶Yononakaを詳しく見る</a> )</p>
       </article>
 
       <article class="oc">
-        <img class="oc-thumb" src="assets/career/outcome_02.jpg" alt="非認知能力を可視化・育成する学習の様子">
+        <img class="oc-thumb" src="{{ '/assets/career/outcome_02.jpg' | relative_url }}" alt="非認知能力を可視化・育成する学習の様子">
         <h3>数値では測れない非認知能力を育む！自己評価システム付き</h3>
         <ul>
           <li>5つのチカラ（つなぐ・ひらく・えがく・なりきる・まきこむ）を意識しながら、</li>
@@ -271,18 +159,18 @@
       </article>
 
       <article class="oc">
-        <img class="oc-thumb" src="assets/career/outcome_03.jpg" alt="発表会や協働の様子">
+        <img class="oc-thumb" src="{{ '/assets/career/outcome_03.jpg' | relative_url }}" alt="発表会や協働の様子">
         <h3>身に付けた力を試し、仲間と協働！</h3>
         <ul>
           <li>実践ステージ：「どんなイベントでワクワクを届ける？」「今の社会の課題は？」から“自分にできること”を考え、行動へ。経験を重ねて「自分だからできる」に出会います。</li>
           <li>キャリアインタビューや臨時講師など、社会の第一線で活躍する大人との交流も。タテでもヨコでもない「ナナメの関係」が築けます。</li>
         </ul>
-        <p class="linkline">( <a href="futurecraft.html">▶ミライクラフトを詳しく見る</a> )</p>
+        <p class="linkline">( <a href="{{ '/futurecraft.html' | relative_url }}">▶ミライクラフトを詳しく見る</a> )</p>
       </article>
     </div>
   </section>
 
-  <!-- 4) コースの全体像 -->
+  <!-- コースの全体像 -->
   <section class="container overview" id="overview">
     <h2>コースの全体像</h2>
     <div class="stack">
@@ -290,12 +178,12 @@
       <p>課題解決型学習（PBL）：自分の「好き」や「気になる」から自分で課題を設定し、調べ、整理し、解決策をまとめて発表します。3～4ヶ月に1回の発表会で作品を発表し、フィードバックから次回の課題を設定していきます。</p>
       <p id="jibuncraft">ジブンクラフト：自己理解や目標設定のワークも行い、インプット＆アウトプットの繰り返しで、自己理解を深めていきます。非認知能力計測とキャリアコンサルタントによる面談で、自身のキャリアの目標設定もしていきます。</p>
       <div class="diagram">
-        <img src="assets/career/diagram_overview.jpg" alt="学びの循環図（インプット→アウトプット→対話→振り返り）">
+        <img src="{{ '/assets/career/diagram_overview.jpg' | relative_url }}" alt="学びの循環図（インプット→アウトプット→対話→振り返り）">
       </div>
     </div>
   </section>
 
-  <!-- 6) 学びの流れ -->
+  <!-- 学びの流れ -->
   <section class="container flow">
     <h2>学びの流れ</h2>
     <div class="flow-list">
@@ -307,38 +195,38 @@
     </div>
   </section>
 
-  <!-- 7) 作品ギャラリー（カード3枚：画像・見出し・本文・ボタン） -->
+  <!-- 作品ギャラリー -->
   <section class="container works" id="works">
     <h2>作品ギャラリー</h2>
     <div class="work-grid">
       <article class="card">
-        <img class="thumb" src="assets/career/work_01.jpg" alt="作品例1のサムネイル">
+        <img class="thumb" src="{{ '/assets/career/work_01.jpg' | relative_url }}" alt="作品例1のサムネイル">
         <div class="body">
           <h3>作品例①：ソニーの魅力とは？</h3>
           <p>ソニー製品の魅力を探り、情報を集めて動画で発信。</p>
-          <a class="btn btn-ghost" href="https://youtu.be/zs1ZD0GZAm0" aria-label="作品例1を詳しく見る">詳しく見る</a>
+          <a class="btn" href="https://youtu.be/zs1ZD0GZAm0" aria-label="作品例1を詳しく見る">詳しく見る</a>
         </div>
       </article>
       <article class="card">
-        <img class="thumb" src="assets/career/work_02.jpg" alt="作品例2のサムネイル">
+        <img class="thumb" src="{{ '/assets/career/work_02.jpg' | relative_url }}" alt="作品例2のサムネイル">
         <div class="body">
           <h3>作品例②：障害とはどのようなものか</h3>
           <p>吃音から障害について調べ、資料をまとめて発表。</p>
-          <a class="btn btn-ghost" href="https://youtu.be/qoANUgtTAZo" aria-label="作品例2を詳しく見る">詳しく見る</a>
+          <a class="btn" href="https://youtu.be/qoANUgtTAZo" aria-label="作品例2を詳しく見る">詳しく見る</a>
         </div>
       </article>
       <article class="card">
-        <img class="thumb" src="assets/career/work_03.jpg" alt="作品例3のサムネイル">
+        <img class="thumb" src="{{ '/assets/career/work_03.jpg' | relative_url }}" alt="作品例3のサムネイル">
         <div class="body">
           <h3>作品例③：振動発電をマイクラで表現してみた</h3>
           <p>マイクラで発電アイデアを再現。</p>
-          <a class="btn btn-ghost" href="https://youtu.be/QKfGtt1QT1M" aria-label="作品例3を詳しく見る">詳しく見る</a>
+          <a class="btn" href="https://youtu.be/QKfGtt1QT1M" aria-label="作品例3を詳しく見る">詳しく見る</a>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- 9) 料金・資料 -->
+  <!-- 料金・資料 -->
   <section class="container price">
     <div class="card">
       <h2>料金</h2>
@@ -350,46 +238,4 @@
       <p class="note">資料は準備中です。ご提供いただければ、ダウンロードカードに差し替えます。</p>
     </div>
   </section>
-</main>
-
-<footer>
-  <div class="container" style="display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:var(--s3)"><img src="assets/logo.png" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
-    <nav aria-label="フッター">
-      <a href="index.html#top">TOP</a> · <a href="school_society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
-    </nav>
-  </div>
-</footer>
-
-<script>
-  // Hamburger / Drawer
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const sideMenu = document.getElementById('sideMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
-
-  function toggleMenu() {
-    hamburgerBtn.classList.toggle('active');
-    sideMenu.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
-  }
-  function closeMenu() {
-    hamburgerBtn.classList.remove('active');
-    sideMenu.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  hamburgerBtn?.addEventListener('click', toggleMenu);
-  menuOverlay?.addEventListener('click', closeMenu);
-  sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
-
-  // Side sub (SP: tap to open)
-  sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      if (window.innerWidth <= 980) { e.preventDefault(); a.parentElement.classList.toggle('open'); }
-    });
-  });
-</script>
-</body>
-</html>
+</div>

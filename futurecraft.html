@@ -1,212 +1,94 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ミライクラフト（実践プログラム） | CLAFT</title>
+---
+layout: page
+title: ミライクラフト（実践プログラム）
+description: "つくる・届ける・伝わるまでが学び。実践を通じて“自分だからできる”に出会う。"
+---
 
-  <!-- メタ -->
-  <meta name="description" content="学びで得た知識やスキルを、実際の活動に移すステージ。仲間とチームを組み、イベント企画・地域課題解決・商品制作などに挑戦。失敗も経験として積み上げ「自分だからできること」を見つけます。" />
-  <meta property="og:title" content="ミライクラフト（実践プログラム） | CLAFT" />
-  <meta property="og:description" content="つくる・届ける・伝わるまでが学び。実践を通じて“自分だからできる”に出会う。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og/og.jpg" />
-  <meta property="og:locale" content="ja_JP" />
+<style>
+/* ===== Futurecraft page scoped styles ===== */
+.futurecraft{
+  --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+  --ink-900:#1f2937; --ink-700:#374151; --ink-600:#4b5563; --ink-500:#6b7280;
+  --bg:#fbfefe; --card:#fff; --shadow:0 10px 30px rgba(31,41,55,.08);
+  --radius:20px; --radius-lg:28px;
+  --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
+  color:var(--ink-900); font-family:"Zen Maru Gothic","Noto Sans JP",system-ui;
+  line-height:1.9; letter-spacing:.02em;
+}
+.futurecraft a{color:var(--brand);text-decoration:none}
+.futurecraft img{max-width:100%;display:block}
+.futurecraft .container{width:min(1120px,92%);margin-inline:auto}
+.futurecraft .stack > * + * {margin-top:var(--s4)}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+/* Hero */
+.futurecraft .hero{padding:var(--s8) 0 var(--s6)}
+.futurecraft .breadcrumbs{font-size:14px;color:var(--ink-500)}
+.futurecraft .breadcrumbs a{color:var(--ink-500)}
+.futurecraft h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
+.futurecraft .lead{color:var(--ink-700)}
+.futurecraft .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+.futurecraft .hero-img{width:100%;aspect-ratio:16/9;border-radius:var(--radius-lg);object-fit:cover;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.08)}
 
-  <style>
-    :root{
-      --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
-      --ink-900:#1f2937; --ink-700:#374151; --ink-600:#4b5563; --ink-500:#6b7280;
-      --bg:#fbfefe; --card:#fff; --shadow:0 10px 30px rgba(31,41,55,.08);
-      --radius:20px; --radius-lg:28px;
-      --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
-    }
-    html{scroll-behavior:smooth}
-    body{margin:0;background:#fff;color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui}
-    img{max-width:100%;display:block}
-    a{color:var(--brand);text-decoration:none}
-    .container{width:min(1120px,92%);margin-inline:auto}
-    .stack > * + * {margin-top:var(--s4)}
+/* リード */
+.futurecraft .intro{margin-top:var(--s8)}
+.futurecraft .intro .wrap{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
 
-    /* ===== Header（既存と統一） ===== */
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
-    .nav{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) 0}
-    .logo{display:flex;align-items:center;gap:var(--s3)}
-    .logo img{height:36px}
-    nav ul{display:flex;gap:var(--s3);list-style:none;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:999px;color:var(--ink-700)}
-    nav a:hover{background:rgba(52,198,190,.12)}
-    .spacer{flex:1}
-    .btn{display:inline-flex;align-items:center;gap:var(--s2);padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-line{background:#06c755;color:#fff}
-    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
-    .btn[disabled]{opacity:.5;cursor:not-allowed}
+/* ギャラリー */
+.futurecraft .gallery{margin-top:var(--s6)}
+.futurecraft .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.futurecraft .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.futurecraft .card .thumb{width:100%;aspect-ratio:16/9;overflow:hidden;background:#f8fbfb}
+.futurecraft .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.futurecraft .card .body{padding:16px}
+.futurecraft .card h3{margin:0 0 6px;font-size:18px}
+.futurecraft .card p{margin:0;color:var(--ink-700)}
+.futurecraft .chip{display:inline-block;background:#f4f7f7;border:1px solid rgba(0,0,0,.06);border-radius:999px;padding:6px 10px;margin-bottom:8px;font-weight:700;font-size:13px}
+.futurecraft .btn{display:inline-flex;align-items:center;gap:var(--s2);padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
+.futurecraft .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
+.futurecraft .btn-primary{background:var(--brand);color:#fff}
 
-    /* ハンバーガー & サイドメニュー */
-    .hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:60}
-    .hamburger span{width:24px;height:2px;background:var(--ink-700);border-radius:2px;transition:all .3s}
-    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px)}
-    .hamburger.active span:nth-child(2){opacity:0}
-    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -6px)}
-    .side-menu{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;box-shadow:2px 0 10px rgba(0,0,0,.1);transition:left .3s;z-index:55;padding:20px 0}
-    .side-menu.active{left:0}
-    .side-menu-header{padding:20px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:12px}
-    .side-menu-header img{height:32px}
-    .side-menu ul{list-style:none;margin:0;padding:0}
-    .side-menu li{border-bottom:1px solid rgba(0,0,0,.08)}
-    .side-menu a{display:block;padding:15px 20px;color:var(--ink-700);text-decoration:none;font-weight:500}
-    .side-menu a:hover{background:rgba(52,198,190,.12)}
-    .menu-item-with-submenu > a{position:relative}
-    .menu-item-with-submenu > a::after{content:"▼";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:12px;transition:transform 0.3s ease}
-    .menu-item-with-submenu.active > a::after{transform:translateY(-50%) rotate(180deg)}
-    .submenu{max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:rgba(52,198,190,.06)}
-    .submenu.active{max-height:200px}
-    .submenu li{border-bottom:none}
-    .submenu a{padding:12px 20px 12px 40px;font-size:14px;color:var(--ink-600)}
-    .side-menu-cta{padding:16px 20px}
-    .side-menu-cta .btn{display:block;text-align:center}
-    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s;z-index:54}
-    .menu-overlay.active{opacity:1;visibility:visible}
+/* 接続リンク */
+.futurecraft .connect{margin-top:var(--s8)}
+.futurecraft .link-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.futurecraft .link-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;gap:16px;align-items:center}
+.futurecraft .link-card .thumb{width:240px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.06);flex-shrink:0}
+.futurecraft .link-card .thumb img{width:100%;height:100%;object-fit:cover}
+.futurecraft .link-card .body{padding:16px}
+.futurecraft .link-card h3{margin:0 0 8px}
 
-    /* ===== Hero ===== */
-    .hero{padding:var(--s8) 0 var(--s6)}
-    .breadcrumbs{font-size:14px;color:var(--ink-500)}
-    .breadcrumbs a{color:var(--ink-500)}
-    h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
-    .lead{color:var(--ink-700)}
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
-    .hero-img{width:100%;aspect-ratio:16/9;border-radius:var(--radius-lg);object-fit:cover;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.08)}
+/* 長文セクション */
+.futurecraft .essay{margin-top:var(--s8)}
+.futurecraft .essay h2{margin-bottom:var(--s3)}
+.futurecraft .essay .topic + .topic{margin-top:var(--s7)}
+.futurecraft .ph{aspect-ratio:16/9;border-radius:16px;background:
+  linear-gradient(135deg, rgba(88,195,162,.20), rgba(255,214,107,.22));
+  box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink-500);border:1px dashed rgba(0,0,0,.18)}
+.futurecraft .ph span{padding:6px 10px;background:#fff;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
 
-    /* ===== リード（元デザイン維持） ===== */
-    .intro{margin-top:var(--s8)}
-    .intro .wrap{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
+/* Responsive */
+@media (max-width:980px){
+  .futurecraft .hero-grid{grid-template-columns:1fr}
+  .futurecraft .gal-grid{grid-template-columns:1fr}
+  .futurecraft .link-grid{grid-template-columns:1fr}
+}
+</style>
 
-    /* ===== ギャラリー（共通） ===== */
-    .gallery{margin-top:var(--s6)}
-    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
-    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
-    .card .thumb{width:100%;aspect-ratio:16/9;overflow:hidden;background:#f8fbfb}
-    .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .card .body{padding:16px}
-    .card h3{margin:0 0 6px;font-size:18px}
-    .card p{margin:0;color:var(--ink-700)}
-    .chip{display:inline-block;background:#f4f7f7;border:1px solid rgba(0,0,0,.06);border-radius:999px;padding:6px 10px;margin-bottom:8px;font-weight:700;font-size:13px}
-    .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+<!-- JSON-LD（本文内に配置） -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Course",
+  "name":"ミライクラフト（実践プログラム）",
+  "description":"学びを社会で試す実践プログラム。イベント企画・地域課題解決・商品制作などにチームで挑戦し、“自分だからできる”を発見します。",
+  "provider":{"@type":"Organization","name":"CLAFT"}
+}
+</script>
 
-    /* ===== コースとの接続 ===== */
-    .connect{margin-top:var(--s8)}
-    .link-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
-    .link-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;gap:16px;align-items:center}
-    .link-card .thumb{width:240px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.06);flex-shrink:0}
-    .link-card .thumb img{width:100%;height:100%;object-fit:cover}
-    .link-card .body{padding:16px}
-    .link-card h3{margin:0 0 8px}
-    .link-card .btn-ghost{margin-top:8px}
-
-    /* ===== 長文セクション（各見出し下に画像枠） ===== */
-    .essay{margin-top:var(--s8)}
-    .essay h2{margin-bottom:var(--s3)}
-    .essay .topic + .topic{margin-top:var(--s7)}
-    .ph{aspect-ratio:16/9;border-radius:16px;background:
-        linear-gradient(135deg, rgba(88,195,162,.20), rgba(255,214,107,.22));
-        box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink-500);border:1px dashed rgba(0,0,0,.18)}
-    .ph span{padding:6px 10px;background:#fff;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
-
-    /* ===== Footer ===== */
-    footer{margin-top:var(--s8);padding:var(--s7) 0;background:#fff;border-top:1px solid rgba(0,0,0,.06)}
-
-    /* ===== Responsive ===== */
-    @media (max-width:980px){
-      nav{display:none}
-      .hamburger{display:flex}
-      .hero-grid{grid-template-columns:1fr}
-      .gal-grid{grid-template-columns:1fr}
-      .link-grid{grid-template-columns:1fr}
-    }
-  </style>
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Course",
-    "name":"ミライクラフト（実践プログラム）",
-    "description":"学びを社会で試す実践プログラム。イベント企画・地域課題解決・商品制作などにチームで挑戦し、“自分だからできる”を発見します。",
-    "provider":{"@type":"Organization","name":"CLAFT"}
-  }
-  </script>
-</head>
-<body>
-<header class="c-header">
-  <div class="container nav">
-    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
-    </button>
-
-    <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-      <img src="assets/logo.png" alt="CLAFT ロゴ">
-    </a>
-
-    <nav class="g-nav" aria-label="グローバル">
-      <ul>
-        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-        <li><a href="about.html">CLAFTとは？</a></li>
-        <li><a href="career.html">キャリアコース</a></li>
-        <li><a href="minecraft.html">マイクラコース</a></li>
-        <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li class="has-sub">
-          <a href="futurecraft.html" aria-current="page">ミライクラフト</a>
-          <ul class="sub">
-            <li><a href="play-claft.html">PLAY CLAFT</a></li>
-          </ul>
-        </li>
-        <li><a href="contact.html">体験/問合せ</a></li>
-      </ul>
-    </nav>
-
-    <div class="spacer"></div>
-    <div class="cta-row">
-      <a class="btn btn-primary btn-cta" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">無料体験実施中</a>
-    </div>
-  </div>
-
-  <div class="side-menu" id="sideMenu">
-    <div class="side-menu-header">
-      <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-        <img src="assets/logo.png" alt="CLAFT ロゴ">
-      </a>
-    </div>
-    <ul>
-      <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-      <li><a href="about.html">CLAFTとは？</a></li>
-      <li><a href="career.html">キャリアコース</a></li>
-      <li><a href="minecraft.html">マイクラコース</a></li>
-      <li><a href="yononaka.html">Yononakaコース</a></li>
-      <li class="has-sub">
-        <a href="futurecraft.html" aria-current="page">ミライクラフト</a>
-        <ul class="sub">
-          <li><a href="play-claft.html">PLAY CLAFT</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html">体験/問合せ</a></li>
-    </ul>
-    <div class="side-menu-cta">
-      <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
-    </div>
-  </div>
-  <div class="menu-overlay" id="menuOverlay"></div>
-</header>
-
-<main>
-  <!-- 0) パンくず & 1) ヒーロー -->
+<div class="futurecraft">
+  <!-- パンくず & ヒーロー -->
   <section class="container hero">
     <nav class="breadcrumbs" aria-label="パンくず">
-      <a href="index.html#top">TOP</a> ＞ <a href="futurecraft.html">ワーク</a> ＞ ミライクラフト
+      <a href="{{ '/index.html#top' | relative_url }}">TOP</a> ＞ <a href="{{ '/futurecraft.html' | relative_url }}">ワーク</a> ＞ ミライクラフト
     </nav>
     <h1>ミライクラフト（実践プログラム）</h1>
 
@@ -215,11 +97,11 @@
         <p class="lead" style="font-weight:700;font-size:clamp(18px,1.8vw,22px)">身に付けた力を試し、仲間と協働！</p>
         <p class="lead">学びで得た知識やスキルを、実際の活動に移すステージ。仲間とチームを組み、自分の「好き」や「得意」を活かしてイベント企画、地域課題解決、商品制作などに挑戦します。</p>
       </div>
-      <img src="assets/futurecraft/hero.jpg" alt="ミライクラフトの実践風景" class="hero-img">
+      <img src="{{ '/assets/futurecraft/hero.jpg' | relative_url }}" alt="ミライクラフトの実践風景" class="hero-img">
     </div>
   </section>
 
-  <!-- 2) リード（元の見た目を維持） -->
+  <!-- リード -->
   <section class="container intro">
     <div class="wrap">
       <p><strong>失敗も含めて経験を積み重ねることで、「自分だからできること」に気づく。</strong></p>
@@ -231,30 +113,30 @@
     <h2>発表会：「つくる → つたえる → つたわる」までが学び</h2>
     <div class="gal-grid">
       <article class="card">
-        <div class="thumb"><img src="assets/futurecraft/present_01.jpg" alt="発表会の様子1"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/present_01.jpg' | relative_url }}" alt="発表会の様子1"></div>
         <div class="body">
           <div class="chip">2025/3</div>
           <h3>テーマ発表会</h3>
           <p>未来予測を参考に何年か後の学校(学べる場所)を考え、マイクラ、ロボット、スライド、イラストなどを使って動画で自由に発表。</p>
-          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/1-theme">詳しく見る</a></div>
+          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/1-theme" target="_blank" rel="noopener">詳しく見る</a></div>
         </div>
       </article>
       <article class="card">
-        <div class="thumb"><img src="assets/futurecraft/present_02.jpg" alt="発表会の様子2"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/present_02.jpg' | relative_url }}" alt="発表会の様子2"></div>
         <div class="body">
           <div class="chip">2025/7</div>
           <h3>なんでも発表会</h3>
           <p>自分の好きなことを自由に発表できる場。<br>スクールフェスタ内で継続して行っており、子どもたちだけでなく保護者やスタッフも参加して発表。</p>
-          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/nandemo2025summer">詳しく見る</a></div>
+          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/nandemo2025summer" target="_blank" rel="noopener">詳しく見る</a></div>
         </div>
       </article>
       <article class="card">
-        <div class="thumb"><img src="assets/futurecraft/present_03.jpg" alt="発表会の様子3"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/present_03.jpg' | relative_url }}" alt="発表会の様子3"></div>
         <div class="body">
           <div class="chip">2024/11</div>
           <h3>マイクラコンテスト</h3>
           <p>大人気ゲーム「マインクラフト」をつかった発表会！<br>テーマについて自分なりの解決方法を、マイクラのワールドで表現。</p>
-          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/education-minecraft3">詳しく見る</a></div>
+          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/education-minecraft3" target="_blank" rel="noopener">詳しく見る</a></div>
         </div>
       </article>
     </div>
@@ -265,41 +147,41 @@
     <h2>イベント企画：「どんなワクワクを届ける？」から考え、チームで商品サービス制作</h2>
     <div class="gal-grid">
       <article class="card">
-        <div class="thumb"><img src="assets/futurecraft/event_01.jpg" alt="イベント企画1"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/event_01.jpg' | relative_url }}" alt="イベント企画1"></div>
         <div class="body">
           <div class="chip">NEW！現在活動中</div>
           <h3>PLAY CLAFT</h3>
           <p>「遊ぶ人」から「遊びをつくる人」へ。<br>お店や会社のように「提供する側」の視点を体験できる、特別な学びの場です。</p>
-          <div class="btn-row"><a class="btn btn-ghost" href="https://keepon1115.github.io/claft/play-claft.html">詳しく見る</a></div>
+          <div class="btn-row"><a class="btn btn-ghost" href="{{ '/play-claft.html' | relative_url }}">詳しく見る</a></div>
         </div>
       </article>
       <article class="card">
-        <div class="thumb"><img src="assets/futurecraft/event_02.jpg" alt="イベント企画2"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/event_02.jpg' | relative_url }}" alt="イベント企画2"></div>
         <div class="body">
           <div class="chip">2025/3</div>
           <h3>スクールフェスタ</h3>
           <p>3月・7月・11月に行われるスクールのお祭り。<br>スタッフだけでなく、スクール生が企画したイベントも行います。</p>
-          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/schoolfesta-spring25">詳しく見る</a></div>
+          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/schoolfesta-spring25" target="_blank" rel="noopener">詳しく見る</a></div>
         </div>
       </article>
       <article class="card">
-        <div class="thumb"><img src="assets/futurecraft/event_03.jpg" alt="イベント企画3"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/event_03.jpg' | relative_url }}" alt="イベント企画3"></div>
         <div class="body">
           <div class="chip">2024/5~11</div>
           <h3>自分カイシャづくり体験</h3>
           <p>会社を経営するとはどういうことなのか、を本格的に経験できる小学校6年生以上を対象としたキャリア教育です。</p>
-          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/company">詳しく見る</a></div>
+          <div class="btn-row"><a class="btn btn-ghost" href="https://www.keeponlearning.fun/company" target="_blank" rel="noopener">詳しく見る</a></div>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- 地域課題解決：1カード（今後実施予定） -->
+  <!-- 地域課題解決：準備中 -->
   <section class="container gallery" id="community">
     <h2>地域課題解決：「今の社会の課題は？」から“自分にできること”へ</h2>
     <div class="gal-grid">
       <article class="card coming">
-        <div class="thumb"><img src="assets/futurecraft/social_01.jpg" alt="地域課題解決の取り組み（準備中）"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/social_01.jpg' | relative_url }}" alt="地域課題解決の取り組み（準備中）"></div>
         <div class="body">
           <div class="chip">今後実施予定</div>
           <h3>地域と連携した実践</h3>
@@ -309,30 +191,30 @@
     </div>
   </section>
 
-  <!-- 8) コースとの接続（オリジナルを維持） -->
+  <!-- コースとの接続 -->
   <section class="container connect">
     <h2>コースとの接続</h2>
     <div class="link-grid">
       <article class="link-card">
-        <div class="thumb"><img src="assets/futurecraft/link_career.jpg" alt="キャリアコースへの導線画像"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/link_career.jpg' | relative_url }}" alt="キャリアコースへの導線画像"></div>
         <div class="body">
           <h3>キャリアコース</h3>
           <p>発表会で、課題解決型学習（PBL）の作品を発表し、フィードバックから次回の課題を設定していきます。</p>
-          <a class="btn btn-ghost" href="career.html">詳しく見る</a>
+          <a class="btn btn-ghost" href="{{ '/career.html' | relative_url }}">詳しく見る</a>
         </div>
       </article>
       <article class="link-card">
-        <div class="thumb"><img src="assets/futurecraft/link_minecraft.jpg" alt="マイクラコースへの導線画像"></div>
+        <div class="thumb"><img src="{{ '/assets/futurecraft/link_minecraft.jpg' | relative_url }}" alt="マイクラコースへの導線画像"></div>
         <div class="body">
           <h3>マイクラコース</h3>
           <p>授業で育んだアイデアを形にする創造性を、いつもと違う発表会やイベント、実際の課題解決ワークで仲間とともに試します。</p>
-          <a class="btn btn-ghost" href="minecraft.html">詳しく見る</a>
+          <a class="btn btn-ghost" href="{{ '/minecraft.html' | relative_url }}">詳しく見る</a>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- 長文セクション（各見出し直下に画像スペース） -->
+  <!-- 長文セクション -->
   <section class="container essay">
     <div class="topic">
       <h2>失敗は本当に悪いこと？</h2>
@@ -369,46 +251,4 @@
       <p>企業や団体、地域住民、習い事や教室など、いわゆる「弱いつながり」を持つことです。親や先生とのタテ関係、兄妹や友達とのヨコ関係にはないコミュニケーションや関わり合いが生まれることで、子どもたちが世の中を知る貴重な機会になると思っています。 あなたもぜひ、私たちと一緒に「ナナメの関係」を築きながら、子どもたちの活動をサポートしていきませんか？</p>
     </div>
   </section>
-</main>
-
-<footer>
-  <div class="container" style="display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:var(--s3)"><img src="assets/logo.png" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
-    <nav aria-label="フッター">
-      <a href="index.html#top">TOP</a> · <a href="school_society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
-    </nav>
-  </div>
-</footer>
-
-<script>
-  // Hamburger / Drawer
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const sideMenu = document.getElementById('sideMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
-
-  function toggleMenu() {
-    hamburgerBtn.classList.toggle('active');
-    sideMenu.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
-  }
-  function closeMenu() {
-    hamburgerBtn.classList.remove('active');
-    sideMenu.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  hamburgerBtn?.addEventListener('click', toggleMenu);
-  menuOverlay?.addEventListener('click', closeMenu);
-  sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
-
-  // Side sub (SP: tap to open)
-  sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      if (window.innerWidth <= 980) { e.preventDefault(); a.parentElement.classList.toggle('open'); }
-    });
-  });
-</script>
-</body>
-</html>
+</div>

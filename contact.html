@@ -1,136 +1,59 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>体験 / お問合せ | CLAFT</title>
-  <meta name="description" content="CLAFTの体験申込・お問い合わせページ。オンラインでのご相談、無料体験、資料ダウンロード、スクール生ページへの導線をご用意しています。" />
+---
+layout: page
+title: 体験 / お問合せ
+description: "CLAFTの体験申込・お問い合わせページ。オンラインでのご相談、無料体験、資料ダウンロード、スクール生ページへの導線をご用意しています。"
+---
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Contact page scoped styles ===== */
+.contact{
+  --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+  --ink-900:#1f2937; --ink-700:#374151; --ink-600:#4b5563; --ink-500:#6b7280;
+  --shadow:0 10px 30px rgba(31,41,55,.08);
+  --radius:20px;
+  --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px;
+  color:var(--ink-900); font-family:"Zen Maru Gothic","Noto Sans JP",system-ui; line-height:1.9; letter-spacing:.02em;
+}
+.contact a{color:var(--brand);text-decoration:none}
+.contact .stack > * + * {margin-top:var(--s4)}
+.contact h1{font-size:clamp(26px,3vw,38px);margin:.2em 0}
+.contact .lead{color:var(--ink-600)}
+.contact .hero{padding:var(--s7) 0 var(--s5)}
+.contact .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
 
-  <style>
-    :root{
-      --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
-      --ink-900:#1f2937; --ink-700:#374151; --ink-600:#4b5563; --ink-500:#6b7280; 
-      --bg:#fbfefe; --card:#fff; --shadow:0 10px 30px rgba(31,41,55,.08);
-      --radius:20px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px;
-    }
-    html{scroll-behavior:smooth}
-    body{margin:0;background:#fff;color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui}
-    img{max-width:100%;display:block}
-    a{color:var(--brand);text-decoration:none}
-    .container{width:min(1120px,92%);margin-inline:auto}
-    .stack > * + * {margin-top:var(--s4)}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-line{background:#06c755;color:#fff}
-    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
-    .nav{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) 0}
-    .logo{display:flex;align-items:center;gap:var(--s3)}
-    .logo img{height:36px}
-    nav ul{display:flex;gap:var(--s3);list-style:none;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:999px;color:var(--ink-700)}
-    nav a:hover{background:rgba(52,198,190,.12)}
-    .spacer{flex:1}
-    footer{padding:var(--s7) 0;background:#fff;border-top:1px solid rgba(0,0,0,.06)}
+.contact .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
+.contact .btn-primary{background:var(--brand);color:#fff}
+.contact .btn-line{background:#06c755;color:#fff}
+.contact .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);color:var(--ink-700)}
+.contact .sub{color:var(--ink-600)}
+.contact .section{padding:var(--s8) 0}
 
-    /* ===== Page ===== */
-    .hero{padding:var(--s7) 0 var(--s5)}
-    h1{font-size:clamp(26px,3vw,38px);margin:.2em 0}
-    .lead{color:var(--ink-600)}
-    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s6);box-shadow:var(--shadow)}
+/* Form */
+.contact form{display:grid;grid-template-columns:1fr;gap:16px}
+.contact .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.contact label{font-weight:700;font-size:14px}
+.contact input,.contact select,.contact textarea{
+  width:100%;box-sizing:border-box;border:1px solid rgba(0,0,0,.14);
+  border-radius:12px;padding:14px;font:inherit;color:var(--ink-900);background:#fff
+}
+.contact textarea{min-height:140px}
+.contact .notice{font-size:14px;color:var(--ink-600)}
+.contact .hint{font-size:12px;color:var(--ink-500)}
+.contact .form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 
-    /* ===== Form ===== */
-    form{display:grid;grid-template-columns:1fr;gap:16px}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    label{font-weight:700;font-size:14px}
-    input,select,textarea{width:100%;box-sizing:border-box;border:1px solid rgba(0,0,0,.14);border-radius:12px;padding:14px;font:inherit;color:var(--ink-900);background:#fff}
-    textarea{min-height:140px}
-    .notice{font-size:14px;color:var(--ink-600)}
-    .hint{font-size:12px;color:var(--ink-500)}
-    .form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+/* Responsive */
+@media (max-width:960px){
+  .contact .grid-2{grid-template-columns:1fr}
+}
+</style>
 
-    /* Sections cloned from index */
-    .section{padding:var(--s8) 0}
-    .sub{color:var(--ink-600)}
-
-    /* Responsive */
-    @media (max-width:960px){
-      nav{display:none}
-    }
-  </style>
-</head>
-<body>
-<header class="c-header">
-  <div class="container nav">
-    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
-    </button>
-
-    <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-      <img src="assets/logo.png" alt="CLAFT ロゴ">
-    </a>
-
-    <nav class="g-nav" aria-label="グローバル">
-      <ul>
-        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-        <li><a href="about.html">CLAFTとは？</a></li>
-        <li><a href="career.html">キャリアコース</a></li>
-        <li><a href="minecraft.html">マイクラコース</a></li>
-        <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li class="has-sub">
-          <a href="futurecraft.html">ミライクラフト</a>
-          <ul class="sub">
-            <li><a href="play-claft.html">PLAY CLAFT</a></li>
-          </ul>
-        </li>
-        <li><a href="contact.html" aria-current="page">体験/問合せ</a></li>
-      </ul>
-    </nav>
-
-    <div class="spacer"></div>
-    <div class="cta-row">
-      <a class="btn btn-primary btn-cta" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">無料体験実施中</a>
-    </div>
-  </div>
-
-  <div class="side-menu" id="sideMenu">
-    <div class="side-menu-header">
-      <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-        <img src="assets/logo.png" alt="CLAFT ロゴ">
-      </a>
-    </div>
-    <ul>
-      <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-      <li><a href="about.html">CLAFTとは？</a></li>
-      <li><a href="career.html">キャリアコース</a></li>
-      <li><a href="minecraft.html">マイクラコース</a></li>
-      <li><a href="yononaka.html">Yononakaコース</a></li>
-      <li class="has-sub">
-        <a href="futurecraft.html">ミライクラフト</a>
-        <ul class="sub">
-          <li><a href="play-claft.html">PLAY CLAFT</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html" aria-current="page">体験/問合せ</a></li>
-    </ul>
-    <div class="side-menu-cta">
-      <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
-    </div>
-  </div>
-  <div class="menu-overlay" id="menuOverlay"></div>
-</header>
-
-<main>
+<div class="contact">
   <section class="container hero" id="apply">
     <h1>体験 / お問合せ</h1>
     <p class="lead">ご相談・無料体験のお申し込みは以下のフォームまたはLINEからどうぞ。</p>
   </section>
 
-  <!-- ===== FORM (full width) ===== -->
+  <!-- ===== FORM ===== -->
   <section class="container">
     <article class="card">
       <h2 style="margin-top:0">体験申込フォーム</h2>
@@ -144,7 +67,7 @@
         <!-- FormSubmit settings -->
         <input type="hidden" name="_subject" value="CLAFT 体験申込フォームより新規送信">
         <input type="hidden" name="_template" value="table">
-        <!-- 成功後の遷移先（任意。トップのダウンロード辺りに遷移） -->
+        <!-- 成功後の遷移先（トップのthanksアンカーへ） -->
         <input type="hidden" name="_next" value="https://keepon1115.github.io/claft/contact.html#thanks">
         <input type="hidden" name="_captcha" value="false">
 
@@ -216,7 +139,7 @@
     </article>
   </section>
 
-  <!-- ===== ここから index.html の2セクションを移植 ===== -->
+  <!-- ===== indexの2セクション相当（導線） ===== -->
   <section class="section container" id="download">
     <h2>資料ダウンロード</h2>
     <p class="sub">パンフレット（PDF）と詳細カリキュラムをお送りします。</p>
@@ -231,45 +154,4 @@
 
   <!-- thanks anchor -->
   <div id="thanks" class="container" style="padding-bottom:56px"></div>
-</main>
-
-<footer>
-  <div class="container" style="display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:var(--s3)"><img src="assets/logo.png" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
-    <nav aria-label="フッター">
-      <a href="index.html#top">TOP</a> · <a href="school_society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
-    </nav>
-  </div>
-</footer>
-<script>
-  // Hamburger / Drawer
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const sideMenu = document.getElementById('sideMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
-
-  function toggleMenu() {
-    hamburgerBtn.classList.toggle('active');
-    sideMenu.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
-  }
-  function closeMenu() {
-    hamburgerBtn.classList.remove('active');
-    sideMenu.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  hamburgerBtn?.addEventListener('click', toggleMenu);
-  menuOverlay?.addEventListener('click', closeMenu);
-  sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
-
-  // Side sub (SP: tap to open)
-  sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      if (window.innerWidth <= 980) { e.preventDefault(); a.parentElement.classList.toggle('open'); }
-    });
-  });
-</script>
-</body>
-</html>
+</div>

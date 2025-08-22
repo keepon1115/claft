@@ -1,211 +1,80 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CLAFTとは？ | CLAFT</title>
-  <meta name="description" content="CLAFTの由来と想い。Creative×Communication の学びで Activeness と Flexibility を育み、Try し続ける人を育てる。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
-      --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280; --bg:#fbfefe;
-      --card:#fff; --shadow:0 10px 30px rgba(31,41,55,.08);
-      --radius:20px; --radius-lg:28px;
-      /* spacing scale */
-      --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px;
-      --s6:32px; --s7:40px; --s8:56px; --s9:72px;
-    }
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--bg);color:var(--ink-900);font-family:"Zen Maru Gothic","Noto Sans JP",system-ui;line-height:1.9;letter-spacing:.02em}
-    img{max-width:100%;display:block}
-    a{color:var(--brand);text-decoration:none}
-    .container{width:min(1120px,92%);margin-inline:auto}
+---
+layout: page
+title: CLAFTとは？
+description: "CLAFTの由来と想い。Creative×Communication の学びで Activeness と Flexibility を育み、Try し続ける人を育てる。"
+---
 
-      /* Header */
-  .c-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:saturate(1.5) blur(12px);border-bottom:1px solid rgba(0,0,0,.06)}
-  .nav{display:flex;align-items:center;gap:20px;padding:14px 0}
-  .logo-btn{display:flex;align-items:center;gap:12px}
-  .logo-btn img{height:38px;width:auto}
-  .spacer{flex:1}
-  /* 視認性の高いピル型ナビ */
-  .g-nav ul{display:flex;flex-wrap:wrap;gap:10px 14px;list-style:none;margin:0;padding:0}
-  .g-nav a{
-    display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
-    font-weight:700;color:#0f172a;background:rgba(255,255,255,.9);
-    border:1px solid rgba(15,23,42,.12);box-shadow:0 4px 14px rgba(15,23,42,.06)
-  }
-  .g-nav a:hover{background:#fff;border-color:rgba(15,23,42,.24)}
-  .g-nav li.has-sub{position:relative}
-  .g-nav li.has-sub .sub{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid rgba(0,0,0,.06);
-    border-radius:14px;padding:8px 6px;box-shadow:var(--shadow)}
-  .g-nav li.has-sub:hover .sub{display:block}
-  .g-nav li.has-sub .sub a{display:block;white-space:nowrap;padding:10px 14px;border-radius:10px}
-  .g-nav li.has-sub .sub a:hover{background:rgba(0,0,0,.04)}
+<style>
+/* ===== About page scoped styles (ヘッダー/フッターには影響しません) ===== */
+.about{
+  --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+  --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280;
+  --shadow:0 10px 30px rgba(31,41,55,.08);
+  --radius:20px; --radius-lg:28px;
+  --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
+  color:var(--ink-900); font-family:"Zen Maru Gothic","Noto Sans JP",system-ui; line-height:1.9; letter-spacing:.02em;
+}
+.about img{max-width:100%;display:block}
+.about a{color:var(--brand);text-decoration:none}
+.about .container{width:min(1120px,92%);margin-inline:auto}
+.about .stack > * + *{margin-top:var(--s4)}
 
-  /* Buttons / CTA */
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
-  .btn-primary{background:var(--brand);color:#fff}
-  .btn-ghost{background:#fff;color:var(--ink-800);border-color:rgba(0,0,0,.06)}
-  .btn-cta{padding:14px 22px;white-space:nowrap;font-size:clamp(14px,1.8vw,16px)}
-  .btn:hover{transform:translateY(-1px)}
-  .cta-row{display:flex;gap:10px}
+/* Hero & Sections */
+.about .hero{padding:var(--s8) 0 var(--s6)}
+.about h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:0 0 var(--s3)}
+.about .lead{color:var(--ink-700);margin:0}
+.about .section{padding:var(--s8) 0}
+.about .section h2{font-size:clamp(22px,2.2vw,32px);margin:0 0 var(--s3)}
+.about .sub{color:var(--ink-500);margin:0 0 var(--s5)}
+.about ul{padding-left:1.2em;margin:0}
+.about li + li{margin-top:var(--s2)}
 
-      /* Hamburger / SideMenu */
-  .hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:60}
-  .hamburger span{width:24px;height:2px;background:var(--ink-700);border-radius:2px;transition:all .3s ease}
-  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-  .hamburger.active span:nth-child(2){opacity:0}
-  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-6px)}
+/* Cards / placeholders */
+.about .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:var(--s5)}
+.about .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(255,214,107,.18),rgba(52,198,190,.12));box-shadow:var(--shadow);display:grid;place-items:center;margin:var(--s4) 0 var(--s5)}
+.about .ph span{background:#fff;padding:8px 12px;border:1px dashed rgba(0,0,0,.25);border-radius:999px;color:var(--ink-500)}
 
-  .side-menu{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;box-shadow:2px 0 10px rgba(0,0,0,.1);
-    transition:left .3s ease;z-index:55;padding:20px 0}
-  .side-menu.active{left:0}
-  .side-menu-header{padding:20px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:12px}
-  .side-menu-header img{height:32px}
-  .side-menu ul{list-style:none;margin:0;padding:0}
-  .side-menu ul li{border-bottom:1px solid rgba(0,0,0,.08)}
-  .side-menu ul li a{display:block;padding:15px 20px;color:var(--ink-700);font-weight:500}
-  .side-menu ul li a:hover{background:rgba(52,198,190,.12)}
-  .side-menu-cta{padding:16px 20px}
-  .menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s ease;z-index:54}
-  .menu-overlay.active{opacity:1;visibility:visible}
-  /* Side sub */
-  .side-menu .has-sub > a{position:relative}
-  .side-menu .has-sub > a::after{content:"▾";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:12px;opacity:.6}
-  .side-menu .sub{display:none}
-  .side-menu .has-sub.open > .sub{display:block}
+/* Free-design block */
+.about .free{
+  position:relative;isolation:isolate;
+  background:
+    radial-gradient(600px 200px at 20% -40px, rgba(52,198,190,.18), transparent 60%),
+    radial-gradient(400px 150px at 95% 20%, rgba(255,214,107,.25), transparent 70%),
+    #ffffff;
+  border:1px solid rgba(0,0,0,.06);border-radius:28px;box-shadow:var(--shadow);
+  padding:var(--s7);overflow:hidden;
+}
+.about .free::before,.about .free::after{content:"";position:absolute;border-radius:999px;filter:blur(40px);opacity:.25;z-index:-1}
+.about .free::before{width:220px;height:220px;background:#bff3ef;left:-60px;top:-60px}
+.about .free::after{width:260px;height:260px;background:#ffe9b0;right:-80px;bottom:-80px}
+.about .free h2{margin:0 0 var(--s4)}
+.about .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--s5)}
+.about .tag{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;font-weight:700;border:1px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 10px 24px rgba(31,41,55,.06)}
+.about .tag .dot{width:10px;height:10px;border-radius:50%}
+.about .tag.learn .dot{background:var(--brand)}
+.about .tag.cross .dot{background:var(--green)}
+.about .tag.learner .dot{background:var(--pink)}
+.about .free-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6);align-items:center}
+.about .big-copy{
+  font-size:clamp(18px,1.8vw,22px);
+  line-height:1.9;
+  margin: var(--s7) 0 0;
+  border-left:6px solid var(--brand);
+  padding-left:16px;
+  background:linear-gradient(90deg, rgba(52,198,190,.10), transparent);
+}
 
-    /* Sections */
-    .hero{padding:var(--s8) 0 var(--s6)}
-    h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:0 0 var(--s3)}
-    .lead{color:var(--ink-700);margin:0}
-    .section{padding:var(--s8) 0}
-    .section h2{font-size:clamp(22px,2.2vw,32px);margin:0 0 var(--s3)}
-    .sub{color:var(--ink-500);margin:0 0 var(--s5)}
-    .stack > * + *{margin-top:var(--s4)}
+/* Responsive */
+@media (max-width:980px){
+  .about .free-grid{grid-template-columns:1fr}
+  .about .hero{padding:var(--s7) 0 var(--s5)}
+  .about .section{padding:var(--s7) 0}
+  .about .card{padding:var(--s4)}
+  .about .free{padding:var(--s6)}
+}
+</style>
 
-    /* Card / Placeholder */
-    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:var(--s5)}
-    .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(255,214,107,.18),rgba(52,198,190,.12));box-shadow:var(--shadow);display:grid;place-items:center;margin:var(--s4) 0 var(--s5)}
-    .ph span{background:#fff;padding:8px 12px;border:1px dashed rgba(0,0,0,.25);border-radius:999px;color:var(--ink-500)}
-
-    /* Lists */
-    ul{padding-left:1.2em;margin:0}
-    li + li{margin-top:var(--s2)}
-
-    /* Free-design section */
-    .free{
-      position:relative;isolation:isolate;
-      background:
-        radial-gradient(600px 200px at 20% -40px, rgba(52,198,190,.18), transparent 60%),
-        radial-gradient(400px 150px at 95% 20%, rgba(255,214,107,.25), transparent 70%),
-        #ffffff;
-      border:1px solid rgba(0,0,0,.06);border-radius:28px;box-shadow:var(--shadow);
-      padding:var(--s7);overflow:hidden;
-    }
-    .free::before,.free::after{content:"";position:absolute;border-radius:999px;filter:blur(40px);opacity:.25;z-index:-1}
-    .free::before{width:220px;height:220px;background:#bff3ef;left:-60px;top:-60px}
-    .free::after{width:260px;height:260px;background:#ffe9b0;right:-80px;bottom:-80px}
-    .free h2{margin:0 0 var(--s4)}
-    .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--s5)}
-    .tag{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;font-weight:700;border:1px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 10px 24px rgba(31,41,55,.06)}
-    .tag .dot{width:10px;height:10px;border-radius:50%}
-    .tag.learn .dot{background:var(--brand)}
-    .tag.cross .dot{background:var(--green)}
-    .tag.learner .dot{background:var(--pink)}
-    .free-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6);align-items:center}
-
-    /* ★ 余白を足す：ビッグコピー前 */
-    .free .big-copy{
-      font-size:clamp(18px,1.8vw,22px);
-      line-height:1.9;
-      margin: var(--s7) 0 0;           /* ← ここで前方余白を拡大 */
-      border-left:6px solid var(--brand);
-      padding-left:16px;
-      background:linear-gradient(90deg, rgba(52,198,190,.10), transparent);
-    }
-    .free .note{margin:0;color:var(--ink-700);background:#fff;border:1px dashed rgba(0,0,0,.12);padding:var(--s5);border-radius:16px}
-
-    /* Footer */
-    footer{padding:var(--s7) 0;background:#fff;border-top:1px solid rgba(0,0,0,.06)}
-
-      /* Responsive */
-  @media (max-width:980px){
-    .g-nav{display:none}
-    .hamburger{display:flex}
-    .free-grid{grid-template-columns:1fr}
-    .hero{padding:var(--s7) 0 var(--s5)}
-    .section{padding:var(--s7) 0}
-    .card{padding:var(--s4)}
-    .free{padding:var(--s6)}
-  }
-  </style>
-</head>
-<body>
-<header class="c-header">
-  <div class="container nav">
-    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
-    </button>
-
-    <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-      <img src="assets/logo.png" alt="CLAFT ロゴ">
-    </a>
-
-    <nav class="g-nav" aria-label="グローバル">
-      <ul>
-        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-        <li><a href="about.html" aria-current="page">CLAFTとは？</a></li>
-        <li><a href="career.html">キャリアコース</a></li>
-        <li><a href="minecraft.html">マイクラコース</a></li>
-        <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li class="has-sub">
-          <a href="futurecraft.html">ミライクラフト</a>
-          <ul class="sub">
-            <li><a href="play-claft.html">PLAY CLAFT</a></li>
-          </ul>
-        </li>
-        <li><a href="contact.html">体験/問合せ</a></li>
-      </ul>
-    </nav>
-
-    <div class="spacer"></div>
-    <div class="cta-row">
-      <a class="btn btn-primary btn-cta" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">無料体験実施中</a>
-    </div>
-  </div>
-
-  <div class="side-menu" id="sideMenu">
-    <div class="side-menu-header">
-      <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
-        <img src="assets/logo.png" alt="CLAFT ロゴ">
-      </a>
-    </div>
-    <ul>
-      <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-      <li><a href="about.html" aria-current="page">CLAFTとは？</a></li>
-      <li><a href="career.html">キャリアコース</a></li>
-      <li><a href="minecraft.html">マイクラコース</a></li>
-      <li><a href="yononaka.html">Yononakaコース</a></li>
-      <li class="has-sub">
-        <a href="futurecraft.html">ミライクラフト</a>
-        <ul class="sub">
-          <li><a href="play-claft.html">PLAY CLAFT</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html">体験/問合せ</a></li>
-    </ul>
-    <div class="side-menu-cta">
-      <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
-    </div>
-  </div>
-  <div class="menu-overlay" id="menuOverlay"></div>
-</header>
-
-<main>
+<div class="about">
   <section class="hero container stack">
     <h1>CLAFTとは？</h1>
     <p class="lead">
@@ -214,14 +83,14 @@
       そんな人は、どこに行っても、何があっても大丈夫。<br>
       私たちはその姿を、CLAFTという言葉に込めました。
     </p>
-    <img src="assets/about/hero.jpg" alt="..." class="ph">
+    <img src="{{ '/assets/about/hero.jpg' | relative_url }}" alt="..." class="ph">
   </section>
 
   <section class="section container" id="brand">
     <div class="stack">
       <div class="stack">
         <h2>なぜLなのか？</h2>
-        <img src="assets/about/logo.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/logo.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p>RではなくLなのは、失敗したことをRegret（後悔）するのではなく、Learning（学び）として捉え、何度もチャレンジを繰り返す世の中になればという想いからです。</p>
           <p>テクノロジーの進歩と長寿化で「人生100年時代」といわれる今、従来の「学習 → 仕事 → 引退」という一本道ではなく、「学習 ↔ 仕事」を往復しながらキャリアを重ねていく時代です。</p>
@@ -231,22 +100,22 @@
 
       <div class="stack">
         <h2>好奇心のままに学ぶにはどうするか？</h2>
-        <img src="assets/about/creative.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/creative.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p>ずばり <strong>「創ること」だと思います</strong>。</p>
           <p>形がある/ないは関係なく、創る（＝アイデアを具体化していく）過程で、構造を理解し、試行錯誤し、手応えを得る。</p>
           <p>ここで生まれる達成感は、何ものにも代えがたい貴重な経験です。</p>
           <p>それを好き・得意から始め、そこで得た経験を<strong>自分の武器</strong>に変えていくカリキュラムです。</p>
           <ul>
-            <li><strong>キャリアコース（中高生向け）</strong><br>自分の「好き」や「気になる」から自由に創って発表します。<br>▶ <a href="career.html">キャリアコースを詳しく見る</a></li>
-            <li><strong>マイクラSDGsコース（小学生向け）</strong><br>マイクラでSDGsをテーマに、自分の世界観を表現します。<br>▶ <a href="minecraft.html">マイクラSDGsコースを詳しく見る</a></li>
+            <li><strong>キャリアコース（中高生向け）</strong><br>自分の「好き」や「気になる」から自由に創って発表します。<br>▶ <a href="{{ '/career.html' | relative_url }}">キャリアコースを詳しく見る</a></li>
+            <li><strong>マイクラSDGsコース（小学生向け）</strong><br>マイクラでSDGsをテーマに、自分の世界観を表現します。<br>▶ <a href="{{ '/minecraft.html' | relative_url }}">マイクラSDGsコースを詳しく見る</a></li>
           </ul>
         </div>
       </div>
 
       <div class="stack">
         <h2>つくるだけでなく、つたえる</h2>
-        <img src="assets/about/communication.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/communication.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p><strong>つくる → つたえる → つたわる</strong></p>
           <p>この一連のプロセスそのものが学びです。作品や企画を言葉にして相手に届け、相手の反応で改良していきます。この往復ができれば、<strong>就職・進学・起業</strong>の場面でも自信をもって臨めます。</p>
@@ -257,7 +126,7 @@
 
       <div class="stack">
         <h2>クリエイティブ＆コミュニケーション（CL）</h2>
-        <img src="assets/about/future.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/future.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p>つくったものを発表する（＝コミュニケーション）のなかで、また新たな自分の興味を見つける。</p>
           <p>それを深く探究（＝クリエイティブ）し、またその成果を人前で発表する。</p>
@@ -268,14 +137,14 @@
 
       <div class="stack">
         <h2>CLAFTによってどうなるか？（AFT）</h2>
-        <img src="assets/about/active.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/active.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p><strong>主体的な行動力の向上</strong></p>
           <p>CLAFTでは、自分で問いを立て、考え、行動するプロセスを重視します。この経験は、指示待ちではなく「自ら動く力」を育てます。</p>
           <p>自分の興味や得意を探究するので、新しいことにも挑戦できる。たとえ失敗しても、そこから学びを得る。アクションを起こすことで得られる学びを実感し、行動を起点とした成長サイクルが身につきます。</p>
         </div>
 
-        <img src="assets/about/flexible.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/flexible.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p><strong>柔軟な適応力の向上</strong></p>
           <p>社会や仕事の環境は日々変化しています。CLAFTでは、固定観念にとらわれず柔軟に対応できる思考と行動を育てます。</p>
@@ -284,7 +153,7 @@
           <p>※情報編集力とは、膨大な情報の中から自分に必要なものを選び出し、それを自分らしい形で組み立て、伝えられる力です。</p>
         </div>
 
-        <img src="assets/about/try.jpg" alt="..." class="ph">
+        <img src="{{ '/assets/about/try.jpg' | relative_url }}" alt="..." class="ph">
         <div class="card">
           <p><strong>何度も試し続ける精神</strong></p>
           <p>何かを試し、挑戦し続ける中で、学びの本質や仕事の魅力が自然と見えてくると思っています。トライすることで、新しい発見や成功体験が得られ、「学ばなきゃ」「仕事をしなきゃ」といった義務感から解放されます。その結果、自発的に「もっと学びたい」「次はこんなことをやってみたい」と思えるようになります。</p>
@@ -320,46 +189,4 @@
       </div>
     </div>
   </section>
-</main>
-
-<footer>
-  <div class="container" style="display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:var(--s3)"><img src="assets/logo.png" alt="CLAFT ロゴ" style="height:24px"/><strong>CLAFT</strong></div>
-    <nav aria-label="フッター">
-      <a href="index.html#top">TOP</a> · <a href="school_society.html">学校と社会をつなぐ</a> · <a href="about.html">CLAFTとは？</a> · <a href="career.html">キャリア</a> · <a href="minecraft.html">マイクラ</a> · <a href="yononaka.html">Yononaka</a> · <a href="futurecraft.html">ミライクラフト</a> · <a href="contact.html">体験/問合せ</a>
-    </nav>
-  </div>
-</footer>
-
-<script>
-  // Hamburger / Drawer
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const sideMenu = document.getElementById('sideMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
-
-  function toggleMenu() {
-    hamburgerBtn.classList.toggle('active');
-    sideMenu.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
-  }
-  function closeMenu() {
-    hamburgerBtn.classList.remove('active');
-    sideMenu.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  hamburgerBtn?.addEventListener('click', toggleMenu);
-  menuOverlay?.addEventListener('click', closeMenu);
-  sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
-
-  // Side sub (SP: tap to open)
-  sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      if (window.innerWidth <= 980) { e.preventDefault(); a.parentElement.classList.toggle('open'); }
-    });
-  });
-</script>
-</body>
-</html>
+</div>
