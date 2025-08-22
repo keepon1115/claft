@@ -174,3 +174,14 @@ summary{cursor:pointer;font-weight:700}
   .g-nav{display:none}
   .hamburger{display:flex}
 }
+
+/* === Logo Button (16:9) === */
+.logo-btn{
+  display:block; aspect-ratio:16/9; inline-size:140px; max-width:40vw;
+  border-radius:12px; overflow:hidden; background:#fff;
+  display:grid; place-items:center; box-shadow:0 4px 14px rgba(0,0,0,.06)
+}
+.logo-btn img{width:85%; height:85%; object-fit:contain; display:block}
+
+/* サイドメニュー用サイズ微調整（必要に応じて） */
+.side-menu-header .logo-btn{inline-size:160px}

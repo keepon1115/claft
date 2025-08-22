@@ -4,9 +4,9 @@
       <span></span><span></span><span></span>
     </button>
 
-    <a class="logo" href="{{ site.baseurl }}/" aria-label="CLAFT トップへ">
-      <img src="{{ site.baseurl }}{{ site.brand.logo }}" alt="CLAFT ロゴ" />
-      <!-- テキスト表記は削除 -->
+    <!-- ★ 16:9 ロゴボタン（ホームリンク） -->
+    <a class="logo-btn" href="{{ site.baseurl }}/" aria-label="CLAFT トップへ">
+      <img src="{{ site.baseurl }}{{ site.brand.logo }}" alt="CLAFT ロゴ">
     </a>
 
     <nav class="g-nav" aria-label="グローバル">
@@ -33,5 +33,14 @@
     </div>
   </div>
 
-  {% include sidebar.html %}
+  <!-- ★ サイドメニューのロゴ：CLAFT文字を削除、16:9＆ホームリンク -->
+  <div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <a class="logo-btn" href="{{ site.baseurl }}/" aria-label="CLAFT トップへ">
+        <img src="{{ site.baseurl }}{{ site.brand.logo }}" alt="CLAFT ロゴ">
+      </a>
+    </div>
+    {% include sidebar.html %}
+  </div>
+  <div class="menu-overlay" id="menuOverlay"></div>
 </header>
