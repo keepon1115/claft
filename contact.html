@@ -64,29 +64,64 @@
   </style>
 </head>
 <body>
-<header>
+<header class="c-header">
   <div class="container nav">
-    <a class="logo" href="index.html#top" aria-label="CLAFT トップへ">
-      <img src="assets/logo.png" alt="CLAFT ロゴ" />
-      <strong>CLAFT</strong>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
+      <img src="assets/logo.png" alt="CLAFT ロゴ">
     </a>
-    <nav aria-label="グローバル">
+
+    <nav class="g-nav" aria-label="グローバル">
       <ul>
         <li><a href="school_society.html">学校と社会をつなぐ</a></li>
         <li><a href="about.html">CLAFTとは？</a></li>
         <li><a href="career.html">キャリアコース</a></li>
         <li><a href="minecraft.html">マイクラコース</a></li>
         <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li><a href="futurecraft.html">ミライクラフト</a></li>
+        <li class="has-sub">
+          <a href="futurecraft.html">ミライクラフト</a>
+          <ul class="sub">
+            <li><a href="play-claft.html">PLAY CLAFT</a></li>
+          </ul>
+        </li>
         <li><a href="contact.html" aria-current="page">体験/問合せ</a></li>
       </ul>
     </nav>
+
     <div class="spacer"></div>
-    <div style="display:flex;gap:var(--s3)">
-      <a class="btn btn-primary" href="#apply">無料体験実施中</a>
-      <a class="btn btn-ghost" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
+    <div class="cta-row">
+      <a class="btn btn-primary btn-cta" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">無料体験実施中</a>
     </div>
   </div>
+
+  <div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
+        <img src="assets/logo.png" alt="CLAFT ロゴ">
+      </a>
+    </div>
+    <ul>
+      <li><a href="school_society.html">学校と社会をつなぐ</a></li>
+      <li><a href="about.html">CLAFTとは？</a></li>
+      <li><a href="career.html">キャリアコース</a></li>
+      <li><a href="minecraft.html">マイクラコース</a></li>
+      <li><a href="yononaka.html">Yononakaコース</a></li>
+      <li class="has-sub">
+        <a href="futurecraft.html">ミライクラフト</a>
+        <ul class="sub">
+          <li><a href="play-claft.html">PLAY CLAFT</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html" aria-current="page">体験/問合せ</a></li>
+    </ul>
+    <div class="side-menu-cta">
+      <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
+    </div>
+  </div>
+  <div class="menu-overlay" id="menuOverlay"></div>
 </header>
 
 <main>
@@ -206,5 +241,35 @@
     </nav>
   </div>
 </footer>
+<script>
+  // Hamburger / Drawer
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    hamburgerBtn.classList.toggle('active');
+    sideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
+  }
+  function closeMenu() {
+    hamburgerBtn.classList.remove('active');
+    sideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  hamburgerBtn?.addEventListener('click', toggleMenu);
+  menuOverlay?.addEventListener('click', closeMenu);
+  sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
+
+  // Side sub (SP: tap to open)
+  sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      if (window.innerWidth <= 980) { e.preventDefault(); a.parentElement.classList.toggle('open'); }
+    });
+  });
+</script>
 </body>
 </html>

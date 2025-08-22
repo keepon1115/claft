@@ -36,6 +36,50 @@ image: /assets/og/og.jpg
   /* ========== ヘッダーロゴのテキスト隠し（保険） ========== */
   header .logo span, header .logo strong,
   .c-header .logo span, .c-header .logo strong{display:none!important}
+
+  /* ========== 依頼対応：ヘッダーロゴの“浮き出し”効果を無効化 ========== */
+  /* 背景ガラス/ブラー/シャドウ/縁取り/立体化をリセットしてフラットに */
+  header .logo,
+  .c-header .logo{
+    background: transparent !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    transform: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  header .logo::before, header .logo::after,
+  .c-header .logo::before, .c-header .logo::after{
+    content: none !important;
+  }
+  /* 画像自体にも影や角丸を付けない（フラット表示） */
+  header .logo img,
+  .c-header .logo img{
+    display: block;
+    height: 32px;          /* 必要に応じてサイト共通の高さに揃えてください */
+    width: auto;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    background: transparent !important;
+  }
+  /* a要素に付与されている演出も無効化（リンク機能は保持） */
+  header .logo a,
+  .c-header .logo a{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    background: transparent !important;
+    box-shadow: none !important;
+    filter: none !important;
+    border: none !important;
+    outline: none !important;
+    transform: none !important;
+  }
 </style>
 
 <main id="top">
@@ -57,10 +101,6 @@ image: /assets/og/og.jpg
           → インプット×アウトプットの繰り返しで自己理解を深めて、<br>
           「自分は何をしたいのか」「どんな生き方をしたいのか」を考え行動できる人に！
         </p>
-        <div class="cta-row" style="margin-top:8px">
-          <a class="btn btn-ghost" href="#apply">▶ 体験説明会の日時を見る</a>
-          <a class="btn btn-ghost" href="#download">▶ 3分で全体像をつかむ資料</a>
-        </div>
       </div>
 
       <!-- ★ 1:1 固定（スマホでは見出し文の下に来ます） -->

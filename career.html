@@ -150,54 +150,64 @@
   </script>
 </head>
 <body>
-<header>
+<header class="c-header">
   <div class="container nav">
     <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く">
       <span></span><span></span><span></span>
     </button>
-    <a class="logo" href="index.html#top" aria-label="CLAFT トップへ">
-      <img src="assets/logo.png" alt="CLAFT ロゴ" />
-    </a>
-    <nav aria-label="グローバル">
-      <ul>
-        <li><a href="school_society.html">学校と社会をつなぐ</a></li>
-        <li><a href="about.html">CLAFTとは？</a></li>
-        <li><a href="career.html" aria-current="page">キャリアコース</a></li>
-        <li><a href="minecraft.html">マイクラコース</a></li>
-        <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li><a href="futurecraft.html">ミライクラフト</a></li>
-        <li><a href="contact.html">体験/問合せ</a></li>
-      </ul>
-    </nav>
-    <div class="spacer"></div>
-    <div style="display:flex;gap:var(--s3)">
-      <a class="btn btn-primary" href="contact.html#apply">体験申込</a>
-      <a class="btn btn-line" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">LINEで相談</a>
-    </div>
 
-    <!-- サイドメニュー -->
-    <div class="side-menu" id="sideMenu">
-      <div class="side-menu-header"><img src="assets/logo.png" alt="CLAFT ロゴ" /><strong>CLAFT</strong></div>
+    <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
+      <img src="assets/logo.png" alt="CLAFT ロゴ">
+    </a>
+
+    <nav class="g-nav" aria-label="グローバル">
       <ul>
         <li><a href="school_society.html">学校と社会をつなぐ</a></li>
         <li><a href="about.html">CLAFTとは？</a></li>
         <li><a href="career.html" aria-current="page">キャリアコース</a></li>
         <li><a href="minecraft.html">マイクラコース</a></li>
         <li><a href="yononaka.html">Yononakaコース</a></li>
-        <li class="menu-item-with-submenu">
+        <li class="has-sub">
           <a href="futurecraft.html">ミライクラフト</a>
-          <ul class="submenu">
-            <li><a href="play-claft.html">スクールフェスタ計画</a></li>
+          <ul class="sub">
+            <li><a href="play-claft.html">PLAY CLAFT</a></li>
           </ul>
         </li>
         <li><a href="contact.html">体験/問合せ</a></li>
       </ul>
-      <div class="side-menu-cta">
-        <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
-      </div>
+    </nav>
+
+    <div class="spacer"></div>
+    <div class="cta-row">
+      <a class="btn btn-primary btn-cta" href="https://lin.ee/bsNomJG" target="_blank" rel="noopener">無料体験実施中</a>
     </div>
-    <div class="menu-overlay" id="menuOverlay"></div>
   </div>
+
+  <div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <a class="logo-btn" href="index.html#top" aria-label="CLAFT トップへ">
+        <img src="assets/logo.png" alt="CLAFT ロゴ">
+      </a>
+    </div>
+    <ul>
+      <li><a href="school_society.html">学校と社会をつなぐ</a></li>
+      <li><a href="about.html">CLAFTとは？</a></li>
+      <li><a href="career.html" aria-current="page">キャリアコース</a></li>
+      <li><a href="minecraft.html">マイクラコース</a></li>
+      <li><a href="yononaka.html">Yononakaコース</a></li>
+      <li class="has-sub">
+        <a href="futurecraft.html">ミライクラフト</a>
+        <ul class="sub">
+          <li><a href="play-claft.html">PLAY CLAFT</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html">体験/問合せ</a></li>
+    </ul>
+    <div class="side-menu-cta">
+      <a class="btn btn-primary" href="https://claft-next.vercel.app" target="_blank" rel="noopener">スクール生用ページ</a>
+    </div>
+  </div>
+  <div class="menu-overlay" id="menuOverlay"></div>
 </header>
 
 <main>
@@ -352,7 +362,7 @@
 </footer>
 
 <script>
-  // Hamburger & Side menu
+  // Hamburger / Drawer
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const sideMenu = document.getElementById('sideMenu');
   const menuOverlay = document.getElementById('menuOverlay');
@@ -369,22 +379,17 @@
     menuOverlay.classList.remove('active');
     document.body.style.overflow = '';
   }
-  hamburgerBtn.addEventListener('click', toggleMenu);
-  menuOverlay.addEventListener('click', closeMenu);
+  hamburgerBtn?.addEventListener('click', toggleMenu);
+  menuOverlay?.addEventListener('click', closeMenu);
+  sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
 
-  // submenu
-  const submenuTrigger = sideMenu.querySelectorAll('.menu-item-with-submenu > a');
-  submenuTrigger.forEach(a=>{
+  // Side sub (SP: tap to open)
+  sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
     a.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const li = a.parentElement;
-      const sm = li.querySelector('.submenu');
-      li.classList.toggle('active');
-      sm.classList.toggle('active');
+      if (window.innerWidth <= 980) { e.preventDefault(); a.parentElement.classList.toggle('open'); }
     });
   });
-  sideMenu.querySelectorAll('.submenu a').forEach(link => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if(e.key==='Escape' && sideMenu.classList.contains('active')) closeMenu(); });
 </script>
 </body>
 </html>
