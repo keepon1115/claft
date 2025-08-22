@@ -60,7 +60,6 @@
     .side-menu ul{list-style:none;margin:0;padding:0}
     .side-menu li{border-bottom:1px solid rgba(0,0,0,.08)}
     .side-menu a{display:block;padding:15px 20px;color:var(--ink-700);text-decoration:none;font-weight:500}
-    .side-menu a:hover{background:rgba(52,198,190,.12)}
     
     /* Submenu for ミライクラフト */
     .menu-item-with-submenu{position:relative}
@@ -103,16 +102,16 @@
     .oc h3{margin:.4em 0 .6em;font-size:18px}
     .oc ul{margin:0;padding-left:1.1em}
     .oc li + li{margin-top:6px}
-    /* ★ 追加：ミニ画像枠（小サイズ） */
-    .mini-ph{
-      width:100%;max-width:220px;aspect-ratio:16/9;border-radius:12px;
+
+    /* ★ 正方形ミニ画像枠 & 画像（.sqで1:1固定） */
+    .mini-ph{width:100%;max-width:220px;aspect-ratio:16/9;border-radius:12px;
       background:linear-gradient(135deg, rgba(52,198,190,.18), rgba(240,106,106,.16));
-      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;
-      color:var(--ink-500);margin:0 0 var(--s3);
-    }
+      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500);margin:0 0 var(--s3);}
     .mini-ph span{background:#fff;padding:6px 10px;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
-    /* 画像を入れる場合の見た目調整 */
-    .oc .mini-img{width:100%;max-width:220px;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:0 0 var(--s3);border:1px solid rgba(0,0,0,.06)}
+    .mini-ph.sq{aspect-ratio:1/1;}              /* ← 正方形プレースホルダ */
+
+    .oc .mini-img{width:100%;max-width:220px;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:0 auto var(--s3);border:1px solid rgba(0,0,0,.06)}
+    .oc .mini-img.sq{aspect-ratio:1/1;}         /* ← 正方形画像 */
 
     /* ===== 受講フロー ===== */
     .flow{margin-top:var(--s8)}
@@ -235,8 +234,7 @@
         <p class="lead" style="font-weight:700;font-size:clamp(18px,1.8vw,22px)">AI時代を生き抜く「未来を創る力」を育む。</p>
         <p class="lead">マイクラ×SDGs×プログラミングで、楽しみながら新たな価値を生み出そう！SDGsの目標を深く理解し、身近な問題として捉え、創造的な解決策を考え、実行する力を育む。</p>
       </div>
-      <!-- 画像プレースホルダ（差し替え例：<img src="assets/mc_hero.webp" alt="…">） -->
-      <figure class="ph"><span>ヒーロー画像：assets/mc_hero.webp</span></figure>
+      <img src="assets/minecraft/hero.jpeg" alt="制作やプログラミングの様子（ヒーロー）">
     </div>
 
     <!-- クイック情報バー -->
@@ -269,9 +267,7 @@
     <p class="out-lead">楽しい！やってみたい！が「未来を創る力」に変わる!?</p>
     <div class="oc-grid">
       <article class="oc">
-        <!-- ★小さな画像（後で差し替え） -->
-        <!-- 差し替え例：<img class="mini-img" src="assets/mc_outcome_01.webp" alt="アイデアを形にする制作の様子"> -->
-        <figure class="mini-ph"><span>画像：assets/mc_outcome_01.webp</span></figure>
+        <img class="mini-img sq" src="assets/minecraft/outcome_01.jpeg" alt="アイデアを形にする制作の様子">
         <h3>創造性が爆発！マインクラフトでアイデアをカタチに</h3>
         <ul>
           <li>ひらめきを具現化：「こんなものがあったらいいな」というアイデアを、ブロック一つ一つ積み上げて形に。</li>
@@ -280,8 +276,7 @@
       </article>
 
       <article class="oc">
-        <!-- ★小さな画像（後で差し替え） -->
-        <figure class="mini-ph"><span>画像：assets/mc_outcome_02.webp</span></figure>
+        <img class="mini-img sq" src="assets/minecraft/outcome_02.jpeg" alt="SDGsの理解を深める学習の様子">
         <h3>世界の社会問題を"自分ごと"に。SDGsで考える力</h3>
         <ul>
           <li>リアルな課題に触れる：貧困、飢餓、環境問題など、現実世界の複雑な課題を分かりやすくインプット。</li>
@@ -290,8 +285,7 @@
       </article>
 
       <article class="oc">
-        <!-- ★小さな画像（後で差し替え） -->
-        <figure class="mini-ph"><span>画像：assets/mc_outcome_03.webp</span></figure>
+        <img class="mini-img sq" src="assets/minecraft/outcome_03.jpeg" alt="プログラミングで自動化や発表を行う様子">
         <h3>「論理的思考力」と「発信力」を育むプログラミング学習</h3>
         <ul>
           <li>ゲームで学ぶプログラミング：エージェントに命令を与え、自動で建物を建てたり、問題を解決する仕組みを作る。</li>
@@ -317,7 +311,7 @@
   <section class="container" style="margin-top:var(--s8)">
     <h2>作品ギャラリー</h2>
     <div class="stack">
-      <div class="ph"><span>作品画像：assets/mc_work_01.webp など（16:9）</span></div>
+      <div class="ph"><span>作品画像：assets/minecraft/gallery_01.jpeg など（16:9）</span></div>
       <p class="note">※ 3〜6枚想定。タイトル・1行説明・許諾状況を合わせてお送りください。</p>
     </div>
   </section>
@@ -338,7 +332,7 @@
   <!-- 共通ワーク導線 -->
   <section class="container works">
     <article class="work">
-      <div class="thumb"><span>画像：assets/work_yononaka.webp</span></div>
+      <img src="assets/minecraft/yononaka.jpeg" alt="Yononaka ワークショップの様子" class="thumb">
       <div>
         <h3>Yononaka（対話型ワークショップ）</h3>
         <p>仲間との交流の場。身近なことをテーマに、正解がひとつでない問いに対して意見を共有する時間です。</p>
@@ -346,7 +340,7 @@
       </div>
     </article>
     <article class="work">
-      <div class="thumb"><span>画像：assets/work_futurecraft.webp</span></div>
+      <img src="assets/minecraft/futurecraft.jpeg" alt="ミライクラフト 実践プログラムの様子" class="thumb">
       <div>
         <h3>ミライクラフト（実践プログラム）</h3>
         <p>通常授業とは違う発表会やイベント、実際の課題解決ワークなどで仲間とともに試せる場もあります。</p>
@@ -402,8 +396,6 @@
       e.preventDefault();
       const parentLi = this.parentElement;
       const submenu = parentLi.querySelector('.submenu');
-      
-      // Toggle active state
       parentLi.classList.toggle('active');
       submenu.classList.toggle('active');
     });

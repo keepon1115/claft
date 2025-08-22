@@ -76,6 +76,10 @@
     .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s;z-index:54}
     .menu-overlay.active{opacity:1;visibility:visible}
 
+    /* ===== 共通：16:9 画像スタイル ===== */
+    .img-16x9{aspect-ratio:16/9;width:100%;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.06)}
+    .img-16x9.hero{border-radius:var(--radius-lg)}
+
     /* ===== Hero ===== */
     .hero{padding:var(--s8) 0 var(--s6);position:relative;overflow:hidden}
     .breadcrumbs{font-size:14px;color:var(--ink-500)}
@@ -83,36 +87,17 @@
     h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
     .lead{color:var(--ink-700)}
     .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
-    .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:
-        linear-gradient(135deg, rgba(255,214,107,.25), rgba(240,106,106,.20));
-        box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink-500);border:1px dashed rgba(0,0,0,.18)}
-    .ph span{padding:6px 10px;background:#fff;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
     .bubble-back{position:absolute;inset:auto -10% -20% -10%;height:240px;background:
       radial-gradient(closest-side, rgba(255,214,107,.35), transparent 60%) -10% 50%/320px 220px no-repeat,
       radial-gradient(closest-side, rgba(52,198,190,.28), transparent 60%) 40% 0/360px 220px no-repeat,
       radial-gradient(closest-side, rgba(240,106,106,.25), transparent 60%) 90% 60%/300px 220px no-repeat;
       filter:blur(10px);opacity:.6;pointer-events:none}
 
-    /* ===== 今日の問い ===== */
-    .questions{margin-top:var(--s8)}
-    .q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
-    .q-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);padding:var(--s5);display:flex;flex-direction:column;gap:12px}
-    .q-tag{display:inline-flex;align-items:center;gap:8px;background:#fff3c4;border:1px solid #f6e08c;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
-    .q-thumb{width:100%;aspect-ratio:4/3;border-radius:12px;background:
-      linear-gradient(135deg, rgba(255,214,107,.20), rgba(52,198,190,.15));
-      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500)}
-    .q-thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
-    .q-title{font-weight:700}
-
     /* ===== 成果カード ===== */
     .outcomes{margin-top:var(--s8)}
     .out-lead{font-weight:700}
     .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
     .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
-    .oc-thumb{width:100%;aspect-ratio:4/3;border-radius:12px;margin-bottom:10px;background:
-      linear-gradient(135deg, rgba(52,198,190,.18), rgba(240,106,106,.12));
-      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500)}
-    .oc-thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
     .oc h3{margin:.2em 0 .6em;font-size:18px}
     .oc p{margin:.5em 0}
 
@@ -144,10 +129,6 @@
     .services{margin-top:var(--s8)}
     .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
     .svc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
-    .svc-thumb{width:100%;aspect-ratio:16/9;border-radius:12px;background:
-      linear-gradient(135deg, rgba(255,214,107,.20), rgba(52,198,190,.15));
-      border:1px dashed rgba(0,0,0,.15);display:grid;place-items:center;color:var(--ink-500)}
-    .svc-thumb span{padding:6px 10px;background:#fff;border:1px dashed rgba(0,0,0,.25);border-radius:999px}
     .svc h3{margin:.2em 0 .4em}
 
     /* ===== Footer ===== */
@@ -158,7 +139,6 @@
       nav{display:none}
       .hamburger{display:flex}
       .hero-grid{grid-template-columns:1fr}
-      .q-grid{grid-template-columns:1fr}
       .oc-grid{grid-template-columns:1fr}
       .flow-list{grid-template-columns:1fr}
       .vc-grid{grid-template-columns:1fr}
@@ -242,52 +222,39 @@
         <p class="lead" style="font-weight:700;font-size:clamp(18px,1.8vw,22px)">他者との会話で世の中について考える</p>
         <p class="lead">生活に身近なことがテーマ。正解がひとつでないお題に、参加者同士で会話しながら理解を深める学びの場。</p>
       </div>
-      <!-- 画像プレースホルダ（後で差し替え）
-           例：<img src="assets/yononaka_hero.webp" alt="対話型ワークショップの様子（オンライン）"> -->
-      <figure class="ph"><span>ヒーロー画像：assets/yononaka_hero.webp</span></figure>
+      <!-- 画像反映（16:9, jpg） -->
+      <figure style="margin:0">
+        <img class="img-16x9 hero" src="assets/yononaka/hero.jpg" alt="対話型ワークショップの様子（オンライン）">
+      </figure>
     </div>
   </section>
 
-  <!-- 今日の問い -->
-  <section class="container questions">
-    <h2>今日の問い</h2>
-    <div class="q-grid">
-      <article class="q-card">
-        <span class="q-tag">問い</span>
-        <figure class="q-thumb"><span>画像：assets/yononaka_q1.webp</span></figure>
-        <div class="q-title">お金持ちが働き続けるのはどうして？</div>
-      </article>
-      <article class="q-card">
-        <span class="q-tag">問い</span>
-        <figure class="q-thumb"><span>画像：assets/yononaka_q2.webp</span></figure>
-        <div class="q-title">世にまだない「料理」を考えよう</div>
-      </article>
-      <article class="q-card">
-        <span class="q-tag">問い</span>
-        <figure class="q-thumb"><span>画像：assets/yononaka_q3.webp</span></figure>
-        <div class="q-title">なんで学ばなきゃいけないの？</div>
-      </article>
-    </div>
-  </section>
+  <!-- 今日の問い セクションは依頼により削除済み -->
 
   <!-- 成果（3カード） -->
   <section class="container outcomes">
     <p class="out-lead">身の周りのことを自分ごととして捉える習慣が身につく！</p>
     <div class="oc-grid">
       <article class="oc">
-        <figure class="oc-thumb"><span>画像：assets/yononaka_outcome_01.webp</span></figure>
+        <figure style="margin:0 0 10px">
+          <img class="img-16x9" src="assets/yononaka/outcome_01.jpg" alt="立ち止まって考える習慣（イメージ）">
+        </figure>
         <h3>何事においても立ち止まって考える習慣が身につく！</h3>
         <p>正解が一つではない問いに向き合い、自分なりの答えを導き出す経験を通じて、「考える力」を養います。</p>
         <p>また、他者の意見に触れることで「自分ならどう考えるか」を繰り返し、時には「本当にそうなのか？」と問い直すことで、当たり前や常識に立ち止まって、多様な視点から深く考える力が身につきます。</p>
       </article>
       <article class="oc">
-        <figure class="oc-thumb"><span>画像：assets/yononaka_outcome_02.webp</span></figure>
+        <figure style="margin:0 0 10px">
+          <img class="img-16x9" src="assets/yononaka/outcome_02.jpg" alt="コミュニケーションの不安が和らぐ（イメージ）">
+        </figure>
         <h3>コミュニケーションへの不安や恐怖がなくなる！</h3>
         <p>「人を傷つけないことであれば何を言ってもOK」というルールで、心理的安全性を重視しています。</p>
         <p>「わからないこと」や「失敗すること」を恐れずに意見を交わせる体験を通じて、話すことへの自信が身につきます。そのうえで、わかりやすく話す力、表現する力、他者の考えを聴く力などが養われるのだと思います。</p>
       </article>
       <article class="oc">
-        <figure class="oc-thumb"><span>画像：assets/yononaka_outcome_03.webp</span></figure>
+        <figure style="margin:0 0 10px">
+          <img class="img-16x9" src="assets/yononaka/outcome_03.jpg" alt="自己理解が深まる（イメージ）">
+        </figure>
         <h3>自己理解が深まり、やりたいことが湧いてくる！</h3>
         <p>会話をしながら自分の意見を見直すことで、自分自身の価値観や考え方の癖に気づくことができます。</p>
         <p>さまざまなテーマについて話し合う中で、自分の興味や得意なことに気づいたり、また、これから挑戦したいことや探究したいことが心の底から自然と湧いてきます。</p>
@@ -372,7 +339,9 @@
     <div class="svc-grid">
       <!-- Yononaka Story -->
       <article class="svc">
-        <figure class="svc-thumb"><span>画像：assets/yononaka_story.webp</span></figure>
+        <figure style="margin:0">
+          <img class="img-16x9" src="assets/yononaka/story.jpg" alt="Yononaka Story（インタビュー企画）">
+        </figure>
         <h3>Yononaka Story</h3>
         <p>ゲストのこれまでのキャリアストーリーや、現在の活動、その始まりのきっかけ、そしてこれからのビジョンについて深く伺っていくインタビュー。<br>一人ひとり異なるキャリアの軌跡を知ることで、キャリアを見つめ直すヒントや新しい視点を得られるきっかけになれば幸いです。</p>
         <div><a class="btn btn-ghost" href="https://www.youtube.com/playlist?list=PLg8PlJHz4ogs0wfyxguL7TCkwg_3GGeEz" target="_blank" rel="noopener">YouTubeで見る</a></div>
@@ -380,7 +349,9 @@
 
       <!-- Yononaka レディオ -->
       <article class="svc">
-        <figure class="svc-thumb"><span>画像：assets/yononaka_radio.webp</span></figure>
+        <figure style="margin:0">
+          <img class="img-16x9" src="assets/yononaka/radio.jpg" alt="Yononaka レディオ（ポッドキャスト）">
+        </figure>
         <h3>Yononaka レディオ</h3>
         <p>何かのために話すというより、ただおしゃべりを楽しむ先にぽろりと生まれるものを大切にしたい──そんなゆるい番組です。<br>カチッと言えば「創造的対話」。会話の波に乗ったり降りたりしながら、これまでの経験をもとに意見を共有したり、価値観をそっと手放したりしつつ、新しい見方・考え方を試しています。<br>ここで芽生えたアイデアから、いつかモノやサービスが生まれたらいいなぁ──そんな願いも込めた“実験室”です。よろしければ、本編をのぞいてみてください。</p>
         <div><a class="btn btn-ghost" href="https://podcasts.apple.com/jp/podcast/yononaka-radio/id1766887467" target="_blank" rel="noopener">Podcastで聴く</a></div>
@@ -388,7 +359,9 @@
 
       <!-- 創造的対話カードゲーム -->
       <article class="svc">
-        <figure class="svc-thumb"><span>画像：assets/yononaka_cardgame.webp</span></figure>
+        <figure style="margin:0">
+          <img class="img-16x9" src="assets/yononaka/cardgame.jpg" alt="創造的対話カードゲーム（Coming Soon）">
+        </figure>
         <h3>創造的対話カードゲーム</h3>
         <p>※準備中です</p>
         <div><button class="btn btn-ghost" disabled>Coming Soon</button></div>
