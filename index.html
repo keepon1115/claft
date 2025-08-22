@@ -5,6 +5,12 @@ description: 探究×対話×実践で“自分の軸”をつくるオンライ
 image: /assets/og/og.jpg
 ---
 
+<style>
+  /* 16:9 汎用クラス */
+  .img-16x9{aspect-ratio:16/9;width:100%;height:auto;object-fit:cover;border-radius:12px}
+  .img-16x9.hero{border-radius:16px}
+</style>
+
 <main id="top">
 
   <!-- HERO（スマホは背景画像にテキストを重ねる） -->
@@ -30,7 +36,10 @@ image: /assets/og/og.jpg
           <a class="btn btn-ghost" href="#download">▶ 3分で全体像をつかむ資料</a>
         </div>
       </div>
-      <div class="hero-visual reveal" aria-hidden="true"></div>
+      <!-- 画像を直接反映（16:9） -->
+      <figure class="hero-visual reveal" style="margin:0">
+        <img class="img-16x9 hero" src="{{ site.baseurl }}/assets/top_hero.jpg" alt="CLAFTの雰囲気を伝えるヒーロー画像">
+      </figure>
     </div>
   </section>
 
@@ -61,7 +70,10 @@ image: /assets/og/og.jpg
     <p>「学校で一生懸命勉強したのに、社会に出たら全然違ってた」</p>
     <p>「自分が本当にやりたいことって、なんだろう…？」</p>
     <p>そんな声が、今の日本社会にはあふれています。</p>
-    <div class="hero-visual reveal" style="height:220px;margin:10px 0 6px" aria-hidden="true"></div>
+    <!-- 背景divをやめて16:9画像を挿入 -->
+    <figure class="reveal" style="margin:10px 0 6px">
+      <img class="img-16x9" src="{{ site.baseurl }}/assets/top_philosophy.jpg" alt="正解がない問いに向き合うイメージ">
+    </figure>
     <p>正解を繰り返し暗記する勉強ばかりでいいのだろうか？</p>
     <p><strong>正解がひとつでない問いに自分の言葉で向き合い、意見を交わす時間</strong>が必要ではないか？</p>
     <p>そのような想いで、毎月オンライン開催しているのがYononakaです。</p>
@@ -69,7 +81,9 @@ image: /assets/og/og.jpg
     <div class="grid-4" style="margin-top:12px">
       <article class="course-card reveal">
         <a href="{{ site.baseurl }}/yononaka.html" style="text-decoration:none;color:inherit">
-          <div class="course-media" aria-hidden="true"></div>
+          <figure class="course-media" style="margin:0">
+            <img class="img-16x9" src="{{ site.baseurl }}/assets/card_yononaka.jpg" alt="Yononaka（対話型ワークショップ）">
+          </figure>
           <div class="course-body">
             <h3>Yononaka（対話型ワークショップ）</h3>
             <p>
@@ -93,7 +107,9 @@ image: /assets/og/og.jpg
     <div class="grid-4" style="margin-top:12px">
       <article class="course-card reveal">
         <a href="{{ site.baseurl }}/career.html" style="text-decoration:none;color:inherit">
-          <div class="course-media" aria-hidden="true"></div>
+          <figure class="course-media" style="margin:0">
+            <img class="img-16x9" src="{{ site.baseurl }}/assets/card_career.jpg" alt="キャリアコース（中高生向け）">
+          </figure>
           <div class="course-body">
             <h3>キャリアコース（中高生向け）</h3>
             <p>
@@ -108,7 +124,9 @@ image: /assets/og/og.jpg
 
       <article class="course-card reveal">
         <a href="{{ site.baseurl }}/minecraft.html" style="text-decoration:none;color:inherit">
-          <div class="course-media" aria-hidden="true"></div>
+          <figure class="course-media" style="margin:0">
+            <img class="img-16x9" src="{{ site.baseurl }}/assets/card_minecraft.jpg" alt="マイクラSDGsコース（小学生向け）">
+          </figure>
           <div class="course-body">
             <h3>マイクラSDGsコース（小学生向け）</h3>
             <p>
@@ -134,7 +152,9 @@ image: /assets/og/og.jpg
     <div class="grid-4" style="margin-top:12px">
       <article class="course-card reveal">
         <a href="{{ site.baseurl }}/futurecraft.html" style="text-decoration:none;color:inherit">
-          <div class="course-media" aria-hidden="true"></div>
+          <figure class="course-media" style="margin:0">
+            <img class="img-16x9" src="{{ site.baseurl }}/assets/card_futurecraft.jpg" alt="ミライクラフト（実践プログラム）">
+          </figure>
           <div class="course-body">
             <h3>ミライクラフト（実践プログラム）</h3>
             <p>
@@ -178,7 +198,7 @@ image: /assets/og/og.jpg
   <section class="section container wadas" id="wadas">
     <h2>キャリアは馬車の轍</h2>
     <p class="sub">道はまっすぐじゃない。自分でハンドルを握り、進んだ軌跡が“キャリア”。</p>
-    <a class="btn btn-ghost" href="#">詳しく見る</a>
+    <!-- 依頼により「詳しく見る」ボタンを削除 -->
     <div class="wadas-wrap">
       <svg id="wadasPath" viewBox="0 0 1200 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
