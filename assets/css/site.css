@@ -54,14 +54,14 @@ ul{margin:0 0 1em 1.2em}
 .btn:hover{transform:translateY(-1px)}
 
 /* ===== Hamburger / SideMenu ===== */
-.hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:60}
+.hamburger{display:none;flex-direction:column;cursor:pointer;padding:8px;gap:4px;background:none;border:none;z-index:10000;position:relative}
 .hamburger span{width:24px;height:2px;background:var(--ink-700);border-radius:2px;transition:all .3s ease}
 .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-6px)}
 
 .side-menu{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;box-shadow:2px 0 10px rgba(0,0,0,.1);
-  transition:left .3s ease;z-index:55;padding:20px 0}
+  transition:left .3s ease;z-index:9999;padding:20px 0;overflow-y:auto}
 .side-menu.active{left:0}
 .side-menu-header{padding:20px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:12px}
 .side-menu-header img{height:32px}
@@ -70,7 +70,7 @@ ul{margin:0 0 1em 1.2em}
 .side-menu ul li a{display:block;padding:15px 20px;color:var(--ink-700);font-weight:500}
 .side-menu ul li a:hover{background:rgba(52,198,190,.12)}
 .side-menu-cta{padding:16px 20px}
-.menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s ease;z-index:54}
+.menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s ease;z-index:9998}
 .menu-overlay.active{opacity:1;visibility:visible}
 /* Side sub */
 .side-menu .has-sub > a{position:relative}
@@ -175,6 +175,16 @@ summary{cursor:pointer;font-weight:700}
   .hamburger{display:flex}
 }
 
+/* サイドメニューのサブメニュー調整 */
+.side-menu .sub li{
+  border-bottom:none;
+  background:rgba(0,0,0,.02);
+}
+.side-menu .sub li a{
+  padding:10px 20px 10px 40px;
+  font-size:14px;
+}
+
 /* === Logo Button (16:9) === */
 .logo-btn{
   display:block; aspect-ratio:16/9; inline-size:140px; max-width:40vw;
@@ -184,7 +194,10 @@ summary{cursor:pointer;font-weight:700}
 .logo-btn img{width:85%; height:85%; object-fit:contain; display:block}
 
 /* サイドメニュー用サイズ微調整（必要に応じて） */
-.side-menu-header .logo-btn{inline-size:160px}
+.side-menu-header .logo-btn{
+  inline-size:160px;
+  max-width:none;
+}
 
 /* === Header logo: フラット表示（影・背景なし） === */
 .c-header .logo-btn{

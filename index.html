@@ -19,9 +19,39 @@ image: /assets/og/og.jpg
     position:absolute; inset:0; width:100% !important; height:100% !important;
     object-fit:cover !important; display:block
   }
-  /* モバイルは1カラム：テキスト→画像 の順（マークアップ順）で表示される想定 */
+  /* デスクトップ表示：テキストを左側、画像を右側 */
+  @media (min-width: 981px){
+    .hero .hero-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s8, 2rem);
+      align-items: center;
+    }
+  }
+
+  /* モバイルは1カラム：見出し→画像→テキスト の順 */
   @media (max-width: 980px){
-    .hero .hero-grid{grid-template-columns:1fr !important}
+    .hero .hero-grid{
+      grid-template-columns:1fr !important;
+      display: flex !important;
+      flex-direction: column;
+    }
+    
+    /* 見出し部分を最初に配置 */
+    .hero .hero-title{
+      order: 1;
+    }
+    
+    /* 画像を2番目に配置 */
+    .hero .hero-visual{
+      order: 2;
+      margin: 1.5rem 0;
+    }
+    
+    /* コンテンツ部分を最後に配置 */
+    .hero .hero-content{
+      order: 3;
+    }
   }
 
   /* ========== カード：画像と本文の重なりを完全撤回（縦積み） ========== */
@@ -86,23 +116,30 @@ image: /assets/og/og.jpg
   <!-- HERO -->
   <section class="hero container has-bg" style="--hero-img:url('{{ site.baseurl }}/assets/hero.jpg')">
     <div class="hero-grid">
-      <div>
-        <div class="tag">自分で創るキャリア</div>
-        <h1>
-          学校と社会をつなぐスクール
-        </h1>
-        <ul class="hero-checks">
-          <li>好き・疑問から課題を決め、自ら探究し発表</li>
-          <li>お金／デジタル／環境といった次世代を生き抜く学び</li>
-          <li>仲間との対話・協働を通じて、学んだことを試す機会</li>
-        </ul>
-        <p>
-          → インプット×アウトプットの繰り返しで自己理解を深めて、<br>
-          「自分は何をしたいのか」「どんな生き方をしたいのか」を考え行動できる人に！
-        </p>
+      <div class="hero-text">
+        <!-- 見出し部分 -->
+        <div class="hero-title">
+          <div class="tag">自分で創るキャリア</div>
+          <h1>
+            学校と社会をつなぐスクール
+          </h1>
+        </div>
+        
+        <!-- コンテンツ部分 -->
+        <div class="hero-content">
+          <ul class="hero-checks">
+            <li>好き・疑問から課題を決め、自ら探究し発表</li>
+            <li>お金／デジタル／環境といった次世代を生き抜く学び</li>
+            <li>仲間との対話・協働を通じて、学んだことを試す機会</li>
+          </ul>
+          <p>
+            → インプット×アウトプットの繰り返しで自己理解を深めて、<br>
+            「自分は何をしたいのか」「どんな生き方をしたいのか」を考え行動できる人に！
+          </p>
+        </div>
       </div>
 
-      <!-- ★ 1:1 固定（スマホでは見出し文の下に来ます） -->
+      <!-- 画像 -->
       <figure class="hero-visual reveal" style="margin:0">
         <img class="img-1x1" src="{{ site.baseurl }}/assets/top_hero_1x1.jpg" alt="CLAFTの雰囲気を伝えるヒーロー画像（1:1）">
       </figure>

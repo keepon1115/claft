@@ -4,10 +4,12 @@ const sideMenu = document.getElementById('sideMenu');
 const menuOverlay = document.getElementById('menuOverlay');
 
 function toggleMenu() {
+  console.log('toggleMenu called'); // デバッグ用
   hamburgerBtn.classList.toggle('active');
   sideMenu.classList.toggle('active');
   menuOverlay.classList.toggle('active');
   document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
+  console.log('sideMenu active:', sideMenu.classList.contains('active')); // デバッグ用
 }
 function closeMenu() {
   hamburgerBtn.classList.remove('active');
