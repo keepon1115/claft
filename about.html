@@ -16,7 +16,7 @@ description: "CLAFTの由来と想い。Creative×Communication の学びで Act
 }
 .about img{max-width:100%;display:block}
 .about a{color:var(--brand);text-decoration:none}
-.about .container{width:min(1120px,92%);margin-inline:auto}
+.about .container{width:min(480px,92%);margin-inline:auto}
 .about .stack > * + *{margin-top:var(--s4)}
 
 /* Hero & Sections */
@@ -31,6 +31,7 @@ description: "CLAFTの由来と想い。Creative×Communication の学びで Act
 
 /* Cards / placeholders */
 .about .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:var(--s5)}
+.about .card h2{margin:0 0 var(--s3)}
 .about .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(255,214,107,.18),rgba(52,198,190,.12));box-shadow:var(--shadow);display:grid;place-items:center;margin:var(--s4) 0 var(--s5)}
 .about .ph span{background:#fff;padding:8px 12px;border:1px dashed rgba(0,0,0,.25);border-radius:999px;color:var(--ink-500)}
 
@@ -54,7 +55,7 @@ description: "CLAFTの由来と想い。Creative×Communication の学びで Act
 .about .tag.learn .dot{background:var(--brand)}
 .about .tag.cross .dot{background:var(--green)}
 .about .tag.learner .dot{background:var(--pink)}
-.about .free-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6);align-items:center}
+.about .free-grid{display:grid;grid-template-columns:1fr;gap:var(--s6);align-items:center}
 .about .big-copy{
   font-size:clamp(18px,1.8vw,22px);
   line-height:1.9;
@@ -64,14 +65,7 @@ description: "CLAFTの由来と想い。Creative×Communication の学びで Act
   background:linear-gradient(90deg, rgba(52,198,190,.10), transparent);
 }
 
-/* Responsive */
-@media (max-width:980px){
-  .about .free-grid{grid-template-columns:1fr}
-  .about .hero{padding:var(--s7) 0 var(--s5)}
-  .about .section{padding:var(--s7) 0}
-  .about .card{padding:var(--s4)}
-  .about .free{padding:var(--s6)}
-}
+/* Mobile layout (常に適用) */
 </style>
 
 <div class="about">
@@ -88,77 +82,63 @@ description: "CLAFTの由来と想い。Creative×Communication の学びで Act
 
   <section class="section container" id="brand">
     <div class="stack">
-      <div class="stack">
+      <div class="card">
         <h2>なぜLなのか？</h2>
         <img src="{{ '/assets/about/logo.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p>RではなくLなのは、失敗したことをRegret（後悔）するのではなく、Learning（学び）として捉え、何度もチャレンジを繰り返す世の中になればという想いからです。</p>
-          <p>テクノロジーの進歩と長寿化で「人生100年時代」といわれる今、従来の「学習 → 仕事 → 引退」という一本道ではなく、「学習 ↔ 仕事」を往復しながらキャリアを重ねていく時代です。</p>
-          <p>その循環を前向きに回すには、<strong>学ぶこと・働くことを楽しむ心（好奇心）</strong>が要。子どものうちから「学びたい！」「働きたい！」と思える芽を育むことが大切だと思っています。</p>
-        </div>
+        <p>RではなくLなのは、失敗したことをRegret（後悔）するのではなく、Learning（学び）として捉え、何度もチャレンジを繰り返す世の中になればという想いからです。</p>
+        <p>テクノロジーの進歩と長寿化で「人生100年時代」といわれる今、従来の「学習 → 仕事 → 引退」という一本道ではなく、「学習 ↔ 仕事」を往復しながらキャリアを重ねていく時代です。</p>
+        <p>その循環を前向きに回すには、<strong>学ぶこと・働くことを楽しむ心（好奇心）</strong>が要。子どものうちから「学びたい！」「働きたい！」と思える芽を育むことが大切だと思っています。</p>
       </div>
 
-      <div class="stack">
+      <div class="card">
         <h2>好奇心のままに学ぶにはどうするか？</h2>
         <img src="{{ '/assets/about/creative.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p>ずばり <strong>「創ること」だと思います</strong>。</p>
-          <p>形がある/ないは関係なく、創る（＝アイデアを具体化していく）過程で、構造を理解し、試行錯誤し、手応えを得る。</p>
-          <p>ここで生まれる達成感は、何ものにも代えがたい貴重な経験です。</p>
-          <p>それを好き・得意から始め、そこで得た経験を<strong>自分の武器</strong>に変えていくカリキュラムです。</p>
-          <ul>
-            <li><strong>キャリアコース（中高生向け）</strong><br>自分の「好き」や「気になる」から自由に創って発表します。<br>▶ <a href="{{ '/career.html' | relative_url }}">キャリアコースを詳しく見る</a></li>
-            <li><strong>マイクラSDGsコース（小学生向け）</strong><br>マイクラでSDGsをテーマに、自分の世界観を表現します。<br>▶ <a href="{{ '/minecraft.html' | relative_url }}">マイクラSDGsコースを詳しく見る</a></li>
-          </ul>
-        </div>
+        <p>ずばり <strong>「創ること」だと思います</strong>。</p>
+        <p>形がある/ないは関係なく、創る（＝アイデアを具体化していく）過程で、構造を理解し、試行錯誤し、手応えを得る。</p>
+        <p>ここで生まれる達成感は、何ものにも代えがたい貴重な経験です。</p>
+        <p>それを好き・得意から始め、そこで得た経験を<strong>自分の武器</strong>に変えていくカリキュラムです。</p>
+        <ul>
+          <li><strong>キャリアコース（中高生向け）</strong><br>自分の「好き」や「気になる」から自由に創って発表します。<br>▶ <a href="{{ '/career.html' | relative_url }}">キャリアコースを詳しく見る</a></li>
+          <li><strong>マイクラSDGsコース（小学生向け）</strong><br>マイクラでSDGsをテーマに、自分の世界観を表現します。<br>▶ <a href="{{ '/minecraft.html' | relative_url }}">マイクラSDGsコースを詳しく見る</a></li>
+        </ul>
       </div>
 
-      <div class="stack">
+      <div class="card">
         <h2>つくるだけでなく、つたえる</h2>
         <img src="{{ '/assets/about/communication.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p><strong>つくる → つたえる → つたわる</strong></p>
-          <p>この一連のプロセスそのものが学びです。作品や企画を言葉にして相手に届け、相手の反応で改良していきます。この往復ができれば、<strong>就職・進学・起業</strong>の場面でも自信をもって臨めます。</p>
-          <p>就職活動では、2025年卒の学生が課題に感じるのは「面接対策」（31.0%）、「自分に合った企業の見つけ方」（24.1%）というデータもあります（出典：PR TIMES）。</p>
-          <p><a href="https://prtimes.jp/main/html/rd/p/000000115.000041771.html" target="_blank" rel="noopener">https://prtimes.jp/main/html/rd/p/000000115.000041771.html</a></p>
-        </div>
+        <p><strong>つくる → つたえる → つたわる</strong></p>
+        <p>この一連のプロセスそのものが学びです。作品や企画を言葉にして相手に届け、相手の反応で改良していきます。この往復ができれば、<strong>就職・進学・起業</strong>の場面でも自信をもって臨めます。</p>
+        <p>就職活動では、2025年卒の学生が課題に感じるのは「面接対策」（31.0%）、「自分に合った企業の見つけ方」（24.1%）というデータもあります（出典：PR TIMES）。</p>
+        <p><a href="https://prtimes.jp/main/html/rd/p/000000115.000041771.html" target="_blank" rel="noopener">https://prtimes.jp/main/html/rd/p/000000115.000041771.html</a></p>
       </div>
 
-      <div class="stack">
+      <div class="card">
         <h2>クリエイティブ＆コミュニケーション（CL）</h2>
         <img src="{{ '/assets/about/future.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p>つくったものを発表する（＝コミュニケーション）のなかで、また新たな自分の興味を見つける。</p>
-          <p>それを深く探究（＝クリエイティブ）し、またその成果を人前で発表する。</p>
-          <p>発表や共有を通じて仲間とつながり、また新たな挑戦へ——。</p>
-          <p>このサイクルをぐるぐる回すことで、「学びたい！」「働きたい！」という循環が自然と生まれます。</p>
-        </div>
+        <p>つくったものを発表する（＝コミュニケーション）のなかで、また新たな自分の興味を見つける。</p>
+        <p>それを深く探究（＝クリエイティブ）し、またその成果を人前で発表する。</p>
+        <p>発表や共有を通じて仲間とつながり、また新たな挑戦へ——。</p>
+        <p>このサイクルをぐるぐる回すことで、「学びたい！」「働きたい！」という循環が自然と生まれます。</p>
       </div>
 
-      <div class="stack">
+      <div class="card">
         <h2>CLAFTによってどうなるか？（AFT）</h2>
         <img src="{{ '/assets/about/active.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p><strong>主体的な行動力の向上</strong></p>
-          <p>CLAFTでは、自分で問いを立て、考え、行動するプロセスを重視します。この経験は、指示待ちではなく「自ら動く力」を育てます。</p>
-          <p>自分の興味や得意を探究するので、新しいことにも挑戦できる。たとえ失敗しても、そこから学びを得る。アクションを起こすことで得られる学びを実感し、行動を起点とした成長サイクルが身につきます。</p>
-        </div>
+        <p><strong>主体的な行動力の向上</strong></p>
+        <p>CLAFTでは、自分で問いを立て、考え、行動するプロセスを重視します。この経験は、指示待ちではなく「自ら動く力」を育てます。</p>
+        <p>自分の興味や得意を探究するので、新しいことにも挑戦できる。たとえ失敗しても、そこから学びを得る。アクションを起こすことで得られる学びを実感し、行動を起点とした成長サイクルが身につきます。</p>
 
         <img src="{{ '/assets/about/flexible.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p><strong>柔軟な適応力の向上</strong></p>
-          <p>社会や仕事の環境は日々変化しています。CLAFTでは、固定観念にとらわれず柔軟に対応できる思考と行動を育てます。</p>
-          <p>他者との意見交換を通じて、異なる価値観や考え方を理解し、より柔軟な発想ができるようになります。そうすると、予期せぬ変化に対しても、チャンスとして捉え楽しむことができます。</p>
-          <p><strong>そして、CLAFTで得られるアクティブさとフレキシブルさは、単なる行動力や適応力にとどまらず、現代社会で必要不可欠な「情報編集力」を育みます。</strong></p>
-          <p>※情報編集力とは、膨大な情報の中から自分に必要なものを選び出し、それを自分らしい形で組み立て、伝えられる力です。</p>
-        </div>
+        <p><strong>柔軟な適応力の向上</strong></p>
+        <p>社会や仕事の環境は日々変化しています。CLAFTでは、固定観念にとらわれず柔軟に対応できる思考と行動を育てます。</p>
+        <p>他者との意見交換を通じて、異なる価値観や考え方を理解し、より柔軟な発想ができるようになります。そうすると、予期せぬ変化に対しても、チャンスとして捉え楽しむことができます。</p>
+        <p><strong>そして、CLAFTで得られるアクティブさとフレキシブルさは、単なる行動力や適応力にとどまらず、現代社会で必要不可欠な「情報編集力」を育みます。</strong></p>
+        <p>※情報編集力とは、膨大な情報の中から自分に必要なものを選び出し、それを自分らしい形で組み立て、伝えられる力です。</p>
 
         <img src="{{ '/assets/about/try.jpg' | relative_url }}" alt="..." class="ph">
-        <div class="card">
-          <p><strong>何度も試し続ける精神</strong></p>
-          <p>何かを試し、挑戦し続ける中で、学びの本質や仕事の魅力が自然と見えてくると思っています。トライすることで、新しい発見や成功体験が得られ、「学ばなきゃ」「仕事をしなきゃ」といった義務感から解放されます。その結果、自発的に「もっと学びたい」「次はこんなことをやってみたい」と思えるようになります。</p>
-          <p>挑戦する中で、これまで見えていなかった世界が広がります。たとえ好きなことややりたいことを続けられなくても、その周辺にある多様な可能性に気づき、自分ごととして捉えられるようになるでしょう。</p>
-        </div>
+        <p><strong>何度も試し続ける精神</strong></p>
+        <p>何かを試し、挑戦し続ける中で、学びの本質や仕事の魅力が自然と見えてくると思っています。トライすることで、新しい発見や成功体験が得られ、「学ばなきゃ」「仕事をしなきゃ」といった義務感から解放されます。その結果、自発的に「もっと学びたい」「次はこんなことをやってみたい」と思えるようになります。</p>
+        <p>挑戦する中で、これまで見えていなかった世界が広がります。たとえ好きなことややりたいことを続けられなくても、その周辺にある多様な可能性に気づき、自分ごととして捉えられるようになるでしょう。</p>
       </div>
     </div>
   </section>
