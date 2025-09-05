@@ -25,11 +25,11 @@ description: "マイクラ×SDGs×プログラミングで、楽しみながら�
 .minecraft .breadcrumbs a{color:var(--ink-500)}
 .minecraft h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
 .minecraft .lead{color:var(--ink-700)}
-.minecraft .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+.minecraft .hero-grid{display:grid;grid-template-columns:1fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
 .minecraft .hero-img{width:100%;aspect-ratio:16/9;border-radius:var(--radius-lg);object-fit:cover;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.08)}
 
 /* クイック情報 */
-.minecraft .qinfo{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-top:var(--s5)}
+.minecraft .qinfo{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
 .minecraft .qi{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
 .minecraft .qi svg{width:20px;height:20px;flex:0 0 20px}
 .minecraft .qi b{display:block}
@@ -37,7 +37,7 @@ description: "マイクラ×SDGs×プログラミングで、楽しみながら�
 /* アウトカム */
 .minecraft .outcomes{margin-top:var(--s8)}
 .minecraft .out-lead{font-weight:700;color:#111}
-.minecraft .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
+.minecraft .oc-grid{display:grid;grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s4)}
 .minecraft .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .minecraft .oc h3{margin:.4em 0 .6em;font-size:18px}
 .minecraft .oc ul{margin:0;padding-left:1.1em}
@@ -54,21 +54,21 @@ description: "マイクラ×SDGs×プログラミングで、楽しみながら�
 
 /* 受講フロー */
 .minecraft .flow{margin-top:var(--s8)}
-.minecraft .flow-list{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4)}
+.minecraft .flow-list{display:grid;grid-template-columns:1fr;gap:var(--s4)}
 .minecraft .step{position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .minecraft .step .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--brand);color:#fff;font-weight:700;margin-bottom:8px}
 .minecraft .step strong{display:block;margin-bottom:6px}
-.minecraft .step:after{content:"";position:absolute;top:calc(50% - 1px);right:-12px;width:24px;height:2px;background:linear-gradient(90deg, var(--brand), transparent)}
+.minecraft .step:after{display:none}
 .minecraft .step:last-child:after{display:none}
 
 /* 料金 */
-.minecraft .price{margin-top:var(--s8);display:grid;grid-template-columns:1fr .9fr;gap:var(--s4);align-items:start}
+.minecraft .price{margin-top:var(--s8);display:grid;grid-template-columns:1fr;gap:var(--s4);align-items:start}
 .minecraft .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .minecraft .badge{display:inline-block;background:#fff3c4;border:1px solid #f6e08c;border-radius:999px;padding:6px 10px;font-weight:700;margin-right:8px}
 .minecraft .note{color:var(--ink-500);font-size:14px}
 
 /* 共通ワーク導線 */
-.minecraft .works{margin-top:var(--s8);display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.minecraft .works{margin-top:var(--s8);display:grid;grid-template-columns:1fr;gap:var(--s4)}
 .minecraft .work{display:flex;gap:var(--s4);align-items:center;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .minecraft .work .thumb{width:160px;aspect-ratio:16/9;border-radius:12px;background:
   linear-gradient(135deg, rgba(52,198,190,.18), rgba(240,106,106,.16));
@@ -80,19 +80,6 @@ description: "マイクラ×SDGs×プログラミングで、楽しみながら�
   box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink-500);border:1px dashed rgba(0,0,0,.18)}
 .minecraft .ph span{padding:6px 10px;background:#fff;border-radius:999px;border:1px dashed rgba(0,0,0,.2)}
 
-/* Responsive */
-@media (max-width:1060px){
-  .minecraft .hero-grid{grid-template-columns:1fr}
-  .minecraft .qinfo{grid-template-columns:1fr 1fr}
-  .minecraft .oc-grid{grid-template-columns:1fr}
-  .minecraft .flow-list{grid-template-columns:1fr 1fr}
-  .minecraft .price{grid-template-columns:1fr}
-  .minecraft .works{grid-template-columns:1fr}
-}
-@media (max-width:560px){
-  .minecraft .qinfo{grid-template-columns:1fr}
-  .minecraft .step:after{display:none}
-}
 </style>
 
 <!-- JSON-LD（本文内配置OK） -->
@@ -111,9 +98,6 @@ description: "マイクラ×SDGs×プログラミングで、楽しみながら�
 <div class="minecraft">
   <!-- パンくず & タイトル -->
   <section class="container hero">
-    <nav class="breadcrumbs" aria-label="パンくず">
-      <a href="{{ '/index.html#top' | relative_url }}">TOP</a> ＞ <a href="{{ '/minecraft.html' | relative_url }}">コース</a> ＞ マイクラSDGsコース
-    </nav>
     <h1>マイクラSDGsコース</h1>
 
     <!-- ヒーロー -->
@@ -206,10 +190,6 @@ description: "マイクラ×SDGs×プログラミングで、楽しみながら�
       <h2>料金</h2>
       <p><span class="badge">初月無料</span> <strong>月額7,700円（税込）</strong></p>
       <p class="note">※ 決済手続きはLINEからご案内いたします。</p>
-    </div>
-    <div class="card">
-      <h2>資料（任意）</h2>
-      <p class="note">資料は準備中です。ご提供いただければ、ダウンロードカードに差し替えます。</p>
     </div>
   </section>
 

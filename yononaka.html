@@ -29,7 +29,7 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
 .yononaka .breadcrumbs a{color:var(--ink-500)}
 .yononaka h1{font-size:clamp(28px,3vw,40px);line-height:1.25;margin:.4em 0 .2em}
 .yononaka .lead{color:var(--ink-700)}
-.yononaka .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+.yononaka .hero-grid{display:grid;grid-template-columns:1fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
 .yononaka .bubble-back{position:absolute;inset:auto -10% -20% -10%;height:240px;background:
   radial-gradient(closest-side, rgba(255,214,107,.35), transparent 60%) -10% 50%/320px 220px no-repeat,
   radial-gradient(closest-side, rgba(52,198,190,.28), transparent 60%) 40% 0/360px 220px no-repeat,
@@ -39,7 +39,7 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
 /* 成果カード */
 .yononaka .outcomes{margin-top:var(--s8)}
 .yononaka .out-lead{font-weight:700}
-.yononaka .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
+.yononaka .oc-grid{display:grid;grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s4)}
 .yononaka .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .yononaka .oc h3{margin:.2em 0 .6em;font-size:18px}
 .yononaka .oc p{margin:.5em 0}
@@ -51,7 +51,7 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
 
 /* セッションの流れ */
 .yononaka .flow{margin-top:var(--s8)}
-.yononaka .flow-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s4)}
+.yononaka .flow-list{display:grid;grid-template-columns:1fr;gap:var(--s4)}
 .yononaka .step{position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .yononaka .step .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--brand);color:#fff;font-weight:700;margin-bottom:8px}
 .yononaka .step strong{display:block;margin-bottom:6px}
@@ -59,7 +59,7 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
 
 /* 参加者の声 */
 .yononaka .voices{margin-top:var(--s8)}
-.yononaka .vc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s4)}
+.yononaka .vc-grid{display:grid;grid-template-columns:1fr;gap:var(--s4)}
 .yononaka .vc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow);position:relative}
 .yononaka .vc:before{content:"“";position:absolute;top:-10px;left:12px;font-size:40px;color:rgba(0,0,0,.12);font-weight:700}
 
@@ -70,18 +70,10 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
 
 /* サービス（関連コンテンツ） */
 .yononaka .services{margin-top:var(--s8)}
-.yononaka .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.yononaka .svc-grid{display:grid;grid-template-columns:1fr;gap:var(--s4)}
 .yononaka .svc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
 .yononaka .svc h3{margin:.2em 0 .4em}
 
-/* Responsive */
-@media (max-width:980px){
-  .yononaka .hero-grid{grid-template-columns:1fr}
-  .yononaka .oc-grid{grid-template-columns:1fr}
-  .yononaka .flow-list{grid-template-columns:1fr}
-  .yononaka .vc-grid{grid-template-columns:1fr}
-  .yononaka .svc-grid{grid-template-columns:1fr}
-}
 </style>
 
 <!-- JSON-LD（本文内配置OK） -->
@@ -99,9 +91,6 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
   <!-- パンくず & ヒーロー -->
   <section class="container hero">
     <div class="bubble-back" aria-hidden="true"></div>
-    <nav class="breadcrumbs" aria-label="パンくず">
-      <a href="{{ '/index.html#top' | relative_url }}">TOP</a> ＞ <a href="{{ '/yononaka.html' | relative_url }}">ワーク</a> ＞ Yononaka
-    </nav>
     <h1>Yononaka（対話型ワークショップ）</h1>
 
     <div class="hero-grid">
@@ -163,17 +152,17 @@ description: "生活に身近なテーマをもとに、正解がひとつでな
     <div class="flow-list">
       <div class="step">
         <span class="n">1</span>
-        <strong>Step 1</strong>
+        <strong>身近なテーマ</strong>
         よのなかにある身近なモノをテーマにします。「おかねって何だろう」「自分のまちについて話そう」「こころとからだの関係について考えよう」などです。
       </div>
       <div class="step">
         <span class="n">2</span>
-        <strong>Step 2</strong>
+        <strong>正解がひとつでないお題</strong>
         テーマに関するお題が3,4つあります。「お金持ちってどんなイメージ？」「あなたのまちのなかで、つい行ってしまう場所はどこ？」「緊張を和らげるためにはどんな方法があるだろう」などです。それに対して、まずは1人で考えます。
       </div>
       <div class="step">
         <span class="n">3</span>
-        <strong>Step 3</strong>
+        <strong>意見共有</strong>
         次にグループ共有を行います。各回約20名参加しますが、少数のグループで1人1人順番に発言できるので安心です。 また、正解を求められることがないため、意見が否定される心配や、劣等感を感じることもありません。
       </div>
     </div>

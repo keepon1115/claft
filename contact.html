@@ -30,7 +30,7 @@ description: "CLAFTの体験申込・お問い合わせページ。オンライ�
 
 /* Form */
 .contact form{display:grid;grid-template-columns:1fr;gap:16px}
-.contact .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.contact .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
 .contact label{font-weight:700;font-size:14px}
 .contact input,.contact select,.contact textarea{
   width:100%;box-sizing:border-box;border:1px solid rgba(0,0,0,.14);
@@ -41,10 +41,6 @@ description: "CLAFTの体験申込・お問い合わせページ。オンライ�
 .contact .hint{font-size:12px;color:var(--ink-500)}
 .contact .form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 
-/* Responsive */
-@media (max-width:960px){
-  .contact .grid-2{grid-template-columns:1fr}
-}
 </style>
 
 <div class="contact">
@@ -143,7 +139,7 @@ description: "CLAFTの体験申込・お問い合わせページ。オンライ�
   <section class="section container" id="download">
     <h2>資料ダウンロード</h2>
     <p class="sub">パンフレット（PDF）と詳細カリキュラムをお送りします。</p>
-    <a class="btn btn-ghost" href="#">資料を受け取る</a>
+    <a class="btn btn-ghost" href="{{ site.baseurl }}/assets/siryo.pdf" target="_blank" rel="noopener">資料を受け取る</a>
   </section>
 
   <section class="section container" id="students">

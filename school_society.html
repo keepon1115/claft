@@ -19,7 +19,7 @@ description: "学校での学びと社会のギャップを可視化。数字と
 .schoolsociety img{max-width:100%;display:block}
 .schoolsociety .container{width:min(480px,92%);margin-inline:auto}
 
-/* 16:9 汎用プレゼン画像 */
+/* 16:9 汎用プレゼン画像（横長） */
 .schoolsociety .ph{
   width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:28px;
   box-shadow:var(--shadow); margin:18px 0 24px; display:block;
@@ -42,10 +42,10 @@ description: "学校での学びと社会のギャップを可視化。数字と
 .schoolsociety h1{font-size:clamp(28px,3.2vw,42px);line-height:1.25;margin:.35em 0 .1em;color:#fff}
 
 /* Duo Quote */
-.schoolsociety .duo-quote{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;margin:14px 0 8px}
+.schoolsociety .duo-quote{position:relative;display:grid;grid-template-columns:1fr;gap:16px;align-items:start;margin:14px 0 8px}
 .schoolsociety .q-deco{position:absolute;pointer-events:none;font-family:Georgia,"Times New Roman",serif;font-weight:700;line-height:1;opacity:.10;color:#fff}
-.schoolsociety .q-deco.q-left{font-size:140px;left:-6px;top:-12px;transform:rotate(-8deg)}
-.schoolsociety .q-deco.q-right{font-size:140px;right:-6px;bottom:-22px;transform:rotate(8deg)}
+.schoolsociety .q-deco.q-left{font-size:100px;left:-4px;top:-6px;transform:rotate(-8deg)}
+.schoolsociety .q-deco.q-right{font-size:100px;right:-4px;bottom:-12px;transform:rotate(8deg)}
 .schoolsociety blockquote{margin:0}
 .schoolsociety .quote-card{
   background:#ffffff;color:#111;border-radius:18px;padding:18px 20px;
@@ -59,7 +59,7 @@ description: "学校での学びと社会のギャップを可視化。数字と
 @keyframes ss-floaty{0%{transform:translateY(0)}50%{transform:translateY(-3px)}100%{transform:translateY(0)}}
 
 /* 数字カード */
-.schoolsociety .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.schoolsociety .stats{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
 .schoolsociety .stat-card{background:#f7f8fb;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.12);color:#111}
 .schoolsociety .stat-top{display:flex;align-items:flex-end;justify-content:center;gap:8px}
 .schoolsociety .num{font-weight:900;letter-spacing:.01em;line-height:1;color:var(--pink);font-size:clamp(40px,6vw,64px);text-shadow:0 2px 0 rgba(255,255,255,.7)}
@@ -87,7 +87,7 @@ description: "学校での学びと社会のギャップを可視化。数字と
 .schoolsociety .headline-accent.in .spark{transform:scaleX(1)}
 
 /* 比較パネル */
-.schoolsociety .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px;align-items:stretch}
+.schoolsociety .compare{display:grid;grid-template-columns:1fr;gap:10px;margin-top:26px;align-items:stretch}
 .schoolsociety .panel{border-radius:18px;padding:18px;border:1px solid rgba(0,0,0,.06);box-shadow:0 10px 30px rgba(0,0,0,.12)}
 .schoolsociety .panel.school{background:#fdeaea}
 .schoolsociety .panel.society{background:#e8f6ef}
@@ -116,9 +116,9 @@ description: "学校での学びと社会のギャップを可視化。数字と
 .schoolsociety .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--s5)}
 .schoolsociety .tag{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;font-weight:700;border:1px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 10px 24px rgba(31,41,55,.06)}
 .schoolsociety .tag .dot{width:10px;height:10px;border-radius:50%}
-.schoolsociety .tag.learn .dot{background:var(--brand)}
-.schoolsociety .tag.cross .dot{background:var(--green)}
-.schoolsociety .tag.learner .dot{background:var(--pink)}
+.schoolsociety .tag.learn .dot{background:#34c6be !important}
+.schoolsociety .tag.cross .dot{background:#58c3a2 !important}
+.schoolsociety .tag.learner .dot{background:#ef4444 !important}
 .schoolsociety .free-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6);align-items:center}
 .schoolsociety .stack > * + *{margin-top:var(--s4)}
 .schoolsociety .big-copy{
@@ -134,12 +134,6 @@ description: "学校での学びと社会のギャップを可視化。数字と
 .schoolsociety .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease, transform .6s ease}
 .schoolsociety .reveal.in{opacity:1;transform:none}
 
-/* Mobile layout (常に適用) */
-.schoolsociety .duo-quote{grid-template-columns:1fr}
-.schoolsociety .q-deco.q-left{font-size:100px;left:-4px;top:-6px}
-.schoolsociety .q-deco.q-right{font-size:100px;right:-4px;bottom:-12px}
-.schoolsociety .stats{grid-template-columns:1fr}
-.schoolsociety .compare{grid-template-columns:1fr;gap:10px}
 </style>
 
 <div class="schoolsociety">
@@ -167,7 +161,7 @@ description: "学校での学びと社会のギャップを可視化。数字と
         <article class="stat-card reveal">
           <div class="stat-top"><div><span class="num" data-target="67.3" data-decimals="1">0</span><span class="unit">%</span></div></div>
           <div class="stat-lead">新入社員が感じる「スキル不足」</div>
-          <p class="stat-note">自分の能力不足がストレス源。社会の厳しさを痛感する若者は8割越え。</p>
+          <p class="stat-note">自分の能力不足がストレス源。社会の厳しさを痛感する若者は6割越え。</p>
           <p class="source">出典：産業能率大「2024年度 新入社員会社生活調査」</p>
         </article>
         <article class="stat-card reveal">
@@ -197,14 +191,14 @@ description: "学校での学びと社会のギャップを可視化。数字と
       <img
         src="{{ '/assets/school_society/learn.jpg' | relative_url }}"
         alt="学びのイメージ"
-        class="ph" width="1200" height="675" loading="lazy" decoding="async">
+        class="ph" loading="lazy" decoding="async">
 
       <p>特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。</p>
 
       <img
         src="{{ '/assets/school_society/learn_forecast.jpg' | relative_url }}"
         alt="社会を知り未来を予測する学びのイメージ"
-        class="ph" width="1200" height="675" loading="lazy" decoding="async">
+        class="ph" loading="lazy" decoding="async">
 
       <p>それにもかかわらず、日本の教育は依然として「教科書に書かれた知識を覚え、テストで正しく答える力」を重視しています。</p>
       <p>先生が知識を教え、生徒がそれを記憶し、偏差値で進路が決まる──</p>
@@ -252,14 +246,14 @@ description: "学校での学びと社会のギャップを可視化。数字と
       <img
         src="{{ '/assets/school_society/practice_dialogue.jpg' | relative_url }}"
         alt="実践と対話のイメージ"
-        class="ph" width="1200" height="675" loading="lazy" decoding="async">
+        class="ph" loading="lazy" decoding="async">
 
       <p>また、テクノロジーの進化と長寿化により、私たちは「人生100年時代」を迎えています。<br>従来の「学ぶ→働く→引退する」という一方通行の人生モデルは崩れ、「学び→仕事」を何度も繰り返しながらキャリアを築いていく時代へと移り変わっています。</p>
 
       <img
         src="{{ '/assets/school_society/life100_cycle.jpg' | relative_url }}"
         alt="人生100年時代における学習と仕事の循環"
-        class="ph" width="1200" height="675" loading="lazy" decoding="async">
+        class="ph" loading="lazy" decoding="async">
 
       <p>単に引退や生活のために学び続けるだけでは、心身のバランスを保つことは難しくなります。<br>これからは、持続可能な「働き方」と「学び方」を見つけることが重要です。</p>
       <p>さらに、仕事のあり方そのものも変わりつつあります。<br>既存の職業をそのままなぞるのではなく、複数の仕事やスキルを組み合わせ、新しい価値を生み出す力が求められています。</p>
@@ -267,14 +261,14 @@ description: "学校での学びと社会のギャップを可視化。数字と
     </div>
   </section>
 
-  <!-- ▼ 最終セクション -->
-  <section class="section container" style="padding:var(--s8) 0">
+  <!-- 自由デザイン最終セクション -->
+  <section class="section container">
     <div class="free">
       <h2>「使える学び」で武器に変える</h2>
       <div class="tags" aria-hidden="true">
-        <span class="tag" style="border-color:rgba(240,106,106,.25)"><span class="dot" style="background:hsl(167, 88%, 61%)"></span>学習力</span>
-        <span class="tag" style="border-color:rgba(240,106,106,.25)"><span class="dot" style="background:hsl(345, 84%, 75%)"></span>横断的な学び</span>
-        <span class="tag" style="border-color:rgba(240,106,106,.25)"><span class="dot" style="background:#ffd66b"></span>実践</span>
+        <span class="tag learn"><span class="dot"></span>学習力</span>
+        <span class="tag cross"><span class="dot"></span>横断的な学び</span>
+        <span class="tag learner"><span class="dot"></span>実践</span>
       </div>
 
       <div class="free-grid">

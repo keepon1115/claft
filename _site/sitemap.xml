@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/claft/about.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/career.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/contact.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/futurecraft.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/minecraft.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/play-claft.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/school_society.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/yononaka.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/claft/assets/siryo.pdf</loc>
+<lastmod>2025-09-05T14:41:04+09:00</lastmod>
+</url>
+</urlset>

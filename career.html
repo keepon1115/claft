@@ -25,11 +25,11 @@ description: "好き・得意を自分の武器に変えるカリキュラム。
 .career .hero{padding:var(--s8) 0 var(--s6)}
 .career .breadcrumbs{font-size:14px;color:var(--ink-500)}
 .career .breadcrumbs a{color:var(--ink-500)}
-.career .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
+.career .hero-grid{display:grid;grid-template-columns:1fr;gap:var(--s6);align-items:center;margin-top:var(--s5)}
 .career .hero-img{aspect-ratio:16/9;border-radius:var(--radius-lg);box-shadow:var(--shadow);object-fit:cover;border:1px solid rgba(0,0,0,.08)}
 
 /* クイック情報 */
-.career .qinfo{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin-top:var(--s5)}
+.career .qinfo{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
 .career .qi{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
 .career .qi svg{width:20px;height:20px;flex:0 0 20px}
 .career .qi b{display:block}
@@ -37,7 +37,7 @@ description: "好き・得意を自分の武器に変えるカリキュラム。
 /* アウトカム */
 .career .outcomes{margin-top:var(--s8)}
 .career .out-lead{font-weight:700;color:#111}
-.career .oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
+.career .oc-grid{display:grid;grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s4)}
 .career .oc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .career .oc h3{margin:.2em 0 .6em;font-size:18px;min-height:2.5em;}
 .career .oc ul{margin:0;padding-left:1.1em}
@@ -55,12 +55,12 @@ description: "好き・得意を自分の武器に変えるカリキュラム。
 .career .step{position:relative;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
 .career .step .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--brand);color:#fff;font-weight:700;margin-bottom:8px}
 .career .step strong{display:block;margin-bottom:6px}
-.career .step:after{content:"";position:absolute;top:calc(50% - 1px);right:-12px;width:24px;height:2px;background:linear-gradient(90deg, var(--brand), transparent)}
+.career .step:after{display:none}
 .career .step:last-child:after{display:none}
 
 /* 作品ギャラリー（カード3枚） */
 .career .works{margin-top:var(--s8)}
-.career .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.career .work-grid{display:grid;grid-template-columns:1fr;gap:var(--s4)}
 .career .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
 .career .card .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid rgba(0,0,0,.08)}
 .career .card .body{padding:16px;display:flex;flex-direction:column;gap:8px}
@@ -75,12 +75,6 @@ description: "好き・得意を自分の武器に変えるカリキュラム。
 .career .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(52,198,190,.12);color:#0f766e;font-weight:700;margin-right:8px}
 .career .note{color:var(--ink-600);font-size:14px}
 
-/* Mobile layout (常に適用) */
-.career .hero-grid{grid-template-columns:1fr}
-.career .qinfo{grid-template-columns:1fr}
-.career .oc-grid{grid-template-columns:1fr}
-.career .work-grid{grid-template-columns:1fr}
-.career .step:after{display:none}
 </style>
 
 <!-- JSON-LD（本文内配置でもOK） -->
@@ -99,9 +93,6 @@ description: "好き・得意を自分の武器に変えるカリキュラム。
 <div class="career">
   <!-- パンくず & タイトル -->
   <section class="container hero">
-    <nav class="breadcrumbs" aria-label="パンくず">
-      <a href="{{ '/index.html#top' | relative_url }}">TOP</a> ＞ <a href="{{ '/career.html' | relative_url }}">コース</a> ＞ キャリアコース
-    </nav>
     <h1>キャリアコース</h1>
 
     <!-- ヒーロー -->
@@ -229,10 +220,6 @@ description: "好き・得意を自分の武器に変えるカリキュラム。
       <h2>料金</h2>
       <p><span class="badge">初月無料</span> <strong>月額7,700円（税込）</strong></p>
       <p class="note">※ 決済手続きはLINEからご案内いたします。</p>
-    </div>
-    <div class="card">
-      <h2>資料（任意）</h2>
-      <p class="note">資料は準備中です。ご提供いただければ、ダウンロードカードに差し替えます。</p>
     </div>
   </section>
 </div>
