@@ -282,36 +282,12 @@
     transform: none !important;
   }
 
-  /* ========== 筆書きアニメーション ========== */
-  .handwriting-container { width: min(680px, 92vw); }
-  .handwriting-svg { width: 100%; height: auto; }
-  
-  /* お好みでフォントや色を調整 */
-  .handwriting-text {
-    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-    font-weight: 700;
-    font-size: clamp(20px, 4.6vw, 40px);
-    letter-spacing: .06em;
-    fill: #2dd4bf; /* テキスト色（サイトのアクセントカラーに合わせて） */
-    white-space: pre;           /* SVG テキストの不意な改行を防ぐ */
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  
-  /* ストロークを"描く"アニメ */
-  #revealStroke1, #revealStroke2 {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: draw 1.6s ease forwards;
-  }
-  #revealStroke2 { animation-delay: .9s; } /* 2 行目は少し後から */
-  
-  @keyframes draw { to { stroke-dashoffset: 0; } }
-  
-  /* 動きを減らしたいユーザー配慮（任意） */
-  @media (prefers-reduced-motion: reduce) {
-    #revealStroke1, #revealStroke2 { animation: none; stroke-dashoffset: 0; }
-  }
+  /* ========== ヒーロータイトル（テキスト表示） ========== */
+  .hero-title{margin:0 0 10px;font-family:"Zen Maru Gothic","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-weight:700;line-height:1.2;color:#2dd4bf}
+  .hero-title span{display:block}
+  /* スマホで2行がしっかり収まるサイズ感 */
+  .hero-title{font-size:clamp(22px,6.2vw,44px);letter-spacing:.04em}
+  @media(min-width:768px){.hero-title{font-size:clamp(28px,3.4vw,56px)}}
   
   
   /* 連続表示アニメーション */
@@ -365,31 +341,10 @@
   <section class="hero container has-bg" style="--hero-img:url('/claft/assets/hero.jpg')">
     <div class="hero-grid">
       <div class="hero-text">
-        <!-- 筆書きアニメーション -->
-        <div class="handwriting-container">
-          <svg class="handwriting-svg" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- 黒で隠し、白ストロークが通った所だけ見せる -->
-              <mask id="handwritingMask" maskUnits="userSpaceOnUse">
-                <rect width="100%" height="100%" fill="#000"/>
-                <!-- 1 行目を左→右へ -->
-                <path id="revealStroke1" pathLength="1"
-                      d="M-40 44 L640 44"
-                      stroke="#fff" stroke-width="28" stroke-linecap="round" fill="none"/>
-                <!-- 2 行目を少し遅らせて左→右へ -->
-                <path id="revealStroke2" pathLength="1"
-                      d="M-40 92 L640 92"
-                      stroke="#fff" stroke-width="28" stroke-linecap="round" fill="none"/>
-              </mask>
-            </defs>
-
-            <!-- 文字そのもの。mask で"なぞった部分だけ"出る -->
-            <text x="300" y="50" text-anchor="middle" class="handwriting-text" mask="url(#handwritingMask)">
-              <tspan x="300" dy="-2">自分のキャリア</tspan>
-              <tspan x="300" dy="40">"自分で"つくろ！</tspan>
-            </text>
-          </svg>
-        </div>
+        <h1 class="hero-title">
+          <span>自分のキャリア</span>
+          <span>"自分で"つくろ！</span>
+        </h1>
       </div>
       
       <!-- 画像（遅延表示） -->
