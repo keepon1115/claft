@@ -19,12 +19,21 @@ function closeMenu() {
 }
 hamburgerBtn?.addEventListener('click', toggleMenu);
 menuOverlay?.addEventListener('click', closeMenu);
-sideMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+// サブメニュー親（.has-sub > a）を除外し、実リンクのみで閉じる
+sideMenu?.querySelectorAll('li:not(.has-sub) > a, .sub a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
 
 // Side sub (tap to open)
 sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
   a.addEventListener('click', (e)=>{
-    e.preventDefault(); a.parentElement.classList.toggle('open');
+    const li = a.parentElement;
+    // 1回目タップで展開のみ（遷移はさせない）
+    if(!li.classList.contains('open')){
+      e.preventDefault();
+      e.stopImmediatePropagation(); // 同一要素の他のclickリスナー（closeMenu）を抑止
+      li.classList.add('open');
+      return;
+    }
+    // 2回目は通常のリンク遷移（メニューはページ遷移で閉じる）
   });
 });
