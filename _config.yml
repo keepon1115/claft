@@ -7,7 +7,7 @@ lang: ja
 
 # 共有リンク／連絡先
 brand:
-  logo: "/assets/logo.png"
+  logo: "/assets/images/common/logo.png"
   line: "https://lin.ee/bsNomJG"
   student_portal: "https://claft-next.vercel.app"
   instagram: "https://www.instagram.com/keepon.labo"

@@ -40,7 +40,7 @@
   "@type":"Organization",
   "name":"CLAFT",
   "url":"http://localhost:4000/claft",
-  "logo":"http://localhost:4000/claft/assets/logo.png",
+  "logo":"http://localhost:4000/claft/assets/images/common/logo.png",
   "sameAs":[
     "https://www.instagram.com/keepon.labo",
     "https://note.com/yononaka_career",
@@ -72,7 +72,7 @@
 
     <!-- ★ 16:9 ロゴボタン（ホームリンク） -->
     <a class="logo-btn" href="/claft/" aria-label="CLAFT トップへ">
-      <img src="/claft/assets/logo.png" alt="CLAFT ロゴ">
+      <img src="/claft/assets/images/common/logo.png" alt="CLAFT ロゴ">
     </a>
 
     <nav class="g-nav" aria-label="グローバル">
@@ -139,7 +139,7 @@
   <div class="side-menu" id="sideMenu">
     <div class="side-menu-header">
       <a class="logo-btn" href="/claft/" aria-label="CLAFT トップへ">
-        <img src="/claft/assets/logo.png" alt="CLAFT ロゴ">
+        <img src="/claft/assets/images/common/logo.png" alt="CLAFT ロゴ">
       </a>
     </div>
     <ul>
@@ -283,58 +283,31 @@
   }
 
   /* ========== 筆書きアニメーション ========== */
-  .handwriting-container {
-    position: relative;
-    margin-bottom: 1rem;
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
+  .handwriting-container { width: min(680px, 90vw); }
+  .handwriting-svg { width: 100%; height: auto; }
   
-  .handwriting-svg {
-    width: 100%;
-    max-width: 600px;
-    height: 100px;
-    display: block;
-    position: relative;
-    z-index: 1;
-  }
-  
+  /* お好みでフォントや色を調整 */
   .handwriting-text {
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-size: 48px;
+    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
     font-weight: 700;
-    fill: var(--brand, #34c6be);
-    filter: drop-shadow(0 4px 8px rgba(52, 198, 190, 0.3));
+    font-size: clamp(22px, 5vw, 40px);
+    letter-spacing: .06em;
+    fill: #2dd4bf; /* テキスト色（サイトのアクセントカラーに合わせて） */
   }
   
-  /* 文字を"なぞって"見せるための線（画面には見せない：mask用） */
-  #revealStroke {
-    fill: none;
-    stroke: #fff;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 50;
-    /* pathLength を 1 にしておくと長さに依らず 0→1 で統一管理できる */
+  /* ストロークを"描く"アニメ */
+  #revealStroke1, #revealStroke2 {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: drawText 3s ease forwards;
+    animation: draw 1.6s ease forwards;
   }
+  #revealStroke2 { animation-delay: .9s; } /* 2 行目は少し後から */
   
-  /* モーションが苦手な人向けの配慮 */
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  
+  /* 動きを減らしたいユーザー配慮（任意） */
   @media (prefers-reduced-motion: reduce) {
-    #revealStroke {
-      animation: none;
-      stroke-dashoffset: 0;
-    }
-  }
-  
-  @keyframes drawText {
-    to {
-      stroke-dashoffset: 0;
-    }
+    #revealStroke1, #revealStroke2 { animation: none; stroke-dashoffset: 0; }
   }
   
   
@@ -391,22 +364,27 @@
       <div class="hero-text">
         <!-- 筆書きアニメーション -->
         <div class="handwriting-container">
-          <svg class="handwriting-svg" viewBox="0 0 600 100" xmlns="http://www.w3.org/2000/svg">
+          <svg class="handwriting-svg" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <!-- 線を"見せる"のではなく、文字を見せるためのマスクに使う -->
+              <!-- 黒で隠し、白ストロークが通った所だけ見せる -->
               <mask id="handwritingMask" maskUnits="userSpaceOnUse">
                 <rect width="100%" height="100%" fill="#000"/>
-                <!-- この曲線が通ったところだけ文字が見える -->
-                <!-- pathLength=1 にしてあるので CSS は 0→1 で管理可能 -->
-                <path id="revealStroke" pathLength="1"
-                      d="M0 50 L600 50" />
+                <!-- 1 行目を左→右へ -->
+                <path id="revealStroke1" pathLength="1"
+                      d="M-40 44 L640 44"
+                      stroke="#fff" stroke-width="28" stroke-linecap="round" fill="none"/>
+                <!-- 2 行目を少し遅らせて左→右へ -->
+                <path id="revealStroke2" pathLength="1"
+                      d="M-40 92 L640 92"
+                      stroke="#fff" stroke-width="28" stroke-linecap="round" fill="none"/>
               </mask>
             </defs>
 
-            <!-- 文字そのもの。線は見えず、線の通過に合わせて"出現" -->
-            <text x="300" y="65" text-anchor="middle"
-                  class="handwriting-text"
-                  mask="url(#handwritingMask)">自分のキャリア<br>"自分で"つくろ！</text>
+            <!-- 文字そのもの。mask で"なぞった部分だけ"出る -->
+            <text x="300" y="50" text-anchor="middle" class="handwriting-text" mask="url(#handwritingMask)">
+              <tspan x="300" dy="-2">自分のキャリア</tspan>
+              <tspan x="300" dy="40">"自分で"つくろ！</tspan>
+            </text>
           </svg>
         </div>
       </div>
@@ -461,7 +439,7 @@
       置かれた環境も、追い求めるものも違います。</p>
     <p>だからこそ、苦手を均して平均点を上げるより、<br>
       好きや得意を"武器"にするための学びが必要ではないでしょうか。</p>
-    <p>あなたはCLAFTでどんな未来を創造しますか？</p>
+    <p><strong>あなたはCLAFTでどんな未来を創造しますか？</strong></p>
 
   </section>
 
@@ -536,7 +514,7 @@
   <footer class="c-footer">
   <div class="container footer-grid">
     <div class="brand">
-      <img src="/claft/assets/logo.png" alt="CLAFT ロゴ" />
+      <img src="/claft/assets/images/common/logo.png" alt="CLAFT ロゴ" />
     </div>
     <nav class="f-links" aria-label="フッター">
       
