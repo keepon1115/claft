@@ -1,15 +1,11 @@
 ---
 layout: page
-title: 学校と社会をつなぐ（統合先へ移動）
-sitemap: false
+title: 学校と社会をつなぐ × CLAFTとは？
+description: "学校と社会のギャップを可視化し、CLAFTの学びの考え方を紹介する統合ページ。"
 ---
-<meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=/claft/about#connect">
-<link rel="canonical" href="/claft/about#connect">
-<p>このページは移動しました。自動的に <a href="/claft/about#connect">/about#connect</a> へ遷移します。</p>
 
 <style>
-/* ===== School & Society page scoped styles ===== */
+/* ===== Scoped styles from School & Society ===== */
 .schoolsociety{
   --brand:#34c6be; --pink:#ef4444; --cream:#ffd66b; --green:#58c3a2;
   --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280;
@@ -22,47 +18,25 @@ sitemap: false
 .schoolsociety a{color:var(--brand);text-decoration:none}
 .schoolsociety img{max-width:100%;display:block}
 .schoolsociety .container{width:min(480px,92%);margin-inline:auto}
-
-/* 16:9 汎用プレゼン画像（横長） */
-.schoolsociety .ph{
-  width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:28px;
-  box-shadow:var(--shadow); margin:18px 0 24px; display:block;
-}
-
-/* ダーク背景帯 */
-.schoolsociety .dark-wrap{
-  background:
-    radial-gradient(1200px 600px at 50% -160px, rgba(52,198,190,.10), transparent 60%),
-    var(--dark-bg);
-  color:var(--dark-ink);
-}
+.schoolsociety .ph{width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:28px; box-shadow:var(--shadow); margin:18px 0 24px; display:block}
+.schoolsociety .dark-wrap{background:radial-gradient(1200px 600px at 50% -160px, rgba(52,198,190,.10), transparent 60%), var(--dark-bg);color:var(--dark-ink)}
 .schoolsociety .dark{padding:54px 0}
 .schoolsociety .dark p{color:var(--dark-ink)}
 .schoolsociety .dark .sub{color:var(--dark-ink-sub)}
 .schoolsociety .lead{font-size:clamp(15px,1.5vw,18px);color:var(--dark-ink-sub);margin:12px 0 0}
-
-/* 見出し・ヒーロー */
 .schoolsociety .hero{padding:56px 0 22px}
 .schoolsociety h1{font-size:clamp(28px,3.2vw,42px);line-height:1.25;margin:.35em 0 .1em;color:#fff}
-
-/* Duo Quote */
 .schoolsociety .duo-quote{position:relative;display:grid;grid-template-columns:1fr;gap:16px;align-items:start;margin:14px 0 8px}
 .schoolsociety .q-deco{position:absolute;pointer-events:none;font-family:Georgia,"Times New Roman",serif;font-weight:700;line-height:1;opacity:.10;color:#fff}
 .schoolsociety .q-deco.q-left{font-size:100px;left:-4px;top:-6px;transform:rotate(-8deg)}
 .schoolsociety .q-deco.q-right{font-size:100px;right:-4px;bottom:-12px;transform:rotate(8deg)}
 .schoolsociety blockquote{margin:0}
-.schoolsociety .quote-card{
-  background:#ffffff;color:#111;border-radius:18px;padding:18px 20px;
-  border:1px solid rgba(52,198,190,.35); box-shadow:0 8px 24px rgba(0,0,0,.18);
-  will-change:transform,opacity; animation: ss-floaty 6s ease-in-out infinite;
-}
+.schoolsociety .quote-card{background:#ffffff;color:#111;border-radius:18px;padding:18px 20px;border:1px solid rgba(52,198,190,.35); box-shadow:0 8px 24px rgba(0,0,0,.18);will-change:transform,opacity; animation: ss-floaty 6s ease-in-out infinite}
 .schoolsociety .quote-card p{margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.85;color:var(--pink)}
 .schoolsociety .quote-card.left{opacity:0;transform:translateX(-28px) translateY(8px) scale(.98) rotate(-1.2deg);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,0,1), box-shadow .8s ease}
 .schoolsociety .quote-card.right{opacity:0;transform:translateX(28px) translateY(8px) scale(.98) rotate(1.2deg);transition:opacity .8s ease .14s, transform .8s cubic-bezier(.2,.7,0,1) .14s, box-shadow .8s ease .14s}
 .schoolsociety .duo-quote.in .quote-card{opacity:1;transform:none;box-shadow:0 14px 36px rgba(0,0,0,.28)}
 @keyframes ss-floaty{0%{transform:translateY(0)}50%{transform:translateY(-3px)}100%{transform:translateY(0)}}
-
-/* 数字カード */
 .schoolsociety .stats{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
 .schoolsociety .stat-card{background:#f7f8fb;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.12);color:#111}
 .schoolsociety .stat-top{display:flex;align-items:flex-end;justify-content:center;gap:8px}
@@ -71,26 +45,10 @@ sitemap: false
 .schoolsociety .stat-lead{font-weight:700;text-align:center;margin:8px 0 0;color:#111}
 .schoolsociety .stat-card .stat-note{margin:6px 0 0;text-align:center;color:#6b7280 !important;font-size:14px}
 .schoolsociety .stat-card .source{margin:6px 0 0;text-align:center;color:#94a3b8 !important;font-size:12px}
-
-/* 強調見出し */
-.schoolsociety .headline-accent{
-  position:relative; display:inline-block; color:#fff;
-  font-size:clamp(20px,2.4vw,28px); font-weight:800; letter-spacing:.02em;
-  padding:10px 14px; border-radius:14px;
-  background:linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
-  opacity:0; transform:translateY(8px); transition:all .6s cubic-bezier(.2,.7,0,1);
-}
-.schoolsociety .headline-accent .spark{
-  position:absolute; left:10px; right:10px; bottom:6px; height:4px; border-radius:4px;
-  background:linear-gradient(90deg, var(--pink), var(--cream), var(--brand));
-  transform:scaleX(0); transform-origin:left; transition:transform .9s cubic-bezier(.2,.7,0,1) .15s;
-}
+.schoolsociety .headline-accent{position:relative; display:inline-block; color:#fff; font-size:clamp(20px,2.4vw,28px); font-weight:800; letter-spacing:.02em; padding:10px 14px; border-radius:14px; background:linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.14); box-shadow:0 10px 30px rgba(0,0,0,.25); opacity:0; transform:translateY(8px); transition:all .6s cubic-bezier(.2,.7,0,1)}
+.schoolsociety .headline-accent .spark{position:absolute; left:10px; right:10px; bottom:6px; height:4px; border-radius:4px; background:linear-gradient(90deg, var(--pink), var(--cream), var(--brand)); transform:scaleX(0); transform-origin:left; transition:transform .9s cubic-bezier(.2,.7,0,1) .15s}
 .schoolsociety .headline-accent.in{opacity:1; transform:none}
 .schoolsociety .headline-accent.in .spark{transform:scaleX(1)}
-
-/* 比較パネル */
 .schoolsociety .compare{display:grid;grid-template-columns:1fr;gap:10px;margin-top:26px;align-items:stretch}
 .schoolsociety .panel{border-radius:18px;padding:18px;border:1px solid rgba(0,0,0,.06);box-shadow:0 10px 30px rgba(0,0,0,.12)}
 .schoolsociety .panel.school{background:#fdeaea}
@@ -98,54 +56,37 @@ sitemap: false
 .schoolsociety .panel h3{margin:0 0 8px;font-size:20px;color:#222;text-align:center;display:flex;justify-content:center;align-items:center;gap:8px}
 .schoolsociety .panel p{margin:0;color:#222;text-align:center}
 .schoolsociety .panel .label{margin-top:12px;font-weight:900;color:#ef4444;text-align:center;font-size:18px;display:flex;justify-content:center;align-items:center;gap:6px}
-
-/* ライトセクション */
 .schoolsociety .light{padding:54px 0;background:#fff;color:var(--ink-900)}
 .schoolsociety .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:var(--shadow);padding:16px}
-
-/* Free-design セクション（aboutと同仕様） */
-.schoolsociety .free{
-  position:relative;isolation:isolate;
-  background:
-    radial-gradient(600px 200px at 20% -40px, rgba(52,198,190,.18), transparent 60%),
-    radial-gradient(400px 150px at 95% 20%, rgba(255,214,107,.25), transparent 70%),
-    #ffffff;
-  border:1px solid rgba(0,0,0,.06);border-radius:28px;box-shadow:var(--shadow);
-  padding:var(--s7);overflow:hidden;
-}
-.schoolsociety .free::before,.schoolsociety .free::after{content:"";position:absolute;border-radius:999px;filter:blur(40px);opacity:.25;z-index:-1}
-.schoolsociety .free::before{width:220px;height:220px;background:#bff3ef;left:-60px;top:-60px}
-.schoolsociety .free::after{width:260px;height:260px;background:#ffe9b0;right:-80px;bottom:-80px}
-.schoolsociety .free h2{margin:0 0 var(--s4)}
-.schoolsociety .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--s5)}
-.schoolsociety .tag{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;font-weight:700;border:1px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 10px 24px rgba(31,41,55,.06)}
-.schoolsociety .tag .dot{width:10px;height:10px;border-radius:50%}
-.schoolsociety .tag.learn .dot{background:#34c6be !important}
-.schoolsociety .tag.cross .dot{background:#58c3a2 !important}
-.schoolsociety .tag.learner .dot{background:#ef4444 !important}
-.schoolsociety .free-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6);align-items:center}
-.schoolsociety .stack > * + *{margin-top:var(--s4)}
-.schoolsociety .big-copy{
-  font-size:clamp(18px,1.8vw,22px);
-  line-height:1.9;
-  margin: var(--s7) 0 0;
-  border-left:6px solid var(--brand);
-  padding-left:16px;
-  background:linear-gradient(90deg, rgba(52,198,190,.10), transparent);
-}
-
-/* Reveal utility（スコープ済み） */
 .schoolsociety .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease, transform .6s ease}
 .schoolsociety .reveal.in{opacity:1;transform:none}
 
+/* ===== Scoped styles from About (for cards block only) ===== */
+.about{
+  --brand:#34c6be; --pink:#f06a6a; --cream:#ffd66b; --green:#58c3a2;
+  --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280;
+  --shadow:0 10px 30px rgba(31,41,55,.08);
+  --radius:20px; --radius-lg:28px;
+  --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px; --s6:32px; --s7:40px; --s8:56px; --s9:72px;
+  color:var(--ink-900); font-family:"Zen Maru Gothic","Noto Sans JP",system-ui; line-height:1.9; letter-spacing:.02em;
+}
+.about img{max-width:100%;display:block}
+.about a{color:var(--brand);text-decoration:none}
+.about .container{width:min(480px,92%);margin-inline:auto}
+.about .stack > * + *{margin-top:var(--s4)}
+.about .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:var(--s5)}
+.about .card h2{margin:0 0 var(--s3)}
+.about .ph{aspect-ratio:16/9;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(255,214,107,.18),rgba(52,198,190,.12));box-shadow:var(--shadow);display:grid;place-items:center;margin:var(--s4) 0 var(--s5)}
+
+/* Scroll offset helper */
+.scroll-mt{scroll-margin-top:80px}
 </style>
 
 <div class="schoolsociety">
   <div class="dark-wrap">
-    <section class="hero container dark">
+    <section class="hero container dark scroll-mt" id="connect">
       <h1>学校と社会をつなぐ</h1>
 
-      <!-- 左右から浮いてくるセリフ -->
       <div class="duo-quote" aria-label="寄せられる声">
         <div class="q-deco q-left" aria-hidden="true">“</div>
         <div class="q-deco q-right" aria-hidden="true">”</div>
@@ -160,7 +101,6 @@ sitemap: false
 
       <p class="strong">そんな声が、今の日本社会にはあふれています。</p>
 
-      <!-- 数字インパクト -->
       <div class="stats">
         <article class="stat-card reveal">
           <div class="stat-top"><div><span class="num" data-target="67.3" data-decimals="1">0</span><span class="unit">%</span></div></div>
@@ -185,30 +125,22 @@ sitemap: false
       <p class="lead" style="margin-top:18px"><strong>原因は、決して本人の努力不足ではありません。</strong></p>
       <p class="lead">むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。<br>その理由は、とてもシンプル。<br></p>
 
-      <!-- 強調見出し -->
       <h2 class="headline-accent reveal" style="margin-top:10px">
         「社会の変化に、学びが追いついていない」
         <span class="spark" aria-hidden="true"></span>
       </h2>
       <p>技術の進歩、価値観の多様化に伴い社会課題が顕在化している時代。<br>「正解を早く答える」勉強だけでは、生き抜く力にはなりません。</p>
 
-      <img
-        src="{{ '/assets/school_society/learn.jpg' | relative_url }}"
-        alt="学びのイメージ"
-        class="ph" loading="lazy" decoding="async">
+      <img src="{{ '/assets/school_society/learn.jpg' | relative_url }}" alt="学びのイメージ" class="ph" loading="lazy" decoding="async">
 
       <p>特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。</p>
 
-      <img
-        src="{{ '/assets/school_society/learn_forecast.jpg' | relative_url }}"
-        alt="社会を知り未来を予測する学びのイメージ"
-        class="ph" loading="lazy" decoding="async">
+      <img src="{{ '/assets/school_society/learn_forecast.jpg' | relative_url }}" alt="社会を知り未来を予測する学びのイメージ" class="ph" loading="lazy" decoding="async">
 
       <p>それにもかかわらず、日本の教育は依然として「教科書に書かれた知識を覚え、テストで正しく答える力」を重視しています。</p>
       <p>先生が知識を教え、生徒がそれを記憶し、偏差値で進路が決まる──</p>
       <p>この構造のままでは、教育と社会との間に大きなギャップが生じ、多くの若者がつまずいてしまいます。</p>
 
-      <!-- 社会課題：数字カード -->
       <div class="stats" style="margin-top:18px">
         <article class="stat-card reveal">
           <div class="stat-top"><div><span class="num" data-target="45.8" data-decimals="1">0</span><span class="unit">%</span></div></div>
@@ -237,7 +169,6 @@ sitemap: false
         <span class="spark" aria-hidden="true"></span>
       </h2>
       <p>変えていく必要があると考えています。</p>
-
     </section>
   </div>
 
@@ -247,96 +178,104 @@ sitemap: false
       <h2>人生100年時代、自分を語れる人へ</h2>
       <p>社会が大きく変化するなかで、大学入試の形式にも変化が現れています。<br>一般選抜、いわゆるテスト入試は50%を下回り、総合型選抜（志望理由書・小論文・面接）による選抜の比率が増えています。<br>これからは、さらに多様な選抜方法が広がっていくでしょう。</p>
 
-      <img
-        src="{{ '/assets/school_society/practice_dialogue.jpg' | relative_url }}"
-        alt="実践と対話のイメージ"
-        class="ph" loading="lazy" decoding="async">
+      <img src="{{ '/assets/school_society/practice_dialogue.jpg' | relative_url }}" alt="実践と対話のイメージ" class="ph" loading="lazy" decoding="async">
 
       <p>また、テクノロジーの進化と長寿化により、私たちは「人生100年時代」を迎えています。<br>従来の「学ぶ→働く→引退する」という一方通行の人生モデルは崩れ、「学び→仕事」を何度も繰り返しながらキャリアを築いていく時代へと移り変わっています。</p>
 
-      <img
-        src="{{ '/assets/school_society/life100_cycle.jpg' | relative_url }}"
-        alt="人生100年時代における学習と仕事の循環"
-        class="ph" loading="lazy" decoding="async">
+      <img src="{{ '/assets/school_society/life100_cycle.jpg' | relative_url }}" alt="人生100年時代における学習と仕事の循環" class="ph" loading="lazy" decoding="async">
 
       <p>単に引退や生活のために学び続けるだけでは、心身のバランスを保つことは難しくなります。<br>これからは、持続可能な「働き方」と「学び方」を見つけることが重要です。</p>
       <p>さらに、仕事のあり方そのものも変わりつつあります。<br>既存の職業をそのままなぞるのではなく、複数の仕事やスキルを組み合わせ、新しい価値を生み出す力が求められています。</p>
       <p>だからこそ、必要なのは<br>「知識を得る人」から「知識を社会で活かす学習者」へと変わること。<br>知識を「使う」ことで、人とつながり、課題を解決し、未来を共に創る、<br>その姿勢こそが、これからの時代を生き抜く力になるのです。</p>
     </div>
   </section>
+</div>
 
-  <!-- 自由デザイン最終セクション -->
-  <section class="section container">
-    <div class="free">
-      <h2>「使える学び」で武器に変える</h2>
-      <div class="tags" aria-hidden="true">
-        <span class="tag learn"><span class="dot"></span>学習力</span>
-        <span class="tag cross"><span class="dot"></span>横断的な学び</span>
-        <span class="tag learner"><span class="dot"></span>実践</span>
+<!-- ===== CLAFTとは？（本文ブロック移設） ===== -->
+<div class="about" style="background:#fefcf5;">
+  <section class="section container scroll-mt">
+    <h2 id="claft">CLAFTとは？</h2>
+    <div class="stack">
+      <div class="card">
+        <h2>なぜLなのか？</h2>
+        <img src="{{ '/assets/about/logo.jpg' | relative_url }}" alt="..." class="ph">
+        <p>RではなくLなのは、失敗したことをRegret（後悔）するのではなく、Learning（学び）として捉え、何度もチャレンジを繰り返す世の中になればという想いからです。</p>
+        <p>テクノロジーの進歩と長寿化で「人生100年時代」といわれる今、従来の「学習 → 仕事 → 引退」という一本道ではなく、「学習 ↔ 仕事」を往復しながらキャリアを重ねていく時代です。</p>
+        <p>その循環を前向きに回すには、<strong>学ぶこと・働くことを楽しむ心（好奇心）</strong>が要。子どものうちから「学びたい！」「働きたい！」と思える芽を育むことが大切だと思っています。</p>
       </div>
 
-      <div class="free-grid">
-        <div class="stack">
-          <ul>
-            <li>学力より<strong>学習力</strong>を。</li>
-            <li>専門だけでなく、<br><strong>好奇心から広がる横断的な学び</strong>を。</li>
-            <li>知識の獲得を目指す生徒から、<br><strong>知識を実社会で活用できる「学習者」</strong>へ。</li>
-          </ul>
-          <p class="big-copy">
-            正解が一つではない今の社会で、<br>
-            自分を知り、社会を知り、異年齢の仲間と協働し、<strong>社会に出る前に実践できる場</strong>。<br>
-            ——そんな実践力を磨くスクールです！
-          </p>
-        </div>
+      <div class="card">
+        <h2>好奇心のままに学ぶにはどうするか？</h2>
+        <img src="{{ '/assets/about/creative.jpg' | relative_url }}" alt="..." class="ph">
+        <p>ずばり <strong>「創ること」だと思います</strong>。</p>
+        <p>形がある/ないは関係なく、創る（＝アイデアを具体化していく）過程で、構造を理解し、試行錯誤し、手応えを得る。</p>
+        <p>ここで生まれる達成感は、何ものにも代えがたい貴重な経験です。</p>
+        <p>それを好き・得意から始め、そこで得た経験を<strong>自分の武器</strong>に変えていくカリキュラムです。</p>
+        <ul>
+          <li><strong>キャリアコース（中高生向け）</strong><br>自分の「好き」や「気になる」から自由に創って発表します。<br>▶ <a href="{{ '/career.html' | relative_url }}">キャリアコースを詳しく見る</a></li>
+          <li><strong>マイクラSDGsコース（小学生向け）</strong><br>マイクラでSDGsをテーマに、自分の世界観を表現します。<br>▶ <a href="{{ '/minecraft.html' | relative_url }}">マイクラSDGsコースを詳しく見る</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>つくるだけでなく、つたえる</h2>
+        <img src="{{ '/assets/about/communication.jpg' | relative_url }}" alt="..." class="ph">
+        <p><strong>つくる → つたえる → つたわる</strong></p>
+        <p>この一連のプロセスそのものが学びです。作品や企画を言葉にして相手に届け、相手の反応で改良していきます。この往復ができれば、<strong>就職・進学・起業</strong>の場面でも自信をもって臨めます。</p>
+        <p>就職活動では、2025年卒の学生が課題に感じるのは「面接対策」（31.0%）、「自分に合った企業の見つけ方」（24.1%）というデータもあります（出典：PR TIMES）。</p>
+      </div>
+
+      <div class="card">
+        <h2>クリエイティブ＆コミュニケーション（CL）</h2>
+        <img src="{{ '/assets/about/future.jpg' | relative_url }}" alt="..." class="ph">
+        <p>つくったものを発表する（＝コミュニケーション）のなかで、また新たな自分の興味を見つける。</p>
+        <p>それを深く探究（＝クリエイティブ）し、またその成果を人前で発表する。</p>
+        <p>発表や共有を通じて仲間とつながり、また新たな挑戦へ——。</p>
+        <p>このサイクルをぐるぐる回すことで、「学びたい！」「働きたい！」という循環が自然と生まれます。</p>
+      </div>
+
+      <div class="card">
+        <h2>CLAFTによってどうなるか？（AFT）</h2>
+        <img src="{{ '/assets/about/active.jpg' | relative_url }}" alt="..." class="ph">
+        <p><strong>主体的な行動力の向上</strong></p>
+        <p>CLAFTでは、自分で問いを立て、考え、行動するプロセスを重視します。この経験は、指示待ちではなく「自ら動く力」を育てます。</p>
+        <p>自分の興味や得意を探究するので、新しいことにも挑戦できる。たとえ失敗しても、そこから学びを得る。アクションを起こすことで得られる学びを実感し、行動を起点とした成長サイクルが身につきます。</p>
+
+        <img src="{{ '/assets/about/flexible.jpg' | relative_url }}" alt="..." class="ph">
+        <p><strong>柔軟な適応力の向上</strong></p>
+        <p>社会や仕事の環境は日々変化しています。CLAFTでは、固定観念にとらわれず柔軟に対応できる思考と行動を育てます。</p>
+        <p>他者との意見交換を通じて、異なる価値観や考え方を理解し、より柔軟な発想ができるようになります。そうすると、予期せぬ変化に対しても、チャンスとして捉え楽しむことができます。</p>
+        <p><strong>そして、CLAFTで得られるアクティブさとフレキシブルさは、単なる行動力や適応力にとどまらず、現代社会で必要不可欠な「情報編集力」を育みます。</strong></p>
+        <p>※情報編集力とは、膨大な情報の中から自分に必要なものを選び出し、それを自分らしい形で組み立て、伝えられる力です。</p>
+
+        <img src="{{ '/assets/about/try.jpg' | relative_url }}" alt="..." class="ph">
+        <p><strong>何度も試し続ける精神</strong></p>
+        <p>何かを試し、挑戦し続ける中で、学びの本質や仕事の魅力が自然と見えてくると思っています。トライすることで、新しい発見や成功体験が得られ、「学ばなきゃ」「仕事をしなきゃ」といった義務感から解放されます。その結果、自発的に「もっと学びたい」「次はこんなことをやってみたい」と思えるようになります。</p>
+        <p>挑戦する中で、これまで見えていなかった世界が広がります。たとえ好きなことややりたいことを続けられなくても、その周辺にある多様な可能性に気づき、自分ごととして捉えられるようになるでしょう。</p>
       </div>
     </div>
   </section>
 </div>
 
-<!-- ページ専用スクリプト（衝突しないようスコープ） -->
 <script>
-{
-  const root = document.currentScript.previousElementSibling; // .schoolsociety
+// Reveal on scroll (scoped)
+document.addEventListener('DOMContentLoaded', ()=>{
+  const rootSS = document.querySelector('.schoolsociety');
+  if(rootSS){
+    const io = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:.12});
+    rootSS.querySelectorAll('.reveal, .headline-accent').forEach(el=>io.observe(el));
 
-  // Reveal on scroll
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => {
-      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold:.12 });
-  root.querySelectorAll('.reveal, .headline-accent').forEach(el => io.observe(el));
-
-  // Duo Quote 入場
-  const duo = root.querySelector('.duo-quote');
-  if (duo){
-    const ioDuo = new IntersectionObserver(es=>{
-      es.forEach(e=>{ if(e.isIntersecting){ duo.classList.add('in'); ioDuo.unobserve(duo);} });
-    }, { threshold:.25 });
-    ioDuo.observe(duo);
+    const duo = rootSS.querySelector('.duo-quote');
+    if(duo){
+      const ioDuo = new IntersectionObserver(es=>{
+        es.forEach(e=>{ if(e.isIntersecting){ duo.classList.add('in'); ioDuo.unobserve(duo);} });
+      }, { threshold:.25 });
+      ioDuo.observe(duo);
+    }
   }
-
-  // 数字カウントアップ
-  const statObserver = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting) return;
-      const box = entry.target;
-      box.querySelectorAll('.num').forEach(el=>{
-        const target = parseFloat(el.dataset.target||'0');
-        const decimals = parseInt(el.dataset.decimals||'0',10);
-        const factor = Math.pow(10,decimals);
-        let cur = 0; const duration = 1100; const start = performance.now();
-        function tick(now){
-          const p = Math.min(1,(now-start)/duration);
-          const eased = 1-Math.pow(1-p,3);
-          cur = Math.round(target*factor*eased)/factor;
-          el.textContent = cur.toFixed(decimals);
-          if(p<1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      });
-      statObserver.unobserve(box);
-    });
-  }, { threshold:.35 });
-  root.querySelectorAll('.stat-card').forEach(card=>statObserver.observe(card));
-}
+});
 </script>
+
+

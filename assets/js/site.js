@@ -37,3 +37,29 @@ sideMenu?.querySelectorAll('.has-sub > a').forEach(a=>{
     // 2回目は通常のリンク遷移（メニューはページ遷移で閉じる）
   });
 });
+
+// ===== In-page active link highlight for /workshop anchors
+document.addEventListener('DOMContentLoaded', () => {
+  try{
+    const isWorkshop = location.pathname.endsWith('/workshop') || location.pathname.endsWith('/workshop.html');
+    if(!isWorkshop) return;
+    const sections = [
+      { id: 'trial', link: sideMenu?.querySelector('a[href$="#trial"]') },
+      { id: 'delivery', link: sideMenu?.querySelector('a[href$="#delivery"]') }
+    ].filter(s=>s.link && document.getElementById(s.id));
+    if(sections.length === 0) return;
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const found = sections.find(s => s.id === entry.target.id);
+        if(!found) return;
+        if(entry.isIntersecting){
+          sections.forEach(s => s.link.classList.remove('current'));
+          found.link.classList.add('current');
+        }
+      });
+    }, { root: null, threshold: 0.55, rootMargin: '-20% 0px -40% 0px' });
+
+    sections.forEach(s => io.observe(document.getElementById(s.id)));
+  }catch(_e){ /* no-op */ }
+});

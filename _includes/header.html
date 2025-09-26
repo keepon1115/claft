@@ -13,8 +13,13 @@
       <ul>
         {% for item in site.data.nav.items %}
           {% assign has_children = item.children %}
-          <li class="{% if has_children %}has-sub{% endif %}">
-            <a href="{{ site.baseurl }}{{ item.url }}">{{ item.label }}</a>
+          {% assign variant = item.variant | default: 'default' %}
+          <li class="{% if has_children %}has-sub{% endif %} {% if item.always_open %}open{% endif %}">
+            {% if item.external %}
+              <a href="{{ item.url }}" target="_blank" rel="noopener" data-variant="{{ variant }}">{{ item.label }}</a>
+            {% else %}
+              <a href="{{ site.baseurl }}{{ item.url }}" data-variant="{{ variant }}">{{ item.label }}</a>
+            {% endif %}
             {% if has_children %}
               <ul class="sub">
                 {% for child in item.children %}

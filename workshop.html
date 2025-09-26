@@ -1,0 +1,160 @@
+---
+layout: page
+title: ワークショップ
+description: "体験ワークショップと出前授業のご案内。左サイドメニューから各セクションへ移動できます。"
+---
+
+<style>
+/* ===== Workshop page scoped styles ===== */
+.workshop{
+  --brand:#34c6be; --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280;
+  font-family:"Zen Maru Gothic","Noto Sans JP",system-ui; color:var(--ink-900);
+}
+.workshop .container{width:min(980px,92%);margin-inline:auto}
+.workshop .layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+.workshop aside{display:none}
+.workshop .sidenav{list-style:none;margin:0;padding:10px}
+.workshop .sidenav a{display:block;padding:12px 14px;border-radius:12px;font-weight:700;color:var(--ink-700)}
+.workshop .sidenav a:hover{background:rgba(52,198,190,.12);color:#0f172a}
+.workshop .content{display:grid;gap:28px}
+.workshop h2{font-size:clamp(22px,2.4vw,28px);margin:0 0 6px}
+.workshop p.sub{color:var(--ink-500);margin:0 0 16px}
+.workshop .cards{display:grid;grid-template-columns:1fr;gap:16px}
+.workshop .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:0 10px 24px rgba(31,41,55,.06);padding:16px}
+.workshop .card h3{margin:.1em 0 .3em;font-size:20px}
+.workshop .item-meta{color:var(--ink-700);margin:.2em 0 .6em}
+.workshop .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.workshop .aspect-16-9{aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(31,41,55,.06);background:#eef1f4}
+.workshop .aspect-16-9 img{width:100%;height:100%;object-fit:cover;display:block}
+.workshop .pb-24{padding-bottom:24px}
+.workshop .mt-6{margin-top:24px}
+.workshop .mb-10{margin-bottom:40px}
+.emphasis-note{font-weight:700;padding:12px 16px;border-radius:12px;background:rgba(52,198,190,.12);margin:10px 0 16px}
+
+/* 実績セクション（カードで目立たせる） */
+.achievements{margin:26px 0}
+.achv-banner{background:#3b82f6;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:800;font-size:clamp(18px,2.4vw,24px);box-shadow:0 10px 24px rgba(31,41,55,.10)}
+.achv-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+.achv-card{background:#f6f7fb;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:18px 20px;box-shadow:0 12px 30px rgba(31,41,55,.08)}
+.achv-card h4{margin:.2em 0 .6em;font-size:18px}
+.achv-card ul{margin:0;padding-left:1.2em}
+@media(min-width: 920px){
+  .achv-grid{grid-template-columns:1fr 1fr}
+}
+
+/* 2カラム（md+） */
+@media(min-width: 920px){
+  .workshop .layout{grid-template-columns:1fr}
+  .workshop .cards{grid-template-columns:1fr 1fr}
+}
+
+/* スクロール補正 */
+.scroll-mt{scroll-margin-top:80px}
+
+/* ページ先頭のガイド（ローカルナビ）は全デバイスで非表示 */
+</style>
+
+<div class="workshop pb-24">
+  <section class="container layout">
+    <aside aria-label="ページ内メニュー">
+      <ul class="sidenav">
+        <li><a href="{{ '/workshop#trial' | relative_url }}">体験ワークショップ</a></li>
+        <li><a href="{{ '/workshop#delivery' | relative_url }}">出前授業</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <!-- セクション1：体験ワークショップ -->
+      <section id="trial" class="scroll-mt">
+        <h2>体験ワークショップ</h2>
+        <p class="sub">CLAFTでは、オンラインだけでなく対面でのワークショップも行っています。<br>
+          全国の子どもたちに「教科書や教室の中だけでは得られない自由な学び」を届け、体験を通じて好奇心をくすぐることを目的としています。</p>
+        <figure class="work-image-hero aspect-16-9 mt-6 mb-10">
+          <img src="{{ '/assets/workshop/kv.jpg' | relative_url }}" alt="体験ワークショップの様子" loading="lazy">
+        </figure>
+        <p>こどもゆめ基金をご存知でしょうか？<br>
+          「子どもゆめ基金」は、国と民間が協力して、未来を担う子どもたちの健全な育成を支援するために設けられた基金です。民間団体が実施する自然体験・科学実験・読書活動など、さまざまな取り組みを応援し、子どもたちの夢や社会性を育むことを目的としています。</p>
+
+        <div class="cards">
+          <article class="card">
+            <h3>こども舞台工房（演劇体験）</h3>
+            <figure class="work-image aspect-16-9 mb-10">
+              <img src="{{ '/assets/workshop/stage.jpg' | relative_url }}" alt="こども舞台工房のイメージ" loading="lazy">
+            </figure>
+            <p class="item-meta"><strong>キャッチコピー:</strong> 自分を表現するチカラをみがく演劇体験</p>
+            <ul>
+              <li>対象：小学4年生〜高校3年生</li>
+              <li>定員：10名（申込先着順）</li>
+              <li>参加費：無料（令和7年度 子どもゆめ基金 助成事業）</li>
+              <li>日程：2025年11月〜2026年3月（全6回）</li>
+              <li>場所：株式会社アーテック（八尾市北亀井町3-2-21）</li>
+            </ul>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="https://forms.gle/3nA5yWDz8LgSZY4L7" target="_blank" rel="noopener">申込詳細はこちら</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>未来を動かす！ロボットづくり（ロボプロ体験）</h3>
+            <figure class="work-image aspect-16-9 mb-10">
+              <img src="{{ '/assets/workshop/robo.jpg' | relative_url }}" alt="ロボプロ体験のイメージ" loading="lazy">
+            </figure>
+            <p class="item-meta"><strong>キャッチコピー:</strong> ロボットをつくって、動かす楽しさを体験</p>
+            <ul>
+              <li>対象：小学4年生〜中学3年生</li>
+              <li>定員：10名（申込先着順）</li>
+              <li>参加費：無料（令和7年度 子どもゆめ基金 助成事業）</li>
+              <li>日程：2025年10月〜2026年3月（全6回）</li>
+              <li>場所：キープオンラボ（アリオ近く）</li>
+            </ul>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="https://forms.gle/r2uNYt8E5Yrs5v3KA" target="_blank" rel="noopener">申込詳細はこちら</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- セクション2：出前授業 -->
+      <section id="delivery" class="scroll-mt">
+        <h2>出前授業</h2>
+        <p class="sub">ロボットプログラミング教室を10年間運営し、200名以上の受講生が学んできた「キープオン」が主催します。</p>
+        <div class="mt-6 mb-10">
+          <a class="btn btn-primary" href="https://www.keeponlearning.fun/company-group" target="_blank" rel="noopener">キープオンのページを見る</a>
+        </div>
+        <ul>
+          <li>ロボットを動かしながら学ぶ「ロボットプログラミング」</li>
+          <li>正解がひとつでない問いに取り組むアクティブラーニング「Yononaka」</li>
+          <li>ほか、工作・AI・ゲームプログラミングなど、子どもの好奇心をくすぐるプログラムを提供します。</li>
+        </ul>
+        <p class="emphasis-note">ワーク内容は依頼者に合わせてカスタマイズ可能です！</p>
+
+        <h3 style="margin-top:14px">実績（例示）</h3>
+        <section class="achievements">
+          <div class="achv-banner">多くの企業さんから実績をいただいております</div>
+          <div class="achv-grid">
+            <div class="achv-card">
+              <h4>— 単発・ワークショップとして —</h4>
+              <ul>
+                <li>地域コミュニティ（曙川）</li>
+                <li>スクール（わんだーらぼさん）</li>
+                <li>本屋（TSUTAYA リノアス八尾さん）</li>
+              </ul>
+            </div>
+            <div class="achv-card">
+              <h4>— 短期講座として・授業として（1〜3年）—</h4>
+              <ul>
+                <li>学童（明光キッズさん）</li>
+                <li>ショップ（ABCクラフトさん）</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cta-row" style="justify-content:center;margin-top:14px">
+            <a class="btn btn-ghost" href="https://www.keeponlearning.fun/company-group" target="_blank" rel="noopener">詳細はこちら</a>
+          </div>
+        </section>
+      </section>
+    </div>
+  </section>
+</div>
+
+

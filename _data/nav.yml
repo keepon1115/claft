@@ -1,18 +1,30 @@
 items:
   - label: "学校と社会をつなぐ"
-    url: "/school_society.html"
+    url: "/about#connect"
+    variant: cream
   - label: "CLAFTとは？"
-    url: "/about.html"
-  - label: "キャリアコース"
+    url: "/about#claft"
+    variant: cream
+  - label: "クエストPBLコース"
     url: "/career.html"
   - label: "マイクラコース"
     url: "/minecraft.html"
-  - label: "Yononakaコース"
+  - label: "Yononaka"
     url: "/yononaka.html"
   - label: "ミライクラフト"
     url: "/futurecraft.html"
+    always_open: true
     children:
       - label: "PLAY CLAFT"
         url: "/play-claft.html"
-  - label: "体験/問合せ"
+  - label: "ロボプロコース"
+    url: "https://www.keeponlearning.fun/online"
+    external: true
+  - label: "体験ワークショップ"
+    url: "/workshop#trial"
+    variant: pink
+  - label: "出前授業"
+    url: "/workshop#delivery"
+    variant: pink
+  - label: "無料体験/問合せ"
     url: "/contact.html"
