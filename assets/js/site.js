@@ -20,7 +20,19 @@ function closeMenu() {
 hamburgerBtn?.addEventListener('click', toggleMenu);
 menuOverlay?.addEventListener('click', closeMenu);
 // サブメニュー親（.has-sub > a）を除外し、実リンクのみで閉じる
-sideMenu?.querySelectorAll('li:not(.has-sub) > a, .sub a').forEach(link => link.addEventListener('click', closeMenu));
+// モバイルSafari等でのスムーススクロール×overflow切替の固着を避けるため、クローズは非同期に行う
+sideMenu?.querySelectorAll('li:not(.has-sub) > a, .sub a').forEach(link => {
+  link.addEventListener('click', () => {
+    try{
+      const target = new URL(link.href, location.href);
+      const currentNoHash = location.origin + location.pathname + location.search;
+      const targetNoHash = target.origin + target.pathname + target.search;
+      const isSameDocument = currentNoHash === targetNoHash;
+      // 同一ドキュメント内のアンカー移動は即時クローズ、別ページ遷移は少し遅らせる
+      setTimeout(closeMenu, isSameDocument ? 0 : 120);
+    }catch(_e){ setTimeout(closeMenu, 80); }
+  });
+});
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && sideMenu?.classList.contains('active')) closeMenu(); });
 
 // Side sub (tap to open)

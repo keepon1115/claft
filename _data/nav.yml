@@ -1,9 +1,9 @@
 items:
   - label: "学校と社会をつなぐ"
-    url: "/about#connect"
+    url: "/about/index.html#connect"
     variant: cream
   - label: "CLAFTとは？"
-    url: "/about#claft"
+    url: "/about/index.html#claft"
     variant: cream
   - label: "クエストPBLコース"
     url: "/career.html"
