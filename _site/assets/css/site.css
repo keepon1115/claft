@@ -5,6 +5,8 @@
   --bg:#fbfefe; --card:#fff; --shadow:0 10px 30px rgba(31,41,55,.08);
   --radius:20px; --radius-lg:28px;
   --menu-cream:#FFF8E6; --menu-pink:#FFE8EF;
+  /* about.html「CLAFTとは？」のトーンに合わせた淡いクリーム */
+  --rail-cream:#FFF6E9;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -98,6 +100,31 @@ ul{margin:0 0 1em 1.2em}
 /* ===== Floating LINE ===== */
 .fab{position:fixed;right:16px;bottom:16px;z-index:60}
 .fab a{display:inline-flex;align-items:center;gap:10px;background:#06c755;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:var(--shadow);font-weight:700}
+
+/* ===== Site 3-column Grid ===== */
+.site-grid{display:block}
+.site-left{display:none}
+.site-right{display:none}
+.site-main{min-width:0}
+
+/* 右カラムの縦アイコン（デスクトップ時） */
+.account-icons{display:flex;flex-direction:column;gap:14px;align-items:center}
+.account-icons a{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;border:1px solid rgba(0,0,0,.12);background:#fff;box-shadow:var(--shadow);outline:2px solid transparent;outline-offset:2px;transition:box-shadow .2s ease, transform .2s ease}
+.account-icons a:hover{transform:translateY(-1px);box-shadow:var(--shadow),0 0 0 3px rgba(52,198,190,.15)}
+.account-icons a:focus-visible{outline-color:rgba(52,198,190,.6)}
+.rail-sep{width:28px;height:1px;border:0;background:rgba(0,0,0,.12);margin:6px 0}
+.account-icons a:hover{transform:translateY(-1px)}
+
+/* 左カラムの縦メニュー */
+.l-nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.l-nav li{margin:0}
+.l-nav a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,.06);color:#1F365D;font-weight:700;box-shadow:var(--shadow);outline:2px solid transparent;outline-offset:2px;line-height:1.35;font-size:15px}
+.l-nav a::after{content:"›";font-size:18px;opacity:.6}
+.l-nav a:hover{background:#fff;border-color:rgba(0,0,0,.14);color:#0f172a}
+.l-nav a[aria-current="page"]{color:#0f172a;border-color:rgba(15,23,42,.24)}
+.l-nav a:focus-visible{outline-color:rgba(52,198,190,.6)}
+.l-nav .sub{padding-left:12px;display:flex;flex-direction:column;gap:6px}
+.l-nav .sub a{padding:10px 12px;border-radius:10px;box-shadow:none;border-color:rgba(0,0,0,.04)}
 
 /* ===== HERO ===== */
 .hero{padding:56px 0 42px}
@@ -211,4 +238,44 @@ summary{cursor:pointer;font-weight:700}
 .side-menu-header .logo-btn{
   box-shadow: none !important;
   background: transparent !important;
+}
+
+/* ===== Responsive: Desktop 3-column ===== */
+@media (min-width:1024px){
+  /* ハンバーガー/ヘッダー内ナビ調整 */
+  .g-nav{display:none}
+  .hamburger{display:none}
+
+  .site-grid{
+    display:grid;
+    grid-template-columns:240px 1fr 72px;
+    gap:18px;
+    width:min(1200px,96%);
+    margin-inline:auto;
+    padding-block:16px;
+  }
+  .site-left{display:block;position:sticky;top:16px;height:calc(100dvh - 32px);background:var(--rail-cream);padding:10px;border-radius:14px}
+  .site-left-scroll{height:100%;overflow:auto}
+  .site-right{display:block;position:sticky;top:16px;height:calc(100dvh - 32px);background:var(--rail-cream);border-radius:14px;display:flex;align-items:flex-start;justify-content:center;padding-top:12px;padding-inline:8px;width:72px}
+  .site-main{min-width:0}
+
+  /* フッターのSNSはデスクトップでは右カラムに集約するため非表示 */
+  .c-footer .sns{display:none}
+  /* モバイル向けの固定LINEボタンはデスクトップでは不要 */
+  .fab{display:none}
+
+  /* 左メニュー圧縮 */
+  .l-nav{padding:2px}
+  .l-nav ul{gap:6px}
+  .l-nav a{padding:8px 12px;font-size:14px;line-height:1.3;border-radius:10px}
+  .l-nav .sub a{padding:8px 10px;font-size:13px}
+
+  /* 右レールアイコンサイズ */
+  .account-icons a{width:44px;height:44px}
+}
+
+/* ===== Mobile: アカウントはフッター手前に横並び ===== */
+@media (max-width:1023.98px){
+  .account-icons{display:flex;flex-direction:row;justify-content:center;gap:14px;margin:24px auto}
+  .account-icons a{width:44px;height:44px}
 }

@@ -1,17 +1,20 @@
 <ul>
+  <li>
+    <a href="{{ site.baseurl }}/" {% if page.url == '/' or page.url == '/index.html' %}aria-current="page"{% endif %}>トップ</a>
+  </li>
   {% for item in site.data.nav.items %}
     {% assign has_children = item.children %}
     {% assign variant = item.variant | default: 'default' %}
     <li class="{% if has_children %}has-sub{% endif %} {% if item.always_open %}open{% endif %}">
       {% if item.external %}
-        <a href="{{ item.url }}" target="_blank" rel="noopener" data-variant="{{ variant }}">{{ item.label }}</a>
+        <a href="{{ item.url }}" target="_blank" rel="noopener" data-variant="{{ variant }}" {% if page.url == item.url %}aria-current="page"{% endif %}>{{ item.label }}</a>
       {% else %}
-        <a href="{{ site.baseurl }}{{ item.url }}" data-variant="{{ variant }}">{{ item.label }}</a>
+        <a href="{{ site.baseurl }}{{ item.url }}" data-variant="{{ variant }}" {% if page.url == item.url %}aria-current="page"{% endif %}>{{ item.label }}</a>
       {% endif %}
       {% if has_children %}
         <ul class="sub">
           {% for child in item.children %}
-            <li><a href="{{ site.baseurl }}{{ child.url }}">{{ child.label }}</a></li>
+            <li><a href="{{ site.baseurl }}{{ child.url }}" {% if page.url == child.url %}aria-current="page"{% endif %}>{{ child.label }}</a></li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -19,5 +22,5 @@
   {% endfor %}
 </ul>
 <div class="side-menu-cta">
-  <a class="btn btn-primary" href="{{ site.brand.student_portal }}" target="_blank" rel="noopener">スクール生用ページ</a>
+  <a class="btn btn-primary" href="{{ site.brand.student_portal }}" target="_blank" rel="noopener">スクール生用アプリ</a>
 </div>
