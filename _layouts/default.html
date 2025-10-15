@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+
+  {#-- OGP など必要なら _includes/meta.html へ --#}
+  {% if site.meta_include %}{% include meta.html %}{% endif %}
+
+  <!-- Favicon 等 -->
+  {% if site.favicon %}<link rel="icon" href="{{ site.favicon | relative_url }}">{% endif %}
+
+  <!-- フォント（必要なら） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- ★ CSS（クエリストリングでキャッシュ更新） -->
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+</head>
+<body class="{{ page.body_class }}">
+  {%- comment -%}
+    PC表示では team-mir.ai と同様に「ヘッダー/フッター非表示」にする場合は
+    CSS 側で .site-header/.site-footer を @media (min-width:1024px){ display:none; }
+    にしてコントロールします（モバイルのみ表示）。
+  {%- endcomment -%}
+
+  {% include header.html %}
+
+  <!-- ページ本体（下位レイアウトやページから差し込まれる） -->
+  {{ content }}
+
+  {% include footer.html %}
+
+  <!-- ★ JS -->
+  <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+</body>
+</html>

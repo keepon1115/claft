@@ -6,25 +6,25 @@ items:
     url: "/about/index.html#claft"
     variant: cream
   - label: "クエストPBLコース"
-    url: "/career.html"
+    url: "/career/"
   - label: "マイクラコース"
-    url: "/minecraft.html"
+    url: "/minecraft/"
   - label: "Yononaka"
-    url: "/yononaka.html"
+    url: "/yononaka/"
   - label: "ミライクラフト"
-    url: "/futurecraft.html"
+    url: "/futurecraft/"
     always_open: true
     children:
       - label: "PLAY CLAFT"
-        url: "/play-claft.html"
+        url: "/play-claft/"
   - label: "ロボプロコース"
     url: "https://www.keeponlearning.fun/online"
     external: true
   - label: "体験ワークショップ"
-    url: "/workshop#trial"
+    url: "/workshop/#trial"
     variant: pink
   - label: "出前授業"
-    url: "/workshop#delivery"
+    url: "/workshop/#delivery"
     variant: pink
   - label: "無料体験/問合せ"
-    url: "/contact.html"
+    url: "/contact/"

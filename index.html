@@ -10,6 +10,7 @@ title: トップ | CLAFT — 自分の手で創るキャリア
   .img-1x1{aspect-ratio:1/1;width:100%;height:auto;object-fit:cover;border-radius:28px;box-shadow:0 10px 30px rgba(31,41,55,.08);margin:24px 0}
   .img-16x9{aspect-ratio:16/9;width:100%;height:auto;object-fit:cover;border-radius:28px;box-shadow:0 10px 30px rgba(31,41,55,.08);margin:18px 0 24px}
 
+
   /* ========== HERO: シンプルな16:9画像表示 ========== */
   .hero .hero-visual{
     width: 100%;
@@ -86,10 +87,9 @@ title: トップ | CLAFT — 自分の手で創るキャリア
 
   /* ========== ヒーロータイトル（テキスト表示） ========== */
   .hero-title{margin:0 0 10px;font-family:"Zen Maru Gothic","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-weight:700;line-height:1.2;color:#2dd4bf;text-align:center}
-  .hero-title span{display:block}
-  /* スマホで2行がしっかり収まるサイズ感 */
-  .hero-title{font-size:clamp(22px,6.2vw,44px);letter-spacing:.04em}
-  @media(min-width:768px){.hero-title{font-size:clamp(28px,3.4vw,56px)}}
+  .hero-title span{display:inline}
+  /* 1行に収める前提でサイズ調整（PCでも拡大しすぎない） */
+  .hero-title{font-size:clamp(20px,3vw,28px);letter-spacing:.04em;white-space:nowrap;max-width:100%}
   
   
   /* 連続表示アニメーション */
@@ -107,20 +107,10 @@ title: トップ | CLAFT — 自分の手で創るキャリア
     align-items: start;
   }
   
-  /* レスポンシブ対応 */
-  @media (min-width: 768px) {
-    .hero .hero-grid {
-      grid-template-columns: 1fr 1fr !important;
-      align-items: center;
-    }
-    
-    .hero-visual {
-      order: 2;
-    }
-    
-    .hero-text {
-      order: 1;
-    }
+  /* ヒーローは常に縦並び（テキスト→画像） */
+  .hero .hero-grid{grid-template-columns:1fr !important}
+  @media (min-width:768px){
+    .hero .hero-grid{grid-template-columns:1fr !important;align-items:start}
   }
   
   @keyframes slideInUp {
@@ -138,7 +128,7 @@ title: トップ | CLAFT — 自分の手で創るキャリア
   }
 </style>
 
-<div id="top">
+<div id="top" class="home">
   <!-- HERO -->
   <section class="hero container has-bg" style="--hero-img:url('/claft/assets/hero.jpg')">
     <div class="hero-grid">

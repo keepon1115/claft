@@ -10,7 +10,7 @@ description: "体験ワークショップと出前授業のご案内。左サイ
   --brand:#34c6be; --ink-900:#1f2937; --ink-700:#374151; --ink-500:#6b7280;
   font-family:"Zen Maru Gothic","Noto Sans JP",system-ui; color:var(--ink-900);
 }
-.workshop .container{width:min(980px,92%);margin-inline:auto}
+.workshop .container{width:min(480px,92%);margin-inline:auto}
 .workshop .layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
 .workshop aside{display:none}
 .workshop .sidenav{list-style:none;margin:0;padding:10px}
@@ -39,13 +39,15 @@ description: "体験ワークショップと出前授業のご案内。左サイ
 .achv-card h4{margin:.2em 0 .6em;font-size:18px}
 .achv-card ul{margin:0;padding-left:1.2em}
 @media(min-width: 920px){
-  .achv-grid{grid-template-columns:1fr 1fr}
+  /* PCでも1カラム固定 */
+  .achv-grid{grid-template-columns:1fr}
 }
 
 /* 2カラム（md+） */
 @media(min-width: 920px){
   .workshop .layout{grid-template-columns:1fr}
-  .workshop .cards{grid-template-columns:1fr 1fr}
+  /* PCでもモバイルと同じく1カラム固定 */
+  .workshop .cards{grid-template-columns:1fr}
 }
 
 /* スクロール補正 */
