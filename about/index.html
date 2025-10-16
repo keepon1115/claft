@@ -274,6 +274,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
       }, { threshold:.25 });
       ioDuo.observe(duo);
     }
+
+    // 数字カウントアップ（stat-card が可視範囲に入ったら 0→指定値へ）
+    const statObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+        const box = entry.target;
+        box.querySelectorAll('.num').forEach(el => {
+          const target = parseFloat(el.dataset.target || '0');
+          const decimals = parseInt(el.dataset.decimals || '0', 10);
+          const factor = Math.pow(10, decimals);
+          let cur = 0; const duration = 1100; const start = performance.now();
+          function tick(now){
+            const p = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - p, 3);
+            cur = Math.round(target * factor * eased) / factor;
+            el.textContent = cur.toFixed(decimals);
+            if(p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+        statObserver.unobserve(box);
+      });
+    }, { threshold: .35 });
+    rootSS.querySelectorAll('.stat-card').forEach(card => statObserver.observe(card));
   }
 });
 </script>

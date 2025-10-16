@@ -133,7 +133,7 @@ ul{margin:0 0 1em 1.2em}
 .l-nav a[aria-current="page"]{color:var(--brand);border-color:rgba(255,255,255,1)}
 .l-nav a:focus-visible{outline-color:rgba(52,198,190,.6)}
 .l-nav .sub{padding-left:12px;display:flex;flex-direction:column;gap:6px}
-.l-nav .sub a{padding:10px 12px;border-radius:10px;box-shadow:none;border-color:rgba(0,0,0,.04)}
+.l-nav .sub a{padding:8px 12px;border-radius:10px;box-shadow:none;border-color:rgba(0,0,0,.04);color:#111;font-size:14px}
 
 /* ===== HERO ===== */
 .hero{padding:56px 0 42px}
@@ -266,7 +266,8 @@ input,select,textarea{width:100%;box-sizing:border-box;border:1px solid rgba(0,0
 
   .site-grid{
     display:grid;
-    grid-template-columns:300px 1fr 180px;
+    /* 左300 / 中央自動 / 右カラム 360px */
+    grid-template-columns:300px 1fr 360px;
     gap:18px;
     width:min(1200px,96%);
     margin-inline:auto;
@@ -274,7 +275,7 @@ input,select,textarea{width:100%;box-sizing:border-box;border:1px solid rgba(0,0
   }
   .site-left{display:block;position:sticky;top:16px;height:calc(100dvh - 32px);background:#fff;padding:10px;border-radius:14px}
   .site-left-scroll{height:100%;overflow:auto}
-  .site-right{display:block;position:sticky;top:16px;height:calc(100dvh - 32px);background:#fff;border-radius:14px;display:flex;align-items:flex-start;justify-content:center;padding-top:12px;padding-inline:8px;width:180px}
+  .site-right{display:block;position:sticky;top:16px;height:calc(100dvh - 32px);background:#fff;border-radius:14px;display:flex;align-items:flex-start;justify-content:center;padding-top:12px;padding-inline:12px;width:360px}
   .site-main{min-width:0}
 
   /* フッターのSNSはデスクトップでは右カラムに集約するため非表示 */
@@ -289,9 +290,9 @@ input,select,textarea{width:100%;box-sizing:border-box;border:1px solid rgba(0,0
   .l-nav .sub a{padding:10px 14px;font-size:16px}
 
   /* 右レールアイコンサイズ */
-  .account-icons a{width:100%;height:48px;display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:0 10px}
+  .account-icons a{width:100%;height:56px;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:0 12px;white-space:nowrap}
   .account-icons a::after{content:attr(aria-label);color:#273446;font-weight:700}
-  .account-icons .rail-logo{height:auto;display:block;padding:10px;margin-bottom:6px}
+  .account-icons .rail-logo{height:auto;display:block;padding:12px;margin-bottom:8px}
   .account-icons .rail-logo::after{content:""}
 }
 
