@@ -9,24 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: '#34c6be',
-        pink: '#f06a6a',
-        cream: '#ffd66b',
-        green: '#58c3a2',
+        brand: 'var(--brand)',
+        pink: 'var(--pink)',
+        cream: 'var(--cream)',
+        green: 'var(--green)',
         ink: {
-          900: '#1f2937',
-          800: '#273446',
-          700: '#374151',
-          600: '#4b5563',
-          500: '#6b7280'
+          900: 'var(--ink-900)',
+          800: 'var(--ink-800)',
+          700: 'var(--ink-700)',
+          600: 'var(--ink-600)',
+          500: 'var(--ink-500)'
         }
       },
       boxShadow: {
-        soft: '0 10px 30px rgba(31,41,55,.08)'
+        soft: 'var(--shadow)'
       },
       borderRadius: {
-        xl: '20px',
-        '2xl': '28px'
+        xl: 'var(--radius)',
+        '2xl': 'var(--radius-lg)'
       }
     }
   },
