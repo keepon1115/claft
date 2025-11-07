@@ -30,7 +30,13 @@ defaults:
 
 # ビルド除外
 exclude:
+  - web
   - node_modules
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
   - README.md
   - Gemfile
   - Gemfile.lock
+  - vendor
