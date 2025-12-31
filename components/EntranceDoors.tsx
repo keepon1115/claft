@@ -81,7 +81,6 @@ export function EntranceDoors() {
           >
             <div
               style={{
-                background: '#fff',
                 borderRadius: '24px',
                 padding: 'clamp(36px, 6vw, 50px) clamp(28px, 5vw, 40px)',
                 minHeight: '400px',
@@ -223,7 +222,6 @@ export function EntranceDoors() {
           >
             <div
               style={{
-                background: '#fff',
                 borderRadius: '24px',
                 padding: 'clamp(36px, 6vw, 50px) clamp(28px, 5vw, 40px)',
                 minHeight: '400px',

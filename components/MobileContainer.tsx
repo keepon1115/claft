@@ -15,8 +15,8 @@ export const MobileContainer = ({ children, className = '' }: Props) => {
   );
 };
 
-export const Section = ({ children, id, className = '' }: { children: ReactNode; id?: string; className?: string }) => (
-  <section id={id} className={`py-8 ${className}`}>
+export const Section = ({ children, id, className = '', style }: { children: ReactNode; id?: string; className?: string; style?: React.CSSProperties }) => (
+  <section id={id} className={`py-8 ${className}`} style={style}>
     {children}
   </section>
 );
