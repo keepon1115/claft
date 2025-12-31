@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLAFTタイポグラフィシステム - デモ</title>
+  <link rel="stylesheet" href="./app/globals.css">
+  <style>
+    body {
+      font-family: "Zen Maru Gothic", "Noto Sans JP", system-ui, sans-serif;
+      background: var(--bg);
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .demo-section {
+      background: white;
+      padding: 40px;
+      margin-bottom: 30px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .demo-label {
+      display: inline-block;
+      background: var(--brand);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.08);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <header style="text-align: center; margin-bottom: 60px;">
+    <h1 class="heading-display" style="margin-bottom: 16px;">CLAFTタイポグラフィシステム</h1>
+    <p class="lead">理想的な文字バランスを実現するデザインシステム</p>
+  </header>
+
+  <!-- 見出しのデモ -->
+  <section class="demo-section">
+    <span class="demo-label">Headings</span>
+    <h1 class="heading-display">Display Heading（ヒーロー見出し）</h1>
+    <p class="caption">クラス: .heading-display | サイズ: clamp(36px, 6vw, 56px) | ウェイト: 900</p>
+    
+    <hr>
+    
+    <h2 class="heading-xl">Extra Large Heading（セクションタイトル大）</h2>
+    <p class="caption">クラス: .heading-xl | サイズ: clamp(32px, 5vw, 48px) | ウェイト: 900</p>
+    
+    <hr>
+    
+    <h2 class="heading-lg">Large Heading（セクションタイトル中）</h2>
+    <p class="caption">クラス: .heading-lg | サイズ: clamp(28px, 4vw, 38px) | ウェイト: 800</p>
+    
+    <hr>
+    
+    <h3 class="heading-md">Medium Heading（カードタイトル）</h3>
+    <p class="caption">クラス: .heading-md | サイズ: clamp(24px, 3.5vw, 32px) | ウェイト: 800</p>
+    <p class="body-base" style="margin-top: 12px;">
+      例: 「親子で参加」「大人として参加」のタイトル
+    </p>
+    
+    <hr>
+    
+    <h4 class="heading-sm">Small Heading（小見出し）</h4>
+    <p class="caption">クラス: .heading-sm | サイズ: clamp(20px, 2.8vw, 26px) | ウェイト: 700</p>
+  </section>
+
+  <!-- 本文のデモ -->
+  <section class="demo-section">
+    <span class="demo-label">Body Text</span>
+    
+    <p class="body-xl">
+      Extra Large Body - リード文や導入部分に最適です。行間がゆったりとしており、読みやすさを重視しています。
+      自分のキャリアを自律的に築きたい「子ども」と「大人」のための教育コミュニティです。
+    </p>
+    <p class="caption">クラス: .body-xl | サイズ: clamp(18px, 2.4vw, 22px) | 行間: 1.8</p>
+    
+    <hr>
+    
+    <p class="body-lg">
+      Large Body - やや大きめの本文です。強調したい段落や重要な情報に使用します。
+      お子さまの可能性を広げたい保護者の方へ。小学生・中学生・高校生が対象です。
+    </p>
+    <p class="caption">クラス: .body-lg | サイズ: clamp(16px, 2.2vw, 20px) | 行間: 1.8</p>
+    
+    <hr>
+    
+    <p class="body-base">
+      Base Body（推奨） - 通常の本文に使用します。行間が1.8で、窮屈感がなくゆったりと読むことができます。
+      CLAFTでは、完璧を目指す場所ではありません。試行錯誤しながら、自分だけの道を見つけていく——
+      そんな<span class="emphasis">「未完成の美しさ」</span>を大切にしています。
+    </p>
+    <p class="caption">クラス: .body-base | サイズ: clamp(15px, 2vw, 18px) | 行間: 1.8</p>
+    
+    <hr>
+    
+    <p class="body-sm">
+      Small Body - 小さめの本文です。注釈や補足説明に使用します。
+      詳細はお問い合わせください。
+    </p>
+    <p class="caption">クラス: .body-sm | サイズ: clamp(13px, 1.8vw, 16px) | 行間: 1.7</p>
+  </section>
+
+  <!-- サブタイトル・キャプションのデモ -->
+  <section class="demo-section">
+    <span class="demo-label">Subtitle & Caption</span>
+    
+    <p class="subtitle">Kids & Parents</p>
+    <p class="caption" style="margin-top: 8px;">
+      クラス: .subtitle | サイズ: clamp(13px, 1.8vw, 16px) | 字間: 0.05em (広め)
+    </p>
+    
+    <hr>
+    
+    <p class="lead">セクションの導入文やリード文に使用します</p>
+    <p class="caption" style="margin-top: 8px;">
+      クラス: .lead | サイズ: clamp(16px, 2.2vw, 20px) | 字間: 0.02em
+    </p>
+    
+    <hr>
+    
+    <p class="caption">※2024年度の実績です</p>
+    <p class="caption" style="margin-top: 8px;">
+      クラス: .caption | サイズ: clamp(12px, 1.6vw, 14px)
+    </p>
+  </section>
+
+  <!-- カードデザインのデモ -->
+  <section class="demo-section">
+    <span class="demo-label">Card Example（親子で参加）</span>
+    
+    <div class="demo-grid">
+      <!-- カード1 -->
+      <div style="
+        background: #fff;
+        border-radius: 24px;
+        padding: clamp(36px, 6vw, 50px) clamp(28px, 5vw, 40px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 20px 40px rgba(0, 0, 0, 0.06);
+        border: 3px solid transparent;
+        background: 
+          linear-gradient(#fff, #fff) padding-box,
+          linear-gradient(135deg, #ffd66b, #f06a6a) border-box;
+      ">
+        <!-- アイコン -->
+        <div style="font-size: clamp(50px, 10vw, 70px); margin-bottom: 24px;">
+          👨‍👩‍👧‍👦
+        </div>
+
+        <!-- タイトル -->
+        <h3 class="heading-md" style="margin-bottom: 16px;">親子で参加</h3>
+
+        <!-- サブタイトル -->
+        <p class="subtitle" style="margin-bottom: 20px;">Kids & Parents</p>
+
+        <!-- 説明文 -->
+        <p class="body-base" style="margin-bottom: 28px;">
+          お子さまの可能性を広げたい保護者の方へ。
+          <br />
+          <strong>小学生・中学生・高校生</strong>が対象です。
+        </p>
+
+        <!-- ボタン -->
+        <div style="
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 28px;
+          background: linear-gradient(135deg, var(--cream), var(--pink));
+          color: var(--ink-900);
+          border-radius: 16px;
+          font-weight: 800;
+          font-size: clamp(15px, 2vw, 18px);
+          border: 2px dashed rgba(0, 0, 0, 0.15);
+        ">
+          <span>このドアを開く</span>
+        </div>
+      </div>
+
+      <!-- カード2 -->
+      <div style="
+        background: #fff;
+        border-radius: 24px;
+        padding: clamp(36px, 6vw, 50px) clamp(28px, 5vw, 40px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 20px 40px rgba(0, 0, 0, 0.06);
+        border: 3px solid transparent;
+        background: 
+          linear-gradient(#fff, #fff) padding-box,
+          linear-gradient(135deg, #34c6be, #58c3a2) border-box;
+      ">
+        <!-- アイコン -->
+        <div style="font-size: clamp(50px, 10vw, 70px); margin-bottom: 24px;">
+          🧭
+        </div>
+
+        <!-- タイトル -->
+        <h3 class="heading-md" style="margin-bottom: 16px;">大人として参加</h3>
+
+        <!-- サブタイトル -->
+        <p class="subtitle" style="margin-bottom: 20px;">Adults & Seekers</p>
+
+        <!-- 説明文 -->
+        <p class="body-base" style="margin-bottom: 28px;">
+          自分のキャリアを自律的に築きたい方へ。
+          <br />
+          <strong>大学生・社会人</strong>が対象です。
+        </p>
+
+        <!-- ボタン -->
+        <div style="
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 28px;
+          background: linear-gradient(135deg, var(--brand), var(--green));
+          color: #fff;
+          border-radius: 16px;
+          font-weight: 800;
+          font-size: clamp(15px, 2vw, 18px);
+          border: 2px dashed rgba(255, 255, 255, 0.3);
+        ">
+          <span>このドアを開く</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSS変数の参照 -->
+  <section class="demo-section">
+    <span class="demo-label">CSS Variables Reference</span>
+    
+    <h3 class="heading-sm" style="margin-bottom: 20px;">使用可能なCSS変数</h3>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+      <div>
+        <h4 class="heading-xs">フォントサイズ</h4>
+        <ul style="list-style: none; padding: 0; font-size: 14px; color: var(--ink-600);">
+          <li>--text-xs</li>
+          <li>--text-sm</li>
+          <li>--text-base</li>
+          <li>--text-lg</li>
+          <li>--text-xl</li>
+          <li>--text-2xl</li>
+          <li>--text-3xl</li>
+          <li>--text-4xl</li>
+          <li>--text-5xl</li>
+          <li>--text-6xl</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="heading-xs">字間</h4>
+        <ul style="list-style: none; padding: 0; font-size: 14px; color: var(--ink-600);">
+          <li>--tracking-tighter</li>
+          <li>--tracking-tight</li>
+          <li>--tracking-normal</li>
+          <li>--tracking-wide</li>
+          <li>--tracking-wider</li>
+          <li>--tracking-widest</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="heading-xs">行間</h4>
+        <ul style="list-style: none; padding: 0; font-size: 14px; color: var(--ink-600);">
+          <li>--leading-none</li>
+          <li>--leading-tight</li>
+          <li>--leading-snug</li>
+          <li>--leading-normal</li>
+          <li>--leading-relaxed</li>
+          <li>--leading-loose</li>
+          <li>--leading-extra-loose</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="heading-xs">ウェイト</h4>
+        <ul style="list-style: none; padding: 0; font-size: 14px; color: var(--ink-600);">
+          <li>--font-normal (400)</li>
+          <li>--font-medium (500)</li>
+          <li>--font-semibold (600)</li>
+          <li>--font-bold (700)</li>
+          <li>--font-extrabold (800)</li>
+          <li>--font-black (900)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align: center; margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(0, 0, 0, 0.08);">
+    <p class="caption">CLAFT Typography System v1.0</p>
+    <p class="caption" style="margin-top: 8px;">詳細は TYPOGRAPHY_GUIDE.md を参照してください</p>
+  </footer>
+</body>
+</html>
+
