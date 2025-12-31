@@ -723,9 +723,9 @@ export function PlayClaftClient(){
               { title: '10/21～10/30：グループLINE開始（メンバー全員）', img: 'step3-1020-1031.jpg', desc: ['ミーティングで企画の大まかな内容が決定しました。', 'まだ決まっていない部分のアイデアをLINEのノート機能を使って募集。ここからは、スタッフもどんどんアイデア出し、全員で形にしていきます。', 'チーム分けも行い、カードゲーム・紙ひこうき・ロボットイベント・告知チームにわかれました。'], pdf: null, rotate: '2deg', tapeColor: 'var(--cream)', tapeRotate: '-6deg', offsetX: '-8px' },
               { title: '11/1～11/14：チーム活動開始', img: 'step3-1101-1114.jpg', desc: ['メンバーが教室に来る日はバラバラなので、集まった人同士でアイデアを出し合います。', 'その時間に思うことやアイデアを話して、次の人へつないでいく。11/7からは参加者の募集をはじまりました！'], pdf: null, rotate: '-1deg', tapeColor: 'var(--brand)', tapeRotate: '5deg', offsetX: '7px' },
               { title: '11/15～11/21：会場・アイテムの準備', img: 'step3-1115-1121.jpg', desc: ['カードゲームは、カードをデザインして制作し、大阪府の領地ごとの特徴と効果を決めました。', 'ロボットタウンは、展示するロボットとクイズ内容を制作し、体験ゲームの内容を考えました。', '紙ひこうき大会は、20種類以上の紙ひこうきを制作し、得点エリアとルールを決めました。'], pdf: null, rotate: '1.5deg', tapeColor: 'var(--pink)', tapeRotate: '-7deg', offsetX: '-9px' },
-              { title: '11/22：スクールフェスタ リハーサル', img: null, desc: [], pdf: null, rotate: '-2deg', tapeColor: 'var(--cream)', tapeRotate: '6deg', offsetX: '5px' },
-              { title: '11/29：スクールフェスタ 本番', img: null, desc: [], pdf: null, rotate: '1deg', tapeColor: 'var(--brand)', tapeRotate: '-5deg', offsetX: '-6px' },
-              { title: '12月初旬：振り返り', img: null, desc: [], pdf: null, rotate: '-1.5deg', tapeColor: 'var(--pink)', tapeRotate: '7deg', offsetX: '8px' }
+              { title: '11/22：スクールフェスタ リハーサル', img: 'step3-1122.jpg', desc: ['スクール生が主体となって、リハーサルと会場設営を行いました。', 'ミニゲームの難易度や紙ひこうきの得点設計など、「当日来てくれた誰もが笑顔になれること」を目指して、ひとつずつ丁寧に確認。', '準備の段階から真剣に取り組む子どもたちの姿そのものが、きっとこの先にも活きてくる大切な経験になると思います。'], pdf: null, buttons: null, rotate: '-2deg', tapeColor: 'var(--cream)', tapeRotate: '6deg', offsetX: '5px' },
+              { title: '11/29：スクールフェスタ 本番', img: 'step3-1129.jpg', desc: ['テーマは──『心に残る一瞬』― 子どもたちの "いま" が光るフェスタ ―', 'ロボットが動き、紙飛行機が舞い、カードゲームで湧きあがる・・・そんな一日になる！？', '今回のイベントは、ふとしたひらめき、「やってみたい！」から芽生えたもの。', 'それがまた、だれかの "ひらめき" へとつながっていく。そんな一日になりました！'], pdf: null, buttons: [{ label: 'スクールフェスタのページ', url: 'https://autumn-schoolfesta2025.figma.site/' }, { label: '当日のレポート', url: 'https://note.com/yononaka_career/n/nf2d4216c4131' }], rotate: '1deg', tapeColor: 'var(--brand)', tapeRotate: '-5deg', offsetX: '-6px' },
+              { title: '12/14：メンバーの振り返り', img: 'step3-1214.jpg', desc: ['メンバー1人1人が自分の思ったことや改善点などを共有しました。', '紙ひこうきは特に親子で楽しめた、カードゲームは戦略ゲームとしての手応えがあった。', 'ただ、15分の制限時間は短かったかも？ゲームの難易度調整やプログラム開発時間の効率化も次回に向けて必要やね。', '次回は「リアル脱出ゲーム」をやってみたい！など、いろんな意見が出ました。'], pdf: null, buttons: null, rotate: '-1.5deg', tapeColor: 'var(--pink)', tapeRotate: '7deg', offsetX: '8px' }
             ].map((item, i) => (
               <article 
                 key={i} 
@@ -803,6 +803,40 @@ export function PlayClaftClient(){
                               📄 PDFはこちら
                             </a>
                           </p>
+                        )}
+                        {item.buttons && item.buttons.length > 0 && (
+                          <div className="flex flex-col gap-3 mt-4">
+                            {item.buttons.map((button: { label: string, url: string }, k: number) => (
+                              <a 
+                                key={k}
+                                href={button.url} 
+                                target="_blank" 
+                                rel="noopener"
+                                style={{
+                                  display: 'inline-block',
+                                  padding: '12px 24px',
+                                  background: 'var(--brand)',
+                                  color: 'white',
+                                  borderRadius: 'var(--radius)',
+                                  textAlign: 'center',
+                                  fontWeight: 'var(--font-bold)',
+                                  textDecoration: 'none',
+                                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                  transition: 'all 0.3s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(-2px)';
+                                  e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(0)';
+                                  e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                                }}
+                              >
+                                {button.label}
+                              </a>
+                            ))}
+                          </div>
                         )}
                       </div>
                     </div>
