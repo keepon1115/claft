@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Zen_Maru_Gothic } from 'next/font/google';
 import Link from 'next/link';
+import { FlowApply } from '@/components/FlowApply';
+import { FAQ } from '@/components/FAQ';
+import { Students } from '@/components/Students';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['500', '700', '900'],
@@ -96,6 +99,9 @@ export function ClaftHopeClient() {
       <SolutionSection />
       <PhilosophySection />
       <CTASection />
+      <FlowApply />
+      <FAQ />
+      <Students />
     </div>
   );
 }
@@ -190,7 +196,7 @@ function HeroSection() {
               <span style={{ color: '#34c6be', position: 'relative' }}>
                 希望
               </span>
-              を持って歩むために。
+              を抱き歩むために。
             </span>
           </h1>
         </div>
@@ -529,8 +535,8 @@ function EmpathySection() {
             }}
           >
             日本の若者が置かれている環境において
-            <strong style={{ color: 'var(--ink-900)' }}>「3つの場所」</strong>
-            が不足していると考えます。
+            <br />
+            <strong style={{ color: 'var(--ink-900)' }}>「3つの場所」</strong>が不足していると考えます。
           </p>
         </div>
 
@@ -678,6 +684,7 @@ function EmpathySection() {
                       {item.labelText}
                     </strong>
                     {' '}で{' '}
+                    <br />
                     <strong
                       style={{
                         fontWeight: 900,
@@ -779,7 +786,7 @@ function DataSection() {
               marginBottom: '24px',
             }}
           >
-            まじめに勉強してきた子ほど
+            まじめに勉強してきた人ほど
             <br />
             <span style={{ color: '#f06a6a' }}>社会で戸惑っている現代</span>
           </h2>
@@ -1421,7 +1428,7 @@ function PhilosophySection() {
           >
             CLAFTによって、
             <br />
-            お子さまはどう<span style={{ color: '#34c6be' }}>変わる</span>か（AFT）
+            どう<span style={{ color: '#34c6be' }}>変わる</span>か（AFT）
           </h2>
           <p
             style={{
@@ -1588,126 +1595,10 @@ function CTASection() {
               <br />
               その過程で得られる手応えこそが、
               <br />
-              お子さまの人生を支える一番の根っこになります。
+              今後のキャリアを支える一番の根っこになります。
             </p>
           </div>
         </div>
-
-        {/* 感情的なメッセージ */}
-        <div
-          className="reveal"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255, 214, 107, 0.2), rgba(255, 246, 233, 0.8))',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'clamp(32px, 7vw, 48px)',
-            textAlign: 'center',
-            marginBottom: '40px',
-            border: '2px dashed rgba(255, 214, 107, 0.5)',
-          }}
-        >
-          <p
-            style={{
-              fontSize: 'clamp(16px, 3.5vw, 20px)',
-              fontWeight: 700,
-              color: 'var(--ink-900)',
-              lineHeight: 1.7,
-              margin: 0,
-            }}
-          >
-            お子さまが
-            <br />
-            <span
-              style={{
-                color: '#34c6be',
-                fontSize: '1.15em',
-              }}
-            >
-              「未来が楽しみだ」
-            </span>
-            <br />
-            と笑顔で言える毎日を、
-            <br />
-            一緒に始めませんか？
-          </p>
-        </div>
-
-        {/* CTAボタン */}
-        <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {/* メインCTA */}
-          <Link
-            href="/contact"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100%',
-              padding: 'clamp(16px, 4vw, 20px) clamp(24px, 5vw, 32px)',
-              background: 'linear-gradient(135deg, #34c6be, #58c3a2)',
-              color: '#fff',
-              borderRadius: 'var(--radius)',
-              fontSize: 'clamp(15px, 3.2vw, 18px)',
-              fontWeight: 700,
-              textDecoration: 'none',
-              boxShadow: '0 8px 24px rgba(52, 198, 190, 0.35)',
-              transition: 'all 0.3s ease',
-              gap: '12px',
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M8 7V3M16 7V3M7 11H17M5 21H19C20.1046 21 21 20.1046 21 19V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V19C3 20.1046 3.89543 21 5 21Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-            無料体験・オンライン説明会に申し込む
-          </Link>
-
-          {/* LINE CTA */}
-          <a
-            href="https://line.me/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100%',
-              padding: 'clamp(14px, 3.5vw, 18px) clamp(24px, 5vw, 32px)',
-              background: '#06c755',
-              color: '#fff',
-              borderRadius: 'var(--radius)',
-              fontSize: 'clamp(14px, 3vw, 16px)',
-              fontWeight: 700,
-              textDecoration: 'none',
-              boxShadow: '0 6px 16px rgba(6, 199, 85, 0.3)',
-              transition: 'all 0.3s ease',
-              gap: '10px',
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-            </svg>
-            LINEで気軽に質問する
-          </a>
-        </div>
-
-        {/* 追加のメッセージ */}
-        <p
-          className="reveal"
-          style={{
-            fontSize: '0.75rem',
-            color: 'var(--ink-500)',
-            textAlign: 'center',
-            marginTop: '28px',
-            lineHeight: 1.7,
-          }}
-        >
-          ご不明点がございましたら、お気軽にお問い合わせください。
-          <br />
-          専任スタッフがお答えいたします。
-        </p>
       </div>
     </section>
   );
