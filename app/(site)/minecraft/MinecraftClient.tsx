@@ -202,7 +202,7 @@ function HeroSection() {
         <div style={{ animation: 'scaleIn 0.8s ease-out 0.6s forwards', opacity: 0 }}>
           <img
             className="w-full border border-black/[0.08] object-cover aspect-video rounded-[28px] shadow-md"
-            src="https://keepon1115.github.io/claft/assets/minecraft/hero.jpeg"
+            src="/assets/minecraft/hero.jpeg"
             alt="制作やプログラミングの様子"
             style={{
               boxShadow: 'var(--shadow)',
@@ -333,7 +333,7 @@ SDGsテーマの解決策をマインクラフトのワールドで建築して�
 function OutcomesSection() {
   const outcomes = [
     {
-      image: 'https://keepon1115.github.io/claft/assets/minecraft/outcome_01.jpeg',
+      image: '/assets/minecraft/outcome_01.jpeg',
       title: '創造性が爆発！マインクラフトでアイデアをカタチに',
       points: [
         'ひらめきを具現化：「こんなものがあったらいいな」というアイデアを、ブロック一つ一つ積み上げて形に。',
@@ -343,7 +343,7 @@ function OutcomesSection() {
       color: 'var(--green)',
     },
     {
-      image: 'https://keepon1115.github.io/claft/assets/minecraft/outcome_02.jpeg',
+      image: '/assets/minecraft/outcome_02.jpeg',
       title: '世界の社会問題を"自分ごと"に。SDGsで考える力',
       points: [
         'リアルな課題に触れる：貧困、飢餓、環境問題など、現実世界の複雑な課題を分かりやすくインプット。',
@@ -353,7 +353,7 @@ function OutcomesSection() {
       color: 'var(--brand)',
     },
     {
-      image: 'https://keepon1115.github.io/claft/assets/minecraft/outcome_03.jpeg',
+      image: '/assets/minecraft/outcome_03.jpeg',
       title: '「論理的思考力」と「発信力」を育むプログラミング学習',
       points: [
         'ゲームで学ぶプログラミング：エージェントに命令を与え、自動で建物を建てたり、問題を解決する仕組みを作る。',
@@ -674,7 +674,7 @@ function PricingSection() {
 function RelatedCoursesSection() {
   const relatedCourses = [
     {
-      image: 'https://keepon1115.github.io/claft/assets/minecraft/yononaka.jpeg',
+      image: '/assets/minecraft/yononaka.jpeg',
       title: 'Yononaka（対話型ワークショップ）',
       description:
         '仲間との交流の場。身近なことをテーマに、正解がひとつでない問いに対して意見を共有する時間です。',
@@ -682,7 +682,7 @@ function RelatedCoursesSection() {
       color: 'var(--brand)',
     },
     {
-      image: 'https://keepon1115.github.io/claft/assets/minecraft/futurecraft.jpeg',
+      image: '/assets/minecraft/futurecraft.jpeg',
       title: 'ミライクラフト（実践プログラム）',
       description:
         '通常授業とは違う発表会やイベント、実際の課題解決ワークなどで仲間とともに試せる場もあります。',

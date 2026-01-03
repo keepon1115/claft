@@ -35,7 +35,7 @@ export function Timeline({ events }: TimelineProps) {
       {/* セクションタイトル */}
       <h2 className="heading-lg mb-6 flex items-center gap-2">
         <span className="text-2xl">📅</span>
-        CLAFTでの歩み
+        スクールでの歩み
       </h2>
       
       {/* タイムライン */}

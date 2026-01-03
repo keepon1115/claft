@@ -2,26 +2,32 @@
 
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { FlowApply } from '@/components/FlowApply';
+import { FAQ } from '@/components/FAQ';
+import { Students } from '@/components/Students';
 
 // コースカードコンポーネント
 const CourseCard = ({
   title,
   description,
-  features,
   target,
   price,
   color,
   icon,
+  link,
+  ageGroup,
   delay = 0,
   isVisible = false
 }: {
   title: string;
   description: string;
-  features: string[];
   target: string;
   price: string;
   color: string;
   icon: string;
+  link: string;
+  ageGroup: string;
   delay?: number;
   isVisible?: boolean;
 }) => (
@@ -52,7 +58,7 @@ const CourseCard = ({
         e.currentTarget.style.boxShadow = 'var(--shadow)';
       }}
     >
-      {/* カテゴリバッジ */}
+      {/* 対象年齢層バッジ */}
       <div
         style={{
           position: 'absolute',
@@ -64,14 +70,10 @@ const CourseCard = ({
           borderRadius: '20px',
           fontSize: 'clamp(12px, 2.5vw, 14px)',
           fontWeight: 'var(--font-bold)',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px'
+          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
         }}
       >
-        <span>{icon}</span>
-        <span>人気コース</span>
+        {ageGroup}
       </div>
 
       {/* アイコン */}
@@ -91,52 +93,9 @@ const CourseCard = ({
       </h3>
 
       {/* 説明 */}
-      <p className="body-base" style={{ marginBottom: '20px', lineHeight: '1.7' }}>
+      <p className="body-base" style={{ marginBottom: '24px', lineHeight: '1.7' }}>
         {description}
       </p>
-
-      {/* 特徴リスト */}
-      <div style={{ marginBottom: '24px' }}>
-        <h4
-          className="heading-sm"
-          style={{ fontSize: 'clamp(14px, 3vw, 16px)', marginBottom: '12px' }}
-        >
-          身につく力
-        </h4>
-        <ul
-          style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px'
-          }}
-        >
-          {features.map((feature, i) => (
-            <li
-              key={i}
-              className="body-sm"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: color,
-                  flexShrink: 0
-                }}
-              />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
 
       {/* 対象・料金 */}
       <div
@@ -169,231 +128,29 @@ const CourseCard = ({
       </div>
 
       {/* CTAボタン */}
-      <button
+      <Link
+        href={link}
         className="btn btn-primary"
         style={{
           width: '100%',
           justifyContent: 'center',
           background: color,
           fontSize: 'clamp(14px, 3vw, 16px)',
-          padding: 'clamp(12px, 3vw, 16px)'
+          padding: 'clamp(12px, 3vw, 16px)',
+          textDecoration: 'none',
+          display: 'flex',
+          alignItems: 'center'
         }}
       >
         詳しく見る →
-      </button>
+      </Link>
     </div>
   </div>
 );
 
-// 比較表コンポーネント
-const ComparisonTable = ({ isVisible = false }: { isVisible?: boolean }) => {
-  const rows = [
-    {
-      label: '授業時間',
-      minecraft: '週1回 60分',
-      robot: '週1回 90分'
-    },
-    {
-      label: '使用ツール',
-      minecraft: 'Minecraft Education Edition',
-      robot: 'アーテックロボット + Scratch'
-    },
-    {
-      label: '身につくスキル',
-      minecraft: '探究力・創造力・発信力',
-      robot: '論理的思考・問題解決力'
-    },
-    {
-      label: '月額料金',
-      minecraft: '¥12,000〜',
-      robot: '¥15,000〜'
-    }
-  ];
-
-  return (
-    <div
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-        transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 200ms',
-        overflowX: 'auto'
-      }}
-    >
-      <div
-        style={{
-          background: 'var(--card)',
-          borderRadius: 'var(--radius-lg)',
-          padding: 'clamp(20px, 4vw, 28px)',
-          boxShadow: 'var(--shadow)',
-          minWidth: '280px'
-        }}
-      >
-        <table
-          style={{
-            width: '100%',
-            borderCollapse: 'separate',
-            borderSpacing: '0 12px'
-          }}
-        >
-          <thead>
-            <tr>
-              <th
-                style={{
-                  textAlign: 'left',
-                  padding: '12px',
-                  fontSize: 'clamp(13px, 2.8vw, 15px)',
-                  fontWeight: 'var(--font-bold)',
-                  color: 'var(--ink-600)'
-                }}
-              >
-                項目
-              </th>
-              <th
-                style={{
-                  textAlign: 'center',
-                  padding: '12px',
-                  fontSize: 'clamp(13px, 2.8vw, 15px)',
-                  fontWeight: 'var(--font-bold)',
-                  color: 'var(--green)',
-                  background: 'rgba(88, 195, 162, 0.08)',
-                  borderRadius: '8px 8px 0 0'
-                }}
-              >
-                マイクラ
-              </th>
-              <th
-                style={{
-                  textAlign: 'center',
-                  padding: '12px',
-                  fontSize: 'clamp(13px, 2.8vw, 15px)',
-                  fontWeight: 'var(--font-bold)',
-                  color: 'var(--pink)',
-                  background: 'rgba(240, 106, 106, 0.08)',
-                  borderRadius: '8px 8px 0 0'
-                }}
-              >
-                ロボット
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <tr key={i}>
-                <td
-                  className="body-sm emphasis"
-                  style={{
-                    padding: '16px 12px',
-                    borderBottom: i === rows.length - 1 ? 'none' : '1px solid rgba(0,0,0,0.06)',
-                    fontSize: 'clamp(12px, 2.5vw, 14px)'
-                  }}
-                >
-                  {row.label}
-                </td>
-                <td
-                  className="body-sm"
-                  style={{
-                    padding: '16px 12px',
-                    textAlign: 'center',
-                    borderBottom: i === rows.length - 1 ? 'none' : '1px solid rgba(0,0,0,0.06)',
-                    fontSize: 'clamp(12px, 2.5vw, 14px)',
-                    color: 'var(--ink-700)'
-                  }}
-                >
-                  {row.minecraft}
-                </td>
-                <td
-                  className="body-sm"
-                  style={{
-                    padding: '16px 12px',
-                    textAlign: 'center',
-                    borderBottom: i === rows.length - 1 ? 'none' : '1px solid rgba(0,0,0,0.06)',
-                    fontSize: 'clamp(12px, 2.5vw, 14px)',
-                    color: 'var(--ink-700)'
-                  }}
-                >
-                  {row.robot}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-// FAQアイテムコンポーネント
-const FAQItem = ({
-  question,
-  answer,
-  delay = 0
-}: {
-  question: string;
-  answer: string;
-  delay?: number;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div
-      className="reveal"
-      style={{
-        background: 'var(--card)',
-        borderRadius: '16px',
-        padding: 'clamp(16px, 3vw, 20px)',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-        marginBottom: '12px',
-        transition: 'all 0.3s ease',
-        border: '1px solid rgba(0,0,0,0.04)'
-      }}
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          cursor: 'pointer',
-          gap: '12px'
-        }}
-      >
-        <h4 className="heading-sm" style={{ fontSize: 'clamp(14px, 3vw, 16px)', margin: 0 }}>
-          {question}
-        </h4>
-        <span
-          style={{
-            fontSize: '20px',
-            transition: 'transform 0.3s ease',
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
-            flexShrink: 0
-          }}
-        >
-          ▼
-        </span>
-      </div>
-      {isOpen && (
-        <p
-          className="body-base"
-          style={{
-            marginTop: '16px',
-            paddingTop: '16px',
-            borderTop: '1px solid rgba(0,0,0,0.06)',
-            lineHeight: '1.7',
-            color: 'var(--ink-700)'
-          }}
-        >
-          {answer}
-        </p>
-      )}
-    </div>
-  );
-};
-
 export function CoursesClient() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false]);
-  const [visibleTable, setVisibleTable] = useState(false);
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false]);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const tableRef = useRef<HTMLDivElement>(null);
 
   // カードのアニメーション
   useEffect(() => {
@@ -401,8 +158,9 @@ export function CoursesClient() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleCards([true, false]);
-            setTimeout(() => setVisibleCards([true, true]), 200);
+            setVisibleCards([true, false, false]);
+            setTimeout(() => setVisibleCards([true, true, false]), 200);
+            setTimeout(() => setVisibleCards([true, true, true]), 400);
           }
         });
       },
@@ -411,26 +169,6 @@ export function CoursesClient() {
 
     if (cardsRef.current) {
       observer.observe(cardsRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // 比較表のアニメーション
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleTable(true);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (tableRef.current) {
-      observer.observe(tableRef.current);
     }
 
     return () => observer.disconnect();
@@ -572,42 +310,9 @@ export function CoursesClient() {
                 animationFillMode: 'forwards'
               }}
             >
-              お子様の興味に合わせて選べる
-              <br />
-              2つの専門コース。
+              興味に合わせて選べるコース
             </p>
           </div>
-        </div>
-      </Section>
-
-      {/* ========================================
-          Course Selector (Tab) - 将来の拡張用
-          ======================================== */}
-      <Section>
-        <div
-          style={{
-            display: 'flex',
-            gap: '12px',
-            padding: '8px',
-            background: 'var(--bg)',
-            borderRadius: '16px',
-            marginBottom: '32px'
-          }}
-        >
-          <button
-            className="btn"
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              background: 'var(--brand)',
-              color: 'white',
-              border: 'none',
-              fontSize: 'clamp(14px, 3vw, 16px)',
-              pointerEvents: 'none'
-            }}
-          >
-            小学生・中高生向け
-          </button>
         </div>
       </Section>
 
@@ -615,48 +320,17 @@ export function CoursesClient() {
           Course Cards
           ======================================== */}
       <Section>
-        <h2
-          className="heading-lg"
-          style={{
-            textAlign: 'center',
-            marginBottom: 'clamp(32px, 6vw, 40px)',
-            position: 'relative'
-          }}
-        >
-          選べる2つのコース
-          <svg
-            style={{
-              position: 'absolute',
-              bottom: '-8px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '120px',
-              height: '12px'
-            }}
-            viewBox="0 0 120 12"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M5,8 Q30,4 60,8 T115,8"
-              stroke="var(--brand)"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-              opacity="0.3"
-            />
-          </svg>
-        </h2>
-
-        <div ref={cardsRef} style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <div ref={cardsRef} style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
           {/* カードA：マイクラSDGsコース */}
           <CourseCard
             title="マイクラSDGsコース"
-            description="世界的に人気のMinecraftを使って、SDGsをテーマに探究・創造・発信する力を育みます。"
-            features={['探究力', '創造力', '発信力', 'ICTリテラシー']}
-            target="小学3年生〜中学3年生"
-            price="¥12,000〜"
+            description="マイクラ×SDGs×プログラミングで、楽しみながら新たな価値を生み出そう！SDGsの目標を深く理解し、身近な問題として捉え、創造的な解決策を考え、実行する力を育みます。"
+            target="小学3年生〜"
+            price="¥7,700〜"
             color="var(--green)"
             icon="🎮"
+            link="/minecraft"
+            ageGroup="小学生・中学生向け"
             delay={0}
             isVisible={visibleCards[0]}
           />
@@ -664,172 +338,37 @@ export function CoursesClient() {
           {/* カードB：ロボットプログラミングコース */}
           <CourseCard
             title="ロボットプログラミングコース"
-            description="アーテックロボットを使った本格的なプログラミング学習。論理的思考と問題解決力を養います。"
-            features={['論理的思考', '試行錯誤の価値', '問題解決力', '創造力']}
-            target="小学3年生〜中学3年生"
-            price="¥15,000〜"
+            description="世界で採用されている、アーテックロボットを使った本格的なプログラミング学習。ブロックで遊びながらかたちを組み立て、プログラミングをして思い通りの動きを表現します。"
+            target="小学3年生〜"
+            price="¥7,700〜"
             color="var(--pink)"
             icon="🤖"
+            link="https://www.keeponlearning.fun/online"
+            ageGroup="小学生・中学生向け"
             delay={200}
             isVisible={visibleCards[1]}
           />
-        </div>
-      </Section>
 
-      {/* ========================================
-          Comparison Table
-          ======================================== */}
-      <Section>
-        <h2
-          className="heading-lg"
-          style={{
-            textAlign: 'center',
-            marginBottom: 'clamp(32px, 6vw, 40px)',
-            position: 'relative'
-          }}
-        >
-          コース比較
-          <svg
-            style={{
-              position: 'absolute',
-              bottom: '-8px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '100px',
-              height: '12px'
-            }}
-            viewBox="0 0 100 12"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M5,8 Q25,4 50,8 T95,8"
-              stroke="var(--cream)"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-              opacity="0.5"
-            />
-          </svg>
-        </h2>
-
-        <div ref={tableRef}>
-          <ComparisonTable isVisible={visibleTable} />
-        </div>
-
-        <p
-          className="body-sm"
-          style={{
-            textAlign: 'center',
-            color: 'var(--ink-500)',
-            marginTop: '20px',
-            fontStyle: 'italic'
-          }}
-        >
-          ※ 料金は税込表示です
-        </p>
-      </Section>
-
-      {/* ========================================
-          Common FAQ
-          ======================================== */}
-      <Section>
-        <h2
-          className="heading-lg"
-          style={{
-            textAlign: 'center',
-            marginBottom: 'clamp(32px, 6vw, 40px)',
-            position: 'relative'
-          }}
-        >
-          よくある質問
-          <svg
-            style={{
-              position: 'absolute',
-              bottom: '-8px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '120px',
-              height: '12px'
-            }}
-            viewBox="0 0 120 12"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M5,8 Q30,4 60,8 T115,8"
-              stroke="var(--pink)"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-              opacity="0.3"
-            />
-          </svg>
-        </h2>
-
-        <div>
-          <FAQItem
-            question="入会金はかかりますか？"
-            answer="はい、入会金として11,000円（税込）をいただいております。ただし、キャンペーン期間中は入会金無料となる場合がございますので、お気軽にお問い合わせください。"
-            delay={0}
-          />
-          <FAQItem
-            question="授業を休んだ場合、振替はできますか？"
-            answer="はい、可能です。前日までにご連絡いただければ、別の日時に振替授業を受けることができます。お子様の体調不良や学校行事などにも柔軟に対応しております。"
-            delay={100}
-          />
-          <FAQItem
-            question="パソコンやタブレットは必要ですか？"
-            answer="はい、授業にはパソコンまたはタブレットが必要です。教室でも貸し出しを行っておりますので、ご自宅に機材がない場合でもご安心ください。詳しくはお問い合わせください。"
-            delay={200}
-          />
-          <FAQItem
-            question="プログラミング未経験でも大丈夫ですか？"
-            answer="もちろん大丈夫です！初めてのお子様でも楽しく学べるよう、基礎から丁寧に指導いたします。むしろ、初めての方が多数派ですのでご安心ください。"
-            delay={300}
-          />
-          <FAQItem
-            question="月の途中から入会できますか？"
-            answer="はい、いつでも入会可能です。月の途中からご入会の場合は、残りの授業回数に応じて日割り計算させていただきます。"
+          {/* カードC：キャリアコース */}
+          <CourseCard
+            title="キャリアコース"
+            description="クエスト・PBL・ジブンクラフトが含まれます。"
+            target="中学生〜"
+            price="¥7,700〜"
+            color="var(--cream)"
+            icon="✏️"
+            link="/jibun-craft"
+            ageGroup="中学生・高校生向け"
             delay={400}
+            isVisible={visibleCards[2]}
           />
         </div>
       </Section>
 
-      {/* ========================================
-          CTA Section
-          ======================================== */}
-      <Section>
-        <div
-          style={{
-            background: 'linear-gradient(135deg, rgba(52, 198, 190, 0.08) 0%, rgba(88, 195, 162, 0.08) 100%)',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'clamp(32px, 6vw, 40px)',
-            textAlign: 'center',
-            border: '2px solid rgba(52, 198, 190, 0.2)'
-          }}
-        >
-          <h3 className="heading-md" style={{ marginBottom: '16px' }}>
-            まずは無料体験から！
-          </h3>
-          <p className="body-base" style={{ marginBottom: '24px', color: 'var(--ink-700)' }}>
-            どのコースが合うか迷っている方も、
-            <br />
-            まずはお気軽に体験してみてください。
-          </p>
-          <button
-            className="btn btn-primary"
-            style={{
-              fontSize: 'clamp(15px, 3.2vw, 18px)',
-              padding: 'clamp(14px, 3vw, 18px) clamp(32px, 6vw, 40px)',
-              boxShadow: '0 6px 16px rgba(52, 198, 190, 0.3)'
-            }}
-            onClick={() => {
-              window.location.href = '/contact';
-            }}
-          >
-            無料体験を申し込む →
-          </button>
-        </div>
-      </Section>
+      {/* トップページの入会までの流れ以降のセクション */}
+      <FlowApply />
+      <FAQ />
+      <Students />
     </MobileContainer>
   );
 }

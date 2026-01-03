@@ -37,7 +37,7 @@ export function Students(){
               在籍生向け学習環境
             </h3>
             <p className="body-base text-ink-700 leading-relaxed mb-6">
-              CLAFTスクール生は、専用の学習アプリで授業動画の視聴、課題の提出、進捗確認などが行えます。
+              CLAFTスクール生は、専用のアプリでクエスト動画の視聴＆意見共有、その他オンラインワークの参加などができます。
             </p>
             
             <a 

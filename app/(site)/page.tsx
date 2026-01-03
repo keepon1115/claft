@@ -24,7 +24,6 @@ export default function SiteHome(){
       <EntranceDoors />
       <FlowApply />
       <FAQ />
-      <Download />
       <Students />
     </>
   );

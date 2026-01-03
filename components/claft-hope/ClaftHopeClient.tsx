@@ -185,12 +185,12 @@ function HeroSection() {
             }}
           >
             <span style={{ position: 'relative', zIndex: 1 }}>
-              正解のない時代を、
+              正解のない社会を、
               <br />
               <span style={{ color: '#34c6be', position: 'relative' }}>
                 希望
               </span>
-              を持って歩んでいくために。
+              を持って歩むために。
             </span>
           </h1>
         </div>
@@ -209,11 +209,11 @@ function HeroSection() {
               fontWeight: 500,
             }}
           >
-            テストの点数だけでは測れない、
+            偏差値を上げることの前に、
             <br />
-            お子さまの「好き」や「得意」が、
+            将来なにがしたいか？どうありたいか？
             <br />
-            未来を切り拓く武器になる。
+            自分のキャリアを考える時間が必要です。
           </p>
         </div>
 
@@ -281,11 +281,9 @@ function HeroSection() {
               padding: '0 10px',
             }}
           >
-            CLAFTは、学校と社会のあいだにある
+            CLAFTは、<strong style={{ color: 'var(--ink-900)' }}>"学校と社会"</strong>をつなぎ、
             <br />
-            <strong style={{ color: 'var(--ink-900)' }}>"分断"</strong>をつなぎ、
-            <br />
-            未来を自ら創り出す力を育む場所です。
+            自分の手で自分のキャリアを創るスクールです。
           </p>
         </div>
 
@@ -332,6 +330,21 @@ function HeroSection() {
 // 2. 共感セクション（3つの「足りない」）
 // =========================================
 function EmpathySection() {
+  // 各カードの開閉状態を管理
+  const [openStates, setOpenStates] = useState<{ [key: string]: boolean }>({
+    tankyu: false,
+    jissen: false,
+    taiwa: false,
+  });
+
+  // 開閉トグル関数
+  const toggleOpen = (id: string) => {
+    setOpenStates((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
   const concerns = [
     {
       id: 'tankyu',
@@ -339,16 +352,36 @@ function EmpathySection() {
       labelBg: 'rgba(240, 106, 106, 0.14)',
       accentColor: '#f06a6a',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
           <circle cx="22" cy="22" r="14" stroke="#f06a6a" strokeWidth="3" fill="none" />
           <path d="M32 32 L42 42" stroke="#f06a6a" strokeWidth="3" strokeLinecap="round" />
           <circle cx="22" cy="22" r="6" fill="rgba(240, 106, 106, 0.2)" />
         </svg>
       ),
       keyword: '思考体力',
-      title: 'キャリアをじっくり考える場所が少ない',
-      description:
-        '「どう生きるか」に正解はありません。受験は手段にすぎず、大切なのは「自分を知り、社会を知る」こと。社会に出る前の「自分探しの猶予期間（モラトリアム期）」に、納得いくまで自分の生き方を考える準備が必要です。',
+      labelText: '探究する場所',
+      title: '自分のキャリアをじっくり考えられる場所が少ない！',
+      description: (
+        <>
+          キャリア＝人生を「どう生きるか」に、本来正解はありません。
+          <br />
+          <br />
+          テストで高い点数を取ることや、大企業に入ることは"正解"ではなく、あくまで数ある選択肢のひとつです。
+          <br />
+          受験に関しても、テスト（一般入試）はひとつの手段にすぎず、今では全体の50%を下回っています。
+          <br />
+          <br />
+          そういったキャリアの選択をしていくためには、<strong>自己理解（自分を知ること）</strong>と<strong>社会理解（社会を知ること）</strong>が欠かせません。
+          社会に出る前の<strong>モラトリアム期（※1）</strong>――まだ社会的な責任を負わずに、自分の生き方を自由に考えられる時期に、
+          <br />
+          自分のキャリアについてじっくり考える時間や、その場所が必要であると考えます。
+          <br />
+          <br />
+          <span style={{ fontSize: '0.85em', color: 'var(--ink-600)' }}>
+            ※1：モラトリアム期とは、心理学者エリク・エリクソンが提唱した言葉で、社会に出る前の"自分探しの猶予期間"を指します。高校・大学など、進路や将来を考える時期にあたります。
+          </span>
+        </>
+      ),
     },
     {
       id: 'jissen',
@@ -356,16 +389,38 @@ function EmpathySection() {
       labelBg: 'rgba(255, 214, 107, 0.22)',
       accentColor: '#f0a629',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
           <path d="M24 8 L24 24 L36 36" stroke="#f0a629" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           <circle cx="24" cy="24" r="18" stroke="#f0a629" strokeWidth="3" fill="none" strokeDasharray="6 4" />
           <circle cx="24" cy="24" r="4" fill="#ffd66b" />
         </svg>
       ),
       keyword: '好奇心',
-      title: '「好き・得意」を試し続けられる場所が少ない',
-      description:
-        '一斉教育の中で「正解を早く答える」ことばかりが重視されています。しかし社会で問われるのは、「正解がない中で、自分の得意をどう活かすか」。失敗を恐れずに「好き」を試す経験こそが、自分らしさ（アイデンティティ）を確立させます。',
+      labelText: '実践する場所',
+      title: '自分の好き・得意を試し続けられる場所が少ない！',
+      description: (
+        <>
+          人はそれぞれ、興味・能力・価値観が異なります。
+          <br />
+          住んでいる場所や家庭環境、出会う人々など、置かれている環境も一人ひとり違います。
+          <br />
+          <br />
+          それにもかかわらず、今の学校教育では、共通の教科書のもとで一斉に学び、「正解をいかに早く覚えるか」に力を注ぐのが一般的です。
+          <br />
+          <br />
+          社会に出ると状況は一変し、<strong>正解がない状況で自分の得意をどう活かして他者や社会に貢献できるか？</strong>が問われます。
+          <br />
+          そのためには、自分の「好き」や「得意」をとことん試し、失敗も含めて経験することが大切だと考えます。
+          <br />
+          <br />
+          そうした経験を通して、自分の<strong>アイデンティティ（※2）</strong>を確立し、自分らしく生きていくことができます。
+          <br />
+          <br />
+          <span style={{ fontSize: '0.85em', color: 'var(--ink-600)' }}>
+            ※2：アイデンティティとは、「自分は何者で、どんな価値を大切にして生きていくのか」という自己の確立のこと。
+          </span>
+        </>
+      ),
     },
     {
       id: 'taiwa',
@@ -373,7 +428,7 @@ function EmpathySection() {
       labelBg: 'rgba(52, 198, 190, 0.14)',
       accentColor: '#34c6be',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
           <path
             d="M8 12 C8 10 10 8 12 8 L28 8 C30 8 32 10 32 12 L32 24 C32 26 30 28 28 28 L16 28 L10 34 L10 28 L12 28 C10 28 8 26 8 24 Z"
             stroke="#34c6be"
@@ -389,9 +444,30 @@ function EmpathySection() {
         </svg>
       ),
       keyword: '柔軟性',
-      title: '自分の想いを自由に話せる場所が少ない',
-      description:
-        '「正解」や「評価」を気にしすぎると、心から安心して意見を言える「心理的安全性」が失われてしまいます。これからの時代に求められるのは競争ではなく、他者と補い合い、新しい価値を生む「共創」の力です。',
+      labelText: '対話する場所',
+      title: '自分の考えや感じたことを自由に話せる場所が少ない！',
+      description: (
+        <>
+          「正解」を意識しすぎると、自分の考えや感じたことを、自由に言葉にできなくなってしまいます。
+          <br />
+          数値や結果ばかりを重視していると、周囲からの評価を気にしてしまい、<strong>心理的安全性（※3）</strong>が失われていきます。
+          <br />
+          <br />
+          スマホを開けば誰かの人生が目に入り、つい自分と比べてしまう。
+          <br />
+          そんな世の中だからこそ、他者との競争ではなく、共に創る<strong>「共創」</strong>の意識が大切です。
+          <br />
+          <br />
+          互いの違いを持ち寄り、補い合いながら新しい価値をつくる力。それこそが、今後の社会を動かすエネルギーになります。
+          <br />
+          そのためには、互いの違いを認め合い、誰もが安心して意見を出し合える場が必要であると考えます。
+          <br />
+          <br />
+          <span style={{ fontSize: '0.85em', color: 'var(--ink-600)' }}>
+            ※3：心理的安全性とは、ハーバード大学のエイミー・エドモンドソンが提唱した概念で、「自分の考えを言っても否定されない」「失敗しても責められない」と感じられる安心感のこと。
+          </span>
+        </>
+      ),
     },
   ];
 
@@ -418,9 +494,9 @@ function EmpathySection() {
               marginBottom: '20px',
             }}
           >
-            今の「当たり前」に、
+            変化が激しい社会に、
             <br />
-            <span style={{ color: '#f06a6a' }}>不安</span>を感じていませんか？
+            <span style={{ color: '#f06a6a' }}>公教育</span>は対応できているのか？
           </h2>
           <p
             style={{
@@ -430,11 +506,6 @@ function EmpathySection() {
               fontWeight: 500,
             }}
           >
-            <strong style={{ color: 'var(--ink-900)' }}>
-              「一生懸命勉強して、いい学校に入れば安心」
-            </strong>
-            <br />
-            ……そんな時代は、もう過去のものかもしれません。
           </p>
         </div>
 
@@ -457,91 +528,172 @@ function EmpathySection() {
               margin: 0,
             }}
           >
-            今の日本で育つ若者たちは、自分らしく生きるために必要な
+            日本の若者が置かれている環境において
             <strong style={{ color: 'var(--ink-900)' }}>「3つの場所」</strong>
-            が圧倒的に不足しています。
+            が不足していると考えます。
           </p>
         </div>
 
         {/* 3つのカード */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {concerns.map((item, index) => (
-            <article
-              key={item.id}
-              className="reveal"
-              style={{
-                background: '#fff',
-                borderRadius: 'var(--radius)',
-                padding: 'clamp(28px, 6vw, 36px)',
-                boxShadow: 'var(--shadow)',
-                border: '1px solid rgba(0, 0, 0, 0.04)',
-                transitionDelay: `${index * 100}ms`,
-              }}
-            >
-              {/* アイコンとラベル */}
-              <div
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          {concerns.map((item, index) => {
+            const isOpen = openStates[item.id];
+            
+            return (
+              <article
+                key={item.id}
+                className="reveal"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  marginBottom: '20px',
+                  background: '#fff',
+                  borderRadius: 'var(--radius-lg)',
+                  overflow: 'hidden',
+                  boxShadow: 'var(--shadow)',
+                  border: '1px solid rgba(0, 0, 0, 0.04)',
+                  transitionDelay: `${index * 100}ms`,
                 }}
               >
-                {item.icon}
-                <div>
-                  <span
+                {/* 上部：課題の提示エリア */}
+                <div
+                  style={{
+                    padding: 'clamp(28px, 6vw, 36px)',
+                    paddingBottom: isOpen ? 'clamp(24px, 5vw, 32px)' : 'clamp(20px, 4.5vw, 28px)',
+                    transition: 'padding 0.3s ease',
+                  }}
+                >
+                  {/* アイコンと見出しと開閉ボタン */}
+                  <div
                     style={{
-                      display: 'inline-block',
-                      padding: '6px 14px',
-                      background: item.labelBg,
-                      borderRadius: '20px',
-                      fontSize: '0.85rem',
-                      fontWeight: 700,
-                      color: 'var(--ink-800)',
-                      marginBottom: '6px',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '14px',
+                      marginBottom: isOpen ? '20px' : '0',
+                      transition: 'margin 0.3s ease',
                     }}
                   >
-                    {item.label}
-                  </span>
+                    <div style={{ flexShrink: 0, marginTop: '4px' }}>
+                      {item.icon}
+                    </div>
+                    <h3
+                      style={{
+                        flex: 1,
+                        fontSize: 'clamp(1.15rem, 3.2vw, 1.3rem)',
+                        fontWeight: 900,
+                        color: 'var(--ink-900)',
+                        lineHeight: 1.5,
+                        margin: 0,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+                    {/* 開閉ボタン */}
+                    <button
+                      onClick={() => toggleOpen(item.id)}
+                      aria-label={isOpen ? '詳細を閉じる' : '詳細を開く'}
+                      aria-expanded={isOpen}
+                      style={{
+                        flexShrink: 0,
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        background: item.labelBg,
+                        border: `2px solid ${item.accentColor}40`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        boxShadow: isOpen ? `0 4px 12px ${item.accentColor}30` : '0 2px 6px rgba(0, 0, 0, 0.08)',
+                      }}
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        style={{
+                          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.3s ease',
+                        }}
+                      >
+                        <path
+                          d="M6 9 L12 15 L18 9"
+                          stroke={item.accentColor}
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  {/* 説明文（アコーディオン） */}
+                  <div
+                    style={{
+                      maxHeight: isOpen ? '2000px' : '0',
+                      opacity: isOpen ? 1 : 0,
+                      overflow: 'hidden',
+                      transition: 'max-height 0.5s ease, opacity 0.3s ease',
+                      paddingLeft: 'clamp(54px, 12vw, 54px)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 'clamp(0.9rem, 2.2vw, 0.95rem)',
+                        lineHeight: 1.9,
+                        color: 'var(--ink-700)',
+                        paddingTop: '16px',
+                      }}
+                    >
+                      {item.description}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 下部：結論エリア */}
+                <div
+                  style={{
+                    background: 'rgba(248, 250, 252, 0.8)',
+                    borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                    padding: 'clamp(20px, 5vw, 28px) clamp(28px, 6vw, 36px)',
+                    textAlign: 'center',
+                  }}
+                >
                   <p
                     style={{
-                      fontSize: '0.8rem',
-                      color: item.accentColor,
-                      fontWeight: 700,
+                      fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
+                      fontWeight: 600,
+                      color: 'var(--ink-800)',
                       margin: 0,
+                      lineHeight: 1.7,
                     }}
                   >
-                    {item.keyword}
+                    必要なのは{' '}
+                    <strong
+                      style={{
+                        fontWeight: 900,
+                        color: item.accentColor,
+                        textShadow: `0 0 15px ${item.accentColor}20`,
+                      }}
+                    >
+                      {item.labelText}
+                    </strong>
+                    {' '}で{' '}
+                    <strong
+                      style={{
+                        fontWeight: 900,
+                        color: item.accentColor,
+                        fontSize: '1.1em',
+                        textShadow: `0 0 20px ${item.accentColor}30`,
+                      }}
+                    >
+                      {item.keyword}
+                    </strong>
+                    {' '}を育むこと！
                   </p>
                 </div>
-              </div>
-
-              {/* タイトル */}
-              <h3
-                style={{
-                  fontSize: 'clamp(1.1rem, 3vw, 1.25rem)',
-                  fontWeight: 700,
-                  color: 'var(--ink-900)',
-                  lineHeight: 1.5,
-                  marginBottom: '16px',
-                }}
-              >
-                {item.title}
-              </h3>
-
-              {/* 説明 */}
-              <p
-                style={{
-                  fontSize: 'clamp(0.9rem, 2.2vw, 0.95rem)',
-                  lineHeight: 1.85,
-                  color: 'var(--ink-700)',
-                  margin: 0,
-                }}
-              >
-                {item.description}
-              </p>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -563,7 +715,9 @@ function DataSection() {
       unit: '%',
       ref: stat1.ref,
       color: '#f06a6a',
-      label: '新入社員が感じる「スキル不足」の壁',
+      title: '新入社員が感じる「スキル不足」',
+      description: '自分の能力不足がストレス源。社会の厳しさを痛感する若者は6割越え。',
+      source: '出典：産業能率大「2024年度 新入社員会社生活調査」',
     },
     {
       value: stat2.count,
@@ -571,7 +725,9 @@ function DataSection() {
       unit: '%',
       ref: stat2.ref,
       color: '#34c6be',
-      label: '大卒者の約3人に1人が3年以内に離職',
+      title: '3年以内の離職率',
+      description: '大卒の約5人に1人が早期離職、高卒ではさらに深刻。',
+      source: '出典：産業能率大「2024年度 新入社員会社生活調査」',
     },
     {
       value: stat3.count,
@@ -579,7 +735,9 @@ function DataSection() {
       unit: '%',
       ref: stat3.ref,
       color: '#f0a629',
-      label: '日本の教育を「良い」と評価している人の割合',
+      title: '日本の教育を「良い」と評価',
+      description: '国際比較で低位。生徒も先生も保護者も「何か違う」と感じている。',
+      source: '出典：イプソス「教育モニター2024」調査レポート',
     },
   ];
 
@@ -621,9 +779,9 @@ function DataSection() {
               marginBottom: '24px',
             }}
           >
-            なぜ、まじめに勉強してきた子ほど
+            まじめに勉強してきた子ほど
             <br />
-            <span style={{ color: '#f06a6a' }}>戸惑う</span>のか。
+            <span style={{ color: '#f06a6a' }}>社会で戸惑っている現代</span>
           </h2>
           <p
             style={{
@@ -637,9 +795,11 @@ function DataSection() {
               「一生懸命勉強したのに、社会に出たら全然違った」
             </strong>
             <br />
-            そんな声が溢れる原因は、本人の努力不足ではありません。
+            <strong style={{ color: 'var(--ink-900)' }}>
+            「自分が本当にやりたいことって、なんだろう…？」
+            </strong>
             <br />
-            社会の変化に、学びの形が追いついていないのです。
+            そんな声が、今の日本社会にはあふれています。
           </p>
         </div>
 
@@ -655,52 +815,65 @@ function DataSection() {
                 borderRadius: 'var(--radius)',
                 padding: 'clamp(28px, 6vw, 36px)',
                 boxShadow: 'var(--shadow)',
-                textAlign: 'center',
+                textAlign: 'left',
                 transitionDelay: `${index * 100}ms`,
                 border: `2px solid ${stat.color}20`,
               }}
             >
+              {/* 数字 */}
               <div
                 style={{
-                  fontSize: 'clamp(3rem, 12vw, 4.5rem)',
+                  fontSize: 'clamp(2.5rem, 10vw, 3.5rem)',
                   fontWeight: 900,
                   color: stat.color,
                   lineHeight: 1,
-                  marginBottom: '12px',
+                  marginBottom: '8px',
                   fontFamily: 'system-ui, -apple-system, sans-serif',
                 }}
               >
                 {stat.value}
                 <span style={{ fontSize: '0.5em' }}>{stat.decimal}</span>
                 <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>{stat.unit}</span>
+                <span 
+                  style={{ 
+                    fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)', 
+                    fontWeight: 700,
+                    color: 'var(--ink-800)',
+                    marginLeft: '12px',
+                    verticalAlign: 'middle',
+                  }}
+                >
+                  ｜{stat.title}
+                </span>
               </div>
+              
+              {/* 説明文 */}
               <p
                 style={{
-                  fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
-                  fontWeight: 700,
-                  color: 'var(--ink-800)',
+                  fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
+                  fontWeight: 500,
+                  color: 'var(--ink-700)',
+                  margin: '12px 0',
+                  lineHeight: 1.7,
+                }}
+              >
+                {stat.description}
+              </p>
+              
+              {/* 出典 */}
+              <p
+                style={{
+                  fontSize: 'clamp(0.7rem, 1.8vw, 0.75rem)',
+                  color: 'var(--ink-500)',
                   margin: 0,
                   lineHeight: 1.5,
                 }}
               >
-                {stat.label}
+                <small>{stat.source}</small>
               </p>
             </div>
           ))}
         </div>
-
-        {/* 出典 */}
-        <p
-          className="reveal"
-          style={{
-            fontSize: '0.75rem',
-            color: 'var(--ink-500)',
-            textAlign: 'center',
-            marginBottom: '40px',
-          }}
-        >
-          （出典：産業能率大 2024年度調査 / イプソス 教育モニター2024）
-        </p>
 
         {/* 結論テキスト */}
         <div
@@ -720,12 +893,16 @@ function DataSection() {
               margin: 0,
             }}
           >
-            AIの進化により、記憶や計算といった「認知能力」はコンピュータが得意な領域になりました。
-            だからこそ今、私たちは学びを
+            原因は、決して本人の努力不足ではありません。むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。
+            <br />
+            その理由は、とてもシンプル。
+            <br />
             <strong style={{ color: 'var(--ink-900)' }}>
-              「入試のための勉強」から「社会を知り未来を予測するための学び」
+            「社会の変化に、学びが追いついていない」
             </strong>
-            へとアップデートしなければなりません。
+            技術の進歩、価値観の多様化に伴い社会課題が顕在化している時代。「正解を早く答える」勉強だけでは、生き抜く力にはなりません。
+            <br />
+            特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。
           </p>
         </div>
       </div>

@@ -95,7 +95,7 @@ const voices = [
   },
   {
     grade: '高校1年生',
-    title: '「考えが育つ／言葉にする課題も見える」',
+    title: '「言葉にする課題も見える」',
     text: '論理的なことを言われたら勉強になるし、自分がどう思うのかも理解できる場所。考えを見つけ出すのはできるようになった気がして、それを図化できるのに、言葉にはできず、語彙力が足りないことを実感しています。'
   }
 ];
@@ -106,7 +106,7 @@ const relatedContents = [
     id: 1,
     title: 'Yononaka Story（インタビュー企画）',
     description: 'ゲストのこれまでのキャリアストーリーや、現在の活動、その始まりのきっかけ、そしてこれからのビジョンについて深く伺っていくインタビュー。一人ひとり異なるキャリアの軌跡を知ることで、キャリアを見つめ直すヒントや新しい視点を得られるきっかけになれば幸いです。',
-    image: 'https://keepon1115.github.io/claft/assets/yononaka/story.jpg',
+    image: '/assets/yononaka/story.jpg',
     buttonText: 'YouTubeで見る',
     buttonLink: 'https://www.youtube.com/playlist?list=PLg8PlJHz4ogs0wfyxguL7TCkwg_3GGeEz',
     color: '#f06a6a',
@@ -116,7 +116,7 @@ const relatedContents = [
     id: 2,
     title: 'Yononaka レディオ（ポッドキャスト）',
     description: '何かのために話すというより、ただおしゃべりを楽しむ先にぽろりと生まれるものを大切にしたい──そんなゆるい番組です。カチッと言えば「創造的対話」。会話の波に乗ったり降りたりしながら、これまでの経験をもとに意見を共有したり、価値観をそっと手放したりしつつ、新しい見方・考え方を試しています。ここで芽生えたアイデアから、いつかモノやサービスが生まれたらいいなぁ──そんな願いも込めた"実験室"です。よろしければ、本編をのぞいてみてください。',
-    image: 'https://keepon1115.github.io/claft/assets/yononaka/radio.jpg',
+    image: '/assets/yononaka/radio.jpg',
     buttonText: 'Podcastで聴く',
     buttonLink: 'https://podcasts.apple.com/jp/podcast/yononaka-radio/id1766887467',
     color: '#34c6be',
@@ -126,7 +126,7 @@ const relatedContents = [
     id: 3,
     title: '創造的対話カードゲーム（Coming Soon）',
     description: '※準備中です',
-    image: 'https://keepon1115.github.io/claft/assets/yononaka/cardgame.jpg',
+    image: '/assets/yononaka/cardgame.jpg',
     buttonText: 'Coming Soon',
     buttonLink: '',
     color: '#9b87f5',
@@ -473,7 +473,7 @@ export default function YononakaPage(){
           }}
         >
           <img 
-            src="https://keepon1115.github.io/claft/assets/yononaka/hero.jpg" 
+            src="/assets/yononaka/hero.jpg" 
             alt="対話型ワークショップの様子" 
             style={{
               width: '100%',
@@ -506,9 +506,9 @@ export default function YononakaPage(){
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
-              { num: '①', text: '静かにしない', color: '#f06a6a', desc: '思ったことは声に出してOK' },
-              { num: '②', text: 'すべて信じない', color: '#34c6be', desc: '疑問を持つことが大切' },
-              { num: '③', text: '正解がないから減点はない', color: '#ffd66b', desc: '間違いなんてない！' }
+              { num: '①', text: '静かにしない', color: '#f06a6a', desc: '思ったことはつぶやいてOK' },
+              { num: '②', text: 'すべて信じない', color: '#34c6be', desc: 'ワークの内容にも疑問を持ってOK' },
+              { num: '③', text: '正解がないから減点はない', color: '#ffd66b', desc: 'どんな意見でも大歓迎！' }
             ].map((rule, i) => (
               <div
                 key={i}
@@ -549,7 +549,7 @@ export default function YononakaPage(){
               lineHeight: 'var(--leading-relaxed)'
             }}
           >
-            事前知識なしでOK、初めての人ようこそ、親子参加大歓迎。<br />
+            事前知識なしでOK、親子参加大歓迎！<br />
             参加者それぞれがリビングでくつろぐような雰囲気で会話しています。
           </p>
         </div>

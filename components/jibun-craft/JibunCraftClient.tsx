@@ -2,20 +2,21 @@
 
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { useEffect, useRef, useState } from 'react';
+import { FlowApply } from '@/components/FlowApply';
+import { FAQ } from '@/components/FAQ';
+import { Students } from '@/components/Students';
 
 // 学びのカードコンポーネント
 const LearningCard = ({
   title,
   icon,
   color,
-  description,
   delay = 0,
   isVisible = false
 }: {
   title: string;
   icon: string;
   color: string;
-  description: string;
   delay?: number;
   isVisible?: boolean;
 }) => (
@@ -24,12 +25,14 @@ const LearningCard = ({
       background: 'var(--rail-cream)',
       border: `3px solid ${color}`,
       borderRadius: '16px',
-      padding: 'clamp(16px, 4vw, 24px)',
+      padding: 'clamp(16px, 4vw, 20px)',
       position: 'relative',
       transform: `scale(${isVisible ? 1 : 0.8})`,
       opacity: isVisible ? 1 : 0,
       transition: `all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms`,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+      flex: '1',
+      minWidth: '0'
     }}
   >
     {/* 二重線の縁取り */}
@@ -43,29 +46,21 @@ const LearningCard = ({
     }} />
     
     <div style={{ 
-      fontSize: 'clamp(36px, 8vw, 48px)', 
-      marginBottom: '12px',
+      fontSize: 'clamp(28px, 6vw, 40px)', 
+      marginBottom: '8px',
       textAlign: 'center'
     }}>
       {icon}
     </div>
     
     <h3 className="heading-sm" style={{ 
-      marginBottom: '8px', 
+      margin: 0, 
       color: 'var(--ink-900)',
-      textAlign: 'center' 
+      textAlign: 'center',
+      fontSize: 'clamp(13px, 3vw, 16px)'
     }}>
       {title}
     </h3>
-    
-    <p className="body-sm" style={{ 
-      color: 'var(--ink-700)', 
-      margin: 0,
-      textAlign: 'center',
-      lineHeight: '1.6'
-    }}>
-      {description}
-    </p>
   </div>
 );
 
@@ -79,7 +74,7 @@ const StrengthCard = ({
 }: {
   icon: string;
   title: string;
-  description: string;
+  description: React.ReactNode;
   color: string;
   rotate?: string;
 }) => (
@@ -326,7 +321,13 @@ export function JibunCraftClient() {
             lineHeight: 'var(--leading-loose)'
           }}
         >
-          探究・対話・実践を通して見えてきた「自分の強み(非認知能力)」を可視化します。キャリア面談を通して「自分は何をしたいか？どうありたいか？」を深堀りし、目標を定めて、ひとつひとつキャリアを自分の手でクラフト(創造)していきます。
+          探究・対話・実践を通して育まれた「非認知能力」を可視化。
+          <br/>
+          その結果をふまえてキャリアコンサルタントと面談を行います。
+          <br/>
+          「何をしたいか？どうありたいか？」という将来の姿を描き、
+          <br/>
+          それに向けた目標を設定し、PBLを進めていきます。
         </p>
 
         {/* 装飾的な浮遊アイコン */}
@@ -379,7 +380,7 @@ export function JibunCraftClient() {
             left: '50%',
             transform: 'translateX(-50%)'
           }}>
-            4つの学びが、ひとつに。
+            4つの学びで非認知能力を育む。
             <svg
               style={{
                 position: 'absolute',
@@ -409,25 +410,24 @@ export function JibunCraftClient() {
             marginBottom: 'clamp(32px, 6vw, 48px)',
             lineHeight: '1.8'
           }}>
-            知識を詰め込むのではなく、経験を通して育った<br />
-            <strong style={{ color: 'var(--ink-900)' }}>「目に見えない力（非認知能力）」</strong>を、<br />
-            一生モノの武器に変えていくプロセスです。
+            知識を詰め込むのではなく、経験を通して育つ<br />
+            <strong style={{ color: 'var(--ink-900)' }}>「非認知能力」</strong>が社会で必要なチカラです。
           </p>
 
-          {/* 4つの学びカード */}
+          {/* 4つの学びカード - 横並び */}
           <div 
             ref={cardsRef}
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'clamp(16px, 4vw, 24px)'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 100px), 1fr))',
+              gap: 'clamp(12px, 3vw, 16px)',
+              marginBottom: 'clamp(24px, 5vw, 32px)'
             }}
           >
             <LearningCard
               title="クエスト"
               icon="🗺️"
               color="var(--green)"
-              description="問いから始まる探究学習"
               delay={0}
               isVisible={visibleCards[0]}
             />
@@ -436,7 +436,6 @@ export function JibunCraftClient() {
               title="PBL"
               icon="🤝"
               color="var(--brand)"
-              description="プロジェクト型学習"
               delay={150}
               isVisible={visibleCards[1]}
             />
@@ -445,7 +444,6 @@ export function JibunCraftClient() {
               title="Yononaka"
               icon="🌍"
               color="var(--pink)"
-              description="世の中とつながる体験"
               delay={300}
               isVisible={visibleCards[2]}
             />
@@ -454,36 +452,40 @@ export function JibunCraftClient() {
               title="ミライクラフト"
               icon="✨"
               color="var(--cream)"
-              description="未来を描くキャリア教育"
               delay={450}
               isVisible={visibleCards[3]}
             />
           </div>
 
-          {/* 中央のメッセージ */}
+          {/* 非認知能力って何？カード */}
           <div style={{
-            marginTop: 'clamp(32px, 6vw, 48px)',
-            textAlign: 'center'
+            background: '#FFF9E6',
+            borderRadius: 'var(--radius-lg)',
+            padding: 'clamp(16px, 4vw, 20px)',
+            marginTop: 'clamp(16px, 4vw, 24px)',
+            position: 'relative',
+            overflow: 'hidden'
           }}>
             <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '16px 24px',
-              background: 'var(--rail-cream)',
-              borderRadius: '16px',
-              border: '3px solid var(--brand)',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+              position: 'absolute',
+              top: '-20px',
+              right: '-30px',
+              width: '120px',
+              height: '120px',
+              background: '#FFE066',
+              borderRadius: '50%',
+              opacity: 0.15,
+              mixBlendMode: 'multiply',
+              clipPath: 'polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)'
+            }} />
+            
+            <div className="body-sm" style={{ 
+              color: '#333',
+              lineHeight: '1.7'
             }}>
-              <span style={{ fontSize: '32px' }}>⬇️</span>
-              <div style={{ textAlign: 'left' }}>
-                <div className="heading-sm" style={{ marginBottom: '4px' }}>
-                  すべてが統合される場所
-                </div>
-                <div className="body-sm" style={{ color: 'var(--ink-700)' }}>
-                  ジブンクラフト
-                </div>
-              </div>
+              <strong style={{ fontSize: 'clamp(14px, 3vw, 16px)' }}>💡 非認知能力って何？</strong>
+              <br />
+              テストで計測できる「認知能力」ではないチカラのこと。協調性、実行力、コミュニケーション能力など、社会に出て仕事するとき、あるいは生活をするときに必要なチカラです。
             </div>
           </div>
         </div>
@@ -574,7 +576,7 @@ export function JibunCraftClient() {
               fontWeight: 'var(--font-bold)',
               marginBottom: '16px'
             }}>
-              🤖 AI評価システム：AiGrow
+              非認知能力計測ツール：AiGrow
             </div>
 
             <p className="body-base" style={{ 
@@ -582,49 +584,15 @@ export function JibunCraftClient() {
               lineHeight: '1.8',
               marginBottom: '16px'
             }}>
-              自分の評価だけでなく、仲間からの客観的な評価をAIが分析。自分でも気づかなかった<strong style={{ color: 'var(--ink-900)' }}>「つなぐ力」や「まきこむ力」</strong>など、<strong style={{ color: '#3B82F6' }}>25種類の能力</strong>を公正に数値化します。
+              自分の評価だけでなく、他者からの客観的な評価もあわせてAIで分析。自分でも気づかなかった<strong style={{ color: 'var(--ink-900)' }}>「リーダーシップ」や「課題設定能力」</strong>など、<strong style={{ color: '#3B82F6' }}>の非認知能力</strong>を数値化します。
             </p>
 
             <p className="body-base" style={{ 
               color: 'var(--ink-700)', 
               lineHeight: '1.8'
             }}>
-              これにより、お子さまの成長を主観だけでなく、<strong style={{ color: 'var(--ink-900)' }}>データに基づいた「強み」</strong>として捉え直すことができます。
+              これにより、CLAFTでの成長を主観だけでなく、<strong style={{ color: 'var(--ink-900)' }}>データに基づいた「強み」</strong>として捉え直すことができます。
             </p>
-          </div>
-        </div>
-
-        {/* 付箋コラム */}
-        <div style={{
-          background: '#FFF9C4',
-          border: '1px solid rgba(0,0,0,0.08)',
-          borderRadius: '4px',
-          padding: 'clamp(16px, 4vw, 20px)',
-          marginBottom: 'clamp(24px, 5vw, 32px)',
-          transform: 'rotate(-1deg)',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-          position: 'relative'
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: '-8px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '40px',
-            height: '16px',
-            background: '#F59E0B',
-            opacity: 0.6,
-            mixBlendMode: 'multiply',
-            clipPath: 'polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)'
-          }} />
-          
-          <div className="body-sm" style={{ 
-            color: '#333',
-            lineHeight: '1.7'
-          }}>
-            <strong style={{ fontSize: 'clamp(14px, 3vw, 16px)' }}>💡 非認知能力って何？</strong>
-            <br />
-            テストで測れない「生きる力」のこと。協調性、創造性、粘り強さ、課題発見力など、これからの時代に本当に必要な力です。
           </div>
         </div>
 
@@ -651,7 +619,7 @@ export function JibunCraftClient() {
             }}
           >
             <span>📊</span>
-            科学的な計測ツール「AiGrow」について詳しく見る
+            「AiGrow」について詳しく見る
           </a>
         </div>
       </Section>
@@ -689,7 +657,7 @@ export function JibunCraftClient() {
             left: '50%',
             transform: 'translateX(-50%)'
           }}>
-            人生の地図を描く
+            キャリアの地図を描く
             <svg
               style={{
                 position: 'absolute',
@@ -720,7 +688,7 @@ export function JibunCraftClient() {
             lineHeight: '1.8'
           }}>
             キャリアコンサルタントとの面談で、<br />
-            自分の「今」と「未来」をつなげます。
+            自分の「過去・現在・未来」をつなげます。
           </p>
 
           {/* 面談の3ステップ */}
@@ -761,7 +729,7 @@ export function JibunCraftClient() {
               </div>
 
               <h3 className="heading-sm" style={{ marginBottom: '8px' }}>
-                強みの言語化
+                AiGrowの結果を共有し、自己理解を深める
               </h3>
 
               <p className="body-base" style={{ 
@@ -769,7 +737,7 @@ export function JibunCraftClient() {
                 margin: 0,
                 lineHeight: '1.7'
               }}>
-                「自分は何が得意か？」を言葉にする。
+                計測結果をみて思ったことや気づきを言葉にする。
               </p>
             </div>
 
@@ -805,7 +773,7 @@ export function JibunCraftClient() {
               </div>
 
               <h3 className="heading-sm" style={{ marginBottom: '8px' }}>
-                ありたい姿の探索
+                将来の姿をイメージして言葉にする
               </h3>
 
               <p className="body-base" style={{ 
@@ -813,7 +781,7 @@ export function JibunCraftClient() {
                 margin: 0,
                 lineHeight: '1.7'
               }}>
-                「どうありたいか？」という人生の軸を見つける。
+                「なにがしたいか」「どうありたいか」というキャリアの方向性を確認する。
               </p>
             </div>
 
@@ -857,7 +825,7 @@ export function JibunCraftClient() {
                 margin: 0,
                 lineHeight: '1.7'
               }}>
-                地図を描き、明日から何をするかを明確にする。
+                ゴールから逆算し、そのために必要な目標と、今後の行動を決める。
               </p>
             </div>
           </div>
@@ -878,8 +846,8 @@ export function JibunCraftClient() {
               margin: 0,
               lineHeight: '1.7'
             }}>
-              <strong style={{ color: 'var(--brand)' }}>3～4ヶ月に1回</strong>の定期的なアップデートで、<br />
-              常に「今、自分がどこにいるか」を確認できます。
+              <strong style={{ color: 'var(--brand)' }}>4ヶ月に1回</strong>の作品発表会の後に面談します。<br />
+              定期的に自分の現在地と進むべき方向性を確認できます。
             </p>
           </div>
         </div>
@@ -904,7 +872,7 @@ export function JibunCraftClient() {
           left: '50%',
           transform: 'translateX(-50%)'
         }}>
-          育てる、5つのチカラ
+          これから必要なのは情報編集力
           <svg
             style={{
               position: 'absolute',
@@ -931,12 +899,41 @@ export function JibunCraftClient() {
         <p className="body-base" style={{
           textAlign: 'center',
           color: 'var(--ink-700)',
-          marginBottom: 'clamp(32px, 6vw, 48px)',
+          marginBottom: 'clamp(24px, 5vw, 32px)',
           lineHeight: '1.8'
         }}>
           「ふつう」を疑い、新しい発想で仲間と未来を切り拓く。<br />
-          自分で自分を育てる、自律的な学びのゴールです。
+          その経験が自分のキャリアをクラフトしていく。
         </p>
+
+        {/* 情報編集力について詳しく見るボタン */}
+        <div style={{ textAlign: 'center', marginBottom: 'clamp(32px, 6vw, 48px)' }}>
+          <a 
+            href="https://note.com/keepon_/n/naa62a18017a1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+            style={{
+              fontSize: 'clamp(14px, 3vw, 16px)',
+              display: 'inline-flex',
+              transition: 'all 0.2s ease',
+              background: 'var(--cream)',
+              gap: '8px'
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.transform = 'translateY(2px)';
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            <span>📖</span>
+            「情報編集力」について詳しく見る
+          </a>
+        </div>
 
         <div style={{
           display: 'flex',
@@ -950,7 +947,7 @@ export function JibunCraftClient() {
             <StrengthCard
               icon="🤝"
               title="つなぐ"
-              description="人と人、アイデアとアイデアをつなぐ力"
+              description={<>他者とコミュニケーションをとって、<br />1人ではできないことにチャレンジするチカラ</>}
               color="var(--brand)"
               rotate="-2deg"
             />
@@ -963,7 +960,7 @@ export function JibunCraftClient() {
             <StrengthCard
               icon="🌟"
               title="ひらく"
-              description="新しい視点で可能性をひらく力"
+              description={<>常識や前例に疑問を持ち、<br />新しい考え方やアイデアを自ら生み出すチカラ</>}
               color="var(--cream)"
               rotate="1.5deg"
             />
@@ -976,7 +973,7 @@ export function JibunCraftClient() {
             <StrengthCard
               icon="✏️"
               title="えがく"
-              description="未来のビジョンをえがく力"
+              description={<>頭の中でシミュレーションし、<br />未来の出来事を予測して動き出すチカラ</>}
               color="var(--green)"
               rotate="-1deg"
             />
@@ -989,7 +986,7 @@ export function JibunCraftClient() {
             <StrengthCard
               icon="🎭"
               title="なりきる"
-              description="他者の視点になりきる共感力"
+              description={<>他者の立場に立って考えて、<br />他者の視点・考え・行動をわかろうとするチカラ</>}
               color="var(--pink)"
               rotate="2deg"
             />
@@ -1002,36 +999,18 @@ export function JibunCraftClient() {
             <StrengthCard
               icon="🚀"
               title="まきこむ"
-              description="周りを巻き込み行動する推進力"
+              description={<>自分の言葉で想いを表現し、<br />相手の気持ちを震わせ、動かすチカラ</>}
               color="var(--brand)"
               rotate="-1.5deg"
             />
           </div>
         </div>
-
-        {/* 最終メッセージ */}
-        <div style={{
-          marginTop: 'clamp(48px, 8vw, 64px)',
-          textAlign: 'center',
-          padding: 'clamp(24px, 5vw, 32px)',
-          background: 'white',
-          borderRadius: 'var(--radius-lg)',
-          boxShadow: '0 2px 12px rgba(0,0,0,0.08)'
-        }}>
-          <div style={{ fontSize: '48px', marginBottom: '16px' }}>✨</div>
-          <h3 className="heading-md" style={{ marginBottom: '12px' }}>
-            体験が、自信になる。
-          </h3>
-          <p className="body-base" style={{ 
-            color: 'var(--ink-700)',
-            lineHeight: '1.8',
-            margin: 0
-          }}>
-            ジブンクラフトで、お子さまの「見えない成長」を<br />
-            確かな「強み」として、一緒に育てていきましょう。
-          </p>
-        </div>
       </Section>
+
+      {/* トップページの入会までの流れ以降のセクション */}
+      <FlowApply />
+      <FAQ />
+      <Students />
     </MobileContainer>
   );
 }

@@ -3,6 +3,9 @@
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { useEffect, useState } from 'react';
 import { Zen_Maru_Gothic } from 'next/font/google';
+import { FlowApply } from '@/components/FlowApply';
+import { FAQ } from '@/components/FAQ';
+import { Students } from '@/components/Students';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['500', '700', '900'],
@@ -59,8 +62,7 @@ export default function ContactPage(){
               無料体験 / 問合せ
             </h1>
             <p className="body-lg text-ink-700 mb-8">
-              まずはお気軽にご相談ください。<br />
-              あなたに最適な学びの形をご提案します。
+              まずはお気軽にご連絡ください！
             </p>
           </div>
         </div>
@@ -85,10 +87,10 @@ export default function ContactPage(){
                 </div>
                 <div className="flex-1">
                   <h3 className="text-white font-bold text-xl mb-2" style={{ fontFamily: zenMaru.style.fontFamily }}>
-                    LINEで相談（おすすめ）
+                    LINE（おすすめ）
                   </h3>
                   <p className="text-white/90 text-sm mb-4">
-                    最も早くご返信できます。<br />
+                    すぐにご返信いたします。<br />
                     お気軽にメッセージをお送りください。
                   </p>
                   <a 
@@ -119,11 +121,10 @@ export default function ContactPage(){
                 </div>
                 <div className="flex-1">
                   <h3 className="text-ink-900 font-bold text-xl mb-2" style={{ fontFamily: zenMaru.style.fontFamily }}>
-                    フォームで申し込む
+                    フォーム
                   </h3>
                   <p className="text-ink-700 text-sm mb-4">
-                    じっくり入力したい方はこちら。<br />
-                    詳細な情報をお伝えいただけます。
+                    無料体験ご希望の方はこちらから。
                   </p>
                   <button 
                     className="inline-flex items-center gap-2 py-2 px-5 rounded-full font-bold bg-brand text-white no-underline hover:opacity-90 transition-all shadow-md"
@@ -291,8 +292,9 @@ export default function ContactPage(){
                       }}
                     >
                       <option value="" disabled>選択してください</option>
-                      <option>PBL(課題解決型学習)</option>
+                      <option>キャリアコース（クエスト・PBL・ジブンクラフト）</option>
                       <option>マイクラSDGsコース</option>
+                      <option>ロボットプログラミングコース</option>
                       <option>未定（相談したい）</option>
                     </select>
                   </div>
@@ -375,276 +377,13 @@ export default function ContactPage(){
             </form>
           </div>
         </Section>
-
-        {/* その他のオプション */}
-        <Section className="py-8">
-          <h2 className="heading-lg mb-6 text-center" style={{ fontFamily: zenMaru.style.fontFamily }}>その他のご案内</h2>
-          
-          <div className="grid grid-cols-1 gap-4">
-            {/* 資料ダウンロード */}
-            <div 
-              className={`bg-white border border-black/[0.06] rounded-2xl p-6 shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: '300ms' }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-cream to-[#ffc557] rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-ink-900 font-bold text-lg mb-2" style={{ fontFamily: zenMaru.style.fontFamily }}>
-                    資料ダウンロード
-                  </h3>
-                  <p className="text-ink-700 text-sm mb-4">
-                    パンフレット（PDF）と詳細カリキュラムをダウンロードできます。
-                  </p>
-                  <a 
-                    className="inline-flex items-center gap-2 py-2 px-5 rounded-full font-bold bg-white border-2 border-cream text-ink-900 no-underline hover:bg-cream/10 transition-all shadow-sm"
-                    href="/assets/siryo.pdf" 
-                    target="_blank" 
-                    rel="noopener"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    資料を受け取る
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* スクール生用アプリ */}
-            <div 
-              className={`bg-gradient-to-br from-pink/10 to-pink/5 border border-pink/20 rounded-2xl p-6 shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: '400ms' }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-pink to-[#e05555] rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-ink-900 font-bold text-lg mb-2" style={{ fontFamily: zenMaru.style.fontFamily }}>
-                    スクール生用アプリ
-                  </h3>
-                  <p className="text-ink-700 text-sm mb-4">
-                    在籍生は学習環境へアクセスできます。
-                  </p>
-                  <a 
-                    className="inline-flex items-center gap-2 py-2 px-5 rounded-full font-bold bg-white border-2 border-pink text-pink no-underline hover:bg-pink hover:text-white transition-all shadow-sm"
-                    href="https://claft-next.vercel.app" 
-                    target="_blank" 
-                    rel="noopener"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                    アプリへ移動
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* 入会までの流れ */}
-        <Section className="py-8">
-          <h2 className="heading-lg mb-6 text-center" style={{ fontFamily: zenMaru.style.fontFamily }}>入会までの流れ</h2>
-          
-          <div className="grid grid-cols-1 gap-4">
-            {/* STEP 1 */}
-            <div 
-              className={`bg-white rounded-2xl p-6 border-l-4 border-brand shadow-md transition-all duration-500 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: '100ms' }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-bold text-sm">
-                  1
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg mb-2 text-ink-900">お気軽にご相談</h3>
-                  <p className="text-ink-700 text-sm leading-relaxed">
-                    LINEまたはフォームからお問い合わせください。<br />
-                    ご質問やご相談に丁寧にお答えします。
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* STEP 2 */}
-            <div 
-              className={`bg-white rounded-2xl p-6 border-l-4 border-green shadow-md transition-all duration-500 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: '200ms' }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-green text-white rounded-full flex items-center justify-center font-bold text-sm">
-                  2
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg mb-2 text-ink-900">1ヶ月無料体験</h3>
-                  <p className="text-ink-700 text-sm leading-relaxed">
-                    学習アプリを使いながら、実際の授業を体験。<br />
-                    お子さまに合うかじっくり確認できます。
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* STEP 3 */}
-            <div 
-              className={`bg-white rounded-2xl p-6 border-l-4 border-cream shadow-md transition-all duration-500 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: '300ms' }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-cream text-white rounded-full flex items-center justify-center font-bold text-sm">
-                  3
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg mb-2 text-ink-900">入会のお申し込み</h3>
-                  <p className="text-ink-700 text-sm leading-relaxed">
-                    体験終了後、ご入会の意思をお聞きします。<br />
-                    翌月から正式にスタート！
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* FAQ */}
-        <Section className="py-8">
-          <h2 className="heading-lg mb-6 text-center" style={{ fontFamily: zenMaru.style.fontFamily }}>よくある質問</h2>
-          
-          <div className="space-y-3">
-            <details className="bg-white rounded-xl shadow-md p-4 open:pb-5 transition-all hover:shadow-lg group">
-              <summary className="font-bold cursor-pointer list-none text-ink-900 flex items-center justify-between">
-                <span>対象年齢は何歳からですか？</span>
-                <svg className="w-5 h-5 text-ink-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <p className="body-base text-ink-700 mt-3 pl-1">
-                推奨は小学5年生からですが、興味や意欲があれば学年に関わらず参加できます。
-              </p>
-            </details>
-
-            <details className="bg-white rounded-xl shadow-md p-4 open:pb-5 transition-all hover:shadow-lg group">
-              <summary className="font-bold cursor-pointer list-none text-ink-900 flex items-center justify-between">
-                <span>体験に費用はかかりますか？</span>
-                <svg className="w-5 h-5 text-ink-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <p className="body-base text-ink-700 mt-3 pl-1">
-                いいえ。1ヶ月間の無料体験が可能です。
-              </p>
-            </details>
-
-            <details className="bg-white rounded-xl shadow-md p-4 open:pb-5 transition-all hover:shadow-lg group">
-              <summary className="font-bold cursor-pointer list-none text-ink-900 flex items-center justify-between">
-                <span>体験後に入会を断っても大丈夫ですか？</span>
-                <svg className="w-5 h-5 text-ink-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <p className="body-base text-ink-700 mt-3 pl-1">
-                もちろん大丈夫です。強引な勧誘は一切ありません。
-              </p>
-            </details>
-
-            <details className="bg-white rounded-xl shadow-md p-4 open:pb-5 transition-all hover:shadow-lg group">
-              <summary className="font-bold cursor-pointer list-none text-ink-900 flex items-center justify-between">
-                <span>オンラインと対面、どちらですか？</span>
-                <svg className="w-5 h-5 text-ink-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <p className="body-base text-ink-700 mt-3 pl-1">
-                基本はオンラインで学びを進めていきますが、発表会やイベントは対面で行うこともあります。
-              </p>
-            </details>
-
-            <details className="bg-white rounded-xl shadow-md p-4 open:pb-5 transition-all hover:shadow-lg group">
-              <summary className="font-bold cursor-pointer list-none text-ink-900 flex items-center justify-between">
-                <span>入会後にやめたいときはどうなりますか？</span>
-                <svg className="w-5 h-5 text-ink-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <p className="body-base text-ink-700 mt-3 pl-1">
-                月単位での解約が可能です。
-              </p>
-            </details>
-          </div>
-        </Section>
-
-        {/* CTA Section */}
-        <Section className="py-10">
-          <div 
-            className={`bg-gradient-to-br from-brand/10 to-green/10 rounded-2xl p-8 text-center border border-brand/20 transition-all duration-700 ${revealed ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
-            style={{ transitionDelay: '500ms' }}
-          >
-            <h2 className="heading-lg mb-4" style={{ fontFamily: zenMaru.style.fontFamily }}>
-              まずは無料で体験してみませんか？
-            </h2>
-            <p className="body-base text-ink-700 mb-6">
-              お子さまの未来の可能性を、一緒に広げていきましょう。<br />
-              ご質問・ご相談はお気軽にどうぞ。
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a 
-                className="inline-flex items-center gap-2 py-3 px-6 rounded-full font-bold bg-[#06c755] text-white no-underline hover:opacity-90 transition-all shadow-lg"
-                href="https://lin.ee/wcsFK9A" 
-                target="_blank" 
-                rel="noopener"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-                </svg>
-                LINEで相談
-              </a>
-              <button 
-                className="inline-flex items-center gap-2 py-3 px-6 rounded-full font-bold bg-brand text-white hover:opacity-90 transition-all shadow-lg"
-                onClick={() => {
-                  const form = document.getElementById('contact-form');
-                  if (form) {
-                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }}
-              >
-                フォームで申し込む
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </Section>
-
-        {/* thanks anchor */}
-        <div id="thanks" className="pb-14"></div>
       </MobileContainer>
 
-      {/* Responsive styles */}
-      <style jsx>{`
-        .form-section {
-          padding-bottom: 1.5rem;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-        }
-        .form-section:last-of-type {
-          border-bottom: none;
-        }
-        @media (min-width: 640px) {
-          .form-grid-2 {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        select::-ms-expand {
-          display: none;
-        }
-      `}</style>
+      {/* トップページの入会までの流れ以降のセクション */}
+      <FlowApply />
+      <FAQ />
+      <Students />
+
     </div>
   );
 }

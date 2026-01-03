@@ -40,8 +40,8 @@ export function FlowApply(){
                 お気軽にご相談ください！
               </h3>
               <p className="text-ink-700 text-base leading-relaxed">
-                PDF資料でカリキュラムの詳細・料金をご確認ください。<br />
-                ご不明な点やご質問はLINEからお問合せくださいませ。30分程度の個別面談も可能です。
+                PDF資料で詳細をご確認ください。<br />
+                ご不明な点やご質問はLINEからお問合せください。30分程度の個別面談も可能です。
               </p>
             </div>
           </div>
@@ -85,8 +85,8 @@ export function FlowApply(){
                 まずは1ヶ月無料体験
               </h3>
               <p className="text-ink-700 text-base leading-relaxed">
-                学習アプリを使いながら、1ヶ月間無料で体験できます。<br />
-                ご希望の方は、以下のボタンからお申込みくださいませ。
+                アプリを使って体験できます。<br />
+                オンラインワークも参加できます。
               </p>
             </div>
           </div>
@@ -117,8 +117,8 @@ export function FlowApply(){
                 入会のお申し込み
               </h3>
               <p className="text-ink-700 text-base leading-relaxed">
-                体験終了後に入会するかどうかのご連絡をいたします。<br />
-                入会後は、翌月から費用が発生いたします。
+                体験終了後、ご入会の意思をお聞きします。<br />
+                翌月から正式にスタート！
               </p>
             </div>
           </div>
