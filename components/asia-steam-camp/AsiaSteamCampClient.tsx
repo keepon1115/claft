@@ -966,18 +966,16 @@ export function AsiaSteamCampClient() {
                 index={1}
               />
               <TimelineItem
-                date="1/11〜1/20"
-                title="チームごとに「お題」を具体化し、資料としてまとめる"
-                description="教室で作ってもオンラインミーティングで進めてもOK"
+                date="1/17(土)10:00~16:30"
+                title="各々来られる時間に教室で、他国の参加者に「お題」として提示するためのスライド資料の作成を進めます。完成したらチームごとに発表動画を作成します。"
                 color={phaseColors.phase1}
                 index={2}
               />
               <TimelineItem
-                date="1/21(水)"
-                title="資料提出"
+                date="1/18~1/21"
+                title="各チームで修正が必要であればこの期間に修正して他国への「お題」を完成させて提出。"
                 color={phaseColors.phase1}
-                isLast
-                index={3}
+                index={2}
               />
             </div>
           </div>

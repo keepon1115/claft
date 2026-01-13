@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Zen_Maru_Gothic } from 'next/font/google';
+import { Zen_Maru_Gothic, Shippori_Mincho } from 'next/font/google';
 import Link from 'next/link';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
@@ -9,6 +9,12 @@ import { Students } from '@/components/Students';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['500', '700', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const shipporiMincho = Shippori_Mincho({
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   display: 'swap',
 });
@@ -754,7 +760,7 @@ function DataSection() {
         width: '100%',
         padding: 'clamp(80px, 12vw, 120px) 20px',
         background: `
-          linear-gradient(180deg, #fbfefe 0%, rgba(31, 41, 55, 0.03) 50%, #fbfefe 100%)
+          linear-gradient(180deg, #fbfefe 0%, rgba(31, 41, 55, 0.08) 50%, rgba(31, 41, 55, 0.06) 100%)
         `,
         position: 'relative',
       }}
@@ -768,7 +774,7 @@ function DataSection() {
           transform: 'translateX(-50%)',
           width: '600px',
           height: '600px',
-          background: 'radial-gradient(circle, rgba(240, 106, 106, 0.04), transparent 70%)',
+          background: 'radial-gradient(circle, rgba(240, 106, 106, 0.06), transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none',
         }}
@@ -882,35 +888,93 @@ function DataSection() {
           ))}
         </div>
 
-        {/* 結論テキスト */}
+        {/* エディトリアル・フォーカス：結論テキスト */}
         <div
-          className="reveal"
+          className="reveal container"
           style={{
-            padding: '28px',
-            background: 'linear-gradient(135deg, rgba(52, 198, 190, 0.08), rgba(88, 195, 162, 0.06))',
-            borderRadius: 'var(--radius)',
-            borderLeft: '4px solid var(--brand)',
+            padding: 'clamp(40px, 8vw, 60px) 0',
           }}
         >
-          <p
+          <div
             style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.9,
-              color: 'var(--ink-700)',
-              margin: 0,
+              position: 'relative',
+              paddingLeft: 'clamp(32px, 7vw, 40px)',
             }}
           >
-            原因は、決して本人の努力不足ではありません。むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。
-            <br />
-            その理由は、とてもシンプル。
-            <br />
-            <strong style={{ color: 'var(--ink-900)' }}>
-            「社会の変化に、学びが追いついていない」
-            </strong>
-            技術の進歩、価値観の多様化に伴い社会課題が顕在化している時代。「正解を早く答える」勉強だけでは、生き抜く力にはなりません。
-            <br />
-            特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。
-          </p>
+            {/* アクセントライン（左側の垂直線） */}
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: '6px',
+                background: 'var(--brand)',
+                borderRadius: '3px',
+              }}
+            />
+
+            {/* リード文（冒頭） */}
+            <p className="body-lg" style={{ marginBottom: '32px' }}>
+              原因は、決して本人の努力不足ではありません。むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。
+            </p>
+
+            {/* 中核フレーズ（マーカー強調） */}
+            <div style={{ marginBottom: '32px' }}>
+              <p
+                style={{
+                  fontSize: 'clamp(0.95rem, 2.5vw, 1.05rem)',
+                  lineHeight: 1.8,
+                  color: 'var(--ink-700)',
+                  marginBottom: '16px',
+                }}
+              >
+                その理由は、とてもシンプル。
+              </p>
+              <h3
+                className="heading-md"
+                style={{
+                  background: 'var(--cream)',
+                  padding: '12px 20px',
+                  borderRadius: '8px',
+                  display: 'inline-block',
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                「社会の変化に、学びが追いついていない」
+              </h3>
+            </div>
+
+            {/* 説明段落 */}
+            <p
+              className="body-base"
+              style={{
+                marginBottom: '28px',
+              }}
+            >
+              技術の進歩、価値観の多様化に伴い社会課題が顕在化している時代。「正解を早く答える」勉強だけでは、生き抜く力にはなりません。特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。
+            </p>
+
+            {/* カード風の補足（最後の段落） */}
+            <div
+              style={{
+                background: 'var(--bg)',
+                padding: 'clamp(24px, 5vw, 32px)',
+                borderRadius: 'var(--radius)',
+                border: '1px solid rgba(0, 0, 0, 0.04)',
+              }}
+            >
+              <p
+                className="body-base"
+                style={{
+                  margin: 0,
+                }}
+              >
+                それにもかかわらず、日本の教育は依然として「教科書に書かれた知識を覚え、テストで正しく答える力」を重視しています。先生が知識を教え、生徒がそれを記憶し、偏差値で進路が決まる──この構造のままでは、教育と社会との間に大きなギャップが生じ、多くの若者がつまずいてしまいます。
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -918,39 +982,49 @@ function DataSection() {
 }
 
 // =========================================
-// 4. 解決策セクション（CLAFTの定義）
+// 4. 解決策セクション（CLAFTの3つのアプローチ）
 // =========================================
 function SolutionSection() {
-  const claftLetters = [
+  const solutions = [
     {
-      letter: 'C',
-      color: '#34c6be',
-      bgColor: 'rgba(52, 198, 190, 0.15)',
-      words: ['Creative（創造）', 'Communication（対話）'],
+      id: 1,
+      title: '自ら考え、判断し、表現する体験を。',
+      description:
+        'PBL（課題解決型学習）や、正解のない問いに向き合う「クエスト」を通じ、スマホやPCを駆使して自らの答えを形にします。',
+      philosophy: '学びの本質は知覚。知覚は経験から生まれる。',
+      color: 'var(--brand)',
+      bgColor: 'rgba(52, 198, 190, 0.08)',
+      borderColor: 'rgba(52, 198, 190, 0.3)',
+      links: [
+        { text: 'PBL（課題解決型学習）', href: '/pbl' },
+      ],
     },
     {
-      letter: 'L',
-      color: '#58c3a2',
-      bgColor: 'rgba(88, 195, 162, 0.15)',
-      words: ['Learning（すべての経験を「学び」に変える）'],
+      id: 2,
+      title: '学びの熱量を維持する、独自の評価システム。',
+      description:
+        '「ジブンクラフト」では、日々の気づきを「5つのチカラ」に変換し可視化。自分らしさを育てながら、挑戦への確信を築きます。',
+      philosophy: '没頭することが、最も高い満足感と動機づけにつながる。',
+      color: 'var(--cream)',
+      bgColor: 'rgba(255, 214, 107, 0.12)',
+      borderColor: 'rgba(255, 214, 107, 0.4)',
+      links: [
+        { text: 'ジブンクラフト', href: '/jibun-craft' },
+      ],
     },
     {
-      letter: 'A',
-      color: '#ffd66b',
-      bgColor: 'rgba(255, 214, 107, 0.2)',
-      words: ['Active（自ら問いを立て、動き出す主体性）'],
-    },
-    {
-      letter: 'F',
-      color: '#f06a6a',
-      bgColor: 'rgba(240, 106, 106, 0.15)',
-      words: ['Flexible（変化をチャンスとして楽しむ柔軟性）'],
-    },
-    {
-      letter: 'T',
-      color: '#34c6be',
-      bgColor: 'rgba(52, 198, 190, 0.15)',
-      words: ['Trial（失敗を恐れず、何度でも試す精神）'],
+      id: 3,
+      title: '仲間や大人、異年齢と混じり合う。',
+      description:
+        '月1回の対話「Yononaka」や、3ヶ月ごとの発表会「ミライクラフト」。地域や大人と共創し、多様な生き方に触れます。',
+      philosophy: '「ムズムズ」を共有できる仲間がいれば、挑戦はもっと強くなる。',
+      color: 'var(--green)',
+      bgColor: 'rgba(88, 195, 162, 0.08)',
+      borderColor: 'rgba(88, 195, 162, 0.3)',
+      links: [
+        { text: 'Yononaka', href: '/yononaka' },
+        { text: 'ミライクラフト', href: '/futurecraft' },
+      ],
     },
   ];
 
@@ -960,375 +1034,209 @@ function SolutionSection() {
         width: '100%',
         padding: 'clamp(80px, 12vw, 120px) 20px',
         background: `
-          radial-gradient(ellipse 800px 600px at 30% 20%, rgba(52, 198, 190, 0.08), transparent 60%),
-          radial-gradient(ellipse 600px 400px at 70% 80%, rgba(255, 214, 107, 0.08), transparent 50%),
-          linear-gradient(180deg, #fbfefe 0%, #fff 50%, #FFF6E9 100%)
+          radial-gradient(ellipse 900px 600px at 50% 30%, rgba(52, 198, 190, 0.12), transparent 60%),
+          radial-gradient(ellipse 700px 500px at 20% 80%, rgba(255, 214, 107, 0.1), transparent 50%),
+          radial-gradient(ellipse 600px 400px at 80% 70%, rgba(88, 195, 162, 0.08), transparent 50%),
+          linear-gradient(180deg, var(--bg) 0%, #fff 50%, #FFF6E9 100%)
         `,
         position: 'relative',
       }}
     >
-      <div style={{ width: 'min(480px, 92%)', margin: '0 auto' }}>
-        {/* セクションタイトル */}
+      {/* 波型の境界線（上部） */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '80px',
+          overflow: 'hidden',
+          pointerEvents: 'none',
+        }}
+      >
+        <svg
+          viewBox="0 0 1200 80"
+          preserveAspectRatio="none"
+          style={{
+            width: '100%',
+            height: '100%',
+            transform: 'rotate(180deg)',
+          }}
+        >
+          <path
+            d="M0,40 Q300,0 600,40 T1200,40 L1200,80 L0,80 Z"
+            fill="rgba(31, 41, 55, 0.06)"
+          />
+        </svg>
+      </div>
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        {/* セクションヘッダー */}
         <div className="reveal" style={{ textAlign: 'center', marginBottom: '48px' }}>
           <h2
+            className="heading-lg"
             style={{
-              fontSize: 'clamp(1.4rem, 5vw, 1.9rem)',
-              fontWeight: 900,
+              marginBottom: '24px',
               color: 'var(--ink-900)',
-              lineHeight: 1.4,
-              marginBottom: '20px',
             }}
           >
-            CLAFTとは？
+            CLAFT：「探究・対話・実践」の学びが
             <br />
-            <span style={{ color: '#34c6be' }}>創って伝えて</span>学ぶ場所
+            <span style={{ color: 'var(--brand)' }}>学校と社会の分断</span>をつなぐ！
           </h2>
           <p
+            className="body-base"
             style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.8,
-              color: 'var(--ink-700)',
+              maxWidth: '420px',
+              margin: '0 auto',
             }}
           >
-            CLAFTという名前には、学校と社会の分断をつなぎ、
-            <br />
-            子どもたちが自分で自分のキャリアを創っていくための
-            <br />
-            <strong style={{ color: 'var(--ink-900)' }}>6つの指針</strong>を込めています。
+            CLAFTでは、入試のための勉強から
+            <strong className="emphasis">「社会を知り未来を予測するための学び」</strong>
+            へと変えていく必要があると考えています。
           </p>
         </div>
 
-        {/* CLAFT 文字バッジ */}
+        {/* 3つの解決策カード */}
         <div
-          className="reveal"
           style={{
             display: 'flex',
-            justifyContent: 'center',
-            gap: '12px',
-            marginBottom: '48px',
-            flexWrap: 'wrap',
+            flexDirection: 'column',
+            gap: 'clamp(28px, 6vw, 36px)',
           }}
         >
-          {claftLetters.map((item, index) => (
-            <div
-              key={item.letter}
-              style={{
-                width: 'clamp(50px, 12vw, 64px)',
-                height: 'clamp(50px, 12vw, 64px)',
-                borderRadius: '16px',
-                background: item.bgColor,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 'clamp(1.5rem, 5vw, 2rem)',
-                fontWeight: 900,
-                color: item.color,
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                border: `2px solid ${item.color}40`,
-              }}
-            >
-              {item.letter}
-            </div>
-          ))}
-        </div>
-
-        {/* 各文字の説明 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-          {claftLetters.map((item, index) => (
-            <div
-              key={item.letter}
+          {solutions.map((solution, index) => (
+            <article
+              key={solution.id}
               className="reveal"
               style={{
-                display: 'flex',
-                gap: '16px',
-                alignItems: 'flex-start',
-                padding: '20px',
                 background: '#fff',
-                borderRadius: 'var(--radius)',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                borderLeft: `4px solid ${item.color}`,
-                transitionDelay: `${index * 50}ms`,
+                borderRadius: 'var(--radius-lg)',
+                padding: 'clamp(28px, 6vw, 36px)',
+                boxShadow: 'var(--shadow)',
+                border: `2px solid ${solution.borderColor}`,
+                position: 'relative',
+                overflow: 'hidden',
+                transitionDelay: `${index * 100}ms`,
               }}
             >
+              {/* カード上部のアクセント */}
               <div
                 style={{
-                  minWidth: '40px',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '6px',
+                  background: `linear-gradient(90deg, ${solution.color}, ${solution.bgColor})`,
+                }}
+              />
+
+              {/* カード番号バッジ */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  width: '40px',
                   height: '40px',
-                  borderRadius: '10px',
-                  background: item.bgColor,
+                  borderRadius: '50%',
+                  background: solution.bgColor,
+                  border: `2px solid ${solution.borderColor}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '1.2rem',
                   fontWeight: 900,
-                  color: item.color,
+                  color: solution.color === 'var(--cream)' ? '#f0a629' : solution.color,
                 }}
               >
-                {item.letter}
+                {solution.id}
               </div>
-              <div style={{ flex: 1 }}>
-                {item.words.map((word, i) => (
-                  <p
-                    key={i}
-                    style={{
-                      fontSize: 'clamp(0.9rem, 2.3vw, 1rem)',
-                      fontWeight: 700,
-                      color: 'var(--ink-800)',
-                      margin: i > 0 ? '4px 0 0' : 0,
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {word}
-                  </p>
-                ))}
+
+              {/* タイトル */}
+              <h3
+                className="heading-sm"
+                style={{
+                  marginBottom: '16px',
+                  paddingRight: '50px',
+                }}
+              >
+                {solution.title}
+              </h3>
+
+              {/* 説明文 */}
+              <p
+                className="body-base"
+                style={{
+                  marginBottom: '20px',
+                }}
+              >
+                {(() => {
+                  let text = solution.description;
+                  const parts: React.ReactNode[] = [];
+                  let lastIndex = 0;
+
+                  solution.links.forEach((link, linkIdx) => {
+                    const index = text.indexOf(link.text, lastIndex);
+                    if (index !== -1) {
+                      // リンク前のテキスト
+                      if (index > lastIndex) {
+                        parts.push(text.substring(lastIndex, index));
+                      }
+                      // リンク
+                      parts.push(
+                        <Link
+                          key={`link-${linkIdx}`}
+                          href={link.href}
+                          style={{
+                            color: solution.color === 'var(--cream)' ? '#f0a629' : solution.color,
+                            fontWeight: 700,
+                            textDecoration: 'underline',
+                            textDecorationColor: solution.borderColor,
+                            textUnderlineOffset: '3px',
+                            transition: 'all 0.2s ease',
+                          }}
+                        >
+                          {link.text}
+                        </Link>
+                      );
+                      lastIndex = index + link.text.length;
+                    }
+                  });
+
+                  // 残りのテキスト
+                  if (lastIndex < text.length) {
+                    parts.push(text.substring(lastIndex));
+                  }
+
+                  return parts;
+                })()}
+              </p>
+
+              {/* 哲学的キャプション */}
+              <div
+                style={{
+                  marginTop: '24px',
+                  paddingTop: '20px',
+                  borderTop: `1px solid ${solution.borderColor}`,
+                }}
+              >
+                <p
+                  className={`body-sm ${shipporiMincho.className}`}
+                  style={{
+                    fontStyle: 'italic',
+                    color: 'var(--ink-600)',
+                    textAlign: 'center',
+                    lineHeight: 1.8,
+                    margin: 0,
+                  }}
+                >
+                  {solution.philosophy}
+                </p>
               </div>
-            </div>
+            </article>
           ))}
-        </div>
-
-        {/* CL 循環図解 */}
-        <div
-          className="reveal"
-          style={{
-            background: '#fff',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'clamp(32px, 8vw, 48px)',
-            boxShadow: 'var(--shadow)',
-            marginBottom: '32px',
-          }}
-        >
-          <h3
-            style={{
-              fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
-              fontWeight: 900,
-              color: 'var(--ink-900)',
-              textAlign: 'center',
-              marginBottom: '24px',
-            }}
-          >
-            【CL】好奇心の循環をつくる
-          </h3>
-
-          {/* 循環図 */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginBottom: '28px',
-            }}
-          >
-            <svg width="240" height="180" viewBox="0 0 240 180">
-              {/* 円形の矢印 */}
-              <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="#34c6be" />
-                </marker>
-              </defs>
-
-              {/* 上の矢印（Creative → Communication） */}
-              <path
-                d="M60,90 Q60,40 120,40 Q180,40 180,90"
-                stroke="#34c6be"
-                strokeWidth="3"
-                fill="none"
-                markerEnd="url(#arrowhead)"
-                strokeDasharray="8 4"
-              />
-
-              {/* 下の矢印（Communication → Creative） */}
-              <path
-                d="M180,90 Q180,140 120,140 Q60,140 60,90"
-                stroke="#58c3a2"
-                strokeWidth="3"
-                fill="none"
-                markerEnd="url(#arrowhead)"
-                strokeDasharray="8 4"
-              />
-
-              {/* 中央の円 */}
-              <circle cx="120" cy="90" r="35" fill="rgba(255, 214, 107, 0.3)" stroke="#ffd66b" strokeWidth="2" />
-              <text x="120" y="85" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink-800)">
-                好奇心
-              </text>
-              <text x="120" y="100" textAnchor="middle" fontSize="9" fill="var(--ink-600)">
-                Curiosity
-              </text>
-
-              {/* 左のラベル */}
-              <text x="30" y="90" textAnchor="middle" fontSize="10" fontWeight="700" fill="#34c6be">
-                Creative
-              </text>
-              <text x="30" y="102" textAnchor="middle" fontSize="8" fill="var(--ink-500)">
-                創造
-              </text>
-
-              {/* 右のラベル */}
-              <text x="210" y="90" textAnchor="middle" fontSize="9" fontWeight="700" fill="#58c3a2">
-                Communication
-              </text>
-              <text x="210" y="102" textAnchor="middle" fontSize="8" fill="var(--ink-500)">
-                対話
-              </text>
-            </svg>
-          </div>
-
-          <p
-            style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 0.95rem)',
-              lineHeight: 1.9,
-              color: 'var(--ink-700)',
-              textAlign: 'center',
-            }}
-          >
-            自分の興味を形にする（<strong style={{ color: '#34c6be' }}>Creative</strong>）なかで、
-            それを人に発表し共有する（<strong style={{ color: '#58c3a2' }}>Communication</strong>）。
-            <br />
-            そこで得た反応が新たな気づきとなり、また次の探究へと繋がっていく。
-            <br />
-            このサイクルを回すことで、義務感ではない
-            <strong style={{ color: 'var(--ink-900)' }}>「学びたい！働きたい！」</strong>
-            という自然な意欲が芽生えます。
-          </p>
-        </div>
-
-        {/* L の説明 */}
-        <div
-          className="reveal"
-          style={{
-            background: 'linear-gradient(135deg, rgba(88, 195, 162, 0.1), rgba(52, 198, 190, 0.08))',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'clamp(28px, 7vw, 40px)',
-            border: '2px solid rgba(88, 195, 162, 0.2)',
-          }}
-        >
-          <h3
-            style={{
-              fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
-              fontWeight: 900,
-              color: 'var(--ink-900)',
-              textAlign: 'center',
-              marginBottom: '24px',
-            }}
-          >
-            【L】後悔（Regret）を学び（Learning）へ
-          </h3>
-
-          {/* R vs L ビジュアル */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '20px',
-              marginBottom: '24px',
-            }}
-          >
-            {/* R - グレーアウト */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '14px',
-                  background: 'rgba(0, 0, 0, 0.06)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.8rem',
-                  fontWeight: 900,
-                  color: 'var(--ink-400)',
-                  textDecoration: 'line-through',
-                  textDecorationColor: 'var(--ink-400)',
-                  position: 'relative',
-                }}
-              >
-                R
-              </div>
-              <p
-                style={{
-                  fontSize: '0.7rem',
-                  color: 'var(--ink-400)',
-                  marginTop: '6px',
-                  fontWeight: 500,
-                }}
-              >
-                Regret
-              </p>
-            </div>
-
-            {/* 矢印 */}
-            <svg width="36" height="20" viewBox="0 0 36 20">
-              <path
-                d="M4 10 L28 10 M22 5 L28 10 L22 15"
-                stroke="var(--brand)"
-                strokeWidth="2.5"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            {/* L - 輝く */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '14px',
-                  background: 'linear-gradient(135deg, rgba(88, 195, 162, 0.25), rgba(52, 198, 190, 0.35))',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.8rem',
-                  fontWeight: 900,
-                  color: '#34c6be',
-                  boxShadow: '0 6px 16px rgba(52, 198, 190, 0.3)',
-                  border: '2px solid rgba(52, 198, 190, 0.4)',
-                }}
-              >
-                L
-              </div>
-              <p
-                style={{
-                  fontSize: '0.7rem',
-                  color: '#34c6be',
-                  marginTop: '6px',
-                  fontWeight: 700,
-                }}
-              >
-                Learning
-              </p>
-            </div>
-          </div>
-
-          <p
-            style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 0.95rem)',
-              lineHeight: 1.9,
-              color: 'var(--ink-700)',
-              textAlign: 'center',
-            }}
-          >
-            人生100年時代、学びと仕事は往復し続けるものです。
-            <br />
-            失敗を<strong style={{ color: 'var(--ink-500)', textDecoration: 'line-through' }}>Regret（後悔）</strong>
-            して立ち止まるのではなく、すべてを
-            <strong style={{ color: '#58c3a2' }}>Learning（学び）</strong>として捉える。
-            <br />
-            このマインドセットがあれば、どんな変化も恐れることはありません。
-          </p>
         </div>
       </div>
     </section>
@@ -1336,18 +1244,41 @@ function SolutionSection() {
 }
 
 // =========================================
-// 5. 哲学セクション（AFTの成果）
+// 5. インタラクティブセクション（CLAFT詳細 + AFT成果）
 // =========================================
 function PhilosophySection() {
-  const outcomes = [
+  // CLAFTタブの状態管理
+  const [activeTab, setActiveTab] = useState<'C' | 'L' | 'A' | 'F' | 'T'>('C');
+  
+  // アコーディオンの開閉状態管理
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+
+  const toggleAccordion = (id: string) => {
+    setOpenAccordion(openAccordion === id ? null : id);
+  };
+
+  // CLAFTタブの定義
+  const claftTabs = [
+    { letter: 'C', color: '#34c6be', bgColor: 'rgba(52, 198, 190, 0.15)' },
+    { letter: 'L', color: '#58c3a2', bgColor: 'rgba(88, 195, 162, 0.15)' },
+    { letter: 'A', color: '#ffd66b', bgColor: 'rgba(255, 214, 107, 0.2)' },
+    { letter: 'F', color: '#f06a6a', bgColor: 'rgba(240, 106, 106, 0.15)' },
+    { letter: 'T', color: '#34c6be', bgColor: 'rgba(52, 198, 190, 0.15)' },
+  ];
+
+  // AFTアコーディオンの定義
+  const aftItems = [
     {
+      id: 'active',
       letter: 'A',
-      title: 'Active：主体的な行動力の向上',
+      title: '主体的な行動力の向上',
       color: '#ffd66b',
+      bgColor: 'rgba(255, 214, 107, 0.12)',
+      borderColor: 'rgba(255, 214, 107, 0.4)',
       description:
         '「指示待ち」ではなく、自分で問いを立てて動く力が育ちます。アクションを起こすことで得られる学びのサイクルが、自分への確信（自己効力感）を支えます。',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
           <path
             d="M24 6 L28 14 L36 16 L30 24 L32 32 L24 28 L16 32 L18 24 L12 16 L20 14 Z"
             fill="rgba(255, 214, 107, 0.25)"
@@ -1359,13 +1290,16 @@ function PhilosophySection() {
       ),
     },
     {
+      id: 'flexible',
       letter: 'F',
-      title: 'Flexible：柔軟な適応力の向上',
+      title: '柔軟な適応力の向上',
       color: '#f06a6a',
+      bgColor: 'rgba(240, 106, 106, 0.12)',
+      borderColor: 'rgba(240, 106, 106, 0.4)',
       description:
         '異なる価値観を持つ仲間との対話を通じ、変化をチャンスとして捉えるしなやかさを養います。これは現代社会で不可欠な「情報編集力（＝自分らしく情報を組み立て、伝える力）」の土台となります。',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
           <path
             d="M8 18 Q12 10, 20 12 Q28 14, 24 22 Q20 30, 28 32 Q36 34, 40 26"
             stroke="#f06a6a"
@@ -1379,13 +1313,16 @@ function PhilosophySection() {
       ),
     },
     {
+      id: 'trial',
       letter: 'T',
-      title: 'Trial：何度も試し続ける精神',
+      title: '何度も試し続ける精神',
       color: '#34c6be',
+      bgColor: 'rgba(52, 198, 190, 0.12)',
+      borderColor: 'rgba(52, 198, 190, 0.4)',
       description:
         '「学ばなきゃ」という義務感から解放され、「やってみたい」という好奇心で挑み続ける。たとえ道が変わっても、その周辺にある多様な可能性に気づける強さが身につきます。',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
           <circle cx="24" cy="24" r="16" stroke="#34c6be" strokeWidth="3" fill="none" />
           <path d="M24 8 L24 24 L36 24" stroke="#34c6be" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           <path
@@ -1414,114 +1351,398 @@ function PhilosophySection() {
         position: 'relative',
       }}
     >
-      <div style={{ width: 'min(480px, 92%)', margin: '0 auto' }}>
-        {/* セクションタイトル */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '40px' }}>
+      <div className="container">
+        {/* ========== Part 1: CLAFTアルファベット・タブ ========== */}
+        <div className="reveal" style={{ marginBottom: '64px' }}>
           <h2
+            className="heading-lg"
             style={{
-              fontSize: 'clamp(1.4rem, 5vw, 1.9rem)',
-              fontWeight: 900,
+              textAlign: 'center',
+              marginBottom: '32px',
               color: 'var(--ink-900)',
-              lineHeight: 1.4,
-              marginBottom: '16px',
+            }}
+          >
+            CLAFTとは？
+            <br />
+            <span style={{ color: 'var(--brand)' }}>創って伝えて</span>学ぶ場所
+          </h2>
+
+          {/* タブナビゲーション */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '8px',
+              marginBottom: '32px',
+              flexWrap: 'wrap',
+            }}
+          >
+            {claftTabs.map((tab) => (
+              <button
+                key={tab.letter}
+                onClick={() => setActiveTab(tab.letter as 'C' | 'L' | 'A' | 'F' | 'T')}
+                style={{
+                  width: 'clamp(56px, 13vw, 68px)',
+                  height: 'clamp(56px, 13vw, 68px)',
+                  borderRadius: 'var(--radius)',
+                  background: activeTab === tab.letter ? tab.bgColor : '#fff',
+                  border: `2px solid ${activeTab === tab.letter ? tab.color : 'rgba(0, 0, 0, 0.08)'}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 'clamp(1.5rem, 5vw, 2rem)',
+                  fontWeight: 900,
+                  color: activeTab === tab.letter ? tab.color : 'var(--ink-400)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: activeTab === tab.letter ? 'var(--shadow)' : 'none',
+                }}
+              >
+                {tab.letter}
+              </button>
+            ))}
+          </div>
+
+          {/* タブコンテンツ */}
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 'var(--radius-lg)',
+              padding: 'clamp(28px, 7vw, 40px)',
+              boxShadow: 'var(--shadow)',
+              minHeight: '300px',
+            }}
+          >
+            {/* C: Creative & Communication */}
+            {activeTab === 'C' && (
+              <div
+                style={{
+                  animation: 'fadeIn 0.4s ease',
+                }}
+              >
+                <h3 className="heading-md" style={{ marginBottom: '24px', textAlign: 'center' }}>
+                  【CL】好奇心の循環をつくる
+                </h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginBottom: '24px',
+                  }}
+                >
+                  <svg width="240" height="180" viewBox="0 0 240 180">
+                    <defs>
+                      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#34c6be" />
+                      </marker>
+                    </defs>
+                    <path
+                      d="M60,90 Q60,40 120,40 Q180,40 180,90"
+                      stroke="#34c6be"
+                      strokeWidth="3"
+                      fill="none"
+                      markerEnd="url(#arrowhead)"
+                      strokeDasharray="8 4"
+                    />
+                    <path
+                      d="M180,90 Q180,140 120,140 Q60,140 60,90"
+                      stroke="#58c3a2"
+                      strokeWidth="3"
+                      fill="none"
+                      markerEnd="url(#arrowhead)"
+                      strokeDasharray="8 4"
+                    />
+                    <circle cx="120" cy="90" r="35" fill="rgba(255, 214, 107, 0.3)" stroke="#ffd66b" strokeWidth="2" />
+                    <text x="120" y="85" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink-800)">
+                      好奇心
+                    </text>
+                    <text x="120" y="100" textAnchor="middle" fontSize="9" fill="var(--ink-600)">
+                      Curiosity
+                    </text>
+                    <text x="30" y="90" textAnchor="middle" fontSize="10" fontWeight="700" fill="#34c6be">
+                      Creative
+                    </text>
+                    <text x="30" y="102" textAnchor="middle" fontSize="8" fill="var(--ink-500)">
+                      創造
+                    </text>
+                    <text x="210" y="90" textAnchor="middle" fontSize="9" fontWeight="700" fill="#58c3a2">
+                      Communication
+                    </text>
+                    <text x="210" y="102" textAnchor="middle" fontSize="8" fill="var(--ink-500)">
+                      対話
+                    </text>
+                  </svg>
+                </div>
+                <p className="body-base" style={{ textAlign: 'center' }}>
+                  自分の興味を形にする（<strong style={{ color: '#34c6be' }}>Creative</strong>）なかで、
+                  それを人に発表し共有する（<strong style={{ color: '#58c3a2' }}>Communication</strong>）。
+                  <br />
+                  そこで得た反応が新たな気づきとなり、また次の探究へと繋がっていく。
+                </p>
+              </div>
+            )}
+
+            {/* L: Learning */}
+            {activeTab === 'L' && (
+              <div style={{ animation: 'fadeIn 0.4s ease' }}>
+                <h3 className="heading-md" style={{ marginBottom: '24px', textAlign: 'center' }}>
+                  【L】後悔（Regret）を学び（Learning）へ
+                </h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '20px',
+                    marginBottom: '24px',
+                  }}
+                >
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '14px',
+                        background: 'rgba(0, 0, 0, 0.06)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        fontWeight: 900,
+                        color: 'var(--ink-400)',
+                        textDecoration: 'line-through',
+                      }}
+                    >
+                      R
+                    </div>
+                    <p style={{ fontSize: '0.7rem', color: 'var(--ink-400)', marginTop: '6px' }}>Regret</p>
+                  </div>
+                  <svg width="36" height="20" viewBox="0 0 36 20">
+                    <path
+                      d="M4 10 L28 10 M22 5 L28 10 L22 15"
+                      stroke="var(--brand)"
+                      strokeWidth="2.5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '14px',
+                        background: 'linear-gradient(135deg, rgba(88, 195, 162, 0.25), rgba(52, 198, 190, 0.35))',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        fontWeight: 900,
+                        color: '#34c6be',
+                        boxShadow: '0 6px 16px rgba(52, 198, 190, 0.3)',
+                      }}
+                    >
+                      L
+                    </div>
+                    <p style={{ fontSize: '0.7rem', color: '#34c6be', marginTop: '6px', fontWeight: 700 }}>Learning</p>
+                  </div>
+                </div>
+                <p className="body-base" style={{ textAlign: 'center' }}>
+                  人生100年時代、学びと仕事は往復し続けるものです。
+                  <br />
+                  失敗を
+                  <strong style={{ color: 'var(--ink-500)', textDecoration: 'line-through' }}>Regret（後悔）</strong>
+                  して立ち止まるのではなく、すべてを
+                  <strong style={{ color: '#58c3a2' }}>Learning（学び）</strong>として捉える。
+                </p>
+              </div>
+            )}
+
+            {/* A: Active */}
+            {activeTab === 'A' && (
+              <div style={{ animation: 'fadeIn 0.4s ease' }}>
+                <h3 className="heading-md" style={{ marginBottom: '16px', color: '#f0a629' }}>
+                  Active：自ら問いを立て、動き出す主体性
+                </h3>
+                <p className="body-base">
+                  正解のない問いに向き合い、自分で考え判断する力。
+                  <br />
+                  PBLや探究学習を通じて、主体的に動く力が育ちます。
+                </p>
+              </div>
+            )}
+
+            {/* F: Flexible */}
+            {activeTab === 'F' && (
+              <div style={{ animation: 'fadeIn 0.4s ease' }}>
+                <h3 className="heading-md" style={{ marginBottom: '16px', color: '#f06a6a' }}>
+                  Flexible：変化をチャンスとして楽しむ柔軟性
+                </h3>
+                <p className="body-base">
+                  多様な価値観に触れ、固定観念にとらわれない思考力。
+                  <br />
+                  変化を恐れず、むしろ楽しめる柔軟性が身につきます。
+                </p>
+              </div>
+            )}
+
+            {/* T: Trial */}
+            {activeTab === 'T' && (
+              <div style={{ animation: 'fadeIn 0.4s ease' }}>
+                <h3 className="heading-md" style={{ marginBottom: '16px', color: '#34c6be' }}>
+                  Trial：失敗を恐れず、何度でも試す精神
+                </h3>
+                <p className="body-base">
+                  失敗は成功への道標。トライ＆エラーを繰り返すことで、
+                  <br />
+                  本当に大切なことを見つけられる強さが育ちます。
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ========== Part 2: AFTアコーディオン ========== */}
+        <div className="reveal">
+          <h2
+            className="heading-lg"
+            style={{
+              textAlign: 'center',
+              marginBottom: '24px',
+              color: 'var(--ink-900)',
             }}
           >
             CLAFTによって、
             <br />
-            どう<span style={{ color: '#34c6be' }}>変わる</span>か（AFT）
+            どう<span style={{ color: 'var(--brand)' }}>変わる</span>か（AFT）
           </h2>
           <p
+            className="body-base"
             style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.8,
-              color: 'var(--ink-700)',
+              textAlign: 'center',
+              marginBottom: '40px',
             }}
           >
             主体的な行動力と、しなやかな適応力。
             <br />
-            それが<strong style={{ color: '#34c6be' }}>「希望」</strong>の正体です。
+            それが<strong className="emphasis">「希望」</strong>の正体です。
           </p>
-        </div>
 
-        {/* AFT 成果カード */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {outcomes.map((item, index) => (
-            <article
-              key={item.letter}
-              className="reveal"
-              style={{
-                background: '#fff',
-                borderRadius: 'var(--radius)',
-                padding: 'clamp(28px, 7vw, 40px)',
-                boxShadow: 'var(--shadow)',
-                transitionDelay: `${index * 100}ms`,
-                border: '1px solid rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div
+          {/* アコーディオン */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {aftItems.map((item, index) => (
+              <article
+                key={item.id}
                 style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '16px',
+                  background: '#fff',
+                  borderRadius: 'var(--radius-lg)',
+                  boxShadow: 'var(--shadow)',
+                  border: `2px solid ${item.borderColor}`,
+                  overflow: 'hidden',
                 }}
               >
-                {/* アイコン */}
-                <div style={{ minWidth: '48px' }}>{item.icon}</div>
-
-                <div style={{ flex: 1 }}>
-                  {/* タイトル */}
+                {/* ヘッダー（常に表示） */}
+                <button
+                  onClick={() => toggleAccordion(item.id)}
+                  style={{
+                    width: '100%',
+                    padding: 'clamp(20px, 5vw, 28px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    background: openAccordion === item.id ? item.bgColor : 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'background 0.3s ease',
+                  }}
+                >
+                  {/* アイコン */}
                   <div
                     style={{
+                      minWidth: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: item.bgColor,
+                      border: `2px solid ${item.borderColor}`,
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '12px',
-                      marginBottom: '12px',
+                      justifyContent: 'center',
                     }}
                   >
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '8px',
-                        background: `${item.color}30`,
-                        fontSize: '1rem',
-                        fontWeight: 900,
-                        color: item.color,
-                      }}
-                    >
-                      {item.letter}
-                    </span>
-                    <h3
-                      style={{
-                        fontSize: 'clamp(15px, 3.2vw, 18px)',
-                        fontWeight: 700,
-                        color: 'var(--ink-900)',
-                        margin: 0,
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {item.title.split('：')[1]}
+                    {item.icon}
+                  </div>
+
+                  {/* タイトル */}
+                  <div style={{ flex: 1, textAlign: 'left' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '28px',
+                          height: '28px',
+                          borderRadius: '8px',
+                          background: item.color,
+                          fontSize: '0.9rem',
+                          fontWeight: 900,
+                          color: '#fff',
+                        }}
+                      >
+                        {item.letter}
+                      </span>
+                    </div>
+                    <h3 className="heading-sm" style={{ margin: 0 }}>
+                      {item.title}
                     </h3>
                   </div>
 
-                  {/* 説明 */}
-                  <p
+                  {/* 開閉アイコン */}
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
                     style={{
-                      fontSize: 'clamp(0.9rem, 2.2vw, 0.95rem)',
-                      lineHeight: 1.85,
-                      color: 'var(--ink-700)',
-                      margin: 0,
+                      transform: openAccordion === item.id ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s ease',
+                      flexShrink: 0,
                     }}
                   >
-                    {item.description}
-                  </p>
+                    <path
+                      d="M6 9 L12 15 L18 9"
+                      stroke={item.color}
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+
+                {/* コンテンツ（展開時のみ表示） */}
+                <div
+                  style={{
+                    maxHeight: openAccordion === item.id ? '500px' : '0',
+                    opacity: openAccordion === item.id ? 1 : 0,
+                    overflow: 'hidden',
+                    transition: 'max-height 0.4s ease, opacity 0.3s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      padding: '0 clamp(20px, 5vw, 28px) clamp(24px, 6vw, 32px)',
+                      paddingLeft: 'clamp(84px, 18vw, 92px)',
+                    }}
+                  >
+                    <p className="body-base" style={{ margin: 0 }}>
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
