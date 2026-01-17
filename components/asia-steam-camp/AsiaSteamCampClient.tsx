@@ -251,7 +251,7 @@ const TimelineItem = ({
 
 export function AsiaSteamCampClient() {
   const [scrollY, setScrollY] = useState(0);
-  const [visiblePhases, setVisiblePhases] = useState<boolean[]>([false, false, false]);
+  const [visiblePhases, setVisiblePhases] = useState<boolean[]>([false, false, false, false]);
   const phasesRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
@@ -268,9 +268,10 @@ export function AsiaSteamCampClient() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // 順番にスタンプを表示
-            setVisiblePhases([true, false, false]);
-            setTimeout(() => setVisiblePhases([true, true, false]), 200);
-            setTimeout(() => setVisiblePhases([true, true, true]), 400);
+            setVisiblePhases([true, false, false, false]);
+            setTimeout(() => setVisiblePhases([true, true, false, false]), 200);
+            setTimeout(() => setVisiblePhases([true, true, true, false]), 400);
+            setTimeout(() => setVisiblePhases([true, true, true, true]), 600);
           }
         });
       },
@@ -308,7 +309,8 @@ export function AsiaSteamCampClient() {
   const phaseColors = {
     phase1: '#10B981', // エメラルドグリーン
     phase2: '#F59E0B', // アンバー
-    phase3: '#3B82F6'  // スカイブルー
+    phase3: '#3B82F6',  // スカイブルー
+    phase4: '#8B5CF6'  // パープル
   };
 
   return (
@@ -606,7 +608,7 @@ export function AsiaSteamCampClient() {
 
             <div className="body-base" style={{ color: 'var(--ink-700)', lineHeight: '1.8' }}>
               <p style={{ marginBottom: '16px' }}>
-                <strong style={{ color: 'var(--ink-900)' }}>株式会社アーテック</strong>主催、大好評の国際交流プログラム「<strong style={{ color: '#10B981' }}>STEAMキャンプ</strong>」を再びオンラインで開催！
+                <strong style={{ color: 'var(--ink-900)' }}>株式会社アーテック</strong>主催、大好評の国際交流プログラム「<strong style={{ color: '#10B981' }}>STEAM</strong>」を再びオンラインで開催！
               </p>
               <p style={{ marginBottom: '0' }}>
                 世界中で教材として採用されている「
@@ -756,13 +758,24 @@ export function AsiaSteamCampClient() {
             
             <PhaseStamp
               phase={3}
-              title="オンライン交流会で作品を発表"
-              description="3カ国をオンラインでつなぎ、制作したロボット作品をプレゼンテーション！"
+              title="発表動画を撮影し提出"
+              description="各国の先生が審査と評価を行います。"
               color={phaseColors.phase3}
-              icon="🎤"
+              icon="📹"
               rotate={-1}
               delay={400}
               isVisible={visiblePhases[2]}
+            />
+            
+            <PhaseStamp
+              phase={4}
+              title="オンライン結果発表&交流会"
+              description="3カ国をオンラインでつなぎ、制作したロボット作品の結果発表後、コミュニケーションを取り合います。"
+              color={phaseColors.phase4}
+              icon="🎤"
+              rotate={1.5}
+              delay={600}
+              isVisible={visiblePhases[3]}
             />
           </div>
         </div>
@@ -960,7 +973,8 @@ export function AsiaSteamCampClient() {
                 date="1/10(土)15:30~16:30"
                 title="教室に集まり、SDGsに関わる日本の課題について、チームで話し合います。"
                 links={[
-                  { label: '事前準備のフォーム', url: 'https://forms.gle/6Kni6P1W3VnZSaA46' }
+                  { label: '事前準備のフォーム', url: 'https://forms.gle/6Kni6P1W3VnZSaA46' },
+                  { label: 'ライブレポート', url: 'https://note.com/yononaka_career/n/n2c11fae40377' }
                 ]}
                 color={phaseColors.phase1}
                 index={1}
@@ -1010,7 +1024,7 @@ export function AsiaSteamCampClient() {
           </div>
 
           {/* Phase 3 */}
-          <div>
+          <div style={{ marginBottom: 'clamp(32px, 6vw, 48px)' }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -1023,15 +1037,44 @@ export function AsiaSteamCampClient() {
               fontSize: 'clamp(14px, 3vw, 16px)',
               marginBottom: '20px'
             }}>
-              🎤 Phase 3：発表
+              📹 Phase 3：発表
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <TimelineItem
-                date="2/21(土) 13:30~"
-                title="オンライン交流会"
-                description="3カ国をオンラインでつなぎ、制作したロボット作品のプレゼンテーションを行い、成果を共有します。（場所：アーテック5階フリースペース）"
+                date="2/21(土)"
+                title="発表動画を撮影し提出"
+                description="各国の先生が審査と評価を行います。"
                 color={phaseColors.phase3}
+                isLast
+                index={0}
+              />
+            </div>
+          </div>
+
+          {/* Phase 4 */}
+          <div>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 16px',
+              borderRadius: '20px',
+              background: phaseColors.phase4,
+              color: 'white',
+              fontWeight: 'var(--font-bold)',
+              fontSize: 'clamp(14px, 3vw, 16px)',
+              marginBottom: '20px'
+            }}>
+              🎤 Phase 4：交流
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <TimelineItem
+                date="3/7(土)13:30〜"
+                title="オンライン結果発表&交流会"
+                description="3カ国をオンラインでつなぎ、制作したロボット作品の共有と、結果発表を行います。その後コミュニケーションを取り合う交流の時間も予定しています。（場所：アーテック5階フリースペース）"
+                color={phaseColors.phase4}
                 isLast
                 index={0}
               />
