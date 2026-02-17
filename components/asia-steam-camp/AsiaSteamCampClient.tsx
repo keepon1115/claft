@@ -355,6 +355,29 @@ export function AsiaSteamCampClient() {
         .slide-in-left {
           animation: slideInLeft 0.8s ease-out forwards;
         }
+        @keyframes pulseArrow {
+          0%, 100% { transform: translateX(0px); }
+          50% { transform: translateX(5px); }
+        }
+        .pulse-arrow {
+          display: inline-block;
+          animation: pulseArrow 1.2s ease-in-out infinite;
+        }
+        .boarding-pass-link {
+          display: block;
+          text-decoration: none;
+          color: inherit;
+          transform: rotate(-1deg);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .boarding-pass-link:hover,
+        .boarding-pass-link:active {
+          transform: rotate(0deg) translateY(-3px) scale(1.02);
+        }
+        .boarding-pass-link:hover .bp-card,
+        .boarding-pass-link:active .bp-card {
+          box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
       `}</style>
 
       {/* ========================================
@@ -548,6 +571,141 @@ export function AsiaSteamCampClient() {
             </div>
           </div>
         </div>
+      </Section>
+
+      {/* ========================================
+          ライブレポートバナー：搭乗券（ボーディングパス）風
+          ======================================== */}
+      <Section>
+        <a
+          href="https://note.com/yononaka_career/m/m3684b8fac7b5"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="boarding-pass-link"
+        >
+          <div className="bp-card" style={{
+            background: 'linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 50%, #FFEDD5 100%)',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            boxShadow: '0 3px 12px rgba(245, 158, 11, 0.2)',
+            border: '2px solid rgba(245, 158, 11, 0.4)',
+            display: 'flex',
+            position: 'relative'
+          }}>
+            {/* マスキングテープ装飾 */}
+            <div style={{
+              position: 'absolute',
+              top: '-8px',
+              left: '15px',
+              width: '70px',
+              height: '26px',
+              background: '#EF4444',
+              opacity: 0.7,
+              mixBlendMode: 'multiply',
+              transform: 'rotate(-5deg)',
+              clipPath: 'polygon(2% 0%, 5% 5%, 8% 2%, 12% 8%, 15% 3%, 18% 7%, 22% 4%, 25% 9%, 28% 5%, 32% 10%, 35% 6%, 38% 11%, 42% 7%, 45% 12%, 48% 8%, 52% 13%, 55% 9%, 58% 14%, 62% 10%, 65% 15%, 68% 11%, 72% 16%, 75% 12%, 78% 17%, 82% 13%, 85% 18%, 88% 14%, 92% 19%, 95% 15%, 98% 20%, 100% 25%, 98% 80%, 95% 85%, 92% 81%, 88% 86%, 85% 82%, 82% 87%, 78% 83%, 75% 88%, 72% 84%, 68% 89%, 65% 85%, 62% 90%, 58% 86%, 55% 91%, 52% 87%, 48% 92%, 45% 88%, 42% 93%, 38% 89%, 35% 94%, 32% 90%, 28% 95%, 25% 91%, 22% 96%, 18% 92%, 15% 97%, 12% 93%, 8% 98%, 5% 94%, 2% 100%, 0% 75%)',
+              pointerEvents: 'none',
+              zIndex: 2
+            }} />
+
+            {/* ミシン目（上） */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '2px',
+              background: 'repeating-linear-gradient(to right, transparent 0px, transparent 4px, rgba(245,158,11,0.4) 4px, rgba(245,158,11,0.4) 8px)',
+              pointerEvents: 'none'
+            }} />
+            {/* ミシン目（下） */}
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '2px',
+              background: 'repeating-linear-gradient(to right, transparent 0px, transparent 4px, rgba(245,158,11,0.4) 4px, rgba(245,158,11,0.4) 8px)',
+              pointerEvents: 'none'
+            }} />
+
+            {/* 左メインエリア */}
+            <div style={{
+              flex: 1,
+              padding: 'clamp(18px, 4vw, 24px)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px'
+            }}>
+              {/* BOARDING PASS ラベル */}
+              <div style={{
+                fontSize: 'clamp(9px, 2vw, 11px)',
+                fontWeight: 'var(--font-bold)',
+                color: '#D97706',
+                letterSpacing: '0.15em'
+              }}>
+                ✈ BOARDING PASS
+              </div>
+
+              {/* メインテキスト */}
+              <div style={{
+                fontSize: 'clamp(16px, 4vw, 20px)',
+                fontWeight: 'var(--font-bold)',
+                color: '#92400E',
+                lineHeight: '1.4'
+              }}>
+                📝 ライブレポートはこちら
+              </div>
+
+              {/* ルート表示 */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: 'clamp(10px, 2.2vw, 12px)',
+                color: '#B45309',
+                marginTop: '2px'
+              }}>
+                <span style={{ fontWeight: 'var(--font-bold)', whiteSpace: 'nowrap' }}>CLAFT</span>
+                <span style={{
+                  flex: 1,
+                  maxWidth: '60px',
+                  height: '1px',
+                  background: 'repeating-linear-gradient(to right, #D97706 0px, #D97706 3px, transparent 3px, transparent 6px)'
+                }} />
+                <span style={{ fontSize: '14px' }}>✈️</span>
+                <span style={{
+                  flex: 1,
+                  maxWidth: '60px',
+                  height: '1px',
+                  background: 'repeating-linear-gradient(to right, #D97706 0px, #D97706 3px, transparent 3px, transparent 6px)'
+                }} />
+                <span style={{ fontWeight: 'var(--font-bold)', whiteSpace: 'nowrap' }}>note</span>
+              </div>
+            </div>
+
+            {/* ミシン目（縦の区切り） */}
+            <div style={{
+              width: '2px',
+              background: 'repeating-linear-gradient(to bottom, transparent 0px, transparent 4px, rgba(245,158,11,0.4) 4px, rgba(245,158,11,0.4) 8px)',
+              margin: '8px 0'
+            }} />
+
+            {/* 右半券：矢印 */}
+            <div style={{
+              width: 'clamp(56px, 14vw, 76px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+              color: 'white',
+              fontSize: 'clamp(22px, 5vw, 30px)',
+              borderRadius: '0 10px 10px 0'
+            }}>
+              <span className="pulse-arrow">→</span>
+            </div>
+          </div>
+        </a>
       </Section>
 
       {/* ========================================
@@ -971,23 +1129,30 @@ export function AsiaSteamCampClient() {
               />
               <TimelineItem
                 date="1/10(土)15:30~16:30"
-                title="教室に集まり、SDGsに関わる日本の課題について、チームで話し合います。"
+                title="教室に集まり、SDGsに関わる日本の課題について、チームで話し合いました。"
                 links={[
                   { label: '事前準備のフォーム', url: 'https://forms.gle/6Kni6P1W3VnZSaA46' },
-                  { label: 'ライブレポート', url: 'https://note.com/yononaka_career/n/n2c11fae40377' }
+                  { label: 'ライブレポート①', url: 'https://note.com/yononaka_career/n/n2c11fae40377' }
                 ]}
                 color={phaseColors.phase1}
                 index={1}
               />
               <TimelineItem
                 date="1/17(土)10:00~16:30"
-                title="各々来られる時間に教室で、他国の参加者に「お題」として提示するためのスライド資料の作成を進めます。完成したらチームごとに発表動画を作成します。"
+                title="教室に集まり、他国の参加者に「お題」として提示するためのプレゼン動画の作成を進めました。"
+                links={[
+                  { label: 'ライブレポート②', url: 'https://note.com/yononaka_career/n/n0a302bcdf0f8?magazine_key=m3684b8fac7b5' }
+                ]}
                 color={phaseColors.phase1}
                 index={2}
               />
               <TimelineItem
-                date="1/18~1/21"
-                title="各チームで修正が必要であればこの期間に修正して他国への「お題」を完成させて提出。"
+                date="1/21"
+                title="「お題」のプレゼン動画完成。"
+                links={[
+                  { label: '各チームのプレゼン動画はこちら', url: 'https://www.youtube.com/playlist?list=PLg8PlJHz4ogtFzD8Sj-SuvYoL3dmZDR7Q'},
+                  { label: 'ダイジェスト動画はこちら', url: 'https://youtu.be/34lVwyA5JbA' }
+              ]}
                 color={phaseColors.phase1}
                 index={2}
               />
@@ -1014,8 +1179,11 @@ export function AsiaSteamCampClient() {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <TimelineItem
                 date="1/22〜2/20"
-                title="バングラデシュ・マレーシアからのお題をもとに作成"
-                description="解決したいお題をチームごとに選び、課題に対する解決策を考え、ロボットを作成し、発表準備。"
+                title="バングラデシュ・マレーシアからのお題が到着。お題に対する解決策を考え、ロボットを制作開始。"
+                links={[
+                  { label: 'ライブレポート③', url: 'https://note.com/yononaka_career/n/n87edae993206?magazine_key=m3684b8fac7b5' },
+                  { label: 'ライブレポート④', url: 'https://note.com/yononaka_career/n/n26ec4941929b?magazine_key=m3684b8fac7b5' }
+                ]}
                 color={phaseColors.phase2}
                 isLast
                 index={0}
