@@ -766,7 +766,7 @@ export function AsiaSteamCampClient() {
 
             <div className="body-base" style={{ color: 'var(--ink-700)', lineHeight: '1.8' }}>
               <p style={{ marginBottom: '16px' }}>
-                <strong style={{ color: 'var(--ink-900)' }}>株式会社アーテック</strong>主催、大好評の国際交流プログラム「<strong style={{ color: '#10B981' }}>STEAM</strong>」を再びオンラインで開催！
+                <strong style={{ color: 'var(--ink-900)' }}>株式会社アーテック</strong>主催、大好評の国際交流プログラム「<strong style={{ color: '#10B981' }}>STEAMキャンプ</strong>」を再びオンラインで開催！
               </p>
               <p style={{ marginBottom: '0' }}>
                 世界中で教材として採用されている「
@@ -1150,7 +1150,7 @@ export function AsiaSteamCampClient() {
                 date="1/21"
                 title="「お題」のプレゼン動画完成。"
                 links={[
-                  { label: '各チームのプレゼン動画はこちら', url: 'https://www.youtube.com/playlist?list=PLg8PlJHz4ogtFzD8Sj-SuvYoL3dmZDR7Q'},
+                  { label: '各チームのプレゼン動画はこちら', url: 'https://youtube.com/playlist?list=PLg8PlJHz4ogtFzD8Sj-SuvYoL3dmZDR7Q&si=PLFQo9UW_aB_zMDw'},
                   { label: 'ダイジェスト動画はこちら', url: 'https://youtu.be/34lVwyA5JbA' }
               ]}
                 color={phaseColors.phase1}
@@ -1211,8 +1211,12 @@ export function AsiaSteamCampClient() {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <TimelineItem
                 date="2/21(土)"
-                title="発表動画を撮影し提出"
+                title="「解決策(ロボット)」のプレゼン動画完成。"
                 description="各国の先生が審査と評価を行います。"
+                links={[
+                  { label: 'ライブレポート⑤', url: 'https://note.com/yononaka_career/n/n73c9c099c4fe' },
+                  { label: '各チームのプレゼン動画はこちら', url: 'https://youtube.com/playlist?list=PLg8PlJHz4ogunk0ZcN3QtDGo8Qt6M1ixb&si=kcPjWYVIEp1vHyUD' }
+                ]}
                 color={phaseColors.phase3}
                 isLast
                 index={0}
