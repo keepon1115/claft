@@ -1243,9 +1243,12 @@ export function AsiaSteamCampClient() {
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <TimelineItem
-                date="3/7(土)13:30〜"
+                date="3/7(土)13:00〜"
                 title="オンライン結果発表&交流会"
-                description="3カ国をオンラインでつなぎ、制作したロボット作品の共有と、結果発表を行います。その後コミュニケーションを取り合う交流の時間も予定しています。（場所：アーテック5階フリースペース）"
+                description="3カ国をオンラインでつなぎ、制作したロボット作品のプレゼント質疑応答、その他コミュニケーションの時間もあり海外交流を楽しみました。（場所：アーテック5階フリースペース）"
+                links={[
+                  { label: 'ライブレポート⑥', url: 'https://note.com/yononaka_career/n/n7344cb8e70b8' }
+                ]}
                 color={phaseColors.phase4}
                 isLast
                 index={0}
@@ -1298,13 +1301,18 @@ export function AsiaSteamCampClient() {
           </svg>
         </h2>
 
-        {/* 画像プレースホルダー（後から追加用） */}
+        {/* 活動の様子の写真ギャラリー */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
           gap: 'clamp(12px, 3vw, 20px)'
         }}>
-          {[1, 2, 3, 4].map((_, i) => (
+          {[
+            { name: 'photo1.png', alt: 'STEAMキャンプ活動の様子 1' },
+            { name: 'photo2.jpg', alt: 'STEAMキャンプ活動の様子 2' },
+            { name: 'photo3.jpg', alt: 'STEAMキャンプ活動の様子 3' },
+            { name: 'photo4.jpg', alt: 'STEAMキャンプ活動の様子 4' }
+          ].map((photo, i) => (
             <div
               key={i}
               style={{
@@ -1313,23 +1321,23 @@ export function AsiaSteamCampClient() {
                 paddingBottom: '24px',
                 borderRadius: '12px',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-                transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (1 + i * 0.5)}deg)`
+                transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (1 + i * 0.5)}deg)`,
+                transition: 'transform 0.3s ease'
               }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = `rotate(${(i % 2 === 0 ? -1 : 1) * (1 + i * 0.5)}deg) scale(1)`}
             >
-              <div style={{
-                aspectRatio: '4/3',
-                background: 'linear-gradient(135deg, rgba(52,198,190,0.1) 0%, rgba(59,130,246,0.1) 100%)',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '2px dashed rgba(0,0,0,0.08)'
-              }}>
-                <div style={{ textAlign: 'center', color: 'var(--ink-500)' }}>
-                  <div style={{ fontSize: '24px', marginBottom: '4px' }}>📷</div>
-                  <p style={{ fontSize: '11px', margin: 0 }}>Coming Soon...</p>
-                </div>
-              </div>
+              <img
+                src={`/assets/asia-steam-camp/activities/${photo.name}`}
+                alt={photo.alt}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: '4/3',
+                  borderRadius: '6px',
+                  objectFit: 'cover'
+                }}
+              />
             </div>
           ))}
         </div>
@@ -1340,7 +1348,7 @@ export function AsiaSteamCampClient() {
           marginTop: '20px',
           fontStyle: 'italic'
         }}>
-          ※ イベントの様子は随時更新していきます
+          ※ STEAMキャンプでの貴重な体験の瞬間をお楽しみください
         </p>
       </Section>
     </MobileContainer>
