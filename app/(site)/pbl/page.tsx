@@ -380,20 +380,116 @@ export default function PBLPage() {
           自分の好きや疑問を起点にテーマを決め、新たなモノを創ったり、解決策を考え、最後は動画やスライドで発表をする学びです。
         </p>
 
-        {/* 装飾的な浮遊アイコン */}
-        <div 
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '24px',
-            marginTop: '32px',
-            fontSize: '40px'
-          }}
-          aria-hidden="true"
-        >
-          <span className="float-animation" style={{ animationDelay: '0s' }}>🔍</span>
-          <span className="float-animation" style={{ animationDelay: '0.3s' }}>💡</span>
-          <span className="float-animation" style={{ animationDelay: '0.6s' }}>✨</span>
+        {/* メンバーのストーリーリンクボタン */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '36px' }}>
+          <a
+            href="https://claft-hp.vercel.app/student-story"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              padding: '20px 28px',
+              background: 'linear-gradient(135deg, #fff6e9 0%, #fff 100%)',
+              borderRadius: '20px',
+              textDecoration: 'none',
+              boxShadow: '0 6px 24px rgba(240, 106, 106, 0.18), 0 2px 8px rgba(0,0,0,0.06)',
+              border: '2px solid rgba(240, 106, 106, 0.2)',
+              transition: 'all 0.3s ease',
+              maxWidth: '340px',
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 32px rgba(240, 106, 106, 0.28), 0 4px 12px rgba(0,0,0,0.08)';
+              e.currentTarget.style.borderColor = 'rgba(240, 106, 106, 0.45)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 6px 24px rgba(240, 106, 106, 0.18), 0 2px 8px rgba(0,0,0,0.06)';
+              e.currentTarget.style.borderColor = 'rgba(240, 106, 106, 0.2)';
+            }}
+          >
+            {/* アバターアイコン */}
+            <div
+              style={{
+                flexShrink: 0,
+                width: '52px',
+                height: '52px',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, #f06a6a, #f0a629)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                boxShadow: '0 4px 12px rgba(240, 106, 106, 0.35)',
+              }}
+            >
+              📖
+            </div>
+
+            {/* テキスト */}
+            <div style={{ flex: 1 }}>
+              <p
+                style={{
+                  margin: '0 0 3px 0',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: '#f06a6a',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Member Story
+              </p>
+              <p
+                style={{
+                  margin: '0 0 4px 0',
+                  fontSize: '17px',
+                  fontWeight: 900,
+                  color: 'var(--ink-900)',
+                  lineHeight: 1.3,
+                }}
+              >
+                メンバーのストーリー
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: '12px',
+                  color: 'var(--ink-500)',
+                  lineHeight: 1.5,
+                }}
+              >
+                実際に学ぶ仲間の活動を見る
+              </p>
+            </div>
+
+            {/* 矢印 */}
+            <div
+              style={{
+                flexShrink: 0,
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #f06a6a, #f0a629)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </a>
         </div>
       </Section>
 
