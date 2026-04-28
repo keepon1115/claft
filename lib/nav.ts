@@ -22,9 +22,14 @@ export const navItems: NavItem[] = [
     label: 'PBL(課題解決型学習)', 
     href: '/pbl'
   },
-  { 
-    label: 'Yononaka(対話ワーク)', 
-    href: '/yononaka'
+  {
+    label: 'Yononaka(対話ワーク)',
+    href: '/yononaka',
+    alwaysOpen: true,
+    children: [
+      { label: 'AIロボット社会、僕たちはどう生きるか', href: '/yononaka/ai-robot-society' },
+      { label: '授業レポ', href: '/yononaka/jugyo-repo' }
+    ]
   },
   { 
     label: 'ミライクラフト', 
