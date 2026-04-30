@@ -201,7 +201,7 @@ export default function GameExhibitionContent() {
         <div className="max-w-3xl mx-auto">
 
           <div className="mb-16 text-center">
-            <p className="font-pixel text-xs text-neon-cyan-fg mb-4">// CHAPTER 01</p>
+            <p className="font-pixel text-xs text-neon-cyan-fg mb-4">{'// CHAPTER 01'}</p>
             <h2 className="section-title font-jp font-black text-white">
               眠ってる<span className="neon-text-pink">名作たち</span>を、<br />
               起こしにいく。
@@ -244,7 +244,7 @@ export default function GameExhibitionContent() {
         <div className="max-w-5xl mx-auto">
 
           <div className="text-center mb-16">
-            <p className="font-pixel text-xs text-neon-pink-fg mb-4">// CHAPTER 02</p>
+            <p className="font-pixel text-xs text-neon-pink-fg mb-4">{'// CHAPTER 02'}</p>
             <h2 className="section-title font-jp font-black text-white">
               <span className="neon-text-cyan">6月</span>、教室がアーケードになる。
             </h2>
@@ -374,7 +374,7 @@ export default function GameExhibitionContent() {
         <div className="max-w-4xl mx-auto">
 
           <div className="mb-16 text-center">
-            <p className="font-pixel text-xs text-neon-lime-fg mb-4">// CHAPTER 03</p>
+            <p className="font-pixel text-xs text-neon-lime-fg mb-4">{'// CHAPTER 03'}</p>
             <h2 className="section-title font-jp font-black text-white">
               ゲーム＝<span className="line-through decoration-neon-pink decoration-4 text-white-faint">悪いもの</span><br />
               ゲーム＝<span className="neon-text-lime">無限に学べるもの</span>
@@ -392,7 +392,7 @@ export default function GameExhibitionContent() {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-arcade-deep-fg via-transparent to-transparent"></div>
-            <div className="absolute bottom-4 left-4 font-pixel text-[0.6rem] text-neon-cyan-fg">// IMG_001.png</div>
+            <div className="absolute bottom-4 left-4 font-pixel text-[0.6rem] text-neon-cyan-fg">{'// IMG_001.png'}</div>
           </div>
 
           <div className="space-y-8 text-base sm:text-lg leading-loose font-jp text-white-soft">
@@ -495,7 +495,7 @@ export default function GameExhibitionContent() {
             </a>
 
             <p className="mt-8 font-pixel text-[0.6rem] text-white-faint">
-              // CONTINUE? &gt; YES
+              {'// CONTINUE? > YES'}
             </p>
 
           </div>
