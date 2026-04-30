@@ -663,7 +663,21 @@
     margin-inline: auto;
     padding-top: 0;
   }
-  
+
+  /*
+   * PC LAYOUT GUARD
+   * .site-main は 480px 固定のため、Tailwind のビューポート幅ベースの
+   * sm: / md: / lg: / xl: レスポンシブグリッドがそのまま展開すると崩れる。
+   * ここで上書きして常に 1 カラムに戻す。
+   * → ページコンポーネント側でページごとに修正する必要がなくなる。
+   */
+  .site-main [class*="sm:grid-cols-"],
+  .site-main [class*="md:grid-cols-"],
+  .site-main [class*="lg:grid-cols-"],
+  .site-main [class*="xl:grid-cols-"] {
+    grid-template-columns: 1fr !important;
+  }
+
   /* Left Sidebar */
   .site-left {
     display: block !important;
@@ -779,3 +793,267 @@
     transform: scale(1);
   }
 }
+
+/* =========================================
+   GAME EXHIBITION PAGE
+   ========================================= */
+
+/* ベース */
+.game-exhibition-page {
+  font-family: var(--font-zen-kaku-gothic), 'Zen Kaku Gothic New', sans-serif;
+  background-color: var(--arcade-deep, #070118);
+  color: #f5f5ff;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect x='4' y='4' width='4' height='4' fill='%23ff2d95'/><rect x='8' y='8' width='4' height='4' fill='%2300f0ff'/><rect x='12' y='12' width='4' height='4' fill='%23c5ff00'/></svg>"), auto;
+}
+.game-exhibition-page * { box-sizing: border-box; }
+
+/* セクションアクセント背景 */
+.game-exhibition-page .chapter-bg-purple {
+  background: linear-gradient(to bottom, transparent, rgba(76,29,149,0.3), transparent);
+}
+.game-exhibition-page .chapter-bg-pink {
+  background: linear-gradient(to bottom, transparent, rgba(131,24,67,0.4), transparent);
+}
+
+/* カラークラス */
+.game-exhibition-page .text-white        { color: #ffffff; }
+.game-exhibition-page .text-white-soft   { color: var(--white-soft, rgba(245,245,255,0.85)); }
+.game-exhibition-page .text-white-faint  { color: var(--white-faint, rgba(245,245,255,0.5)); }
+.game-exhibition-page .text-neon-pink-fg    { color: var(--neon-pink,   #ff2d95); }
+.game-exhibition-page .text-neon-cyan-fg    { color: var(--neon-cyan,   #00f0ff); }
+.game-exhibition-page .text-neon-purple-fg  { color: var(--neon-purple, #a855f7); }
+.game-exhibition-page .text-neon-lime-fg    { color: var(--neon-lime,   #c5ff00); }
+.game-exhibition-page .text-neon-yellow-fg  { color: var(--neon-yellow, #ffe600); }
+.game-exhibition-page .text-arcade-bg-fg    { color: var(--arcade-bg,   #0a0420); }
+.game-exhibition-page .text-arcade-deep-fg  { color: var(--arcade-deep, #070118); }
+.game-exhibition-page .bg-neon-pink-bg      { background-color: var(--neon-pink, #ff2d95); }
+.game-exhibition-page .bg-arcade-deep-bg    { background-color: var(--arcade-deep, #070118); }
+.game-exhibition-page .border-neon-pink-fg  { border-color: var(--neon-pink,   #ff2d95); }
+.game-exhibition-page .border-neon-cyan-fg  { border-color: var(--neon-cyan,   #00f0ff); }
+.game-exhibition-page .border-neon-purple-fg { border-color: var(--neon-purple, #a855f7); }
+.game-exhibition-page .border-neon-yellow-fg { border-color: var(--neon-yellow, #ffe600); }
+.game-exhibition-page .decoration-neon-pink  { text-decoration-color: var(--neon-pink, #ff2d95); }
+
+/* フォント */
+.game-exhibition-page .font-pixel  { font-family: var(--font-press-start), 'Press Start 2P', cursive; }
+.game-exhibition-page .font-dot    { font-family: var(--font-dot-gothic), 'DotGothic16', monospace; }
+.game-exhibition-page .font-jp     { font-family: var(--font-zen-kaku-gothic), 'Zen Kaku Gothic New', sans-serif; }
+.game-exhibition-page .font-bungee { font-family: var(--font-bungee), 'Bungee', cursive; }
+
+/* グリッド背景 */
+.game-exhibition-page.arcade-grid {
+  background-color: var(--arcade-deep, #070118);
+  background-image:
+    linear-gradient(rgba(168,85,247,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,85,247,0.08) 1px, transparent 1px),
+    radial-gradient(ellipse at top, rgba(255,45,149,0.15), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(0,240,255,0.12), transparent 60%);
+  background-size: 50px 50px, 50px 50px, 100% 100%, 100% 100%;
+}
+
+/* CRT スキャンライン */
+.game-exhibition-page.scanlines { position: relative; }
+.game-exhibition-page.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.18) 0px,
+    rgba(0,0,0,0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 100;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+/* テキスト選択色 */
+.game-exhibition-page ::selection {
+  background: var(--neon-pink, #ff2d95);
+  color: var(--arcade-bg, #0a0420);
+}
+
+/* ネオンテキスト効果 */
+.game-exhibition-page .pixel-shadow {
+  text-shadow:
+    3px 3px 0 var(--neon-pink, #ff2d95),
+    6px 6px 0 var(--neon-cyan, #00f0ff),
+    9px 9px 30px rgba(168,85,247,0.6);
+}
+.game-exhibition-page .neon-text-pink {
+  color: var(--neon-pink, #ff2d95);
+  text-shadow:
+    0 0 8px  rgba(255,45,149,0.9),
+    0 0 20px rgba(255,45,149,0.6),
+    0 0 40px rgba(255,45,149,0.4);
+}
+.game-exhibition-page .neon-text-cyan {
+  color: var(--neon-cyan, #00f0ff);
+  text-shadow:
+    0 0 8px  rgba(0,240,255,0.9),
+    0 0 20px rgba(0,240,255,0.6),
+    0 0 40px rgba(0,240,255,0.4);
+}
+.game-exhibition-page .neon-text-lime {
+  color: var(--neon-lime, #c5ff00);
+  text-shadow:
+    0 0 8px  rgba(197,255,0,0.9),
+    0 0 20px rgba(197,255,0,0.6);
+}
+
+/* グラデーションタイトル */
+.game-exhibition-page .gradient-title {
+  background: linear-gradient(90deg,
+    var(--neon-pink,   #ff2d95),
+    var(--neon-yellow, #ffe600),
+    var(--neon-cyan,   #00f0ff),
+    var(--neon-purple, #a855f7),
+    var(--neon-pink,   #ff2d95)
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gameExhibitGradientShift 6s linear infinite;
+}
+@keyframes gameExhibitGradientShift {
+  0%   { background-position: 0%   50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* アニメーション */
+@keyframes gameExhibitBlink { 50% { opacity: 0; } }
+.game-exhibition-page .blink { animation: gameExhibitBlink 1s steps(2, start) infinite; }
+
+@keyframes gameExhibitFloatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-20px) rotate(8deg); }
+}
+@keyframes gameExhibitFloatFast {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-30px) rotate(-12deg); }
+}
+.game-exhibition-page .float-slow { animation: gameExhibitFloatSlow 6s ease-in-out infinite; }
+.game-exhibition-page .float-fast { animation: gameExhibitFloatFast 4s ease-in-out infinite; }
+
+@keyframes gameExhibitPulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,45,149,0.6), 0 0 40px rgba(255,45,149,0.3); }
+  50%       { box-shadow: 0 0 30px rgba(255,45,149,1),   0 0 60px rgba(255,45,149,0.6); }
+}
+.game-exhibition-page .pulse-glow { animation: gameExhibitPulseGlow 2s ease-in-out infinite; }
+
+@keyframes gameExhibitShake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-2px); }
+  75%       { transform: translateX(2px); }
+}
+.game-exhibition-page .shake-on-hover:hover { animation: gameExhibitShake 0.3s linear infinite; }
+
+@keyframes gameExhibitMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.game-exhibition-page .marquee { animation: gameExhibitMarquee 30s linear infinite; }
+
+@keyframes gameExhibitSpinSlow { to { transform: rotate(360deg); } }
+.game-exhibition-page .spin-slow {
+  animation: gameExhibitSpinSlow 20s linear infinite;
+  display: inline-block;
+}
+
+/* フェードアップ（JS連動） */
+.game-exhibition-page .fade-up {
+  opacity: 1;
+  transform: none;
+}
+.game-exhibition-page.js-loaded .fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.game-exhibition-page.js-loaded .fade-up.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ピクセルボーダー */
+.game-exhibition-page .pixel-border {
+  position: relative;
+  border: 3px solid var(--neon-cyan, #00f0ff);
+  box-shadow:
+    0 0 0 3px var(--arcade-deep, #070118),
+    0 0 0 6px var(--neon-pink,  #ff2d95),
+    0 0 30px rgba(0,240,255,0.4);
+  image-rendering: pixelated;
+}
+
+/* レベルカード */
+.game-exhibition-page .level-card {
+  background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(0,240,255,0.05));
+  border: 2px solid rgba(0,240,255,0.4);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.game-exhibition-page .level-card::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -100%;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan, #00f0ff), transparent);
+  transition: left 0.6s ease;
+}
+.game-exhibition-page .level-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  border-color: var(--neon-pink, #ff2d95);
+  box-shadow: 0 20px 40px rgba(255,45,149,0.3);
+}
+.game-exhibition-page .level-card:hover::before { left: 100%; }
+.game-exhibition-page .level-card.note-card { border-color: rgba(255,230,0,0.4); }
+
+/* アーケードボタン */
+.game-exhibition-page .arcade-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2.5rem;
+  background: linear-gradient(180deg, var(--neon-pink, #ff2d95), #c0186e);
+  color: white;
+  font-family: var(--font-press-start), 'Press Start 2P', cursive;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 4px solid #fff;
+  box-shadow: 0 6px 0 #6b0840, 0 6px 30px rgba(255,45,149,0.6);
+  transition: all 0.1s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.game-exhibition-page .arcade-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #6b0840, 0 4px 30px rgba(255,45,149,0.9);
+}
+.game-exhibition-page .arcade-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 #6b0840, 0 0 40px rgba(255,45,149,1);
+}
+
+/* ピクセル装飾 */
+.game-exhibition-page .pixel-deco {
+  width: 12px; height: 12px;
+  background: currentColor;
+  box-shadow:
+    16px 0  0 currentColor, 32px 0  0 currentColor,
+    0  16px 0 currentColor, 32px 16px 0 currentColor,
+    0  32px 0 currentColor, 16px 32px 0 currentColor,
+    32px 32px 0 currentColor;
+}
+
+/* 見出しサイズ */
+.game-exhibition-page .hero-title    { font-size: clamp(2.2rem, 9vw, 6rem); line-height: 1.05; }
+.game-exhibition-page .section-title { font-size: clamp(1.5rem, 5vw, 2.8rem); }

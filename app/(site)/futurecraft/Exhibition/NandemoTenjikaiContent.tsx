@@ -252,8 +252,8 @@ export default function NandemoTenjikaiContent() {
           </span>
         </h2>
 
-        <div className="grid sm:grid-cols-5 gap-10 sm:gap-14 items-start">
-          <div className="sm:col-span-3 space-y-6 font-body leading-loose text-base sm:text-lg reveal">
+        <div className="flex flex-col gap-10 items-start">
+          <div className="w-full space-y-6 font-body leading-loose text-base sm:text-lg reveal">
             <p>
               自分の好きなモノ、得意なこと、自由研究、おもしろい遊び、旅行の思い出
               ── なんでも自由に伝えられる展示会です。
@@ -279,7 +279,7 @@ export default function NandemoTenjikaiContent() {
           </div>
 
           {/* サイドの引用ふきだし */}
-          <div className="sm:col-span-2 reveal" style={{ transitionDelay: '0.2s' }}>
+          <div className="w-full max-w-lg reveal" style={{ transitionDelay: '0.2s' }}>
             <div className="relative bg-[#2E7D7D] text-[#FFF8EC] p-7 rounded-[28px] shadow-[0_20px_50px_-25px_rgba(46,125,125,0.7)] rotate-[-2deg]">
               <Quote className="w-7 h-7 text-[#F2B544] mb-3" />
               <p className="font-handwritten text-lg leading-relaxed">

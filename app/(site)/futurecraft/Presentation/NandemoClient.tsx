@@ -85,25 +85,25 @@ function Hero() {
           {/* 浮遊フキダシ */}
           <FloatingBubble
             text="ゲームのこと"
-            className="-left-4 -top-6 sm:-left-10 sm:-top-8"
+            className="-left-4 -top-6"
             color="bg-pink-400"
             delay="0s"
           />
           <FloatingBubble
             text="おもちゃ自慢"
-            className="-right-2 -top-4 sm:-right-12 sm:-top-2"
+            className="-right-2 -top-4"
             color="bg-sky-400"
             delay="1s"
           />
           <FloatingBubble
             text="自作の作品"
-            className="-left-2 bottom-6 sm:-left-14 sm:bottom-12"
+            className="-left-2 bottom-6"
             color="bg-emerald-400"
             delay="2s"
           />
           <FloatingBubble
             text="マニアな趣味"
-            className="-right-4 bottom-2 sm:-right-10 sm:bottom-8"
+            className="-right-4 bottom-2"
             color="bg-violet-400"
             delay="0.5s"
           />
@@ -194,7 +194,7 @@ function WhyHard() {
           その理由は、緊張感だけじゃありません。
         </p>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 grid gap-6">
           {reasons.map((r, i) => (
             <div
               key={i}
@@ -356,7 +356,7 @@ function Themes() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2">
           {themes.map((t, i) => (
             <div
               key={i}
@@ -428,9 +428,7 @@ function Benefits() {
           {benefits.map((b, i) => (
             <div
               key={i}
-              className={`grid items-center gap-10 md:grid-cols-2 ${
-                i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
-              }`}
+              className="grid items-center gap-10"
             >
               <div className="relative">
                 <div className="overflow-hidden rounded-3xl border-4 border-white shadow-xl">
@@ -566,7 +564,7 @@ function Voices() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-16 grid gap-6">
           {voices.map((v, i) => (
             <div
               key={i}
