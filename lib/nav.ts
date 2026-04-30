@@ -37,7 +37,10 @@ export const navItems: NavItem[] = [
     alwaysOpen: true,
     children: [
       { label: 'PLAY CLAFT', href: '/play-claft' },
-      { label: 'STEAMキャンプ', href: '/asia-steam-camp' }
+      { label: 'STEAMキャンプ', href: '/asia-steam-camp' },
+      { label: 'なんでも展示会', href: '/futurecraft/Exhibition' },
+      { label: 'ゲーム展示会', href: '/futurecraft/Exhibition-game' },
+      { label: 'なんでも発表会', href: '/futurecraft/Presentation' }
     ]
   },
   { 
