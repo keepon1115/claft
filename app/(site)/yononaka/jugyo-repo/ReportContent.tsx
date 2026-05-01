@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function ReportContent() {
@@ -70,7 +71,6 @@ export default function ReportContent() {
           </span>
 
           <h1>
-            <span className="small">ねぇ、考えてみたことある？</span>
             ゲームって、
             <br />
             なんで <span className="accent-y">おもしろい</span>
@@ -78,17 +78,17 @@ export default function ReportContent() {
           </h1>
 
           <div className="hero-meta">
-            <span>📅 4月開催</span>
+            <span>📅 4/26(日)開催</span>
             <span>🏠 キープオンラボ</span>
             <span>👥 小学生〜大人</span>
           </div>
 
           <p className="hero-lead">
-            「正解、ぜったい言わなきゃ」が <strong>ない</strong> 場所で、
+            正解が <strong>ない</strong> 場所で、
             <br />
-            バラバラの &quot;好き&quot; を持ち寄って、
+            自分が思ったこと・感じたことを、
             <br />
-            みんなで &quot;夢中の正体&quot; を考えた90分。
+            互いに話し、気づきや発見を得た90分。
           </p>
         </section>
 
@@ -104,21 +104,19 @@ export default function ReportContent() {
             その日のはじまりは、いきなり対話じゃなくて、ゲーム。
           </p>
           <p className="muted">
-            笑い声で教室がいっぱいになって、空気がほぐれていく。
-            <br />
-            ここからが、その日のスタートライン。
+            笑い声で教室がいっぱいになって、空気がほぐれたところからスタートしました。
           </p>
         </section>
 
         {/* 写真① */}
         <div className="photo reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ①</span>
-          <span className="hint">
-            スマートボールで遊んでいる様子
-            <br />
-            笑い声があふれた瞬間
-          </span>
+          <Image
+            src="/assets/images/courses/yononaka/jugyo-repo/photo-01.jpg"
+            alt="スマートボールで遊んでいる様子"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* ============== SECTION 2 ============== */}
@@ -134,9 +132,6 @@ export default function ReportContent() {
             <br />
             ひとりずつじゃなくて、せーので一斉に。
             <br />
-            <span className="accent-handwrite">
-              恥ずかしさが、ふっと、消える瞬間。
-            </span>
           </p>
         </section>
 
@@ -150,17 +145,6 @@ export default function ReportContent() {
           <span className="tag">スプラ</span>
         </div>
 
-        {/* 写真② */}
-        <div className="photo coral reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ②</span>
-          <span className="hint">
-            「好きなゲームは？」の声出しシーン
-            <br />
-            みんなの笑顔
-          </span>
-        </div>
-
         {/* ============== Yononakaって？ ============== */}
         <div className="explainer reveal">
           <div className="explainer-icon">💬</div>
@@ -171,23 +155,21 @@ export default function ReportContent() {
             &quot;人を傷つけないことなら、何を言ってもOK&quot;
           </div>
           <p>
-            答えがひとつじゃない問いを、みんなでぐるぐる話す場所。
+            正解がひとつでないお題に対して、自分が思ったことを話す場所。
             <br />
-            だから「わからない」も「なんとなく、こう思う」も、ぜんぶアリ。
-            <br />
-            初めての人にも、その日いちばん最初に、これを伝える。
+            「ちょっと違うかも・・」も「なんとなく、こう思う」も、大歓迎。
           </p>
         </div>
 
         {/* 写真③ */}
-        <div className="photo purple reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ③</span>
-          <span className="hint">
-            Yononakaのルール説明シーン
-            <br />
-            初参加メンバーへの導入
-          </span>
+        <div className="photo reveal">
+          <Image
+            src="/assets/images/courses/yononaka/jugyo-repo/photo-03.jpg"
+            alt="Yononakaのルール説明シーン"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* ============== お題① ============== */}
@@ -201,28 +183,28 @@ export default function ReportContent() {
           <p>
             &quot;ゲーム&quot; って聞くと、つい画面のなかを思い浮かべる。
             <br />
-            でも——カードゲーム、ボードゲーム、放課後の遊びだって、ゲームじゃない？
+            でも——カードゲーム、ボードゲーム、放課後の遊びだって、ゲームといえますよね。
             <br />
-            範囲をぐっと広げて、自分のとっておきを共有しあう。
+            範囲をぐっと広げて、自分のとっておきを共有しあいました。
           </p>
         </div>
 
         {/* 写真④ */}
-        <div className="photo amber reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ④</span>
-          <span className="hint">
-            「みんなが知らないけど面白いゲーム」
-            <br />
-            共有の様子
-          </span>
+        <div className="photo reveal">
+          <Image
+            src="/assets/images/courses/yononaka/jugyo-repo/photo-04.jpg"
+            alt="みんなが知らないけど面白いゲームの共有の様子"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* ============== トリビア ============== */}
         <section className="section reveal">
           <span className="section-num">03｜TRIVIA</span>
           <h2>
-            ところでさ、
+            ところで、
             <br />
             世界で <span className="pop">最初の</span> コンピューターゲームって？
           </h2>
@@ -283,9 +265,13 @@ export default function ReportContent() {
 
         {/* 写真⑤ */}
         <div className="photo reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ⑤</span>
-          <span className="hint">ゲームの歴史・進化の話をしている場面</span>
+          <Image
+            src="/assets/images/courses/yononaka/jugyo-repo/photo-05.jpg"
+            alt="ゲームの歴史・進化の話をしている場面"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* ============== 核心の問い ============== */}
@@ -296,7 +282,7 @@ export default function ReportContent() {
             <br />
             <span className="hl">ゲームは、人を夢中にさせる。</span>
           </p>
-          <p className="subq">じゃあ、なんで？</p>
+          <p className="subq">じゃあ、なんで夢中になるの？</p>
           <p className="subq">
             &quot;もっとやりたい！&quot; って、どんな時？
           </p>
@@ -322,68 +308,147 @@ export default function ReportContent() {
 
         <div className="ideas reveal">
           <div className="bubble b1">
-            宿題、レベル制にする！
-            <small>クリアでスキルツリー解放</small>
+            ゴミ拾いしたらポイントゲット
           </div>
           <div className="bubble b2 r">
-            買い物をスタンプラリー化
-            <small>制限時間つき</small>
+            算数を宝探しゲームにする
           </div>
           <div className="bubble b3">
-            歯みがきにコンボ数
-            <small>連続日数で称号ゲット</small>
+            怒られているとき、つまんなくなったら負け
           </div>
           <div className="bubble b4 r">
-            通学路でポイント集め
-            <small>見つけたモノで点数</small>
+            先生を怒らせて言い訳で逃れるゲーム
           </div>
           <div className="bubble b5">…etc.</div>
         </div>
 
         {/* 写真⑥ */}
-        <div className="photo coral reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ⑥</span>
-          <span className="hint">お題②でアイデアが飛び交っている様子</span>
+        <div className="photo reveal">
+          <Image
+            src="/assets/images/courses/yononaka/jugyo-repo/photo-06.jpg"
+            alt="お題②でアイデアが飛び交っている様子"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* ============== まとめ ============== */}
         <div className="closing reveal">
           <div className="closing-mark">📝</div>
-          <div className="closing-label">— つまり、Yononaka って —</div>
+          <div className="closing-label">— こんな感じで、 —</div>
           <h3>
-            楽しく、話す。
+            Yononakaは自由に話す時間
             <br />
             そのうえで、見え方が <span className="pop-amber">広がる。</span>
           </h3>
           <p>
-            ゲームの話なのに、
-            <br />
-            気づけば自分の生活の話になってる。
+            正解がないからこそ、思い思いの意見を話せる。
             <br />
             ひとりじゃ思いつかなかった視点に、出会える。
             <br />
-            それが、Yononakaのワークです。
+            あとから気づいたこと、発見したこと、それは学び。
+            <br />
+            それってゲームにもいえることかも？
+            <br />
+            大切なのは「言葉にすること」だと思っています。
           </p>
         </div>
 
         {/* 写真⑦ */}
-        <div className="photo purple reveal">
-          <span className="photo-mark">📷</span>
-          <span className="label">写真 ⑦</span>
-          <span className="hint">ワークの締めくくりや集合写真</span>
+        <div className="photo reveal">
+          <Image
+            src="/assets/images/courses/yononaka/jugyo-repo/photo-07.jpg"
+            alt="ワークの締めくくりや集合写真"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         <div className="divider">・ ・ ・</div>
 
-        {/* ============== 次回CTA ============== */}
+        {/* ============== 次回CTA① ============== */}
         <div className="cta-section reveal">
           <span className="cta-label">次回のYononaka</span>
+          <h2>
+            <span className="em">「なんかいい」</span>
+            <br />
+            ってなに？
+          </h2>
+          <div className="photo-cta reveal">
+            <Image
+              src="/assets/images/courses/yononaka/jugyo-repo/photo-08.jpg"
+              alt="次回のYononaka「なんかいい」ってなに？"
+              width={480}
+              height={360}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </div>
+          <p className="body">
+            "なんか安心できる"人、"なんか居心地がいい"場所、"なんか気分が上がる"アイテム——。
+            <br />
+            日常のなかにある「なんかいい」って、いったい何なのでしょう？
+            <br />
+            <br />
+            みんなに共通するものがあるのか、それともひとりひとり全然違うのか。
+            <br />
+            言葉にしようとすることで、自分でも気づいていなかった「自分の感じ方」が見えてくるかもしれません。
+          </p>
+
+          <div className="cta-info">
+            <div className="cta-info-row">
+              <div className="ic t">📅</div>
+              <div>
+                <div className="k">日時</div>
+                <div className="v">5/14(木) 20:00 〜 21:15</div>
+              </div>
+            </div>
+            <div className="cta-info-row">
+              <div className="ic p">📍</div>
+              <div>
+                <div className="k">場所</div>
+                <div className="v">オンライン</div>
+              </div>
+            </div>
+            <div className="cta-info-row">
+              <div className="ic f">💸</div>
+              <div>
+                <div className="k">参加費</div>
+                <div className="v">無料</div>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="https://forms.gle/XQnH1wQpzWt7u87D7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-button"
+          >
+            参加してみる<span className="arrow">→</span>
+          </a>
+        </div>
+
+        <div className="divider">・ ・ ・</div>
+
+        {/* ============== 次回CTA② ============== */}
+        <div className="cta-section reveal">
+          <span className="cta-label">次回のリアルYononaka</span>
           <h2>
             <span className="em">おしごと発見</span>
             <br />
             ワークショップ
           </h2>
+          <div className="photo-cta reveal">
+            <Image
+              src="/assets/images/courses/yononaka/jugyo-repo/photo-09.jpg"
+              alt="おしごと発見ワークショップ"
+              width={480}
+              height={360}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </div>
           <p className="body">
             「将来の夢は？」って聞かれて、すぐ答えられる人、実はあんまりいない。
             <br />
@@ -394,7 +459,7 @@ export default function ReportContent() {
             好きなことや得意なことが、思いもよらない仕事につながってたりする。
             <br />
             キャリアコンサルタントといっしょに、&quot;しごと&quot;
-            の世界をのぞきにいくワーク。
+            の世界をのぞきにいくワークです。
           </p>
 
           <div className="cta-info">
@@ -432,7 +497,6 @@ export default function ReportContent() {
           >
             参加してみる<span className="arrow">→</span>
           </a>
-          <p className="cta-note">※ Googleフォームから1分で申し込めます</p>
         </div>
 
         <footer className="report-footer">
@@ -646,52 +710,15 @@ export default function ReportContent() {
           padding: 0 2px;
         }
 
-        /* 写真プレースホルダー */
+        /* 写真 */
         .photo {
           margin: 28px 24px;
-          aspect-ratio: 4 / 3;
-          border: 2.5px dashed var(--teal);
           border-radius: 20px;
-          background: #f4fbfa;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: var(--teal-deep);
-          position: relative;
+          overflow: hidden;
         }
-        .photo .photo-mark {
-          font-size: 32px;
-          opacity: 0.6;
-          margin-bottom: 4px;
-        }
-        .photo .label {
-          font-family: 'Zen Maru Gothic', sans-serif;
-          font-weight: 700;
-          font-size: 14px;
-          margin-bottom: 4px;
-        }
-        .photo .hint {
-          font-size: 11px;
-          color: var(--ink-faint);
-          text-align: center;
-          padding: 0 16px;
-          line-height: 1.6;
-        }
-        .photo.coral {
-          border-color: var(--coral);
-          background: #fff1f4;
-          color: var(--coral-deep);
-        }
-        .photo.amber {
-          border-color: var(--amber-deep);
-          background: #fff7e5;
-          color: var(--amber-deep);
-        }
-        .photo.purple {
-          border-color: var(--purple-deep);
-          background: #f3efff;
-          color: var(--purple-deep);
+        .photo-cta {
+          margin: 16px -24px 24px;
+          overflow: hidden;
         }
 
         /* セクション */

@@ -211,11 +211,11 @@ export default function NandemoTenjikaiContent() {
           </p>
 
           <h1 className="font-display text-[#1F1810] leading-[0.95] tracking-tight mb-8">
-            <span className="block text-[15vw] sm:text-[8rem] reveal" style={{ transitionDelay: '0.1s' }}>
+            <span className="block text-6xl sm:text-8xl reveal" style={{ transitionDelay: '0.1s' }}>
               なんでも
             </span>
             <span className="relative inline-block reveal" style={{ transitionDelay: '0.25s' }}>
-              <span className="text-[15vw] sm:text-[8rem] text-[#E04E2C]">展示会</span>
+              <span className="text-6xl sm:text-8xl text-[#E04E2C]">展示会</span>
               <Sparkles className="absolute -top-2 -right-8 text-[#F2B544] w-8 h-8 sparkle-anim" />
             </span>
           </h1>
@@ -581,27 +581,8 @@ export default function NandemoTenjikaiContent() {
           </h2>
 
           <p className="font-body text-base sm:text-lg text-[#1F1810]/75 leading-loose max-w-xl mx-auto reveal">
-            完璧じゃなくていい。途中でもいい。<br />
-            「これ、見てほしいな」と思ったら、もう、はじまっています。
+            次回の開催は7/26を予定しています。また後日お知らせします。
           </p>
-
-          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center reveal">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center gap-3 bg-[#E04E2C] text-[#FFF8EC] font-display tracking-wider px-8 py-5 rounded-full hover:bg-[#1F1810] transition-colors duration-300 shadow-lg group"
-            >
-              <MessageCircle className="w-5 h-5" />
-              LINEで作品を送る
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-[#1F1810] text-[#1F1810] font-display tracking-wider px-8 py-5 rounded-full hover:bg-[#1F1810] hover:text-[#FFF8EC] transition-colors duration-300"
-            >
-              <Mail className="w-5 h-5" />
-              メールで送る
-            </a>
-          </div>
 
           <p className="font-handwritten text-[#1F1810]/60 mt-10 reveal">
             あなたの展示、楽しみに待っています。— Keep On

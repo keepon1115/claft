@@ -502,7 +502,7 @@ export default function GameExhibitionContent() {
               クリエイターの申し込み、お待ちしてます！
             </p>
 
-            <a href="#" className="arcade-btn pulse-glow">
+            <a href="https://forms.gle/mjJMyGXxZVZB6CJi7" className="arcade-btn pulse-glow">
               <Icon.CirclePlay className="w-4 h-4" />
               APPLY NOW
             </a>

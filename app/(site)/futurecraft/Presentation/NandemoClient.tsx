@@ -64,7 +64,7 @@ function Hero() {
         <h1 className="mt-8 text-4xl font-black leading-[1.15] tracking-tight sm:text-6xl md:text-7xl">
           <span className="block text-slate-900">好きなことを、</span>
           <span className="relative mt-2 inline-block">
-            <span className="relative z-10 bg-gradient-to-r from-pink-500 via-orange-500 to-amber-500 bg-clip-text text-transparent">
+            <span className="relative z-10 text-slate-900">
               好きなだけ。
             </span>
             <span className="absolute -bottom-2 left-0 right-0 h-3 -rotate-1 rounded-full bg-yellow-200/70" />
@@ -604,36 +604,18 @@ function FinalCTA() {
       <div className="mx-auto max-w-4xl text-center">
         <div className="relative">
           <Sparkles className="mx-auto h-10 w-10 animate-spin-slow text-amber-400" />
-          <h2 className="mt-6 text-4xl font-black leading-[1.15] text-slate-900 sm:text-6xl">
-            あなたの“好き”を、
+          <h2 className=”mt-6 text-4xl font-black leading-[1.15] text-slate-900 sm:text-6xl”>
+            あなたの”好き”を、
             <br />
-            <span className="bg-gradient-to-r from-pink-500 via-orange-500 to-amber-500 bg-clip-text text-transparent">
+            <span className=”text-slate-900”>
               ステージにのせよう。
             </span>
           </h2>
-          <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            次回の「なんでも発表会」、参加者を募集中です。
-            <br />
-            まずは気軽に、お問い合わせください。
+          <p className=”mx-auto mt-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg”>
+            次回の開催は7/26を予定しています。また後日お知らせします。
           </p>
 
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="/contact"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-10 py-5 text-base font-bold text-white shadow-xl transition-all hover:-translate-y-0.5 hover:shadow-2xl sm:text-lg"
-            >
-              参加を申し込む
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="/"
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 bg-white px-10 py-5 text-base font-bold text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-50 sm:text-lg"
-            >
-              CLAFTについて
-            </a>
-          </div>
-
-          <p className="mt-10 text-xs text-slate-400">
+          <p className=”mt-10 text-xs text-slate-400”>
             ※「スクールフェスタ」内で開催 / 開催日は公式SNSにて告知
           </p>
         </div>

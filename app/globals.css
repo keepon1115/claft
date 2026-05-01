@@ -678,6 +678,27 @@
     grid-template-columns: 1fr !important;
   }
 
+  /*
+   * TEXT SIZE GUARD
+   * sm:/md:/lg: の大きなテキストクラスは 480px のコンテンツ列では大きすぎる。
+   * 6xl 以上（60px+）をモバイル相当のサイズに上書き。
+   * vw ベースの clamp を使ったカスタムクラス（hero-title など）も同様に上書き。
+   */
+  .site-main [class*="sm:text-6xl"],
+  .site-main [class*="md:text-6xl"],
+  .site-main [class*="lg:text-6xl"],
+  .site-main [class*="sm:text-7xl"],
+  .site-main [class*="md:text-7xl"],
+  .site-main [class*="lg:text-7xl"],
+  .site-main [class*="sm:text-8xl"],
+  .site-main [class*="md:text-8xl"],
+  .site-main [class*="lg:text-8xl"] {
+    font-size: 2.5rem !important; /* 40px — 480px幅に対して適切な最大サイズ */
+  }
+  .site-main .hero-title {
+    font-size: 2.5rem !important;
+  }
+
   /* Left Sidebar */
   .site-left {
     display: block !important;
