@@ -113,7 +113,7 @@ function Hero() {
         <p className="mx-auto mt-12 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
           ゲームも、おもちゃも、自作の作品も。
           <br className="hidden sm:block" />
-          自分の<strong className="text-slate-900">“好き”</strong>を堂々と語れる、
+          自分の<strong className="text-slate-900">“好き"</strong>を堂々と語れる、
           <br />
           年齢も内容も自由なステージへようこそ。
         </p>
@@ -185,7 +185,7 @@ function WhyHard() {
       <div className="mx-auto max-w-5xl">
         <SectionLabel color="text-slate-500">Issue ・ 課題</SectionLabel>
         <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">
-          “人前で話すこと”、
+          “人前で話すこと"、
           <br />
           なぜ苦手なんだろう？
         </h2>
@@ -256,7 +256,7 @@ function WhatIsIt() {
           <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-loose text-slate-700 sm:text-lg">
             その名のとおり、
             <strong className="text-orange-600">
-              自分の好きなことを“何でも”発表していい
+              自分の好きなことを“何でも"発表していい
             </strong>
             会。
             <br />
@@ -335,7 +335,7 @@ function Themes() {
     {
       icon: <Lightbulb className="h-7 w-7" />,
       title: "なんでもアリ！",
-      desc: "あなたの“好き”は、それだけで立派なテーマになる。",
+      desc: "あなたの“好き"は、それだけで立派なテーマになる。",
       color: "from-sky-400 to-cyan-400",
       bg: "bg-sky-50",
     },
@@ -350,7 +350,7 @@ function Themes() {
             たとえば、こんなこと。
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            “話したいこと”があれば、それでOK。
+            “話したいこと"があれば、それでOK。
             <br />
             実際にこれまで発表されてきた、ほんの一例です。
           </p>
@@ -394,19 +394,19 @@ function Benefits() {
   const benefits = [
     {
       no: "01",
-      title: "“好き”が深まる",
+      title: "“好き"が深まる",
       desc: "誰かに伝えるために準備するうちに、自分の好きなことや得意なことを、もっと深く知れる。",
       img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
     },
     {
       no: "02",
-      title: "“伝える力”が育つ",
+      title: "“伝える力"が育つ",
       desc: "「どういう順番で話そうか」と考えるうちに、構成力・表現力が自然と身についていく。",
       img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80",
     },
     {
       no: "03",
-      title: "“仲間”が見つかる",
+      title: "“仲間"が見つかる",
       desc: "「俺もそれ好き！」と身を乗り出してくれる仲間との出会い。新しい発見が、毎回ある。",
       img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80",
     },
@@ -491,7 +491,7 @@ function Support() {
               <SupportCard
                 icon={<PartyPopper className="h-6 w-6" />}
                 title="失敗を笑わない安全な空間"
-                desc="発表の“第一歩”を、失敗を恐れずに踏み出せる場所。聞き手もあたたかく受け止めます。"
+                desc="発表の“第一歩"を、失敗を恐れずに踏み出せる場所。聞き手もあたたかく受け止めます。"
               />
             </div>
 
@@ -576,7 +576,7 @@ function Voices() {
                 {v.tag}
               </div>
               <p className="mt-5 text-base leading-relaxed text-slate-700">
-                “ {v.text} ”
+                “ {v.text} "
               </p>
               <div className="mt-6 flex gap-1">
                 {[...Array(5)].map((_, j) => (
@@ -604,18 +604,18 @@ function FinalCTA() {
       <div className="mx-auto max-w-4xl text-center">
         <div className="relative">
           <Sparkles className="mx-auto h-10 w-10 animate-spin-slow text-amber-400" />
-          <h2 className=”mt-6 text-4xl font-black leading-[1.15] text-slate-900 sm:text-6xl”>
-            あなたの”好き”を、
+          <h2 className="mt-6 text-4xl font-black leading-[1.15] text-slate-900 sm:text-6xl">
+            あなたの"好き"を、
             <br />
-            <span className=”text-slate-900”>
+            <span className="text-slate-900">
               ステージにのせよう。
             </span>
           </h2>
-          <p className=”mx-auto mt-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg”>
+          <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
             次回の開催は7/26を予定しています。また後日お知らせします。
           </p>
 
-          <p className=”mt-10 text-xs text-slate-400”>
+          <p className="mt-10 text-xs text-slate-400">
             ※「スクールフェスタ」内で開催 / 開催日は公式SNSにて告知
           </p>
         </div>
