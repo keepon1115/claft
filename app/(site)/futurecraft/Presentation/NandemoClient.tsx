@@ -335,7 +335,7 @@ function Themes() {
     {
       icon: <Lightbulb className="h-7 w-7" />,
       title: "なんでもアリ！",
-      desc: "あなたの“好き"は、それだけで立派なテーマになる。",
+      desc: 'あなたの"好き"は、それだけで立派なテーマになる。',
       color: "from-sky-400 to-cyan-400",
       bg: "bg-sky-50",
     },
@@ -394,19 +394,19 @@ function Benefits() {
   const benefits = [
     {
       no: "01",
-      title: "“好き"が深まる",
+      title: "“好き”が深まる",
       desc: "誰かに伝えるために準備するうちに、自分の好きなことや得意なことを、もっと深く知れる。",
       img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
     },
     {
       no: "02",
-      title: "“伝える力"が育つ",
+      title: "“伝える力”が育つ",
       desc: "「どういう順番で話そうか」と考えるうちに、構成力・表現力が自然と身についていく。",
       img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80",
     },
     {
       no: "03",
-      title: "“仲間"が見つかる",
+      title: "“仲間”が見つかる",
       desc: "「俺もそれ好き！」と身を乗り出してくれる仲間との出会い。新しい発見が、毎回ある。",
       img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80",
     },
@@ -491,7 +491,7 @@ function Support() {
               <SupportCard
                 icon={<PartyPopper className="h-6 w-6" />}
                 title="失敗を笑わない安全な空間"
-                desc="発表の“第一歩"を、失敗を恐れずに踏み出せる場所。聞き手もあたたかく受け止めます。"
+                desc='発表の“第一歩"を、失敗を恐れずに踏み出せる場所。聞き手もあたたかく受け止めます。'
               />
             </div>
 
