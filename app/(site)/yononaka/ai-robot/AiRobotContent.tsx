@@ -850,7 +850,7 @@ export default function AiRobotContent() {
         }
         .hero h1 {
           font-family: 'Zen Maru Gothic', sans-serif;
-          font-size: clamp(2rem, 7vw, 3.5rem);
+          font-size: clamp(1.6rem, 5.5vw, 2.2rem);
           font-weight: 900;
           color: white;
           line-height: 1.3;
@@ -948,11 +948,6 @@ export default function AiRobotContent() {
           grid-template-columns: 1fr;
           gap: 40px;
           margin-top: 48px;
-        }
-        @media (min-width: 640px) {
-          .why-grid {
-            grid-template-columns: 1fr 1fr;
-          }
         }
         .why-card {
           background: var(--cream);
@@ -1210,11 +1205,6 @@ export default function AiRobotContent() {
           gap: 16px;
           margin-top: 40px;
         }
-        @media (min-width: 640px) {
-          .themes-grid {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
 
         /* ===== FEATURES ===== */
         .section-features {
@@ -1259,11 +1249,6 @@ export default function AiRobotContent() {
           grid-template-columns: 1fr;
           gap: 24px;
           margin-top: 48px;
-        }
-        @media (min-width: 640px) {
-          .feature-cards {
-            grid-template-columns: 1fr 1fr;
-          }
         }
         .feature-card {
           background: rgba(255, 255, 255, 0.06);
@@ -1441,10 +1426,10 @@ export default function AiRobotContent() {
         }
         .pricing-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: 20px;
           margin-top: 48px;
-          max-width: 700px;
+          max-width: 400px;
           margin-left: auto;
           margin-right: auto;
         }
