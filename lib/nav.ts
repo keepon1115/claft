@@ -27,7 +27,8 @@ export const navItems: NavItem[] = [
     href: '/yononaka',
     alwaysOpen: true,
     children: [
-      { label: '授業レポ', href: '/yononaka/jugyo-repo' }
+      { label: '授業レポ', href: '/yononaka/jugyo-repo' },
+      { label: 'AIロボット社会', href: '/yononaka/ai-robot' }
     ]
   },
   { 

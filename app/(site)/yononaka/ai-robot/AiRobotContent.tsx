@@ -3,70 +3,8 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-/**
- * 画像のベースパス
- * 画像を保存したら、各 PhotoPlaceholder を以下のように Image コンポーネントに置き換えてください：
- *
- * <div style={{ position: 'relative', aspectRatio: '4/3', borderRadius: 12, overflow: 'hidden' }}>
- *   <Image src={`${PHOTO_BASE}/why-1.jpg`} alt="..." fill style={{ objectFit: 'cover' }} />
- * </div>
- */
-const PHOTO_BASE = '/assets/yononaka/ai-robot'
+const PHOTO_BASE = '/assets/images/courses/yononaka/airobot'
 
-/** 写真プレースホルダー — 画像を保存したら Image コンポーネントに置き換え */
-function PhotoPlaceholder({
-  filename,
-  variant = 'default',
-}: {
-  filename: string
-  variant?: 'default' | 'feature' | 'hero'
-}) {
-  return (
-    <div className={`photo-ph ${variant}`}>
-      <span className="ph-icon">📷</span>
-      <span className="ph-name">{filename}</span>
-      <style jsx>{`
-        .photo-ph {
-          aspect-ratio: 4 / 3;
-          border-radius: 12px;
-          background: var(--teal-light);
-          border: 1px dashed rgba(0, 168, 150, 0.3);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: var(--teal);
-          font-size: 0.75rem;
-          gap: 4px;
-        }
-        .photo-ph.feature {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.15);
-          color: rgba(255, 255, 255, 0.4);
-        }
-        .photo-ph.hero {
-          aspect-ratio: 16 / 9;
-          background: linear-gradient(
-            135deg,
-            rgba(0, 191, 166, 0.1),
-            rgba(244, 165, 174, 0.1)
-          );
-          border-color: rgba(255, 255, 255, 0.2);
-          color: rgba(255, 255, 255, 0.5);
-        }
-        .ph-icon {
-          font-size: 1.4rem;
-          opacity: 0.7;
-        }
-        .ph-name {
-          font-family: monospace;
-          font-size: 0.7rem;
-          opacity: 0.85;
-        }
-      `}</style>
-    </div>
-  )
-}
 
 export default function AiRobotContent() {
   // アコーディオン: 各カード独立して開閉
@@ -151,7 +89,14 @@ export default function AiRobotContent() {
             </a>
           </div>
           <div className="hero-image-area">
-            <PhotoPlaceholder filename="hero.jpg" variant="hero" />
+            <Image
+              src={`${PHOTO_BASE}/hero.jpg`}
+              alt="AIロボット社会ワーク"
+              width={960}
+              height={540}
+              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 12 }}
+              priority
+            />
           </div>
         </div>
       </section>
@@ -185,7 +130,13 @@ export default function AiRobotContent() {
                 社会に出る前に、「AIに何ができて、人間は何をするのか」を自分の頭で考えておくことが大事になってくる。
               </p>
               <div className="why-photo">
-                <PhotoPlaceholder filename="why-1.jpg" />
+                <Image
+                  src={`${PHOTO_BASE}/why-1.jpg`}
+                  alt="AIとロボットの進化"
+                  width={800}
+                  height={600}
+                  style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 12 }}
+                />
               </div>
             </div>
 
@@ -203,7 +154,13 @@ export default function AiRobotContent() {
                 </strong>
               </p>
               <div className="why-photo">
-                <PhotoPlaceholder filename="why-2.jpg" />
+                <Image
+                  src={`${PHOTO_BASE}/why-2.jpg`}
+                  alt="AIとテストの点数"
+                  width={800}
+                  height={600}
+                  style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 12 }}
+                />
               </div>
             </div>
           </div>
@@ -228,13 +185,19 @@ export default function AiRobotContent() {
             </p>
           </div>
 
+          <div className="yononaka-link-row fade-up delay-2">
+            <a href="/yononaka" className="yononaka-link-btn">
+              Yononakaについてはこちら →
+            </a>
+          </div>
+
           <div className="overview-stats fade-up delay-2">
             <div className="stat-card scale-in delay-1">
               <div className="stat-label">期間</div>
               <div className="stat-value">
-                月1回
+                月1
                 <br />
-                ×6ヶ月
+                ×6回
               </div>
             </div>
             <div className="stat-card scale-in delay-2">
@@ -389,11 +352,6 @@ export default function AiRobotContent() {
                 <br />
                 気づきや発見を得られるかは「その人がどんな意識でこの時間を過ごすか？」によるので、主体的に学ぶことができます。
               </p>
-              <div className="feature-images">
-                <PhotoPlaceholder filename="feature-1-1.jpg" variant="feature" />
-                <PhotoPlaceholder filename="feature-1-2.jpg" variant="feature" />
-                <PhotoPlaceholder filename="feature-1-3.jpg" variant="feature" />
-              </div>
             </div>
             <div className="feature-card fade-up delay-2">
               <div className="feature-card-icon">🧠</div>
@@ -404,11 +362,6 @@ export default function AiRobotContent() {
                 <br />
                 それは、人によって見方考え方が異なるので、ほかの参加者と意見を交わすことで「自分はこう考えるんだ」という自己理解にもつながる。
               </p>
-              <div className="feature-images">
-                <PhotoPlaceholder filename="feature-2-1.jpg" variant="feature" />
-                <PhotoPlaceholder filename="feature-2-2.jpg" variant="feature" />
-                <PhotoPlaceholder filename="feature-2-3.jpg" variant="feature" />
-              </div>
             </div>
           </div>
         </div>
@@ -450,13 +403,13 @@ export default function AiRobotContent() {
                 desc: '情報があふれる時代に、必要な情報を自分ごととして取り入れ、知識・経験・技術を組み合わせて自分なりの表現にする。人生を切り拓いていく力。',
               },
             ].map((p, i) => (
-              <button
+              <div
                 key={p.cls}
-                type="button"
-                className={`power-card ${p.cls} fade-up delay-${i + 1} ${
-                  openPowers[i] ? 'open' : ''
-                }`}
+                role="button"
+                tabIndex={0}
+                className={`power-card ${p.cls} fade-up delay-${i + 1}`}
                 onClick={() => togglePower(i)}
+                onKeyDown={(e) => e.key === 'Enter' && togglePower(i)}
                 aria-expanded={openPowers[i]}
               >
                 <div className="power-num">{p.num}</div>
@@ -465,14 +418,30 @@ export default function AiRobotContent() {
                     <div className="power-name">{p.name}</div>
                     <div className="power-sub">{p.sub}</div>
                   </div>
-                  <div className="power-toggle">
+                  <div
+                    className="power-toggle"
+                    style={{
+                      background: openPowers[i]
+                        ? p.cls === 'p2' ? 'var(--orange)' : p.cls === 'p3' ? 'var(--purple)' : 'var(--teal)'
+                        : 'var(--cream)',
+                      color: openPowers[i] ? 'white' : 'var(--teal)',
+                      transform: openPowers[i] ? 'rotate(180deg)' : 'none',
+                    }}
+                  >
                     {openPowers[i] ? '−' : '+'}
                   </div>
                 </div>
-                <div className="power-body">
+                <div
+                  className="power-body"
+                  style={{
+                    maxHeight: openPowers[i] ? '400px' : '0',
+                    overflow: 'hidden',
+                    transition: 'max-height 0.4s ease',
+                  }}
+                >
                   <div className="power-desc">{p.desc}</div>
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -484,29 +453,39 @@ export default function AiRobotContent() {
           <div className="section-label fade-up">PRICING</div>
           <h2 className="section-title fade-up delay-1">料金プラン</h2>
           <p className="section-subtitle fade-up delay-2">
-            まずは1回体験からでもOK。
+            まず無料で体験してから決めてOK。
           </p>
 
           <div className="pricing-grid">
-            <div className="price-card fade-up delay-1">
+            <div className="price-card free-trial fade-up delay-1">
+              <div className="free-trial-badge">🎁 初回限定</div>
+              <div className="price-plan">初回無料体験</div>
+              <div className="price-amount">
+                <span className="price-free">無料</span>
+              </div>
+              <div className="price-detail">はじめての方はまず体験してみよう</div>
+              <ul className="price-features">
+                <li>75分のワーク参加</li>
+                <li>ワークシート付き</li>
+                <li>雰囲気を気軽に確かめられる</li>
+              </ul>
+            </div>
+            <div className="price-card fade-up delay-2">
               <div className="price-plan">1回参加</div>
               <div className="price-amount">
-                ¥3,000<span>/回</span>
+                ¥2,000<span>/回</span>
               </div>
-              <div className="price-detail">まずは体験してみたい方に</div>
+              <div className="price-detail">スポットで参加したい方に</div>
               <ul className="price-features">
                 <li>75分のワーク参加</li>
                 <li>ワークシート付き</li>
                 <li>振り返りフィードバック</li>
               </ul>
-              <a href="#apply" className="price-cta outline">
-                申し込む
-              </a>
             </div>
-            <div className="price-card recommended fade-up delay-2">
+            <div className="price-card recommended fade-up delay-3">
               <div className="price-plan">6回パック</div>
               <div className="price-amount">
-                ¥15,000<span>/6回</span>
+                ¥10,000<span>/6回</span>
               </div>
               <div className="price-detail">全テーマをじっくり探究</div>
               <ul className="price-features">
@@ -515,9 +494,6 @@ export default function AiRobotContent() {
                 <li>振り返りフィードバック</li>
                 <li>修了レポート</li>
               </ul>
-              <a href="#apply" className="price-cta primary">
-                申し込む
-              </a>
             </div>
           </div>
         </div>
@@ -544,7 +520,7 @@ export default function AiRobotContent() {
               「考え方の土台」を一緒につくっていこう。
             </p>
             <a
-              href="https://forms.gle/xxxxx"
+              href="https://forms.gle/xCm8pQrmqJGjtHKd9"
               className="cta-btn-big"
               target="_blank"
               rel="noopener noreferrer"
@@ -600,7 +576,7 @@ export default function AiRobotContent() {
 
         /* ===== UTILITY ===== */
         .container {
-          max-width: 1100px;
+          max-width: 100%;
           margin: 0 auto;
           padding: 0 20px;
         }
@@ -626,7 +602,7 @@ export default function AiRobotContent() {
         }
         :global(.ai-robot-lp .section-title) {
           font-family: 'Zen Maru Gothic', sans-serif;
-          font-size: clamp(1.6rem, 5vw, 2.4rem);
+          font-size: clamp(1.4rem, 4vw, 1.9rem);
           font-weight: 900;
           line-height: 1.4;
           margin-bottom: 16px;
@@ -695,7 +671,6 @@ export default function AiRobotContent() {
         /* ===== HERO ===== */
         .hero {
           position: relative;
-          min-height: 90vh;
           display: flex;
           align-items: center;
           background: linear-gradient(
@@ -705,15 +680,15 @@ export default function AiRobotContent() {
             var(--teal-deeper) 100%
           );
           overflow: hidden;
-          padding: 60px 0 40px;
+          padding: 48px 0 36px;
         }
         .hero::before {
           content: '';
           position: absolute;
           top: -50%;
           right: -30%;
-          width: 80vw;
-          height: 80vw;
+          width: 400px;
+          height: 400px;
           background: radial-gradient(
             circle,
             rgba(0, 191, 166, 0.15) 0%,
@@ -727,8 +702,8 @@ export default function AiRobotContent() {
           position: absolute;
           bottom: -20%;
           left: -20%;
-          width: 60vw;
-          height: 60vw;
+          width: 300px;
+          height: 300px;
           background: radial-gradient(
             circle,
             rgba(244, 165, 174, 0.08) 0%,
@@ -813,8 +788,8 @@ export default function AiRobotContent() {
         .hero-content {
           position: relative;
           z-index: 2;
-          padding: 40px 20px;
-          max-width: 1100px;
+          padding: 24px 20px;
+          max-width: 100%;
           margin: 0 auto;
           width: 100%;
         }
@@ -925,7 +900,7 @@ export default function AiRobotContent() {
 
         /* ===== WHY NOW ===== */
         .section-why {
-          padding: 100px 0 80px;
+          padding: 56px 0 48px;
           background: white;
           position: relative;
         }
@@ -1018,7 +993,7 @@ export default function AiRobotContent() {
 
         /* ===== OVERVIEW ===== */
         .section-overview {
-          padding: 80px 0;
+          padding: 48px 0;
           background: var(--cream);
         }
         .overview-highlight-box {
@@ -1049,6 +1024,30 @@ export default function AiRobotContent() {
         .overview-highlight-box strong {
           color: var(--orange);
         }
+        .yononaka-link-row {
+          margin-bottom: 24px;
+        }
+        .yononaka-link-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: white;
+          color: var(--teal-dark);
+          border: 2px solid var(--teal);
+          border-radius: 50px;
+          padding: 10px 24px;
+          font-family: 'Zen Maru Gothic', sans-serif;
+          font-weight: 700;
+          font-size: 0.9rem;
+          text-decoration: none;
+          transition: all 0.3s;
+        }
+        .yononaka-link-btn:hover {
+          background: var(--teal);
+          color: white;
+          transform: translateY(-2px);
+        }
+
         .overview-stats {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -1196,7 +1195,7 @@ export default function AiRobotContent() {
 
         /* ===== THEMES ===== */
         .section-themes {
-          padding: 80px 0;
+          padding: 48px 0;
           background: white;
         }
         .themes-grid {
@@ -1208,7 +1207,7 @@ export default function AiRobotContent() {
 
         /* ===== FEATURES ===== */
         .section-features {
-          padding: 80px 0;
+          padding: 48px 0;
           background: linear-gradient(
             135deg,
             var(--navy) 0%,
@@ -1285,26 +1284,16 @@ export default function AiRobotContent() {
           color: rgba(255, 255, 255, 0.7);
           line-height: 1.9;
         }
-        .feature-images {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 12px;
-          margin-top: 20px;
-        }
-
         /* ===== 3 POWERS (CHANGED: アコーディオン) ===== */
         .section-powers {
-          padding: 80px 0;
+          padding: 48px 0;
           background: var(--cream);
         }
         .powers-grid {
           display: grid;
           grid-template-columns: 1fr;
           gap: 14px;
-          margin-top: 48px;
-          max-width: 700px;
-          margin-left: auto;
-          margin-right: auto;
+          margin-top: 32px;
         }
         .power-card {
           background: white;
@@ -1421,17 +1410,14 @@ export default function AiRobotContent() {
 
         /* ===== PRICING ===== */
         .section-pricing {
-          padding: 80px 0;
+          padding: 48px 0;
           background: white;
         }
         .pricing-grid {
           display: grid;
           grid-template-columns: 1fr;
           gap: 20px;
-          margin-top: 48px;
-          max-width: 400px;
-          margin-left: auto;
-          margin-right: auto;
+          margin-top: 32px;
         }
         .price-card {
           background: var(--cream);
@@ -1442,6 +1428,38 @@ export default function AiRobotContent() {
           overflow: hidden;
           transition: all 0.3s;
           border: 2px solid transparent;
+        }
+        .price-card.free-trial {
+          border-color: var(--orange);
+          background: #fff8ee;
+        }
+        .free-trial-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: var(--orange);
+          color: white;
+          font-size: 0.7rem;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 50px;
+          margin-bottom: 8px;
+          font-family: 'Zen Maru Gothic', sans-serif;
+        }
+        .price-free {
+          font-family: 'Zen Maru Gothic', sans-serif;
+          font-weight: 900;
+          font-size: 2rem;
+          color: var(--orange);
+        }
+        .price-cta.free {
+          background: var(--orange);
+          color: white;
+        }
+        .price-cta.free:hover {
+          background: #e09440;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
         }
         .price-card:hover {
           transform: translateY(-4px);
@@ -1539,7 +1557,7 @@ export default function AiRobotContent() {
 
         /* ===== CTA ===== */
         .section-cta {
-          padding: 80px 0;
+          padding: 48px 0;
           background: linear-gradient(
             135deg,
             var(--teal-dark) 0%,
