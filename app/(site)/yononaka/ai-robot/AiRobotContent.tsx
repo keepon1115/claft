@@ -473,7 +473,7 @@ export default function AiRobotContent() {
             <div className="price-card fade-up delay-2">
               <div className="price-plan">1回参加</div>
               <div className="price-amount">
-                ¥2,000<span>/回</span>
+                ¥2,200(税込)<span>/回</span>
               </div>
               <div className="price-detail">スポットで参加したい方に</div>
               <ul className="price-features">
@@ -485,7 +485,7 @@ export default function AiRobotContent() {
             <div className="price-card recommended fade-up delay-3">
               <div className="price-plan">6回パック</div>
               <div className="price-amount">
-                ¥10,000<span>/6回</span>
+                ¥11,000(税込)<span>/6回</span>
               </div>
               <div className="price-detail">全テーマをじっくり探究</div>
               <ul className="price-features">
@@ -525,7 +525,7 @@ export default function AiRobotContent() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              ✉️ 申し込む
+              申し込む
             </a>
           </div>
         </div>

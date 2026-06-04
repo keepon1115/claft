@@ -10,10 +10,11 @@
 
 主な掲載内容:
 
-- コース紹介（ロボットプロ / Minecraft / PBL / 世の中探究 / じぶんクラフト / FutureCraft など）
-- 学校・社会向けプログラム（STEAM キャンプ / 学校連携）
+- コース紹介（Minecraft / PBL / 世の中探究 / じぶんクラフト / ミライクラフト など）
+- 学校・社会向けプログラム（STEAM キャンプ / PLAY CLAFT）
 - 生徒ストーリー（[slug] による個別ページ）
-- CLAFT HOPE（奨学・支援）
+- CLAFT HOPE（奨学・支援）＋ロードマップ
+- Yononaka サブページ（授業レポ / AIロボット社会）
 - お問い合わせ・資料ダウンロード
 
 ---
@@ -38,18 +39,24 @@ claft-HP/
 │   ├── (site)/               # 公開サイト全体のルートグループ
 │   │   ├── page.tsx          # トップページ
 │   │   ├── about/            # CLAFTとは
-│   │   ├── courses/          # コース一覧
-│   │   ├── robopro/          # ロボットプロ
-│   │   ├── minecraft/        # Minecraft コース
-│   │   ├── pbl/              # PBL
-│   │   ├── yononaka/         # 世の中探究
-│   │   ├── jibun-craft/      # じぶんクラフト
-│   │   ├── futurecraft/      # FutureCraft
-│   │   ├── asia-steam-camp/  # STEAM キャンプ
+│   │   ├── courses/          # コース・料金
+│   │   ├── minecraft/        # マイクラSDGs
+│   │   ├── pbl/              # PBL（課題解決型学習）
+│   │   ├── yononaka/         # Yononaka（対話ワーク）
+│   │   │   ├── jugyo-repo/   # 授業レポ
+│   │   │   └── ai-robot/     # AIロボット社会
+│   │   ├── jibun-craft/      # ジブンクラフト
+│   │   ├── futurecraft/      # ミライクラフト
+│   │   │   ├── Exhibition/       # なんでも展示会
+│   │   │   ├── Exhibition-game/  # ゲーム展示会
+│   │   │   └── Presentation/     # なんでも発表会
+│   │   ├── play-claft/       # PLAY CLAFT
+│   │   ├── asia-steam-camp/  # STEAMキャンプ
 │   │   ├── claft-hope/       # CLAFT HOPE
-│   │   ├── student-story/    # 生徒ストーリー一覧 & [slug]
+│   │   ├── roadmap/          # ロードマップ
+│   │   ├── student-story/    # メンバーのストーリー一覧 & [slug]
 │   │   ├── keepon-lab/       # Keepon Lab ページ
-│   │   ├── contact/          # お問い合わせ
+│   │   ├── contact/          # 無料体験 / お問い合わせ
 │   │   └── (hidden)/         # 非公開ページ群 (career / school_society / workshop)
 │   ├── (keepon-lab)/         # Keepon Lab 専用レイアウトグループ
 │   ├── layout.tsx            # ルートレイアウト（フォント・SiteGrid）
@@ -63,6 +70,7 @@ claft-HP/
 │   ├── OpeningAnimation.tsx  # オープニングアニメーション
 │   ├── SiteGrid.tsx          # サイト全体のグリッドレイアウト
 │   ├── courses/              # コース一覧ページ用クライアントコンポーネント
+│   ├── roadmap/              # ロードマップ用クライアントコンポーネント
 │   ├── keepon-lab/           # Keepon Lab 専用コンポーネント
 │   └── ...                   # その他セクションコンポーネント
 ├── lib/

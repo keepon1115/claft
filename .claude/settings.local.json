@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3002/roadmap)",
+      "Bash(mkdir -p c:/dev/claft-HP/app/\\\\\\(site\\\\\\)/yononaka/kyoshitsu)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(node_modules/.bin/next build *)",
+      "PowerShell(Get-ChildItem \"c:\\\\dev\\\\claft-HP\\\\node_modules\\\\.bin\\\\\" | Where-Object { $_.Name -match \"^\\(next|tsc\\)\" } | Select-Object -First 10 Name)"
+    ],
+    "additionalDirectories": [
+      "c:\\dev\\claft-HP\\app\\(site)\\yononaka"
     ]
   }
 }

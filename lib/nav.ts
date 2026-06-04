@@ -8,10 +8,14 @@ export type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { 
-    label: '「CLAFT」という希望', 
+  {
+    label: '「CLAFT」という希望',
     href: '/claft-hope',
-    variant: 'cream'
+    variant: 'cream',
+    alwaysOpen: true,
+    children: [
+      { label: 'ロードマップ', href: '/roadmap' },
+    ],
   },
   { 
     label: 'メンバーのストーリー', 
@@ -28,7 +32,8 @@ export const navItems: NavItem[] = [
     alwaysOpen: true,
     children: [
       { label: '授業レポ', href: '/yononaka/jugyo-repo' },
-      { label: 'AIロボット社会', href: '/yononaka/ai-robot' }
+      { label: 'AIロボット社会', href: '/yononaka/ai-robot' },
+      { label: '教室オーナーの方へ', href: '/yononaka/kyoshitsu' }
     ]
   },
   { 

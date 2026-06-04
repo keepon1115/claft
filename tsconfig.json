@@ -23,8 +23,6 @@
         "./*"
       ]
     },
-    "types": ["react", "react-dom", "node", "prop-types"],
-    "typeRoots": ["./node_modules/@types"],
     "plugins": [
       {
         "name": "next"
