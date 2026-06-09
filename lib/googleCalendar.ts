@@ -60,7 +60,6 @@ async function fetchCalendar(
   }
 
   const data = await res.json();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (data.items ?? []).map((item: any): CalendarEvent => {
     const allDay = Boolean(item.start?.date && !item.start?.dateTime);
     return {
