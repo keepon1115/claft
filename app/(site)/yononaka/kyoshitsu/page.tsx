@@ -57,7 +57,7 @@ const faqItems = [
   {
     question: '何名から開催できますか？定員は？',
     answer:
-      '少人数から開催可能です。定員は15名です。16名以上の場合は、ファシリテーターを1名追加して対応いたします。詳しくはご相談ください。',
+      '4名から開催可能です。定員は15名です。16名以上の場合は、ファシリテーターを1名追加して対応いたします。詳しくはご相談ください。',
   },
   {
     question: '対象年齢は？',
@@ -74,6 +74,19 @@ const faqItems = [
     answer:
       'インターネット接続環境と、Zoomが使えるデバイス（PC・タブレット・スマートフォン）があれば大丈夫です。事前の専門知識や準備物は一切不要です。',
   },
+];
+
+const themes = [
+  { id: 1, title: 'お金持ちはなぜ働き続けるのか？', desc: 'もう一生分のお金があるのに、働き続ける人がいる。どうして？ そもそも「お金持ち」って、どんな人のこと？ 働いたことのない今だからこそ、「働く」の意味を想像してみる時間です。', question: '働くことで、お金以外に得られるものって？', color: '#ffd66b' },
+  { id: 2, title: '時間の正体', desc: 'なんでも速く、効率的に。技術は進んだのに、「忙しい」は減った気がしない。時間って、短くすればするほどいいんだろうか？ それとも、別の見方がある？ 限りある時間の使い方を、じっくり話してみます。', question: 'あなたにとって、「時間をかけたいな」と思うことは？', color: '#34c6be' },
+  { id: 3, title: 'なんで学ばなきゃいけないの？', desc: '「勉強したほうがいい」ってよく言うけど、「なんで？」と聞かれたら、なんて答える？ 机に向かってノートに書くこと——それだけが勉強？ じゃあ、それ以外は？「学ぶ」の正体を一緒に探します。', question: '学校で5教科を学ぶのは、どうして？ 学ぶとどうなる？', color: '#9b87f5' },
+  { id: 4, title: '情報とのつきあい方（情報リテラシー）', desc: '誹謗中傷がダメなのは、みんな知ってる。なのに、どうしてなくならないんだろう？ 人のせい？ それとも、SNSという仕組みのせい？ 情報があふれる時代の「つきあい方」を考えてみます。', question: '炎上や誹謗中傷が起きるのは、どうしてだろう？', color: '#f06a6a' },
+  { id: 5, title: '虹の色って、いくつある？', desc: '虹は何色？「7色やろ」と答えたあなたも、「藍色いる？」と思ったあなたも、実はみんな正解。国によっては8色、なんと2色のところも。「色」をテーマにすると、人ぞれぞれのちがいを面白がれるかも？', question: '家・学校・公園にある〇〇の色、こう変えたらいいんじゃない？', color: '#ffd66b' },
+  { id: 6, title: '子どもと大人', desc: '子どもと大人の境目って、どこ？ 法律では18歳から大人。でも、18歳と75歳が同じ「大人」でいいんだろうか？ 少子高齢化が進む日本で、大人になっていく子どもたちと考えたいテーマ。ぜひ大人の方も一緒に！', question: '「子どもっぽさ」「大人っぽさ」って、なんだろう？', color: '#34c6be' },
+  { id: 7, title: 'なんかいいってなに？', desc: '「なんか安心する人」「なんか居心地のいい場所」——その「なんか」って、いったい何？ みんな同じ？ それとも一人ひとり違う？ 言葉にしてみると、自分でも気づいてなかった「感じ方」が見えてくるかも。', question: '雰囲気がいい人って、どんな特徴がある？', color: '#9b87f5' },
+  { id: 8, title: '運動すると頭がよくなるってホント？', desc: '2026年はスポーツイヤー。オリンピックにWBC、ワールドカップ——見ていると、体を動かしたくなる。でも運動でつくのは、体力だけ？「運動と脳」の意外な関係を、みんなのカラダの不思議も持ち寄って探ります。', question: '「運動が得意」って、どういう状態のこと？', color: '#f06a6a' },
+  { id: 9, title: '覚えるvs忘れる', desc: '覚えようとすると忘れて、忘れたいことほど残ってしまう。記憶って、なんて気まぐれ。あなたは覚えるのが得意？ 周りの「記憶上手」な人は、どんな工夫をしてるんだろう？ 記憶のフシギにせまります。', question: '覚えられること・忘れてしまうことの違いって、なんだろう？', color: '#ffd66b' },
+  { id: 10, title: 'ポケモンから考える人気キャラクターのヒミツ', desc: '子どもから大人まで、世界中が夢中なポケモン。どうしてこんなに愛されるんだろう？ 人気者には、どんな「ヒミツ」があるのか。大好きなキャラを入り口に、みんなで楽しく考えます。', question: 'じぶんに『タイプ』をつけるなら、なにタイプ？', color: '#34c6be' },
 ];
 
 // ─────────────────────────────────────────────
@@ -348,6 +361,114 @@ function FaqItem({
   );
 }
 
+function ThemeItem({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: (typeof themes)[0];
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (contentRef.current) setHeight(contentRef.current.scrollHeight);
+  }, []);
+
+  return (
+    <div
+      style={{
+        background: '#fff',
+        borderRadius: '16px',
+        overflow: 'hidden',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+        border: '2px dashed rgba(0,0,0,0.08)',
+      }}
+    >
+      <button
+        onClick={onToggle}
+        style={{
+          width: '100%',
+          padding: '16px 20px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          textAlign: 'left',
+        }}
+      >
+        <span
+          style={{
+            flexShrink: 0,
+            width: '10px',
+            height: '10px',
+            borderRadius: '50%',
+            background: item.color,
+          }}
+        />
+        <span
+          className="body-base"
+          style={{ flex: 1, fontWeight: 'var(--font-bold)', lineHeight: 'var(--leading-snug)' }}
+        >
+          {item.title}
+        </span>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--ink-400)"
+          strokeWidth="2"
+          style={{
+            flexShrink: 0,
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease',
+          }}
+        >
+          <polyline points="6,9 12,15 18,9" />
+        </svg>
+      </button>
+      <div
+        style={{
+          height: isOpen ? height : 0,
+          overflow: 'hidden',
+          transition: 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
+      >
+        <div
+          ref={contentRef}
+          style={{ padding: '0 20px 20px', borderTop: '1px dashed rgba(0,0,0,0.1)' }}
+        >
+          <p
+            className="body-sm"
+            style={{ marginTop: '16px', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}
+          >
+            {item.desc}
+          </p>
+          <p
+            className="body-sm"
+            style={{
+              marginTop: '12px',
+              padding: '12px',
+              background: `${item.color}15`,
+              borderRadius: '10px',
+              color: 'var(--ink-700)',
+              lineHeight: 'var(--leading-relaxed)',
+            }}
+          >
+            <span style={{ fontWeight: 'var(--font-bold)' }}>お題例：</span>
+            {item.question}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────
 // ページ本体
 // ─────────────────────────────────────────────
@@ -355,6 +476,7 @@ function FaqItem({
 export default function YononakaKyoshitsuPage() {
   const [openGrowth, setOpenGrowth] = useState<number | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openTheme, setOpenTheme] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -397,21 +519,61 @@ export default function YononakaKyoshitsuPage() {
         .horizontal-scroll::-webkit-scrollbar-thumb { background: rgba(52,198,190,0.4); border-radius: 10px; }
         .horizontal-scroll > * { flex-shrink: 0; scroll-snap-align: start; }
         .cta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .flow-step-ky { width: 100%; background: white; border-radius: 16px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .flow-step-ky.inner { box-shadow: none; border: 1px solid rgba(52,198,190,0.15); }
+        .loop-mark-ky { display: inline-block; animation: loopSpinKy 4s linear infinite; }
+        @keyframes loopSpinKy { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes catchcopyReveal {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glowPulse {
+          0%, 100% { box-shadow: 0 4px 20px rgba(52,198,190,0.15); }
+          50% { box-shadow: 0 8px 36px rgba(52,198,190,0.42); }
+        }
+        .cc-lead { animation: catchcopyReveal 0.6s cubic-bezier(0.4,0,0.2,1) 0.15s both; }
+        .cc-w1 { animation: catchcopyReveal 0.6s cubic-bezier(0.4,0,0.2,1) 0.4s both; }
+        .cc-w2 { animation: catchcopyReveal 0.6s cubic-bezier(0.4,0,0.2,1) 0.7s both; }
+        .cc-w3 { animation: catchcopyReveal 0.6s cubic-bezier(0.4,0,0.2,1) 1.0s both; }
+        .resolve-glow { animation: glowPulse 3s ease-in-out 1.5s infinite; }
       `}</style>
 
       {/* ===== 1. ヒーロー ===== */}
       <Section className="scroll-animate">
-        <p
-          className="body-base"
+        <div
           style={{
-            lineHeight: 'var(--leading-loose)',
-            color: 'var(--ink-800)',
             marginBottom: '40px',
-            fontSize: '17px',
+            background: 'linear-gradient(135deg, rgba(52,198,190,0.08) 0%, rgba(155,135,245,0.08) 100%)',
+            borderRadius: '22px',
+            padding: '24px 22px',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          年齢や立場関係なく、それぞれが自分の意見を堂々と言い合える、そんなオンラインの対話の場があります
-        </p>
+          <div style={{ position: 'absolute', top: '-24px', right: '-24px', width: '90px', height: '90px', borderRadius: '50%', background: 'rgba(52,198,190,0.12)' }} />
+          <div style={{ position: 'absolute', bottom: '-16px', left: '8px', width: '55px', height: '55px', borderRadius: '50%', background: 'rgba(155,135,245,0.1)' }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <p
+              className="cc-lead"
+              style={{ fontSize: '13px', color: '#34c6be', fontWeight: 'var(--font-bold)', marginBottom: '12px', letterSpacing: '0.06em', textTransform: 'uppercase' }}
+            >
+              ── こんな場所、知っていますか？
+            </p>
+            <p style={{ fontSize: '18px', lineHeight: 2, color: 'var(--ink-800)', fontWeight: 'var(--font-bold)' }}>
+              <span className="cc-w1" style={{ display: 'inline' }}>
+                <span style={{ background: 'linear-gradient(transparent 58%, rgba(52,198,190,0.35) 58%)' }}>年齢や立場関係なく</span>、
+              </span>
+              <span className="cc-w2" style={{ display: 'inline' }}>
+                <span style={{ background: 'linear-gradient(transparent 58%, rgba(255,214,107,0.45) 58%)' }}>一人ひとりが自分の意見を言い合える</span>、
+              </span>
+              <br />
+              <span className="cc-w3" style={{ display: 'inline' }}>
+                そんな<span style={{ background: 'linear-gradient(transparent 58%, rgba(155,135,245,0.35) 58%)' }}>オンラインの対話の場</span>が
+                <span style={{ color: '#34c6be', fontSize: '20px', marginLeft: '2px' }}>あるんです！</span>
+              </span>
+            </p>
+          </div>
+        </div>
 
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <h1
@@ -441,9 +603,6 @@ export default function YononakaKyoshitsuPage() {
               />
             </svg>
           </h1>
-          <p className="body-sm" style={{ marginTop: '20px', color: 'var(--ink-500)' }}>
-            対話ワーク ／ 教室オーナー・先生の方へ
-          </p>
         </div>
 
         <figure
@@ -462,9 +621,9 @@ export default function YononakaKyoshitsuPage() {
         </figure>
       </Section>
 
-      {/* ===== 2. こんな悩み、ありませんか？ ===== */}
+      {/* ===== 2. こんな運営者の方におすすめです！ ===== */}
       <Section className="scroll-animate">
-        <SectionHeading color="#f06a6a">こんな悩み、ありませんか？</SectionHeading>
+        <SectionHeading color="#f06a6a">こんな想いを抱えている、運営者の方におすすめです！</SectionHeading>
 
         <div
           style={{
@@ -477,10 +636,10 @@ export default function YononakaKyoshitsuPage() {
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
             {[
-              { text: '新型コロナ以降のコミュニケーション不足を打ち破りたい', color: '#f06a6a' },
+              { text: '年齢・立場に関係なく交流させたい', color: '#f06a6a' },
               { text: '一人ひとりの違いをおもしろがる機会を与えたい', color: '#ffd66b' },
-              { text: '年齢・立場に関係なく交流させたい', color: '#34c6be' },
-              { text: '学力や技術以外の学びの機会にしたい', color: '#9b87f5' },
+              { text: '新型コロナ以降の閉塞感を打ち破りたい', color: '#34c6be' },
+              { text: '学力や技術以外の学びの機会を提供したい', color: '#9b87f5' },
             ].map((item, i) => (
               <div
                 key={i}
@@ -515,20 +674,44 @@ export default function YononakaKyoshitsuPage() {
             ))}
           </div>
 
-          <p
-            className="body-base"
+          <div
+            className="resolve-glow"
             style={{
-              padding: '16px',
-              background: 'rgba(52,198,190,0.08)',
-              borderRadius: '12px',
-              borderLeft: '4px solid #34c6be',
-              lineHeight: 'var(--leading-relaxed)',
-              color: 'var(--ink-800)',
-              fontWeight: 'var(--font-bold)',
+              padding: '20px 24px',
+              background: 'linear-gradient(135deg, rgba(52,198,190,0.12), rgba(155,135,245,0.1))',
+              borderRadius: '16px',
+              border: '2px solid rgba(52,198,190,0.28)',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
-            ——そんな現状のお悩みを、Yononakaが解決します。
-          </p>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #34c6be, #9b87f5)' }} />
+            <p
+              className="body-base"
+              style={{
+                lineHeight: 'var(--leading-relaxed)',
+                color: 'var(--ink-800)',
+                fontWeight: 'var(--font-bold)',
+                fontSize: '16px',
+              }}
+            >
+              ——そういった問題を
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '2px 9px',
+                  background: 'linear-gradient(135deg, #34c6be, #9b87f5)',
+                  color: '#fff',
+                  borderRadius: '6px',
+                  margin: '0 3px',
+                  fontWeight: 'var(--font-bold)',
+                }}
+              >
+                Yononaka
+              </span>
+              が解決できるかもしれません。
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -549,8 +732,41 @@ export default function YononakaKyoshitsuPage() {
             className="body-base"
             style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)' }}
           >
-            お金や時間など、身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合う、オンラインの対話ワークです。考えを言葉にしてみる。ちがう意見を聞いてみる。その往復の中で、世界の見え方が少しずつ広がっていきます。
+            お金や時間など、身近なテーマを入り口に、
+            <br />
+            正解がひとつではないお題に対し参加者で話し合う、
+            <br />
+            オンラインの対話ワークです。
+            <br />
+            <br />
+            考えを言葉にしてみる。ちがう意見を聞いてみる。
+            <br />
+            その往復の中で、自分自身の世界の見え方が少しずつ広がっていく。体験すればするほどハマってしまうはず！
           </p>
+        </div>
+      </Section>
+
+      {/* ===== 3.5 体験動画 ===== */}
+      <Section className="scroll-animate">
+        <SectionHeading color="#f06a6a">実際の様子はこちら
+        </SectionHeading>
+        <div
+          style={{
+            borderRadius: '24px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+            border: '2px dashed rgba(0,0,0,0.08)',
+            background: '#000',
+            aspectRatio: '16/9',
+          }}
+        >
+          <iframe
+            src="https://www.youtube.com/embed/-YyaE1WQ87Y"
+            title="Yononaka 体験動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+          />
         </div>
       </Section>
 
@@ -632,111 +848,106 @@ export default function YononakaKyoshitsuPage() {
         </div>
       </Section>
 
-      {/* ===== 5. 当日の流れ ===== */}
+      {/* ===== 5. ワークの流れ ===== */}
       <Section className="scroll-animate">
-        <SectionHeading color="#34c6be">当日の流れ</SectionHeading>
+        <SectionHeading color="#34c6be">ワークの流れ</SectionHeading>
 
-        <div className="horizontal-scroll">
-          {[
-            {
-              num: '1',
-              title: '身近なテーマ',
-              description: 'よのなかにある身近なモノ・コトを扱います。',
-              examples: '「おかね」「自分のまち」「こころとからだ」など',
-              color: '#ffd66b',
-              icon: '🎯',
-            },
-            {
-              num: '2',
-              title: '正解がひとつでないお題',
-              description: 'テーマごとに3〜4つのお題があります。まずは一人で考える時間をとります。',
-              examples: '「お金持ちってどんなイメージ？」「つい行ってしまう場所は？」など',
-              color: '#34c6be',
-              icon: '🤔',
-            },
-            {
-              num: '3',
-              title: '意見共有（少人数グループ）',
-              description: 'オンラインでも少人数のグループに分かれ、一人ひとり順番に発言できるので安心です。',
-              examples: '',
-              color: '#9b87f5',
-              icon: '💬',
-            },
-          ].map((step) => (
-            <div
-              key={step.num}
-              style={{
-                width: '300px',
-                background: '#fff',
-                borderRadius: '24px',
-                padding: '28px',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
-                border: '2px dashed rgba(0,0,0,0.08)',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-            >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '80px',
-                  height: '80px',
-                  background: `linear-gradient(135deg, ${step.color}40, transparent)`,
-                  borderRadius: '0 24px 0 100%',
-                }}
-              />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <span
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '40px',
-                    height: '40px',
-                    background: step.color,
-                    color: '#fff',
-                    borderRadius: '50%',
-                    fontWeight: 'var(--font-bold)',
-                    fontSize: '18px',
-                  }}
-                >
-                  {step.num}
-                </span>
-                <span style={{ fontSize: '28px' }}>{step.icon}</span>
-              </div>
-              <h3 className="heading-sm" style={{ marginBottom: '12px' }}>
-                {step.title}
-              </h3>
-              <p
-                className="body-sm"
-                style={{
-                  marginBottom: step.examples ? '16px' : '0',
-                  color: 'var(--ink-600)',
-                  lineHeight: 'var(--leading-relaxed)',
-                }}
-              >
-                {step.description}
-              </p>
-              {step.examples && (
-                <p
-                  className="body-sm"
-                  style={{
-                    padding: '12px',
-                    background: `${step.color}15`,
-                    borderRadius: '12px',
-                    color: 'var(--ink-700)',
-                    lineHeight: 'var(--leading-relaxed)',
-                  }}
-                >
-                  <span style={{ fontWeight: 'var(--font-bold)' }}>例：</span>
-                  {step.examples}
-                </p>
-              )}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0, maxWidth: '500px', margin: '0 auto' }}>
+          {/* Step 1 */}
+          <div className="flow-step-ky">
+            <div style={{ flexShrink: 0, width: '36px', height: '36px', background: '#34c6be', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'var(--font-bold)', fontSize: '18px' }}>1</div>
+            <div>
+              <p style={{ fontSize: '0.95rem', fontWeight: 'var(--font-bold)', color: 'var(--ink-800)', marginBottom: '2px' }}>導入</p>
+              <p style={{ fontSize: '0.8rem', color: 'var(--ink-500)' }}>テーマを知る</p>
             </div>
+          </div>
+
+          <div style={{ color: '#34c6be', fontSize: '1.5rem', fontWeight: 'var(--font-bold)', padding: '8px 0', lineHeight: 1 }}>↓</div>
+
+          {/* Loop */}
+          <div style={{ width: '100%', background: '#fff0f3', border: '2px dashed #e8788a', borderRadius: '20px', padding: '18px 16px 22px', position: 'relative', margin: '4px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
+            <div style={{ background: '#e8788a', color: 'white', fontWeight: 'var(--font-bold)', fontSize: '14px', padding: '6px 16px', borderRadius: '50px', marginTop: '-32px', marginBottom: '16px', display: 'inline-flex', alignItems: 'center', gap: '6px', boxShadow: '0 2px 12px rgba(232,120,138,0.25)' }}>
+              <span className="loop-mark-ky">⟳</span>
+              これを ×3セット
+            </div>
+
+            <div className="flow-step-ky inner">
+              <div style={{ flexShrink: 0, width: '36px', height: '36px', background: '#34c6be', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'var(--font-bold)', fontSize: '18px' }}>2</div>
+              <div>
+                <p style={{ fontSize: '0.95rem', fontWeight: 'var(--font-bold)', color: 'var(--ink-800)', marginBottom: '2px' }}>個人ワーク</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--ink-500)' }}>1分間考える</p>
+              </div>
+            </div>
+
+            <div style={{ color: '#e8788a', fontSize: '1.2rem', fontWeight: 'var(--font-bold)', padding: '8px 0', lineHeight: 1 }}>↓</div>
+
+            <div className="flow-step-ky inner">
+              <div style={{ flexShrink: 0, width: '36px', height: '36px', background: '#34c6be', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'var(--font-bold)', fontSize: '18px' }}>3</div>
+              <div>
+                <p style={{ fontSize: '0.95rem', fontWeight: 'var(--font-bold)', color: 'var(--ink-800)', marginBottom: '2px' }}>グループ共有</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--ink-500)' }}>順番に共有</p>
+              </div>
+            </div>
+
+            <div style={{ color: '#e8788a', fontSize: '1.2rem', fontWeight: 'var(--font-bold)', padding: '8px 0', lineHeight: 1 }}>↓</div>
+
+            <div className="flow-step-ky inner">
+              <div style={{ flexShrink: 0, width: '36px', height: '36px', background: '#34c6be', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'var(--font-bold)', fontSize: '18px' }}>4</div>
+              <div>
+                <p style={{ fontSize: '0.95rem', fontWeight: 'var(--font-bold)', color: 'var(--ink-800)', marginBottom: '2px' }}>全体共有</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--ink-500)' }}>視野を広げる</p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ color: '#34c6be', fontSize: '1.5rem', fontWeight: 'var(--font-bold)', padding: '8px 0', lineHeight: 1 }}>↓</div>
+
+          {/* Step 5 */}
+          <div className="flow-step-ky">
+            <div style={{ flexShrink: 0, width: '36px', height: '36px', background: '#34c6be', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'var(--font-bold)', fontSize: '18px' }}>5</div>
+            <div>
+              <p style={{ fontSize: '0.95rem', fontWeight: 'var(--font-bold)', color: 'var(--ink-800)', marginBottom: '2px' }}>振り返り</p>
+              <p style={{ fontSize: '0.8rem', color: 'var(--ink-500)' }}>気づきを記録</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* ===== 5.5 テーマ例 ===== */}
+      <Section className="scroll-animate">
+        <SectionHeading color="#34c6be">テーマ例</SectionHeading>
+        <p
+          className="body-base"
+          style={{
+            textAlign: 'center',
+            color: 'var(--ink-600)',
+            lineHeight: 'var(--leading-relaxed)',
+            marginBottom: '28px',
+          }}
+        >
+          これまで扱ってきたテーマの一部です。タップすると内容とお題の例が見られます。
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {themes.map((item) => (
+            <ThemeItem
+              key={item.id}
+              item={item}
+              isOpen={openTheme === item.id}
+              onToggle={() => setOpenTheme(openTheme === item.id ? null : item.id)}
+            />
           ))}
         </div>
+        <p
+          className="body-sm"
+          style={{
+            marginTop: '20px',
+            textAlign: 'center',
+            color: 'var(--ink-500)',
+            lineHeight: 'var(--leading-relaxed)',
+          }}
+        >
+          テーマは随時ふえています。ご要望に合わせたオリジナルテーマの作成も可能です。
+        </p>
       </Section>
 
       {/* ===== 6. Yononakaで育つこと ===== */}
@@ -869,85 +1080,24 @@ export default function YononakaKyoshitsuPage() {
             その結果、Yononaka常連組は、周りに流されず、言われたことを鵜呑みにせず、自分の価値判断で動ける人へと育ちつつあります。
           </p>
         </div>
+
+        <figure
+          style={{
+            margin: '24px 0 0 0',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          }}
+        >
+          <img
+            src="/assets/yononaka/joren.jpg"
+            alt="Yononaka常連組の様子"
+            style={{ width: '100%', display: 'block' }}
+          />
+        </figure>
       </Section>
 
-      {/* ===== 8. 教室にとってのメリット ===== */}
-      <Section className="scroll-animate">
-        <SectionHeading color="#ffd66b">教室にとってのメリット</SectionHeading>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {[
-            {
-              title: '全国どこの教室でも導入できる',
-              desc: 'オンライン（Zoom）なので場所の制約がありません。全国どこからでも、教室の生徒がそのまま参加できます。',
-              color: '#ffd66b',
-              icon: '🌐',
-            },
-            {
-              title: '先生は生徒に案内するだけ',
-              desc: '会場の準備も運営の手間も不要です。URLを共有するだけで、あとはYononakaチームが全て対応します。',
-              color: '#34c6be',
-              icon: '✉️',
-            },
-            {
-              title: '在籍生に「新しい価値」を提供できる',
-              desc: '技術・学力以外の体験として「考える力・自分の言葉で話す力」を提供できます。"ここでしか得られない体験"が通い続ける理由になります。',
-              color: '#9b87f5',
-              icon: '🎁',
-            },
-            {
-              title: '保護者にも説明しやすい',
-              desc: 'AI時代に必要な「思考力・表現力・対話力」という価値は、保護者の方にも伝わりやすく、教室の付加価値として訴求できます。',
-              color: '#f06a6a',
-              icon: '👨‍👩‍👧',
-            },
-          ].map((merit, i) => (
-            <div
-              key={i}
-              style={{
-                background: '#fff',
-                borderRadius: '20px',
-                padding: '20px 24px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-                border: '2px dashed rgba(0,0,0,0.08)',
-                display: 'flex',
-                gap: '16px',
-                alignItems: 'flex-start',
-              }}
-            >
-              <div
-                style={{
-                  flexShrink: 0,
-                  width: '44px',
-                  height: '44px',
-                  background: `${merit.color}20`,
-                  borderRadius: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '22px',
-                  border: `2px solid ${merit.color}40`,
-                }}
-              >
-                {merit.icon}
-              </div>
-              <div>
-                <h3 className="heading-sm" style={{ marginBottom: '8px' }}>
-                  {merit.title}
-                </h3>
-                <p
-                  className="body-sm"
-                  style={{ lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-600)' }}
-                >
-                  {merit.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ===== 9. 参加者の声 ===== */}
+      {/* ===== 8. 参加者の声 ===== */}
       <Section className="scroll-animate">
         <SectionHeading color="#34c6be">参加者の声</SectionHeading>
 
@@ -1009,12 +1159,143 @@ export default function YononakaKyoshitsuPage() {
         </div>
       </Section>
 
-      {/* ===== 10. 料金 ===== */}
+      {/* ===== 9. 料金 ===== */}
       <Section className="scroll-animate">
-        <SectionHeading color="#ffd66b">料金（税抜）</SectionHeading>
+        <SectionHeading color="#ffd66b">料金</SectionHeading>
+
+        <p
+          className="body-sm"
+          style={{ color: 'var(--ink-500)', textAlign: 'right', marginBottom: '20px' }}
+        >
+          ※表示価格は税抜きです。
+        </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
-          {/* 単発 */}
+          {/* 4名〜10名 */}
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+              border: '2px dashed rgba(0,0,0,0.08)',
+            }}
+          >
+            <div style={{ padding: '14px 20px', background: 'rgba(52,198,190,0.08)', borderBottom: '1px dashed rgba(52,198,190,0.2)' }}>
+              <p className="heading-sm" style={{ color: 'var(--ink-700)' }}>4名〜10名</p>
+            </div>
+            <div style={{ padding: '18px 20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '2px' }}>1回（単発）</p>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-400)' }}>講師料10,000＋ファシリテーター2,500×2人</p>
+                </div>
+                <p className="heading-sm" style={{ color: 'var(--ink-800)', fontSize: '20px', flexShrink: 0, marginLeft: '12px' }}>¥15,000</p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '14px 0' }}>
+                <div style={{ flex: 1, height: '1px', background: 'rgba(0,0,0,0.07)' }} />
+                <span style={{ fontSize: '16px', color: '#ffd66b' }}>↓</span>
+                <div style={{ flex: 1, height: '1px', background: 'rgba(0,0,0,0.07)' }} />
+              </div>
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-10px',
+                    right: '0',
+                    background: '#ffd66b',
+                    color: '#fff',
+                    padding: '3px 10px',
+                    borderRadius: '12px',
+                    fontSize: '11px',
+                    fontWeight: 'var(--font-bold)',
+                  }}
+                >
+                  おすすめ
+                </div>
+                <div
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,214,107,0.15), rgba(255,214,107,0.05))',
+                    borderRadius: '14px',
+                    padding: '14px 16px',
+                    border: '2px solid rgba(255,214,107,0.5)',
+                  }}
+                >
+                  <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '4px' }}>3回パックなら</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                    <p className="heading-sm" style={{ color: '#c19000', fontSize: '22px' }}>¥40,000</p>
+                    <p className="body-sm" style={{ color: '#c19000', fontWeight: 'var(--font-bold)' }}>※5,000お得！</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 11名〜15名 */}
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+              border: '2px dashed rgba(0,0,0,0.08)',
+            }}
+          >
+            <div style={{ padding: '14px 20px', background: 'rgba(52,198,190,0.08)', borderBottom: '1px dashed rgba(52,198,190,0.2)' }}>
+              <p className="heading-sm" style={{ color: 'var(--ink-700)' }}>11名〜15名</p>
+            </div>
+            <div style={{ padding: '18px 20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '2px' }}>1回（単発）</p>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-400)' }}>講師料10,000＋ファシリテーター2,500×4人</p>
+                </div>
+                <p className="heading-sm" style={{ color: 'var(--ink-800)', fontSize: '20px', flexShrink: 0, marginLeft: '12px' }}>¥20,000</p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '14px 0' }}>
+                <div style={{ flex: 1, height: '1px', background: 'rgba(0,0,0,0.07)' }} />
+                <span style={{ fontSize: '16px', color: '#ffd66b' }}>↓</span>
+                <div style={{ flex: 1, height: '1px', background: 'rgba(0,0,0,0.07)' }} />
+              </div>
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-10px',
+                    right: '0',
+                    background: '#ffd66b',
+                    color: '#fff',
+                    padding: '3px 10px',
+                    borderRadius: '12px',
+                    fontSize: '11px',
+                    fontWeight: 'var(--font-bold)',
+                  }}
+                >
+                  おすすめ
+                </div>
+                <div
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,214,107,0.15), rgba(255,214,107,0.05))',
+                    borderRadius: '14px',
+                    padding: '14px 16px',
+                    border: '2px solid rgba(255,214,107,0.5)',
+                  }}
+                >
+                  <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '4px' }}>3回パックなら</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                    <p className="heading-sm" style={{ color: '#c19000', fontSize: '22px' }}>¥55,000</p>
+                    <p className="body-sm" style={{ color: '#c19000', fontWeight: 'var(--font-bold)' }}>※5,000お得！</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="body-sm" style={{ color: 'var(--ink-400)', fontSize: '13px', textAlign: 'right' }}>
+            ※16名以上の場合は要相談
+          </p>
+
+          {/* オプション */}
           <div
             style={{
               background: '#fff',
@@ -1028,131 +1309,15 @@ export default function YononakaKyoshitsuPage() {
             }}
           >
             <div>
-              <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '4px' }}>
-                1回（単発）
-              </p>
-              <p
-                className="heading-sm"
-                style={{ color: 'var(--ink-800)', fontSize: '22px' }}
-              >
-                ¥20,000
-              </p>
+              <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '4px' }}>オプション</p>
+              <p className="body-sm" style={{ color: 'var(--ink-700)' }}>テーマをご要望に合わせて作成</p>
             </div>
-            <span
-              style={{
-                padding: '6px 14px',
-                background: 'rgba(52,198,190,0.12)',
-                borderRadius: '20px',
-                fontSize: '13px',
-                color: '#34c6be',
-                fontWeight: 'var(--font-bold)',
-              }}
-            >
-              定員15名
-            </span>
+            <p className="heading-sm" style={{ color: '#9b87f5', fontSize: '22px', flexShrink: 0, marginLeft: '12px' }}>+¥10,000</p>
           </div>
-
-          {/* 3回パック（おすすめ） */}
-          <div style={{ position: 'relative' }}>
-            <div
-              style={{
-                position: 'absolute',
-                top: '-12px',
-                right: '20px',
-                background: '#ffd66b',
-                color: '#fff',
-                padding: '4px 14px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: 'var(--font-bold)',
-                zIndex: 1,
-              }}
-            >
-              おすすめ
-            </div>
-            <div
-              style={{
-                background: 'linear-gradient(135deg, rgba(255,214,107,0.18), rgba(255,214,107,0.06))',
-                borderRadius: '20px',
-                padding: '24px',
-                boxShadow: '0 6px 20px rgba(255,214,107,0.3)',
-                border: '2px solid rgba(255,214,107,0.6)',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                }}
-              >
-                <div>
-                  <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '4px' }}>
-                    3回パック
-                  </p>
-                  <p
-                    className="heading-sm"
-                    style={{ color: '#c19000', fontSize: '26px', marginBottom: '4px' }}
-                  >
-                    ¥55,000
-                  </p>
-                  <p className="body-sm" style={{ color: 'var(--ink-500)' }}>
-                    1回あたり約¥18,333 · 単発3回より¥5,000お得
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* オリジナルワーク追加 */}
-          <div
-            style={{
-              background: '#fff',
-              borderRadius: '20px',
-              padding: '24px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-              border: '2px dashed rgba(0,0,0,0.08)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}
-          >
-            <div>
-              <p className="body-sm" style={{ color: 'var(--ink-500)', marginBottom: '4px' }}>
-                オリジナルワーク追加
-              </p>
-              <p
-                className="heading-sm"
-                style={{ color: '#9b87f5', fontSize: '22px', marginBottom: '4px' }}
-              >
-                +¥10,000
-              </p>
-              <p className="body-sm" style={{ color: 'var(--ink-500)' }}>
-                テーマをご要望に合わせて作成
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: 'rgba(0,0,0,0.03)',
-            borderRadius: '14px',
-            padding: '16px 20px',
-          }}
-        >
-          <p
-            className="body-sm"
-            style={{ color: 'var(--ink-500)', lineHeight: 'var(--leading-relaxed)' }}
-          >
-            ・定員：15名<br />
-            ・16名以上の場合：ファシリテーター1名追加（要相談）<br />
-            ・すべて税抜価格です
-          </p>
         </div>
       </Section>
 
-      {/* ===== 11. FAQ ===== */}
+      {/* ===== 10. FAQ ===== */}
       <Section className="scroll-animate">
         <SectionHeading color="#9b87f5">よくある質問</SectionHeading>
 

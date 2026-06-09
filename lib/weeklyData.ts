@@ -1,0 +1,18 @@
+// Weekly KEEPON のバックナンバー。新しい号を追加する際はここに追加してください（新しい順推奨）。
+// 各号の canvaUrl に Canva 公開ページの URL を設定してください。
+
+export interface WeeklyIssue {
+  id: string;
+  date: string;       // 配信日 YYYY-MM-DD
+  title: string;
+  canvaUrl: string;   // Canva 公開ページ URL
+  thumbnail?: string; // サムネ画像パス（任意。無ければカラープレースホルダーを表示）
+}
+
+export const weeklyIssues: WeeklyIssue[] = [
+  { id: 'w-144', date: '2026-06-12', title: 'Weekly KEEPON 第145号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-12' },
+  { id: 'w-143', date: '2026-06-05', title: 'Weekly KEEPON 第144号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-5' },
+  { id: 'w-142', date: '2026-05-29', title: 'Weekly KEEPON 第143号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-29' },
+  { id: 'w-141', date: '2026-05-22', title: 'Weekly KEEPON 第142号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-22' },
+  { id: 'w-140', date: '2026-05-15', title: 'Weekly KEEPON 第141号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-15' },
+];

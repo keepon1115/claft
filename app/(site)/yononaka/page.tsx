@@ -360,6 +360,20 @@ export default function YononakaPage(){
 
         {/* メインタイトル */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              marginBottom: '16px',
+              padding: '6px 16px',
+              background: 'rgba(52, 198, 190, 0.12)',
+              color: '#2a9d96',
+              borderRadius: '50px',
+              fontSize: '13px',
+              fontWeight: 'var(--font-bold)',
+            }}
+          >
+            小学生〜高校生・保護者の方へ
+          </span>
           <h1 
             className="heading-xl"
             style={{
@@ -406,9 +420,9 @@ export default function YononakaPage(){
             lineHeight: 'var(--leading-loose)'
           }}
         >
-          お金や時間など、身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合う学びです。<br />
-          考えを言葉にしてみる。ちがう意見を聞いてみる。<br />
-          その往復の中で、世界の見え方が少しずつ広がっていきます。
+          年齢も立場も関係なく、お子さんが自分の意見を堂々と話せる、オンラインの対話の広場です。<br />
+          お金や時間など身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合います。<br />
+          ちがう意見を聞く中で、世界の見え方が少しずつ広がっていきます。
         </p>
 
         {/* 装飾的な浮遊アイコン */}
@@ -972,6 +986,38 @@ export default function YononakaPage(){
               </div>
             </article>
           ))}
+        </div>
+      </Section>
+
+      {/* ===== 法人・教室向けへの導線 ===== */}
+      <Section className="scroll-animate">
+        <div
+          style={{
+            textAlign: 'center',
+            padding: '24px',
+            background: 'rgba(0, 0, 0, 0.02)',
+            borderRadius: '16px',
+            border: '2px dashed rgba(0, 0, 0, 0.06)',
+          }}
+        >
+          <p className="body-sm" style={{ color: 'var(--ink-600)', marginBottom: '12px' }}>
+            習い事教室・法人での導入をご検討の方へ
+          </p>
+          <a
+            href="/yononaka-kyoshitsu"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              color: '#34c6be',
+              textDecoration: 'none',
+              fontWeight: 'var(--font-bold)',
+              fontSize: '15px',
+            }}
+          >
+            法人向けページを見る
+            <span>→</span>
+          </a>
         </div>
       </Section>
 

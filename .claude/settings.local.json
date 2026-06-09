@@ -7,7 +7,24 @@
       "Bash(mkdir -p c:/dev/claft-HP/app/\\\\\\(site\\\\\\)/yononaka/kyoshitsu)",
       "Bash(./node_modules/.bin/tsc --noEmit)",
       "Bash(node_modules/.bin/next build *)",
-      "PowerShell(Get-ChildItem \"c:\\\\dev\\\\claft-HP\\\\node_modules\\\\.bin\\\\\" | Where-Object { $_.Name -match \"^\\(next|tsc\\)\" } | Select-Object -First 10 Name)"
+      "PowerShell(Get-ChildItem \"c:\\\\dev\\\\claft-HP\\\\node_modules\\\\.bin\\\\\" | Where-Object { $_.Name -match \"^\\(next|tsc\\)\" } | Select-Object -First 10 Name)",
+      "Bash(Get-ChildItem -Path \"c:\\\\dev\\\\claft-HP\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(Get-ChildItem -Path . -Force)",
+      "Bash(Select-Object -Property Name, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "Read(//c/Users/skawa/.claude/plugins/cache/anthropic-agent-skills/example-skills/c30d329f5814/skills/canvas-design/**)",
+      "Bash(python3 -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "Bash(python -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "PowerShell(python --version)",
+      "PowerShell(python -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "PowerShell(Get-Command python3, py -ErrorAction SilentlyContinue)",
+      "Read(//c/Users/skawa/AppData/Local/Programs/**)",
+      "Read(//c/Program Files/**)",
+      "PowerShell(node --version)",
+      "PowerShell(node -e \"console.log\\('Node OK'\\)\")",
+      "Bash(node generate-nav-proposal.js)",
+      "PowerShell(Start-Process \"C:\\\\dev\\\\claft-HP\\\\design-proposal\\\\nav-proposal.svg\")"
     ],
     "additionalDirectories": [
       "c:\\dev\\claft-HP\\app\\(site)\\yononaka"

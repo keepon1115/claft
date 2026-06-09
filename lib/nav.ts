@@ -9,6 +9,10 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   {
+    label: 'お知らせ・活動報告',
+    href: '/news',
+  },
+  {
     label: '「CLAFT」という希望',
     href: '/claft-hope',
     variant: 'cream',
@@ -61,8 +65,13 @@ export const navItems: NavItem[] = [
       { label: 'ロボットプログラミング', href: 'https://www.keeponlearning.fun/online', external: true }
     ]
   },
-  { 
-    label: '無料体験/問合せ', 
+  {
+    label: 'KEEPON JOURNAL',
+    href: '/monthly',
+    variant: 'cream',
+  },
+  {
+    label: '無料体験/問合せ',
     href: '/contact'
   },
   { 
