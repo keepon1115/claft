@@ -1,732 +1,818 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import { SectionTitle } from "@/components/craft/SectionTitle";
 import {
-  Sparkles,
-  Mic,
-  Heart,
-  Users,
-  Lightbulb,
-  ShieldCheck,
-  Rocket,
-  Gamepad2,
-  Palette,
-  BookOpen,
-  Carrot,
-  ArrowRight,
-  Star,
-  PartyPopper,
-  HandHeart,
-  MessageCircle,
-  ChevronDown,
-} from "lucide-react";
+  Underline,
+  ArrowDownDoodle,
+  ArrowRightDoodle,
+  SparkleDoodle,
+} from "@/components/craft/HandDrawn";
+import { DoodleIcon, type DoodleIconName } from "@/components/craft/DoodleIcon";
 
 /* ============================================================
-   なんでも発表会 ランディングページ
-   - わくわく感重視 / アニメーション多め / 余白広め
-   - スマホファースト
+   なんでも発表会 ランディングページ（保護者向け）
+   - クラフトデザインシステム準拠（craft-* 部品＋ nd-* レイヤー）
+   - 2026.7.26(日) 単独開催 @ アーテック5F フリースペース
 ============================================================ */
+
+const FORM_URL = "https://forms.gle/x1rpfm8RBBWCZvSq5";
+const IMG = "/assets/images/journal/2026-06";
+
+// 浮遊フキダシ → 紙片チップ
+const bubbles: { text: string; accentRgb: string; rot: string }[] = [
+  { text: "ゲームのこと", accentRgb: "var(--pink-rgb)", rot: "-2deg" },
+  { text: "おもちゃ自慢", accentRgb: "var(--brand-rgb)", rot: "1.4deg" },
+  { text: "自作の作品", accentRgb: "var(--green-rgb)", rot: "-1deg" },
+  { text: "マニアな趣味", accentRgb: "var(--violet-rgb)", rot: "2deg" },
+];
+
+// なぜ発表が苦手なのか
+const reasons: { no: string; title: string; desc: string; accentRgb: string; rot: string }[] = [
+  {
+    no: "01",
+    title: "テーマが決められている",
+    desc: "学校の発表は先生が決めたテーマばかり。「自分から話したい！」と思える機会は意外と少ないものです。",
+    accentRgb: "var(--pink-rgb)",
+    rot: "-0.6deg",
+  },
+  {
+    no: "02",
+    title: "失敗するのが怖い",
+    desc: "間違えたら恥ずかしい。クラスでいじられるかも…。その不安が、一歩を踏み出せない理由になっています。",
+    accentRgb: "var(--violet-rgb)",
+    rot: "0.5deg",
+  },
+  {
+    no: "03",
+    title: "伝え方がわからない",
+    desc: "話したいことはあるのに、どう構成すればいいのかわからない。これは大人になっても続く悩みです。",
+    accentRgb: "var(--brand-rgb)",
+    rot: "-0.4deg",
+  },
+];
+
+// こんなテーマで発表できる
+const themes: { icon: DoodleIconName; title: string; desc: string; accentRgb: string; rot: string }[] = [
+  {
+    icon: "gamepad",
+    title: "ハマってるゲーム",
+    desc: "今夢中になっているゲームの魅力を、思う存分プレゼン。",
+    accentRgb: "var(--violet-rgb)",
+    rot: "-0.7deg",
+  },
+  {
+    icon: "wrench",
+    title: "自作のゲーム・作品",
+    desc: "自分で作ったものを紹介して、みんなに遊んでもらおう。",
+    accentRgb: "var(--green-rgb)",
+    rot: "0.6deg",
+  },
+  {
+    icon: "heart",
+    title: "推しのおもちゃ",
+    desc: "コレクションへの愛を熱く語る時間。共感者がきっといる。",
+    accentRgb: "var(--pink-rgb)",
+    rot: "-0.5deg",
+  },
+  {
+    icon: "book",
+    title: "歴史上の人物",
+    desc: "ある先輩は「福沢諭吉」をテーマに大盛り上がり。",
+    accentRgb: "224 158 22",
+    rot: "0.7deg",
+  },
+  {
+    icon: "leaf",
+    title: "有機野菜のはなし",
+    desc: "保護者の方が畑で育てた野菜を持ち込んで発表＆販売も。",
+    accentRgb: "var(--green-rgb)",
+    rot: "-0.6deg",
+  },
+  {
+    icon: "bulb",
+    title: "なんでもアリ！",
+    desc: "あなたの“好き”は、それだけで立派なテーマになる。",
+    accentRgb: "var(--brand-rgb)",
+    rot: "0.5deg",
+  },
+];
+
+// 発表で得られるもの
+const benefits: { no: string; title: string; desc: string; accentRgb: string; rot: string }[] = [
+  {
+    no: "01",
+    title: "“好き”が深まる",
+    desc: "誰かに伝えるために準備するうちに、自分の好きなことや得意なことを、もっと深く知れる。",
+    accentRgb: "224 158 22",
+    rot: "-0.6deg",
+  },
+  {
+    no: "02",
+    title: "“伝える力”が育つ",
+    desc: "「どういう順番で話そうか」と考えるうちに、構成力・表現力が自然と身についていく。",
+    accentRgb: "var(--green-rgb)",
+    rot: "0.5deg",
+  },
+  {
+    no: "03",
+    title: "“仲間”が見つかる",
+    desc: "「俺もそれ好き！」と身を乗り出してくれる仲間との出会い。新しい発見が、毎回ある。",
+    accentRgb: "var(--pink-rgb)",
+    rot: "-0.4deg",
+  },
+];
+
+// おうちでの後押し
+const tips: { icon: DoodleIconName; title: string; desc: string; accentRgb: string; rot: string }[] = [
+  {
+    icon: "talk",
+    title: "「何が好き？」を聞いてみる",
+    desc: "答えを引き出そうとしなくて大丈夫。ただ興味を向けてあげるだけで、子どもの“語りたい”スイッチが入ります。",
+    accentRgb: "var(--pink-rgb)",
+    rot: "-0.5deg",
+  },
+  {
+    icon: "clock",
+    title: "完成を“急かさない”",
+    desc: "作り切る前に、手や口を出しすぎないこと。「発表する日がある」という締め切りが、自然と背中を押してくれます。",
+    accentRgb: "224 158 22",
+    rot: "0.5deg",
+  },
+  {
+    icon: "sparkle",
+    title: "当日は、大きな拍手で",
+    desc: "いちばんの栄養は、身近な人の「おもしろい！」。結果よりも、語りきったこと自体を一緒に喜んであげてください。",
+    accentRgb: "var(--green-rgb)",
+    rot: "-0.4deg",
+  },
+];
+
+// 声
+const voices: { tag: string; text: string; accentRgb: string; rot: string }[] = [
+  {
+    tag: "スクール生",
+    text: "はじめは緊張したけど、好きなゲームのことだから話せた。次はもっと面白く伝えたい！",
+    accentRgb: "var(--pink-rgb)",
+    rot: "-0.5deg",
+  },
+  {
+    tag: "保護者",
+    text: "畑の有機野菜について発表させてもらいました。子どもたちの真剣な眼差しに、こちらが学ばされる時間でした。",
+    accentRgb: "var(--green-rgb)",
+    rot: "0.5deg",
+  },
+  {
+    tag: "スタッフ",
+    text: "去年は『福沢諭吉』をテーマに発表。最後はみんなで「諭吉、諭吉」と盛り上がる、忘れられない時間に。",
+    accentRgb: "224 158 22",
+    rot: "-0.4deg",
+  },
+];
+
+// 当日のスケジュール
+const schedule: { time: string; label: string; tag: "staff" | "main" | "break" | "other" }[] = [
+  { time: "10:00 – 10:30", label: "つきのイベント（つきのさんのなんでも発表会）", tag: "staff" },
+  { time: "10:30 – 12:00", label: "なんでも発表会（10分 × 9人）", tag: "main" },
+  { time: "12:00 – 13:00", label: "昼休み", tag: "break" },
+  { time: "13:00 – 15:30", label: "なんでも発表会（10分 × 9人）", tag: "main" },
+  { time: "15:30 – 16:00", label: "PLAY CLAFT 意見交換会", tag: "other" },
+  { time: "16:00 – 16:30", label: "あおいイベント（あおいさんのなんでも発表会）", tag: "staff" },
+];
+
+// 過去の発表会
+const pastEvents: { date: string; label: string; url: string }[] = [
+  { date: "2025.07", label: "2025年 夏", url: "https://www.keeponlearning.fun/nandemo2025summer" },
+  { date: "2025.03", label: "2025年 春", url: "https://www.keeponlearning.fun/nandemo2025" },
+  { date: "2024.07", label: "2024年 夏", url: "https://www.keeponlearning.fun/nandemo2024" },
+];
+
+function ApplyButton() {
+  return (
+    <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
+      発表を申し込む
+      <ArrowRightDoodle width={24} />
+    </a>
+  );
+}
 
 export default function NandemoClient() {
   return (
-    <main className="relative overflow-hidden bg-[#FFFBF2] text-slate-800">
-      {/* 背景のふわふわドット */}
-      <BackgroundDecor />
+    <main className="nd-page">
+      {/* ========== Hero ========== */}
+      <section className="nd-hero">
+        <div className="container">
+          <p className="nd-hero-eyebrow reveal">
+            <span className="craft-label">恒例イベント</span>
+          </p>
 
-      <Hero />
-      <WhyHard />
-      <WhatIsIt />
-      <Themes />
-      <Benefits />
-      <Support />
-      <Voices />
-      <FinalCTA />
-
-      <GlobalStyles />
-    </main>
-  );
-}
-
-/* ============================================================
-   HERO
-============================================================ */
-function Hero() {
-  return (
-    <section className="relative px-6 pt-24 pb-32 sm:px-10 sm:pt-32 sm:pb-40">
-      <div className="mx-auto max-w-5xl text-center">
-        {/* バッジ */}
-        <div className="inline-flex items-center gap-2 rounded-full border-2 border-amber-300 bg-white/70 px-5 py-2 text-sm font-bold text-amber-600 shadow-sm backdrop-blur animate-bounce-slow">
-          <Sparkles className="h-4 w-4" />
-          スクールフェスタ恒例イベント
-        </div>
-
-        {/* タイトル */}
-        <h1 className="mt-8 text-4xl font-black leading-[1.15] tracking-tight sm:text-6xl md:text-7xl">
-          <span className="block text-slate-900">好きなことを、</span>
-          <span className="relative mt-2 inline-block">
-            <span className="relative z-10 text-slate-900">
-              好きなだけ。
-            </span>
-            <span className="absolute -bottom-2 left-0 right-0 h-3 -rotate-1 rounded-full bg-yellow-200/70" />
-          </span>
-        </h1>
-
-        {/* メインビジュアル */}
-        <div className="relative mx-auto mt-12 w-full max-w-3xl">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border-4 border-white shadow-2xl shadow-orange-200/50">
-            <img
-              src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1600&q=80"
-              alt="なんでも発表会のイメージ"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-          </div>
-
-          {/* 浮遊フキダシ */}
-          <FloatingBubble
-            text="ゲームのこと"
-            className="-left-4 -top-6"
-            color="bg-pink-400"
-            delay="0s"
-          />
-          <FloatingBubble
-            text="おもちゃ自慢"
-            className="-right-2 -top-4"
-            color="bg-sky-400"
-            delay="1s"
-          />
-          <FloatingBubble
-            text="自作の作品"
-            className="-left-2 bottom-6"
-            color="bg-emerald-400"
-            delay="2s"
-          />
-          <FloatingBubble
-            text="マニアな趣味"
-            className="-right-4 bottom-2"
-            color="bg-violet-400"
-            delay="0.5s"
-          />
-        </div>
-
-        {/* キャッチコピー */}
-        <p className="mx-auto mt-12 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-          ゲームも、おもちゃも、自作の作品も。
-          <br className="hidden sm:block" />
-          自分の<strong className="text-slate-900">“好き"</strong>を堂々と語れる、
-          <br />
-          年齢も内容も自由なステージへようこそ。
-        </p>
-
-        {/* スクロール誘導 */}
-        <div className="mt-16 flex justify-center">
-          <div className="flex flex-col items-center gap-2 text-slate-400 animate-bounce">
-            <span className="text-xs font-medium tracking-widest">SCROLL</span>
-            <ChevronDown className="h-5 w-5" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FloatingBubble({
-  text,
-  className = "",
-  color = "bg-pink-400",
-  delay = "0s",
-}: {
-  text: string;
-  className?: string;
-  color?: string;
-  delay?: string;
-}) {
-  return (
-    <div
-      className={`absolute z-20 ${className} animate-float`}
-      style={{ animationDelay: delay }}
-    >
-      <div
-        className={`relative rounded-2xl ${color} px-3 py-2 text-xs font-bold text-white shadow-lg sm:px-4 sm:py-2.5 sm:text-sm`}
-      >
-        {text}
-        <div
-          className={`absolute -bottom-1.5 left-4 h-3 w-3 rotate-45 ${color}`}
-        />
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   なぜ発表が苦手なのか
-============================================================ */
-function WhyHard() {
-  const reasons = [
-    {
-      icon: <BookOpen className="h-6 w-6" />,
-      title: "テーマが決められている",
-      desc: "学校の発表は先生が決めたテーマばかり。「自分から話したい！」と思える機会は意外と少ないものです。",
-    },
-    {
-      icon: <ShieldCheck className="h-6 w-6" />,
-      title: "失敗するのが怖い",
-      desc: "間違えたら恥ずかしい。クラスでいじられるかも…。その不安が、一歩を踏み出せない理由になっています。",
-    },
-    {
-      icon: <MessageCircle className="h-6 w-6" />,
-      title: "伝え方がわからない",
-      desc: "話したいことはあるのに、どう構成すればいいのかわからない。これは大人になっても続く悩みです。",
-    },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="mx-auto max-w-5xl">
-        <SectionLabel color="text-slate-500">Issue ・ 課題</SectionLabel>
-        <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">
-          “人前で話すこと"、
-          <br />
-          なぜ苦手なんだろう？
-        </h2>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-          小中学生だけでなく、大人になっても「発表が苦手」という人はとても多い。
-          その理由は、緊張感だけじゃありません。
-        </p>
-
-        <div className="mt-14 grid gap-6">
-          {reasons.map((r, i) => (
-            <div
-              key={i}
-              className="group relative rounded-3xl border-2 border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-xl"
-            >
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-100 to-amber-100 text-rose-500 transition-transform group-hover:rotate-6">
-                {r.icon}
-              </div>
-              <h3 className="mt-6 text-lg font-bold text-slate-900">
-                {r.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                {r.desc}
-              </p>
-              <span className="absolute right-6 top-6 text-3xl font-black text-slate-100">
-                0{i + 1}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================
-   なんでも発表会とは
-============================================================ */
-function WhatIsIt() {
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="absolute inset-x-0 top-0 mx-auto h-[600px] max-w-6xl rounded-[60px] bg-gradient-to-br from-amber-100 via-orange-100 to-pink-100 -z-10" />
-      <div className="mx-auto max-w-5xl">
-        <div className="text-center">
-          <SectionLabel color="text-orange-500">Solution ・ 解決</SectionLabel>
-          <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">
-            それなら、
+          <h1 className="nd-hero-title craft-misprint reveal">
+            好きなことを、
             <br />
-            <span className="relative inline-block">
-              <span className="relative z-10">こんな発表会はどう？</span>
-              <Star
-                className="absolute -right-8 -top-4 h-7 w-7 animate-spin-slow text-amber-400"
-                fill="currentColor"
-              />
+            <span className="nd-hero-title-line">
+              好きなだけ。
+              <Underline variant={1} className="nd-hero-underline craft-draw" />
             </span>
-          </h2>
-        </div>
+          </h1>
 
-        <div className="mx-auto mt-16 max-w-3xl rounded-3xl bg-white p-8 shadow-xl shadow-orange-100 sm:p-14">
-          <div className="flex items-center justify-center gap-3">
-            <Mic className="h-7 w-7 text-orange-500" />
-            <p className="text-sm font-bold tracking-widest text-orange-500">
-              NANDEMO HAPPYOUKAI
+          <div
+            className="nd-hero-photo craft-photo craft-tilt reveal"
+            style={{ "--rot": "-1.2deg" } as CSSProperties}
+          >
+            <span className="craft-tape craft-tape--cream" aria-hidden="true" />
+            <img
+              src={`${IMG}/info-nandemo.jpg`}
+              alt="なんでも発表会のメインビジュアル（ステージに立つ子どものイラスト）"
+              width={640}
+              height={360}
+            />
+          </div>
+
+          <div className="nd-bubbles reveal">
+            {bubbles.map((b) => (
+              <span
+                key={b.text}
+                className="nd-bubble"
+                style={{ "--accent-rgb": b.accentRgb, "--rot": b.rot } as CSSProperties}
+              >
+                {b.text}
+              </span>
+            ))}
+          </div>
+
+          <p className="nd-hero-copy reveal">
+            ゲームも、おもちゃも、自作の作品も。
+            <br />
+            自分の<strong>“好き”</strong>を堂々と語れる、
+            <br />
+            年齢も内容も自由なステージへようこそ。
+          </p>
+
+          <div
+            className="nd-hero-info craft-paper craft-tilt reveal"
+            style={{ "--rot": "0.6deg" } as CSSProperties}
+          >
+            <div className="nd-info-row">
+              <span className="nd-info-label">DATE</span>
+              <p className="nd-info-value">2026.7.26（日）</p>
+            </div>
+            <div className="nd-info-row">
+              <span className="nd-info-label">TIME</span>
+              <p className="nd-info-value">10:00 – 16:30</p>
+            </div>
+            <div className="nd-info-row">
+              <span className="nd-info-label">PLACE</span>
+              <p className="nd-info-value">アーテック5F フリースペース</p>
+            </div>
+          </div>
+
+          <div className="nd-cta reveal">
+            <ApplyButton />
+            <p className="nd-cta-note">観覧は申込不要・出入り自由。当日ぜひ会場へ。</p>
+          </div>
+
+          <div className="nd-scroll" aria-hidden="true">
+            <ArrowDownDoodle width={30} className="craft-draw craft-draw--auto" />
+          </div>
+        </div>
+      </section>
+
+      {/* ========== なぜ発表が苦手なのか ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="ISSUE ・ 課題" variant={1} lineColor="var(--cream)">
+              “人前で話すこと”、
+              <br />
+              なぜ苦手なんだろう？
+            </SectionTitle>
+            <p className="lead nd-section-lead">
+              小中学生だけでなく、大人になっても「発表が苦手」という人はとても多い。
+              その理由は、緊張感だけじゃありません。
             </p>
           </div>
-          <h3 className="mt-4 text-center text-2xl font-black leading-tight text-slate-900 sm:text-4xl">
-            なんでも発表会
-          </h3>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-loose text-slate-700 sm:text-lg">
-            その名のとおり、
-            <strong className="text-orange-600">
-              自分の好きなことを“何でも"発表していい
-            </strong>
-            会。
-            <br />
-            CLAFTの「スクールフェスタ」で毎回開催している、恒例の催しです。
-          </p>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            <FeaturePill icon={<Heart className="h-5 w-5" />} label="自由なテーマ" />
-            <FeaturePill icon={<Users className="h-5 w-5" />} label="年齢ミックス" />
-            <FeaturePill
-              icon={<HandHeart className="h-5 w-5" />}
-              label="失敗を笑わない"
-            />
+          <div className="nd-num-list">
+            {reasons.map((r, i) => (
+              <div
+                key={r.no}
+                className="nd-num-item craft-paper craft-tilt reveal"
+                style={
+                  {
+                    "--rot": r.rot,
+                    "--accent-rgb": r.accentRgb,
+                    transitionDelay: `${i * 80}ms`,
+                  } as CSSProperties
+                }
+              >
+                <span className="nd-num-no" aria-hidden="true">
+                  {r.no}
+                </span>
+                <div>
+                  <h3 className="nd-num-title">{r.title}</h3>
+                  <p className="nd-num-body">{r.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function FeaturePill({
-  icon,
-  label,
-}: {
-  icon: React.ReactNode;
-  label: string;
-}) {
-  return (
-    <div className="flex items-center justify-center gap-2 rounded-full border-2 border-amber-200 bg-amber-50 px-5 py-3 text-sm font-bold text-amber-700">
-      {icon}
-      {label}
-    </div>
-  );
-}
+      {/* ========== なんでも発表会とは ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="SOLUTION ・ 解決" variant={2} lineColor="var(--brand)">
+              それなら、
+              <br />
+              こんな発表会はどう？
+            </SectionTitle>
+          </div>
 
-/* ============================================================
-   こんなテーマで発表できる
-============================================================ */
-function Themes() {
-  const themes = [
-    {
-      icon: <Gamepad2 className="h-7 w-7" />,
-      title: "ハマってるゲーム",
-      desc: "今夢中になっているゲームの魅力を、思う存分プレゼン。",
-      color: "from-violet-400 to-fuchsia-400",
-      bg: "bg-violet-50",
-    },
-    {
-      icon: <Palette className="h-7 w-7" />,
-      title: "自作のゲーム・作品",
-      desc: "自分で作ったものを紹介して、みんなに遊んでもらおう。",
-      color: "from-emerald-400 to-teal-400",
-      bg: "bg-emerald-50",
-    },
-    {
-      icon: <Sparkles className="h-7 w-7" />,
-      title: "推しのおもちゃ",
-      desc: "コレクションへの愛を熱く語る時間。共感者がきっといる。",
-      color: "from-pink-400 to-rose-400",
-      bg: "bg-pink-50",
-    },
-    {
-      icon: <BookOpen className="h-7 w-7" />,
-      title: "歴史上の人物",
-      desc: "ある先輩は「福沢諭吉」をテーマに大盛り上がり。",
-      color: "from-amber-400 to-orange-400",
-      bg: "bg-amber-50",
-    },
-    {
-      icon: <Carrot className="h-7 w-7" />,
-      title: "有機野菜のはなし",
-      desc: "保護者の方が畑で育てた野菜を持ち込んで発表＆販売も。",
-      color: "from-lime-400 to-green-400",
-      bg: "bg-lime-50",
-    },
-    {
-      icon: <Lightbulb className="h-7 w-7" />,
-      title: "なんでもアリ！",
-      desc: 'あなたの"好き"は、それだけで立派なテーマになる。',
-      color: "from-sky-400 to-cyan-400",
-      bg: "bg-sky-50",
-    },
-  ];
+          <div
+            className="nd-what craft-paper craft-paper--warm craft-tilt reveal"
+            style={{ "--rot": "0.7deg" } as CSSProperties}
+          >
+            <span className="craft-tape craft-tape--cream" aria-hidden="true" />
+            <p className="nd-what-tag">
+              <DoodleIcon name="mic" size={22} />
+              NANDEMO HAPPYOUKAI
+            </p>
+            <h3 className="nd-what-title craft-misprint--cream">なんでも発表会</h3>
+            <p className="nd-what-body">
+              その名のとおり、<strong>自分の好きなことを“何でも”発表していい</strong>会。
+              <br />
+              ジャンルに縛られず、なんでも自由に表現しあう、キープオン恒例の催しです。
+            </p>
 
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="text-center">
-          <SectionLabel color="text-pink-500">Themes ・ 発表テーマ</SectionLabel>
-          <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">
-            たとえば、こんなこと。
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            “話したいこと"があれば、それでOK。
-            <br />
-            実際にこれまで発表されてきた、ほんの一例です。
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
-          {themes.map((t, i) => (
-            <div
-              key={i}
-              className={`group relative overflow-hidden rounded-3xl ${t.bg} p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl`}
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div
-                className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${t.color} text-white shadow-lg transition-transform group-hover:rotate-12 group-hover:scale-110`}
-              >
-                {t.icon}
-              </div>
-              <h3 className="mt-6 text-xl font-black text-slate-900">
-                {t.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                {t.desc}
-              </p>
-
-              {/* 装飾円 */}
-              <div
-                className={`absolute -right-12 -bottom-12 h-32 w-32 rounded-full bg-gradient-to-br ${t.color} opacity-10 transition-transform duration-500 group-hover:scale-150`}
-              />
+            <div className="nd-chips">
+              <span className="nd-chip" style={{ "--accent-rgb": "var(--pink-rgb)" } as CSSProperties}>
+                <DoodleIcon name="heart" size={18} />
+                自由なテーマ
+              </span>
+              <span className="nd-chip" style={{ "--accent-rgb": "var(--green-rgb)" } as CSSProperties}>
+                <DoodleIcon name="family" size={18} />
+                年齢ミックス
+              </span>
+              <span className="nd-chip" style={{ "--accent-rgb": "224 158 22" } as CSSProperties}>
+                <DoodleIcon name="sparkle" size={18} />
+                失敗を笑わない
+              </span>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-/* ============================================================
-   発表で得られるもの
-============================================================ */
-function Benefits() {
-  const benefits = [
-    {
-      no: "01",
-      title: "“好き”が深まる",
-      desc: "誰かに伝えるために準備するうちに、自分の好きなことや得意なことを、もっと深く知れる。",
-      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      no: "02",
-      title: "“伝える力”が育つ",
-      desc: "「どういう順番で話そうか」と考えるうちに、構成力・表現力が自然と身についていく。",
-      img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      no: "03",
-      title: "“仲間”が見つかる",
-      desc: "「俺もそれ好き！」と身を乗り出してくれる仲間との出会い。新しい発見が、毎回ある。",
-      img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80",
-    },
-  ];
+      {/* ========== こんなテーマで発表できる ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="THEMES ・ 発表テーマ" variant={3} lineColor="var(--pink)">
+              たとえば、こんなこと。
+            </SectionTitle>
+            <p className="lead nd-section-lead">
+              “話したいこと”があれば、それでOK。
+              <br />
+              実際にこれまで発表されてきた、ほんの一例です。
+            </p>
+          </div>
 
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="text-center">
-          <SectionLabel color="text-emerald-500">Benefits ・ 育まれるもの</SectionLabel>
-          <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">
-            発表は、
-            <br />
-            自分を見つめ直す時間。
-          </h2>
-        </div>
-
-        <div className="mt-20 space-y-20">
-          {benefits.map((b, i) => (
-            <div
-              key={i}
-              className="grid items-center gap-10"
-            >
-              <div className="relative">
-                <div className="overflow-hidden rounded-3xl border-4 border-white shadow-xl">
-                  <img
-                    src={b.img}
-                    alt={b.title}
-                    className="h-72 w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-96"
-                  />
-                </div>
-                <div className="absolute -left-4 -top-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-2xl font-black text-white shadow-lg sm:-left-6 sm:-top-6 sm:h-24 sm:w-24 sm:text-3xl">
-                  {b.no}
+          <div className="nd-themes">
+            {themes.map((t, i) => (
+              <div
+                key={t.title}
+                className="nd-theme craft-paper craft-tilt craft-lift reveal"
+                style={
+                  {
+                    "--rot": t.rot,
+                    "--accent-rgb": t.accentRgb,
+                    transitionDelay: `${i * 70}ms`,
+                  } as CSSProperties
+                }
+              >
+                <span className="nd-theme-icon" aria-hidden="true">
+                  <DoodleIcon name={t.icon} size={32} />
+                </span>
+                <div>
+                  <h3 className="nd-theme-title">{t.title}</h3>
+                  <p className="nd-theme-body">{t.desc}</p>
                 </div>
               </div>
-              <div className="px-2 sm:px-6">
-                <h3 className="text-2xl font-black leading-tight text-slate-900 sm:text-4xl">
-                  {b.title}
-                </h3>
-                <p className="mt-6 text-base leading-loose text-slate-600 sm:text-lg">
-                  {b.desc}
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== 創って伝える学びのサイクル ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="CYCLE ・ 学びのサイクル" variant={1} lineColor="var(--green)">
+              「創って伝える」で、
+              <br />
+              学びはぐるぐる回り出す。
+            </SectionTitle>
+            <p className="lead nd-section-lead">
+              キープオンのスクールでは、ロボットをはじめ「創って伝える」ことで学びを回しています。
+              それは、シンプルな<strong>3つのビート</strong>でできています。
+            </p>
+          </div>
+
+          <div className="nd-cycle reveal" role="img" aria-label="つくる、発表する、反応をもらうのサイクル">
+            <span className="nd-cycle-chip" style={{ "--rot": "-1deg" } as CSSProperties}>
+              <span className="nd-cycle-label">つくる</span>
+              <span className="nd-cycle-sub">没頭する・作り切る</span>
+            </span>
+            <ArrowRightDoodle width={26} className="nd-cycle-arrow craft-draw" />
+            <span
+              className="nd-cycle-chip nd-cycle-chip--hl"
+              style={{ "--rot": "0.8deg", "--accent-rgb": "224 158 22" } as CSSProperties}
+            >
+              <span className="nd-cycle-label">発表する</span>
+              <span className="nd-cycle-sub">外にひらく</span>
+            </span>
+            <ArrowRightDoodle width={26} className="nd-cycle-arrow craft-draw" />
+            <span className="nd-cycle-chip" style={{ "--rot": "-0.7deg" } as CSSProperties}>
+              <span className="nd-cycle-label">反応をもらう</span>
+              <span className="nd-cycle-sub">共感・驚き・助言</span>
+            </span>
+          </div>
+          <p className="nd-cycle-again reveal">↺ そして、また「つくる」へ</p>
+
+          <div className="nd-cycle-body reveal">
+            <p>
+              ポイントは、真ん中の<strong className="nd-accent">「発表する」</strong>です。
+            </p>
+            <p>
+              没頭してつくるのが大好きな子は、たくさんいます。でも、発表という場がないと、つくることが延々と続いて、なかなか「作り切る・完成させる」ところまで行き着きません。
+              <strong>
+                「最後までやり切ろう」と気持ちで励ますのではなく、“誰かに見せる日がある”という構造そのものが、作り切る力を引き出してくれる。
+              </strong>
+              私たちはここを大事にしています。
+            </p>
+            <p>
+              そして発表には、もうひとつの役割があります。自分の作ったものを外にひらくと、共感・驚き・アドバイスといった反応が返ってくる。それが次の「やってみたい」を生み、また「つくる」へ戻っていく。──
+              つまり発表は、サイクルが一周閉じる場所であり、次の一周を強く回し始める場所でもあるのです。
+            </p>
+          </div>
+
+          <div
+            className="nd-spiral craft-paper craft-paper--warm craft-tilt reveal"
+            style={{ "--rot": "-0.5deg" } as CSSProperties}
+          >
+            <span className="craft-tape craft-tape--green craft-tape--tl" aria-hidden="true" />
+            <h3 className="nd-spiral-title">このサイクルを回すと、どこへ行くのか</h3>
+            <p className="nd-spiral-body">
+              ループを回すうちに、「ただ好きで没頭していたこと」が「人より少し得意なこと」になる。
+              その得意が、やがて誰かの困りごとを解決したり、誰かを喜ばせたりして、いつしか「仕事になる」。
+              発表は、その一段ずつを上げていく転換点です。
+            </p>
+
+            <div className="nd-steps">
+              <span className="nd-step-chip">好き</span>
+              <ArrowRightDoodle width={22} className="nd-cycle-arrow" />
+              <span className="nd-step-chip">得意</span>
+              <span className="nd-step-x">×（困ったを解決・喜ばせる）</span>
+              <ArrowRightDoodle width={22} className="nd-cycle-arrow" />
+              <span className="nd-step-chip nd-step-chip--em">仕事になる</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== 発表で得られるもの ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="BENEFITS ・ 育まれるもの" variant={2} lineColor="var(--violet)">
+              発表は、
+              <br />
+              自分を見つめ直す時間。
+            </SectionTitle>
+          </div>
+
+          <div className="nd-num-list">
+            {benefits.map((b, i) => (
+              <div
+                key={b.no}
+                className="nd-num-item craft-paper craft-tilt reveal"
+                style={
+                  {
+                    "--rot": b.rot,
+                    "--accent-rgb": b.accentRgb,
+                    transitionDelay: `${i * 80}ms`,
+                  } as CSSProperties
+                }
+              >
+                <span className="nd-num-no" aria-hidden="true">
+                  {b.no}
+                </span>
+                <div>
+                  <h3 className="nd-num-title">{b.title}</h3>
+                  <p className="nd-num-body">{b.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== サポート体制 ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="SUPPORT ・ 安心サポート" variant={3} lineColor="var(--cream)">
+              「準備、どうしよう…」
+              <br />
+              そこは、頼ってください。
+            </SectionTitle>
+            <p className="lead nd-section-lead">
+              「資料の作り方がわからない」「どう話せば伝わるか不安」——
+              そんな声にしっかり応えられるよう、キープオンのスタッフがサポートします。
+            </p>
+          </div>
+
+          <div className="nd-themes">
+            <div
+              className="nd-theme craft-paper craft-tilt reveal"
+              style={{ "--rot": "-0.5deg", "--accent-rgb": "224 158 22" } as CSSProperties}
+            >
+              <span className="nd-theme-icon" aria-hidden="true">
+                <DoodleIcon name="mic" size={32} />
+              </span>
+              <div>
+                <h3 className="nd-theme-title">プレゼン全国大会の経験者がサポート</h3>
+                <p className="nd-theme-body">
+                  プレゼン全国大会・関西大会への出場経験を持つスタッフが、基本から丁寧にお伝えします。
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================
-   サポート体制
-============================================================ */
-function Support() {
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="mx-auto max-w-5xl">
-        <div className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-16 text-white shadow-2xl sm:px-16 sm:py-24">
-          {/* 装飾 */}
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-amber-400/20 blur-3xl" />
-          <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-pink-400/20 blur-3xl" />
-
-          <div className="relative">
-            <SectionLabel color="text-amber-300">Support ・ 安心サポート</SectionLabel>
-            <h2 className="mt-4 text-3xl font-black leading-tight sm:text-5xl">
-              「準備、どうしよう…」
-              <br />
-              <span className="text-amber-300">そこは、頼ってください。</span>
-            </h2>
-            <p className="mt-8 max-w-2xl text-base leading-loose text-slate-300 sm:text-lg">
-              「資料の作り方がわからない」「どう話せば伝わるか不安」——
-              そんな声にしっかり応えられるよう、CLAFTのスタッフがサポートします。
-            </p>
-
-            <div className="mt-12 grid gap-6 sm:grid-cols-2">
-              <SupportCard
-                icon={<Rocket className="h-6 w-6" />}
-                title="プレゼン全国大会の経験者がサポート"
-                desc="プレゼン全国大会・関西大会への出場経験を持つスタッフが、基本から丁寧にお伝えします。"
-              />
-              <SupportCard
-                icon={<PartyPopper className="h-6 w-6" />}
-                title="失敗を笑わない安全な空間"
-                desc='発表の“第一歩"を、失敗を恐れずに踏み出せる場所。聞き手もあたたかく受け止めます。'
-              />
+            <div
+              className="nd-theme craft-paper craft-tilt reveal"
+              style={{ "--rot": "0.5deg", "--accent-rgb": "var(--pink-rgb)", transitionDelay: "80ms" } as CSSProperties}
+            >
+              <span className="nd-theme-icon" aria-hidden="true">
+                <DoodleIcon name="family" size={32} />
+              </span>
+              <div>
+                <h3 className="nd-theme-title">失敗を笑わない安全な空間</h3>
+                <p className="nd-theme-body">
+                  発表の“第一歩”を、失敗を恐れずに踏み出せる場所。聞き手もあたたかく受け止めます。
+                </p>
+              </div>
             </div>
+          </div>
 
-            <p className="mt-12 text-sm leading-relaxed text-slate-400">
-              ※ ここで身につけた力は、学校での発表にもきっと活かせます。
+          <p className="nd-note reveal">※ ここで身につけた力は、学校での発表にもきっと活かせます。</p>
+        </div>
+      </section>
+
+      {/* ========== おうちでの後押し（保護者向け） ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="FOR PARENTS ・ おうちでの後押し" variant={1} lineColor="var(--pink)">
+              おうちでできる、
+              <br />
+              3つの後押し。
+            </SectionTitle>
+            <p className="lead nd-section-lead">
+              特別な準備はいりません。ほんの少しの関わり方で、子どもの“好き”は驚くほど伸びていきます。
             </p>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-function SupportCard({
-  icon,
-  title,
-  desc,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition-all hover:bg-white/10">
-      <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-400 text-slate-900">
-        {icon}
-      </div>
-      <h3 className="mt-4 text-lg font-bold">{title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-slate-300">{desc}</p>
-    </div>
-  );
-}
-
-/* ============================================================
-   声 / 過去の発表
-============================================================ */
-function Voices() {
-  const voices = [
-    {
-      tag: "スクール生",
-      text: "はじめは緊張したけど、好きなゲームのことだから話せた。次はもっと面白く伝えたい！",
-      color: "bg-pink-100 text-pink-700",
-    },
-    {
-      tag: "保護者",
-      text: "畑の有機野菜について発表させてもらいました。子どもたちの真剣な眼差しに、こちらが学ばされる時間でした。",
-      color: "bg-emerald-100 text-emerald-700",
-    },
-    {
-      tag: "スタッフ",
-      text: "去年は『福沢諭吉』をテーマに発表。最後はみんなで「諭吉、諭吉」と盛り上がる、忘れられない時間に。",
-      color: "bg-amber-100 text-amber-700",
-    },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="text-center">
-          <SectionLabel color="text-violet-500">Voices ・ これまでの発表</SectionLabel>
-          <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-5xl">
-            子どもも、大人も。
-            <br />
-            みんなのステージ。
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            スクール生だけでなく、保護者の方やスタッフも発表者に。
-            <br />
-            幅広い年齢の人が「好きなこと」を持ち寄る場所です。
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-6">
-          {voices.map((v, i) => (
-            <div
-              key={i}
-              className="relative rounded-3xl border-2 border-slate-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
-            >
+          <div className="nd-themes">
+            {tips.map((t, i) => (
               <div
-                className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${v.color}`}
+                key={t.title}
+                className="nd-theme craft-paper craft-tilt reveal"
+                style={
+                  {
+                    "--rot": t.rot,
+                    "--accent-rgb": t.accentRgb,
+                    transitionDelay: `${i * 80}ms`,
+                  } as CSSProperties
+                }
               >
-                {v.tag}
+                <span className="nd-theme-icon" aria-hidden="true">
+                  <DoodleIcon name={t.icon} size={32} />
+                </span>
+                <div>
+                  <h3 className="nd-theme-title">{t.title}</h3>
+                  <p className="nd-theme-body">{t.desc}</p>
+                </div>
               </div>
-              <p className="mt-5 text-base leading-relaxed text-slate-700">
-                “ {v.text} "
-              </p>
-              <div className="mt-6 flex gap-1">
-                {[...Array(5)].map((_, j) => (
-                  <Star
-                    key={j}
-                    className="h-4 w-4 text-amber-400"
-                    fill="currentColor"
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+            ))}
+          </div>
 
-/* ============================================================
-   FINAL CTA
-============================================================ */
-function FinalCTA() {
-  return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32">
-      <div className="mx-auto max-w-4xl text-center">
-        <div className="relative">
-          <Sparkles className="mx-auto h-10 w-10 animate-spin-slow text-amber-400" />
-          <h2 className="mt-6 text-4xl font-black leading-[1.15] text-slate-900 sm:text-6xl">
-            あなたの"好き"を、
-            <br />
-            <span className="text-slate-900">
-              ステージにのせよう。
+          <div className="nd-cheer reveal">
+            <span className="nd-cheer-chip">
+              <DoodleIcon name="heart" size={20} />
+              いちばんの応援団は、おうちの人。
             </span>
-          </h2>
-          <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            次回の開催は7/26を予定しています。また後日お知らせします。
-          </p>
-
-          <p className="mt-10 text-xs text-slate-400">
-            ※「スクールフェスタ」内で開催 / 開催日は公式SNSにて告知
-          </p>
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-/* ============================================================
-   共通パーツ
-============================================================ */
-function SectionLabel({
-  children,
-  color = "text-slate-500",
-}: {
-  children: React.ReactNode;
-  color?: string;
-}) {
-  return (
-    <p
-      className={`text-xs font-bold tracking-[0.3em] ${color} sm:text-sm`}
-    >
-      ✦ {children}
-    </p>
-  );
-}
+      {/* ========== 声 / これまでの発表 ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="VOICES ・ これまでの発表" variant={2} lineColor="var(--brand)">
+              子どもも、大人も。
+              <br />
+              みんなのステージ。
+            </SectionTitle>
+            <p className="lead nd-section-lead">
+              スクール生だけでなく、保護者の方やスタッフも発表者に。
+              <br />
+              幅広い年齢の人が「好きなこと」を持ち寄る場所です。
+            </p>
+          </div>
 
-/* ============================================================
-   背景デコレーション
-============================================================ */
-function BackgroundDecor() {
-  const [dots, setDots] = useState<
-    { left: string; top: string; delay: string; size: number }[]
-  >([]);
+          <div
+            className="nd-voices-photo craft-photo craft-tilt reveal"
+            style={{ "--rot": "1deg" } as CSSProperties}
+          >
+            <span className="craft-tape craft-tape--pink" aria-hidden="true" />
+            <img
+              src="/assets/futurecraft/present_02.jpg"
+              alt="いろんな“好き”を持ち寄って発表する子どもたちのイラスト"
+              width={1920}
+              height={1080}
+            />
+          </div>
 
-  useEffect(() => {
-    // クライアントサイドでのみ生成（hydration ミスマッチ回避）
-    const generated = Array.from({ length: 14 }).map(() => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 4}s`,
-      size: 6 + Math.random() * 12,
-    }));
-    setDots(generated);
-  }, []);
+          <div className="nd-voices">
+            {voices.map((v, i) => (
+              <div
+                key={v.tag}
+                className="nd-voice craft-paper craft-paper--ruled craft-tilt reveal"
+                style={
+                  {
+                    "--rot": v.rot,
+                    "--accent-rgb": v.accentRgb,
+                    transitionDelay: `${i * 80}ms`,
+                  } as CSSProperties
+                }
+              >
+                <span className="nd-voice-tag">{v.tag}</span>
+                <p className="nd-voice-text">“ {v.text} ”</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-    >
-      {dots.map((d, i) => (
-        <span
-          key={i}
-          className="absolute rounded-full bg-amber-200/40 animate-float"
-          style={{
-            left: d.left,
-            top: d.top,
-            width: d.size,
-            height: d.size,
-            animationDelay: d.delay,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
+      {/* ========== 開催概要 ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="INFORMATION ・ 開催概要" variant={3} lineColor="var(--cream)">
+              当日のスケジュール。
+            </SectionTitle>
+          </div>
 
-/* ============================================================
-   グローバルアニメーション (styled-jsx)
-============================================================ */
-function GlobalStyles() {
-  return (
-    <style jsx global>{`
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(-2deg);
-        }
-        50% {
-          transform: translateY(-12px) rotate(2deg);
-        }
-      }
-      .animate-float {
-        animation: float 4s ease-in-out infinite;
-      }
+          <div className="nd-facts">
+            <div
+              className="nd-fact craft-paper craft-tilt reveal"
+              style={{ "--rot": "-0.5deg", "--accent-rgb": "224 158 22" } as CSSProperties}
+            >
+              <span className="craft-tape craft-tape--cream craft-tape--tl" aria-hidden="true" />
+              <span className="nd-fact-label">DATE</span>
+              <p className="nd-fact-main">2026年7月26日（日）</p>
+              <p className="nd-fact-sub">10:00 – 16:30</p>
+            </div>
+            <div
+              className="nd-fact craft-paper craft-tilt reveal"
+              style={{ "--rot": "0.5deg", "--accent-rgb": "var(--brand-rgb)", transitionDelay: "80ms" } as CSSProperties}
+            >
+              <span className="craft-tape craft-tape--tr" aria-hidden="true" />
+              <span className="nd-fact-label">PLACE</span>
+              <p className="nd-fact-main">アーテック5F フリースペース</p>
+              <p className="nd-fact-sub">いつものスクールの場所です</p>
+            </div>
+          </div>
 
-      @keyframes bounce-slow {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-6px);
-        }
-      }
-      .animate-bounce-slow {
-        animation: bounce-slow 2.5s ease-in-out infinite;
-      }
+          <div
+            className="nd-timetable craft-paper reveal"
+            style={{ "--rot": "0deg" } as CSSProperties}
+          >
+            {schedule.map((s) => (
+              <div key={`${s.time}-${s.label}`} className={`nd-tt-row${s.tag === "break" ? " nd-tt-row--break" : ""}`}>
+                <span className="nd-tt-time">{s.time}</span>
+                <span className="nd-tt-label">
+                  {s.label}
+                  {s.tag === "other" && (
+                    <span className="nd-tag" style={{ "--accent-rgb": "var(--brand-rgb)" } as CSSProperties}>
+                      その他イベント
+                    </span>
+                  )}
+                  {s.tag === "staff" && (
+                    <span className="nd-tag" style={{ "--accent-rgb": "var(--violet-rgb)" } as CSSProperties}>
+                      スタッフのイベント
+                    </span>
+                  )}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="nd-tt-note reveal">※ 時間配分は仮です。人数・内容により前後する場合があります。</p>
 
-      @keyframes spin-slow {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .animate-spin-slow {
-        animation: spin-slow 6s linear infinite;
-      }
-    `}</style>
+          <div className="nd-sides">
+            <div
+              className="nd-side craft-paper craft-tilt reveal"
+              style={{ "--rot": "-0.5deg" } as CSSProperties}
+            >
+              <span className="nd-tag" style={{ "--accent-rgb": "var(--brand-rgb)" } as CSSProperties}>
+                その他イベント
+              </span>
+              <h3 className="nd-side-title">PLAY CLAFT 意見交換会</h3>
+              <p className="nd-side-body">
+                秋のスクールフェスタで行うイベントを、みんなで企画・相談する時間です。アイデアを持ち寄って一緒に深めます。
+              </p>
+            </div>
+            <div
+              className="nd-side craft-paper craft-tilt reveal"
+              style={{ "--rot": "0.5deg", transitionDelay: "80ms" } as CSSProperties}
+            >
+              <span className="nd-tag" style={{ "--accent-rgb": "var(--violet-rgb)" } as CSSProperties}>
+                スタッフのイベント
+              </span>
+              <h3 className="nd-side-title">つきの・あおいさんのイベント</h3>
+              <p className="nd-side-body">
+                スタッフによる“なんでも発表会”。子どもたちと一緒に、大人も自分の「好き」を発表します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== 過去の発表会 ========== */}
+      <section className="nd-section">
+        <div className="container">
+          <div className="nd-section-head">
+            <SectionTitle eyebrow="ARCHIVE ・ 過去の発表会" variant={1} lineColor="var(--violet)">
+              これまでの発表会はこちら。
+            </SectionTitle>
+            <p className="lead nd-section-lead">当日の雰囲気は、過去の様子からどうぞ。</p>
+          </div>
+
+          <div className="nd-past">
+            {pastEvents.map((e, i) => (
+              <a
+                key={e.date}
+                href={e.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nd-past-link craft-paper craft-tilt craft-lift reveal"
+                style={
+                  {
+                    "--rot": i % 2 === 0 ? "-0.5deg" : "0.5deg",
+                    transitionDelay: `${i * 70}ms`,
+                  } as CSSProperties
+                }
+              >
+                <div>
+                  <p className="nd-past-date">{e.date}</p>
+                  <p className="nd-past-label">{e.label}</p>
+                </div>
+                <ArrowRightDoodle width={24} className="nd-past-arrow" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== FINAL CTA ========== */}
+      <section className="nd-section nd-section--last">
+        <div className="container">
+          <div
+            className="nd-final craft-paper craft-paper--warm craft-tilt reveal"
+            style={{ "--rot": "-0.6deg" } as CSSProperties}
+          >
+            <span className="craft-tape craft-tape--cream" aria-hidden="true" />
+            <div className="nd-final-spark" aria-hidden="true">
+              <SparkleDoodle width={30} className="craft-draw" />
+            </div>
+            <h2 className="nd-final-title craft-misprint">
+              あなたの“好き”を、
+              <br />
+              <span className="nd-hero-title-line">
+                ステージにのせよう。
+                <Underline variant={3} className="nd-hero-underline craft-draw" />
+              </span>
+            </h2>
+            <p className="nd-final-body">
+              2026年7月26日（日）、アーテック5F フリースペースで開催します。
+              <br />
+              発表も、観覧も大歓迎。一緒に盛り上がりましょう！
+            </p>
+            <div className="nd-cta">
+              <ApplyButton />
+              <p className="nd-cta-note">観覧は申込不要・出入り自由。お気軽にお越しください。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

@@ -4,7 +4,6 @@ import { EntranceDoors } from '@/components/EntranceDoors';
 import { Philosophy } from '@/components/Philosophy';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
-import { Download } from '@/components/Download';
 import { Students } from '@/components/Students';
 
 // 作成したアニメーションコンポーネントをインポート

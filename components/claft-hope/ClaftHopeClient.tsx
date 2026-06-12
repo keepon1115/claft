@@ -1,48 +1,34 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Zen_Maru_Gothic, Shippori_Mincho } from 'next/font/google';
+import { Shippori_Mincho } from 'next/font/google';
 import Link from 'next/link';
+import type { CSSProperties, ReactNode } from 'react';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
 import { Students } from '@/components/Students';
+import { SectionTitle } from '@/components/craft/SectionTitle';
+import { Underline, ArrowDownDoodle, SparkleDoodle, CrossDoodle } from '@/components/craft/HandDrawn';
+import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 
-const zenMaru = Zen_Maru_Gothic({
-  weight: ['500', '700', '900'],
-  subsets: ['latin'],
-  display: 'swap',
-});
-
+// 哲学キャプション用（既存の採用フォント）
 const shipporiMincho = Shippori_Mincho({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   display: 'swap',
 });
 
+const doodle = (style: Record<string, string | number>) => style as CSSProperties;
+
 // =========================================
 // カウントアップアニメーション Hook
 // =========================================
-function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
+function useCountUp(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!startOnView) {
-      // 即座にカウントアップ開始
-      let startTime: number;
-      const animate = (currentTime: number) => {
-        if (!startTime) startTime = currentTime;
-        const progress = Math.min((currentTime - startTime) / duration, 1);
-        setCount(Math.floor(progress * end));
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      requestAnimationFrame(animate);
-      return;
-    }
-
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasStarted) {
@@ -67,7 +53,7 @@ function useCountUp(end: number, duration: number = 2000, startOnView: boolean =
     }
 
     return () => observer.disconnect();
-  }, [end, duration, hasStarted, startOnView]);
+  }, [end, duration, hasStarted]);
 
   return { count, ref };
 }
@@ -76,29 +62,8 @@ function useCountUp(end: number, duration: number = 2000, startOnView: boolean =
 // メインコンポーネント
 // =========================================
 export function ClaftHopeClient() {
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
-  
-  // スクロールでrevealクラスをアクティブ化
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll('.reveal');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className={zenMaru.className} style={{ width: '100%', overflow: 'hidden' }}>
+    <div style={{ width: '100%', overflow: 'hidden' }}>
       <HeroSection />
       <EmpathySection />
       <DataSection />
@@ -117,221 +82,82 @@ export function ClaftHopeClient() {
 // =========================================
 function HeroSection() {
   return (
-    <section
-      style={{
-        width: '100%',
-        minHeight: '100vh',
-        padding: 'clamp(80px, 15vw, 120px) 20px clamp(60px, 10vw, 100px)',
-        background: `
-          radial-gradient(ellipse 800px 400px at 50% 0%, rgba(255, 246, 233, 0.9) 0%, transparent 70%),
-          radial-gradient(ellipse 600px 400px at 20% 80%, rgba(52, 198, 190, 0.08) 0%, transparent 50%),
-          radial-gradient(ellipse 500px 300px at 80% 60%, rgba(240, 106, 106, 0.06) 0%, transparent 50%),
-          linear-gradient(180deg, #FFF6E9 0%, #fbfefe 100%)
-        `,
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {/* 装飾用の浮遊オブジェクト */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '15%',
-          left: '5%',
-          width: '80px',
-          height: '80px',
-          background: 'radial-gradient(circle, rgba(255, 214, 107, 0.3), transparent 70%)',
-          borderRadius: '50%',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '20%',
-          right: '8%',
-          width: '60px',
-          height: '60px',
-          background: 'radial-gradient(circle, rgba(52, 198, 190, 0.25), transparent 70%)',
-          borderRadius: '50%',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          top: '40%',
-          right: '15%',
-          width: '40px',
-          height: '40px',
-          background: 'radial-gradient(circle, rgba(240, 106, 106, 0.2), transparent 70%)',
-          borderRadius: '50%',
-        }}
-      />
+    <section className="cd-hero" style={{ padding: '72px 20px 56px' }}>
+      {/* 漂う手描きの道具 */}
+      <div aria-hidden="true">
+        <SparkleDoodle
+          className="craft-doodle craft-float"
+          style={doodle({ top: '8%', left: '6%', color: 'var(--cream)', opacity: 0.9, '--rot': '-10deg' })}
+          width={30}
+        />
+        <CrossDoodle
+          className="craft-doodle craft-float craft-float--slow"
+          style={doodle({ top: '14%', right: '8%', color: 'var(--pink)', opacity: 0.5, '--rot': '14deg' })}
+          width={20}
+        />
+        <SparkleDoodle
+          className="craft-doodle craft-float"
+          style={doodle({ bottom: '20%', right: '5%', color: 'var(--brand)', opacity: 0.55, '--rot': '8deg', animationDelay: '1.2s' })}
+          width={24}
+        />
+      </div>
 
-      <div
-        style={{
-          width: 'min(480px, 92%)',
-          margin: '0 auto',
-          textAlign: 'center',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {/* メインコピー */}
-        <div
-          style={{
-            marginBottom: '28px',
-          }}
-        >
-          <h1
-            style={{
-              fontSize: 'clamp(1.8rem, 6vw, 2.4rem)',
-              fontWeight: 900,
-              color: 'var(--ink-900)',
-              lineHeight: 1.4,
-              marginBottom: '24px',
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 1 }}>
-              正解のない社会を、
-              <br />
-              <span style={{ color: '#34c6be', position: 'relative' }}>
-                希望
-              </span>
-              を抱き歩むために。
-            </span>
-          </h1>
-        </div>
+        <h1 className="cd-hero-title craft-misprint" style={{ marginBottom: '26px' }}>
+          正解のない社会を、
+          <br />
+          <span className="craft-highlight--brand craft-highlight" style={{ color: 'var(--brand-deep)' }}>
+            希望
+          </span>
+          を抱き歩むために。
+        </h1>
 
         {/* サブコピー */}
-        <div
-          style={{
-            marginBottom: '40px',
-          }}
-        >
-          <p
-            style={{
-              fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
-              lineHeight: 1.9,
-              color: 'var(--ink-700)',
-              fontWeight: 500,
-            }}
-          >
-            偏差値を上げることの前に、
-            <br />
-            将来なにがしたいか？どうありたいか？
-            <br />
-            自分のキャリアを考える時間が必要です。
-          </p>
-        </div>
+        <p className="cd-hero-lead" style={{ marginBottom: '36px' }}>
+          偏差値を上げることの前に、
+          <br />
+          将来なにがしたいか？どうありたいか？
+          <br />
+          自分のキャリアを考える時間が必要です。
+        </p>
 
-        {/* メインビジュアル（プレースホルダー） */}
-        <div
-          style={{
-            marginBottom: '40px',
-          }}
-        >
+        {/* メインビジュアル（テープ留めの紙） */}
+        <div className="craft-photo craft-tilt reveal" style={{ '--rot': '-1deg', marginBottom: '36px' } as CSSProperties}>
+          <span className="craft-tape" aria-hidden="true" />
+          <span className="craft-tape craft-tape--tr craft-tape--cream" aria-hidden="true" />
           <div
             style={{
-              width: '100%',
               aspectRatio: '4/3',
-              borderRadius: 'var(--radius-lg)',
+              display: 'grid',
+              placeItems: 'center',
+              borderRadius: '2px',
               background: `
-                linear-gradient(135deg, 
-                  rgba(52, 198, 190, 0.15) 0%, 
-                  rgba(255, 214, 107, 0.15) 50%,
-                  rgba(240, 106, 106, 0.1) 100%
+                linear-gradient(135deg,
+                  rgb(var(--brand-rgb) / 0.15) 0%,
+                  rgb(var(--cream-rgb) / 0.15) 50%,
+                  rgb(var(--pink-rgb) / 0.1) 100%
                 )
               `,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-              border: '3px solid rgba(255, 255, 255, 0.8)',
-              overflow: 'hidden',
-              position: 'relative',
             }}
           >
-            {/* 装飾的な図形 */}
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.6 }}>
-              <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#34c6be" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#58c3a2" stopOpacity="0.1" />
-                  </linearGradient>
-                </defs>
-                <circle cx="100" cy="80" r="60" fill="url(#grad1)" />
-                <circle cx="300" cy="200" r="80" fill="rgba(255, 214, 107, 0.2)" />
-                <circle cx="200" cy="150" r="100" fill="rgba(240, 106, 106, 0.1)" />
-                <path d="M50,250 Q200,200 350,220" stroke="#34c6be" strokeWidth="3" fill="none" opacity="0.4" />
-              </svg>
-            </div>
-            <div
-              style={{
-                fontSize: 'clamp(3rem, 10vw, 5rem)',
-                zIndex: 1,
-              }}
-            >
-              🌱
-            </div>
+            <span style={{ color: 'var(--green)' }} aria-hidden="true">
+              <DoodleIcon name="leaf" size={72} />
+            </span>
           </div>
         </div>
 
         {/* ブランドメッセージ */}
-        <div>
-          <p
-            style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.8,
-              color: 'var(--ink-600)',
-              fontWeight: 500,
-              padding: '0 10px',
-            }}
-          >
-            CLAFTは、<strong style={{ color: 'var(--ink-900)' }}>"学校と社会"</strong>をつなぎ、
-            <br />
-            自分の手で自分のキャリアを創るスクールです。
-          </p>
-        </div>
+        <p className="cd-hero-lead" style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-600)' }}>
+          CLAFTは、<strong className="emphasis">"学校と社会"</strong>をつなぎ、
+          <br />
+          自分の手で自分のキャリアを創るスクールです。
+        </p>
 
         {/* スクロール誘導 */}
-        <div
-          style={{
-            marginTop: '50px',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <path
-                d="M16 6 L16 26 M8 18 L16 26 L24 18"
-                stroke="var(--ink-500)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span
-              style={{
-                fontSize: '0.8rem',
-                color: 'var(--ink-500)',
-                marginTop: '8px',
-                letterSpacing: '0.1em',
-              }}
-            >
-              scroll
-            </span>
-          </div>
+        <div className="hp-hero-scroll" aria-hidden="true">
+          <ArrowDownDoodle className="craft-draw craft-draw--auto" width={26} />
+          <span>scroll</span>
         </div>
       </div>
     </section>
@@ -342,34 +168,21 @@ function HeroSection() {
 // 2. 共感セクション（3つの「足りない」）
 // =========================================
 function EmpathySection() {
-  // 各カードの開閉状態を管理
-  const [openStates, setOpenStates] = useState<{ [key: string]: boolean }>({
-    tankyu: false,
-    jissen: false,
-    taiwa: false,
-  });
-
-  // 開閉トグル関数
-  const toggleOpen = (id: string) => {
-    setOpenStates((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  const concerns = [
+  const concerns: {
+    id: string;
+    accentRgb: string;
+    tapeClass: string;
+    icon: DoodleIconName;
+    keyword: string;
+    labelText: string;
+    title: string;
+    description: ReactNode;
+  }[] = [
     {
       id: 'tankyu',
-      label: '探究',
-      labelBg: 'rgba(240, 106, 106, 0.14)',
-      accentColor: '#f06a6a',
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-          <circle cx="22" cy="22" r="14" stroke="#f06a6a" strokeWidth="3" fill="none" />
-          <path d="M32 32 L42 42" stroke="#f06a6a" strokeWidth="3" strokeLinecap="round" />
-          <circle cx="22" cy="22" r="6" fill="rgba(240, 106, 106, 0.2)" />
-        </svg>
-      ),
+      accentRgb: 'var(--pink-rgb)',
+      tapeClass: 'craft-tape--pink',
+      icon: 'search',
       keyword: '思考体力',
       labelText: '探究する場所',
       title: '自分のキャリアをじっくり考えられる場所が少ない！',
@@ -397,16 +210,9 @@ function EmpathySection() {
     },
     {
       id: 'jissen',
-      label: '実践',
-      labelBg: 'rgba(255, 214, 107, 0.22)',
-      accentColor: '#f0a629',
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-          <path d="M24 8 L24 24 L36 36" stroke="#f0a629" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="24" cy="24" r="18" stroke="#f0a629" strokeWidth="3" fill="none" strokeDasharray="6 4" />
-          <circle cx="24" cy="24" r="4" fill="#ffd66b" />
-        </svg>
-      ),
+      accentRgb: '224 158 22',
+      tapeClass: 'craft-tape--cream',
+      icon: 'bolt',
       keyword: '好奇心',
       labelText: '実践する場所',
       title: '自分の好き・得意を試し続けられる場所が少ない！',
@@ -436,25 +242,9 @@ function EmpathySection() {
     },
     {
       id: 'taiwa',
-      label: '対話',
-      labelBg: 'rgba(52, 198, 190, 0.14)',
-      accentColor: '#34c6be',
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-          <path
-            d="M8 12 C8 10 10 8 12 8 L28 8 C30 8 32 10 32 12 L32 24 C32 26 30 28 28 28 L16 28 L10 34 L10 28 L12 28 C10 28 8 26 8 24 Z"
-            stroke="#34c6be"
-            strokeWidth="3"
-            fill="rgba(52, 198, 190, 0.1)"
-          />
-          <path
-            d="M36 16 L36 16 C38 16 40 18 40 20 L40 32 C40 34 38 36 36 36 L34 36 L34 42 L28 36 L20 36 C18 36 16 34 16 32 L16 30"
-            stroke="#34c6be"
-            strokeWidth="3"
-            fill="none"
-          />
-        </svg>
-      ),
+      accentRgb: 'var(--brand-rgb)',
+      tapeClass: '',
+      icon: 'talk',
       keyword: '柔軟性',
       labelText: '対話する場所',
       title: '自分の考えや感じたことを自由に話せる場所が少ない！',
@@ -484,229 +274,76 @@ function EmpathySection() {
   ];
 
   return (
-    <section
-      style={{
-        width: '100%',
-        padding: 'clamp(80px, 12vw, 120px) 20px',
-        background: `
-          linear-gradient(180deg, #fbfefe 0%, #fff 50%, #fbfefe 100%)
-        `,
-        position: 'relative',
-      }}
-    >
-      <div style={{ width: 'min(480px, 92%)', margin: '0 auto' }}>
+    <section className="hp-section">
+      <div className="container">
         {/* セクションタイトル */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h2
-            style={{
-              fontSize: 'clamp(1.5rem, 5vw, 2rem)',
-              fontWeight: 900,
-              color: 'var(--ink-900)',
-              lineHeight: 1.4,
-              marginBottom: '20px',
-            }}
-          >
+        <div className="hp-section-head" style={{ marginBottom: '30px' }}>
+          <SectionTitle variant={1} lineColor="var(--pink)">
             変化が激しい社会に、
             <br />
-            <span style={{ color: '#f06a6a' }}>公教育</span>は対応できているのか？
-          </h2>
-          <p
-            style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.8,
-              color: 'var(--ink-700)',
-              fontWeight: 500,
-            }}
-          >
-          </p>
+            <span style={{ color: 'var(--pink)' }}>公教育</span>は対応できているのか？
+          </SectionTitle>
         </div>
 
-        {/* 導入テキスト */}
-        <div
-          className="reveal"
-          style={{
-            marginBottom: '40px',
-            padding: '24px',
-            background: 'rgba(52, 198, 190, 0.06)',
-            borderRadius: 'var(--radius)',
-            borderLeft: '4px solid var(--brand)',
-          }}
+        {/* 導入テキスト（付箋） */}
+        <p
+          className="cd-tip reveal"
+          style={{ marginBottom: '38px', padding: '20px 22px', fontSize: 'var(--text-base)' } as CSSProperties}
         >
-          <p
-            style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.8,
-              color: 'var(--ink-700)',
-              margin: 0,
-            }}
-          >
-            日本の若者が置かれている環境において
-            <br />
-            <strong style={{ color: 'var(--ink-900)' }}>「3つの場所」</strong>が不足していると考えます。
-          </p>
-        </div>
+          日本の若者が置かれている環境において
+          <br />
+          <strong className="emphasis">「3つの場所」</strong>が不足していると考えます。
+        </p>
 
         {/* 3つのカード */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-          {concerns.map((item, index) => {
-            const isOpen = openStates[item.id];
-            
-            return (
-              <article
-                key={item.id}
-                className="reveal"
-                style={{
-                  background: '#fff',
-                  borderRadius: 'var(--radius-lg)',
-                  overflow: 'hidden',
-                  boxShadow: 'var(--shadow)',
-                  border: '1px solid rgba(0, 0, 0, 0.04)',
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          {concerns.map((item, index) => (
+            <article
+              key={item.id}
+              className="craft-paper craft-tilt reveal"
+              style={
+                {
+                  '--accent-rgb': item.accentRgb,
+                  '--tape-rgb': item.accentRgb,
+                  '--rot': `${index % 2 === 0 ? -0.5 : 0.5}deg`,
+                  overflow: 'visible',
                   transitionDelay: `${index * 100}ms`,
-                }}
-              >
-                {/* 上部：課題の提示エリア */}
-                <div
-                  style={{
-                    padding: 'clamp(28px, 6vw, 36px)',
-                    paddingBottom: isOpen ? 'clamp(24px, 5vw, 32px)' : 'clamp(20px, 4.5vw, 28px)',
-                    transition: 'padding 0.3s ease',
-                  }}
-                >
-                  {/* アイコンと見出しと開閉ボタン */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '14px',
-                      marginBottom: isOpen ? '20px' : '0',
-                      transition: 'margin 0.3s ease',
-                    }}
-                  >
-                    <div style={{ flexShrink: 0, marginTop: '4px' }}>
-                      {item.icon}
-                    </div>
-                    <h3
-                      style={{
-                        flex: 1,
-                        fontSize: 'clamp(1.15rem, 3.2vw, 1.3rem)',
-                        fontWeight: 900,
-                        color: 'var(--ink-900)',
-                        lineHeight: 1.5,
-                        margin: 0,
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    {/* 開閉ボタン */}
-                    <button
-                      onClick={() => toggleOpen(item.id)}
-                      aria-label={isOpen ? '詳細を閉じる' : '詳細を開く'}
-                      aria-expanded={isOpen}
-                      style={{
-                        flexShrink: 0,
-                        width: '36px',
-                        height: '36px',
-                        borderRadius: '50%',
-                        background: item.labelBg,
-                        border: `2px solid ${item.accentColor}40`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        boxShadow: isOpen ? `0 4px 12px ${item.accentColor}30` : '0 2px 6px rgba(0, 0, 0, 0.08)',
-                      }}
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        style={{
-                          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                          transition: 'transform 0.3s ease',
-                        }}
-                      >
-                        <path
-                          d="M6 9 L12 15 L18 9"
-                          stroke={item.accentColor}
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                } as CSSProperties
+              }
+            >
+              <span className={`craft-tape ${item.tapeClass}`} aria-hidden="true" />
 
-                  {/* 説明文（アコーディオン） */}
-                  <div
-                    style={{
-                      maxHeight: isOpen ? '2000px' : '0',
-                      opacity: isOpen ? 1 : 0,
-                      overflow: 'hidden',
-                      transition: 'max-height 0.5s ease, opacity 0.3s ease',
-                      paddingLeft: 'clamp(54px, 12vw, 54px)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 'clamp(0.9rem, 2.2vw, 0.95rem)',
-                        lineHeight: 1.9,
-                        color: 'var(--ink-700)',
-                        paddingTop: '16px',
-                      }}
-                    >
-                      {item.description}
-                    </div>
-                  </div>
-                </div>
+              {/* 課題の提示（開閉） */}
+              <details className="cd-acc" style={{ background: 'none', border: 'none', boxShadow: 'none' }}>
+                <summary>
+                  <span className="cd-acc-icon" aria-hidden="true">
+                    <DoodleIcon name={item.icon} size={28} />
+                  </span>
+                  <span className="cd-acc-title">
+                    <strong>{item.title}</strong>
+                  </span>
+                  <span className="cd-acc-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                      <polyline points="6,9 12,15 18,9" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </summary>
+                <div className="cd-acc-body">{item.description}</div>
+              </details>
 
-                {/* 下部：結論エリア */}
-                <div
-                  style={{
-                    background: 'rgba(248, 250, 252, 0.8)',
-                    borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-                    padding: 'clamp(20px, 5vw, 28px) clamp(28px, 6vw, 36px)',
-                    textAlign: 'center',
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
-                      fontWeight: 600,
-                      color: 'var(--ink-800)',
-                      margin: 0,
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    必要なのは{' '}
-                    <strong
-                      style={{
-                        fontWeight: 900,
-                        color: item.accentColor,
-                        textShadow: `0 0 15px ${item.accentColor}20`,
-                      }}
-                    >
-                      {item.labelText}
-                    </strong>
-                    {' '}で{' '}
-                    <br />
-                    <strong
-                      style={{
-                        fontWeight: 900,
-                        color: item.accentColor,
-                        fontSize: '1.1em',
-                        textShadow: `0 0 20px ${item.accentColor}30`,
-                      }}
-                    >
-                      {item.keyword}
-                    </strong>
-                    {' '}を育むこと！
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+              {/* 結論帯（常に表示） */}
+              <p className="ho-conclusion">
+                必要なのは{' '}
+                <strong style={{ fontWeight: 900, color: 'rgb(var(--accent-rgb))' }}>{item.labelText}</strong>
+                {' '}で{' '}
+                <br />
+                <strong style={{ fontWeight: 900, color: 'rgb(var(--accent-rgb))', fontSize: '1.1em' }}>
+                  {item.keyword}
+                </strong>
+                {' '}を育むこと！
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -727,7 +364,8 @@ function DataSection() {
       decimal: '.3',
       unit: '%',
       ref: stat1.ref,
-      color: '#f06a6a',
+      accentRgb: 'var(--pink-rgb)',
+      tapeClass: 'craft-tape--pink',
       title: '新入社員が感じる「スキル不足」',
       description: '自分の能力不足がストレス源。社会の厳しさを痛感する若者は6割越え。',
       source: '出典：産業能率大「2024年度 新入社員会社生活調査」',
@@ -737,7 +375,8 @@ function DataSection() {
       decimal: '.9',
       unit: '%',
       ref: stat2.ref,
-      color: '#34c6be',
+      accentRgb: 'var(--brand-rgb)',
+      tapeClass: '',
       title: '3年以内の離職率',
       description: '大卒の約5人に1人が早期離職、高卒ではさらに深刻。',
       source: '出典：産業能率大「2024年度 新入社員会社生活調査」',
@@ -747,7 +386,8 @@ function DataSection() {
       decimal: '.0',
       unit: '%',
       ref: stat3.ref,
-      color: '#f0a629',
+      accentRgb: '224 158 22',
+      tapeClass: 'craft-tape--cream',
       title: '日本の教育を「良い」と評価',
       description: '国際比較で低位。生徒も先生も保護者も「何か違う」と感じている。',
       source: '出典：イプソス「教育モニター2024」調査レポート',
@@ -755,226 +395,100 @@ function DataSection() {
   ];
 
   return (
-    <section
-      style={{
-        width: '100%',
-        padding: 'clamp(80px, 12vw, 120px) 20px',
-        background: `
-          linear-gradient(180deg, #fbfefe 0%, rgba(31, 41, 55, 0.08) 50%, rgba(31, 41, 55, 0.06) 100%)
-        `,
-        position: 'relative',
-      }}
-    >
-      {/* 背景装飾 */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '600px',
-          height: '600px',
-          background: 'radial-gradient(circle, rgba(240, 106, 106, 0.06), transparent 70%)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ width: 'min(480px, 92%)', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+    <section className="hp-section hp-programs">
+      <div className="container">
         {/* セクションタイトル */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h2
-            style={{
-              fontSize: 'clamp(1.5rem, 5vw, 2rem)',
-              fontWeight: 900,
-              color: 'var(--ink-900)',
-              lineHeight: 1.4,
-              marginBottom: '24px',
-            }}
-          >
+        <div className="hp-section-head" style={{ marginBottom: '24px' }}>
+          <SectionTitle variant={2} lineColor="var(--pink)">
             まじめに勉強してきた人ほど
             <br />
-            <span style={{ color: '#f06a6a' }}>社会で戸惑っている現代</span>
-          </h2>
-          <p
-            style={{
-              fontSize: 'clamp(0.9rem, 2.2vw, 1rem)',
-              lineHeight: 1.8,
-              color: 'var(--ink-700)',
-              fontWeight: 500,
-            }}
-          >
-            <strong style={{ color: 'var(--ink-900)' }}>
-              「一生懸命勉強したのに、社会に出たら全然違った」
-            </strong>
-            <br />
-            <strong style={{ color: 'var(--ink-900)' }}>
-            「自分が本当にやりたいことって、なんだろう…？」
-            </strong>
-            <br />
-            そんな声が、今の日本社会にはあふれています。
-          </p>
+            <span style={{ color: 'var(--pink)' }}>社会で戸惑っている現代</span>
+          </SectionTitle>
         </div>
 
+        <p className="cd-hero-lead reveal" style={{ marginBottom: '38px' }}>
+          <strong className="emphasis">「一生懸命勉強したのに、社会に出たら全然違った」</strong>
+          <br />
+          <strong className="emphasis">「自分が本当にやりたいことって、なんだろう…？」</strong>
+          <br />
+          そんな声が、今の日本社会にはあふれています。
+        </p>
+
         {/* 統計カード */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', marginBottom: '40px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginBottom: '44px' }}>
           {stats.map((stat, index) => (
             <div
               key={index}
               ref={stat.ref}
-              className="reveal"
-              style={{
-                background: '#fff',
-                borderRadius: 'var(--radius)',
-                padding: 'clamp(28px, 6vw, 36px)',
-                boxShadow: 'var(--shadow)',
-                textAlign: 'left',
-                transitionDelay: `${index * 100}ms`,
-                border: `2px solid ${stat.color}20`,
-              }}
+              className="craft-paper craft-tilt reveal"
+              style={
+                {
+                  '--accent-rgb': stat.accentRgb,
+                  '--tape-rgb': stat.accentRgb,
+                  '--rot': `${index % 2 === 0 ? -0.5 : 0.5}deg`,
+                  padding: '30px 24px 24px',
+                  transitionDelay: `${index * 100}ms`,
+                } as CSSProperties
+              }
             >
+              <span className={`craft-tape ${stat.tapeClass}`} aria-hidden="true" />
+
               {/* 数字 */}
-              <div
-                style={{
-                  fontSize: 'clamp(2.5rem, 10vw, 3.5rem)',
-                  fontWeight: 900,
-                  color: stat.color,
-                  lineHeight: 1,
-                  marginBottom: '8px',
-                  fontFamily: 'system-ui, -apple-system, sans-serif',
-                }}
-              >
+              <div className="ho-stat-num">
                 {stat.value}
                 <span style={{ fontSize: '0.5em' }}>{stat.decimal}</span>
                 <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>{stat.unit}</span>
-                <span 
-                  style={{ 
-                    fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)', 
-                    fontWeight: 700,
-                    color: 'var(--ink-800)',
-                    marginLeft: '12px',
-                    verticalAlign: 'middle',
-                  }}
-                >
-                  ｜{stat.title}
-                </span>
+                <span className="ho-stat-title">｜{stat.title}</span>
               </div>
-              
+
               {/* 説明文 */}
-              <p
-                style={{
-                  fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
-                  fontWeight: 500,
-                  color: 'var(--ink-700)',
-                  margin: '12px 0',
-                  lineHeight: 1.7,
-                }}
-              >
+              <p style={{ margin: '12px 0', fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
                 {stat.description}
               </p>
-              
+
               {/* 出典 */}
-              <p
-                style={{
-                  fontSize: 'clamp(0.7rem, 1.8vw, 0.75rem)',
-                  color: 'var(--ink-500)',
-                  margin: 0,
-                  lineHeight: 1.5,
-                }}
-              >
+              <p style={{ margin: 0, fontSize: 'var(--text-xs)', color: 'var(--ink-500)' }}>
                 <small>{stat.source}</small>
               </p>
             </div>
           ))}
         </div>
 
-        {/* エディトリアル・フォーカス：結論テキスト */}
+        {/* 結論テキスト（罫線ノートの1ページ） */}
         <div
-          className="reveal container"
-          style={{
-            padding: 'clamp(40px, 8vw, 60px) 0',
-          }}
+          className="craft-paper craft-paper--ruled craft-tilt reveal"
+          style={{ '--rot': '0.4deg', padding: '34px 26px' } as CSSProperties}
         >
-          <div
+          <span className="craft-tape" aria-hidden="true" />
+
+          <p style={{ fontSize: 'var(--text-base)', color: 'var(--ink-700)', marginBottom: '24px' }}>
+            原因は、決して本人の努力不足ではありません。むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。
+          </p>
+
+          <p style={{ fontSize: 'var(--text-base)', color: 'var(--ink-700)', marginBottom: '16px' }}>
+            その理由は、とてもシンプル。
+          </p>
+
+          {/* 中核フレーズ（マーカー強調） */}
+          <h3
             style={{
-              position: 'relative',
-              paddingLeft: 'clamp(32px, 7vw, 40px)',
+              margin: '0 0 26px',
+              fontSize: 'var(--text-lg)',
+              fontWeight: 'var(--font-black)',
+              lineHeight: 1.7,
+              color: 'var(--ink-900)',
             }}
           >
-            {/* アクセントライン（左側の垂直線） */}
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '6px',
-                background: 'var(--brand)',
-                borderRadius: '3px',
-              }}
-            />
+            <span className="craft-highlight">「社会の変化に、学びが追いついていない」</span>
+          </h3>
 
-            {/* リード文（冒頭） */}
-            <p className="body-lg" style={{ marginBottom: '32px' }}>
-              原因は、決して本人の努力不足ではありません。むしろ、まじめに勉強してきた人ほど戸惑ってしまうのです。
-            </p>
+          <p style={{ fontSize: 'var(--text-base)', color: 'var(--ink-700)', marginBottom: '24px' }}>
+            技術の進歩、価値観の多様化に伴い社会課題が顕在化している時代。「正解を早く答える」勉強だけでは、生き抜く力にはなりません。特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。
+          </p>
 
-            {/* 中核フレーズ（マーカー強調） */}
-            <div style={{ marginBottom: '32px' }}>
-              <p
-                style={{
-                  fontSize: 'clamp(0.95rem, 2.5vw, 1.05rem)',
-                  lineHeight: 1.8,
-                  color: 'var(--ink-700)',
-                  marginBottom: '16px',
-                }}
-              >
-                その理由は、とてもシンプル。
-              </p>
-              <h3
-                className="heading-md"
-                style={{
-                  background: 'var(--cream)',
-                  padding: '12px 20px',
-                  borderRadius: '8px',
-                  display: 'inline-block',
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                「社会の変化に、学びが追いついていない」
-              </h3>
-            </div>
-
-            {/* 説明段落 */}
-            <p
-              className="body-base"
-              style={{
-                marginBottom: '28px',
-              }}
-            >
-              技術の進歩、価値観の多様化に伴い社会課題が顕在化している時代。「正解を早く答える」勉強だけでは、生き抜く力にはなりません。特にAIの進化は著しく、記憶や計算といった認知能力はすでにコンピュータの方が得意な領域になっています。
-            </p>
-
-            {/* カード風の補足（最後の段落） */}
-            <div
-              style={{
-                background: 'var(--bg)',
-                padding: 'clamp(24px, 5vw, 32px)',
-                borderRadius: 'var(--radius)',
-                border: '1px solid rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <p
-                className="body-base"
-                style={{
-                  margin: 0,
-                }}
-              >
-                それにもかかわらず、日本の教育は依然として「教科書に書かれた知識を覚え、テストで正しく答える力」を重視しています。先生が知識を教え、生徒がそれを記憶し、偏差値で進路が決まる──この構造のままでは、教育と社会との間に大きなギャップが生じ、多くの若者がつまずいてしまいます。
-              </p>
-            </div>
-          </div>
+          <p className="cd-tip" style={{ padding: '18px 20px', fontSize: 'var(--text-base)' }}>
+            それにもかかわらず、日本の教育は依然として「教科書に書かれた知識を覚え、テストで正しく答える力」を重視しています。先生が知識を教え、生徒がそれを記憶し、偏差値で進路が決まる──この構造のままでは、教育と社会との間に大きなギャップが生じ、多くの若者がつまずいてしまいます。
+          </p>
         </div>
       </div>
     </section>
@@ -992,12 +506,9 @@ function SolutionSection() {
       description:
         'PBL（課題解決型学習）や、正解のない問いに向き合う「クエスト」を通じ、スマホやPCを駆使して自らの答えを形にします。',
       philosophy: '学びの本質は知覚。知覚は経験から生まれる。',
-      color: 'var(--brand)',
-      bgColor: 'rgba(52, 198, 190, 0.08)',
-      borderColor: 'rgba(52, 198, 190, 0.3)',
-      links: [
-        { text: 'PBL（課題解決型学習）', href: '/pbl' },
-      ],
+      accentRgb: 'var(--brand-rgb)',
+      tapeClass: '',
+      links: [{ text: 'PBL（課題解決型学習）', href: '/pbl' }],
     },
     {
       id: 2,
@@ -1005,12 +516,9 @@ function SolutionSection() {
       description:
         '「ジブンクラフト」では、日々の気づきを「5つのチカラ」に変換し可視化。自分らしさを育てながら、挑戦への確信を築きます。',
       philosophy: '没頭することが、最も高い満足感と動機づけにつながる。',
-      color: 'var(--cream)',
-      bgColor: 'rgba(255, 214, 107, 0.12)',
-      borderColor: 'rgba(255, 214, 107, 0.4)',
-      links: [
-        { text: 'ジブンクラフト', href: '/jibun-craft' },
-      ],
+      accentRgb: '224 158 22',
+      tapeClass: 'craft-tape--cream',
+      links: [{ text: 'ジブンクラフト', href: '/jibun-craft' }],
     },
     {
       id: 3,
@@ -1018,9 +526,8 @@ function SolutionSection() {
       description:
         '月1回の対話「Yononaka」や、3ヶ月ごとの発表会「ミライクラフト」。地域や大人と共創し、多様な生き方に触れます。',
       philosophy: '「ムズムズ」を共有できる仲間がいれば、挑戦はもっと強くなる。',
-      color: 'var(--green)',
-      bgColor: 'rgba(88, 195, 162, 0.08)',
-      borderColor: 'rgba(88, 195, 162, 0.3)',
+      accentRgb: 'var(--green-rgb)',
+      tapeClass: 'craft-tape--green',
       links: [
         { text: 'Yononaka', href: '/yononaka' },
         { text: 'ミライクラフト', href: '/futurecraft' },
@@ -1028,213 +535,94 @@ function SolutionSection() {
     },
   ];
 
-  return (
-    <section
-      style={{
-        width: '100%',
-        padding: 'clamp(80px, 12vw, 120px) 20px',
-        background: `
-          radial-gradient(ellipse 900px 600px at 50% 30%, rgba(52, 198, 190, 0.12), transparent 60%),
-          radial-gradient(ellipse 700px 500px at 20% 80%, rgba(255, 214, 107, 0.1), transparent 50%),
-          radial-gradient(ellipse 600px 400px at 80% 70%, rgba(88, 195, 162, 0.08), transparent 50%),
-          linear-gradient(180deg, var(--bg) 0%, #fff 50%, #FFF6E9 100%)
-        `,
-        position: 'relative',
-      }}
-    >
-      {/* 波型の境界線（上部） */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '80px',
-          overflow: 'hidden',
-          pointerEvents: 'none',
-        }}
-      >
-        <svg
-          viewBox="0 0 1200 80"
-          preserveAspectRatio="none"
-          style={{
-            width: '100%',
-            height: '100%',
-            transform: 'rotate(180deg)',
-          }}
-        >
-          <path
-            d="M0,40 Q300,0 600,40 T1200,40 L1200,80 L0,80 Z"
-            fill="rgba(31, 41, 55, 0.06)"
-          />
-        </svg>
-      </div>
+  // 説明文中のコース名をリンク化する（文言は変えない）
+  const renderDescription = (description: string, links: { text: string; href: string }[]) => {
+    const parts: ReactNode[] = [];
+    let lastIndex = 0;
 
-      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        {/* セクションヘッダー */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h2
-            className="heading-lg"
+    links.forEach((link, linkIdx) => {
+      const index = description.indexOf(link.text, lastIndex);
+      if (index !== -1) {
+        if (index > lastIndex) {
+          parts.push(description.substring(lastIndex, index));
+        }
+        parts.push(
+          <Link
+            key={`link-${linkIdx}`}
+            href={link.href}
             style={{
-              marginBottom: '24px',
-              color: 'var(--ink-900)',
+              color: 'rgb(var(--accent-rgb))',
+              fontWeight: 700,
+              textDecoration: 'underline',
+              textDecorationColor: 'rgb(var(--accent-rgb) / 0.45)',
+              textUnderlineOffset: '3px',
             }}
           >
+            {link.text}
+          </Link>
+        );
+        lastIndex = index + link.text.length;
+      }
+    });
+
+    if (lastIndex < description.length) {
+      parts.push(description.substring(lastIndex));
+    }
+
+    return parts;
+  };
+
+  return (
+    <section className="hp-section">
+      <div className="container">
+        {/* セクションヘッダー */}
+        <div className="hp-section-head" style={{ marginBottom: '24px' }}>
+          <SectionTitle variant={3} lineColor="var(--brand)">
             CLAFT：「探究・対話・実践」の学びが
             <br />
-            <span style={{ color: 'var(--brand)' }}>学校と社会の分断</span>をつなぐ！
-          </h2>
-          <p
-            className="body-base"
-            style={{
-              maxWidth: '420px',
-              margin: '0 auto',
-            }}
-          >
-            CLAFTでは、入試のための勉強から
-            <strong className="emphasis">「社会を知り未来を予測するための学び」</strong>
-            へと変えていく必要があると考えています。
-          </p>
+            <span style={{ color: 'var(--brand-deep)' }}>学校と社会の分断</span>をつなぐ！
+          </SectionTitle>
         </div>
 
+        <p className="cd-hero-lead reveal" style={{ maxWidth: '420px', marginBottom: '40px' }}>
+          CLAFTでは、入試のための勉強から
+          <strong className="emphasis">「社会を知り未来を予測するための学び」</strong>
+          へと変えていく必要があると考えています。
+        </p>
+
         {/* 3つの解決策カード */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(28px, 6vw, 36px)',
-          }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '34px' }}>
           {solutions.map((solution, index) => (
             <article
               key={solution.id}
-              className="reveal"
-              style={{
-                background: '#fff',
-                borderRadius: 'var(--radius-lg)',
-                padding: 'clamp(28px, 6vw, 36px)',
-                boxShadow: 'var(--shadow)',
-                border: `2px solid ${solution.borderColor}`,
-                position: 'relative',
-                overflow: 'hidden',
-                transitionDelay: `${index * 100}ms`,
-              }}
+              className="cd-card craft-paper craft-tilt craft-lift reveal"
+              style={
+                {
+                  '--accent-rgb': solution.accentRgb,
+                  '--tape-rgb': solution.accentRgb,
+                  '--rot': `${index % 2 === 0 ? -0.6 : 0.6}deg`,
+                  paddingTop: '34px',
+                  transitionDelay: `${index * 100}ms`,
+                } as CSSProperties
+              }
             >
-              {/* カード上部のアクセント */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '6px',
-                  background: `linear-gradient(90deg, ${solution.color}, ${solution.bgColor})`,
-                }}
-              />
+              <span className={`craft-tape ${solution.tapeClass}`} aria-hidden="true" />
 
-              {/* カード番号バッジ */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '20px',
-                  right: '20px',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: solution.bgColor,
-                  border: `2px solid ${solution.borderColor}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.2rem',
-                  fontWeight: 900,
-                  color: solution.color === 'var(--cream)' ? '#f0a629' : solution.color,
-                }}
-              >
+              {/* 番号スタンプ */}
+              <span className="cd-num" style={{ position: 'absolute', top: '18px', right: '18px' }}>
                 {solution.id}
-              </div>
+              </span>
 
               {/* タイトル */}
-              <h3
-                className="heading-sm"
-                style={{
-                  marginBottom: '16px',
-                  paddingRight: '50px',
-                }}
-              >
+              <h3 className="cd-card-title" style={{ paddingRight: '56px' }}>
                 {solution.title}
               </h3>
 
               {/* 説明文 */}
-              <p
-                className="body-base"
-                style={{
-                  marginBottom: '20px',
-                }}
-              >
-                {(() => {
-                  let text = solution.description;
-                  const parts: React.ReactNode[] = [];
-                  let lastIndex = 0;
-
-                  solution.links.forEach((link, linkIdx) => {
-                    const index = text.indexOf(link.text, lastIndex);
-                    if (index !== -1) {
-                      // リンク前のテキスト
-                      if (index > lastIndex) {
-                        parts.push(text.substring(lastIndex, index));
-                      }
-                      // リンク
-                      parts.push(
-                        <Link
-                          key={`link-${linkIdx}`}
-                          href={link.href}
-                          style={{
-                            color: solution.color === 'var(--cream)' ? '#f0a629' : solution.color,
-                            fontWeight: 700,
-                            textDecoration: 'underline',
-                            textDecorationColor: solution.borderColor,
-                            textUnderlineOffset: '3px',
-                            transition: 'all 0.2s ease',
-                          }}
-                        >
-                          {link.text}
-                        </Link>
-                      );
-                      lastIndex = index + link.text.length;
-                    }
-                  });
-
-                  // 残りのテキスト
-                  if (lastIndex < text.length) {
-                    parts.push(text.substring(lastIndex));
-                  }
-
-                  return parts;
-                })()}
-              </p>
+              <p style={{ margin: '0 0 4px' }}>{renderDescription(solution.description, solution.links)}</p>
 
               {/* 哲学的キャプション */}
-              <div
-                style={{
-                  marginTop: '24px',
-                  paddingTop: '20px',
-                  borderTop: `1px solid ${solution.borderColor}`,
-                }}
-              >
-                <p
-                  className={`body-sm ${shipporiMincho.className}`}
-                  style={{
-                    fontStyle: 'italic',
-                    color: 'var(--ink-600)',
-                    textAlign: 'center',
-                    lineHeight: 1.8,
-                    margin: 0,
-                  }}
-                >
-                  {solution.philosophy}
-                </p>
-              </div>
+              <p className={`ho-quote ${shipporiMincho.className}`}>{solution.philosophy}</p>
             </article>
           ))}
         </div>
@@ -1247,156 +635,82 @@ function SolutionSection() {
 // 5. インタラクティブセクション（CLAFT詳細 + AFT成果）
 // =========================================
 function PhilosophySection() {
-  // CLAFTタブの状態管理
   const [activeTab, setActiveTab] = useState<'C' | 'L' | 'A' | 'F' | 'T'>('C');
-  
-  // アコーディオンの開閉状態管理
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
-
-  const toggleAccordion = (id: string) => {
-    setOpenAccordion(openAccordion === id ? null : id);
-  };
 
   // CLAFTタブの定義
-  const claftTabs = [
-    { letter: 'C', color: '#34c6be', bgColor: 'rgba(52, 198, 190, 0.15)' },
-    { letter: 'L', color: '#58c3a2', bgColor: 'rgba(88, 195, 162, 0.15)' },
-    { letter: 'A', color: '#ffd66b', bgColor: 'rgba(255, 214, 107, 0.2)' },
-    { letter: 'F', color: '#f06a6a', bgColor: 'rgba(240, 106, 106, 0.15)' },
-    { letter: 'T', color: '#34c6be', bgColor: 'rgba(52, 198, 190, 0.15)' },
+  const claftTabs: { letter: 'C' | 'L' | 'A' | 'F' | 'T'; accentRgb: string }[] = [
+    { letter: 'C', accentRgb: 'var(--brand-rgb)' },
+    { letter: 'L', accentRgb: 'var(--green-rgb)' },
+    { letter: 'A', accentRgb: '224 158 22' },
+    { letter: 'F', accentRgb: 'var(--pink-rgb)' },
+    { letter: 'T', accentRgb: 'var(--brand-rgb)' },
   ];
 
   // AFTアコーディオンの定義
-  const aftItems = [
+  const aftItems: {
+    id: string;
+    letter: string;
+    title: string;
+    accentRgb: string;
+    tapeClass: string;
+    icon: DoodleIconName;
+    description: string;
+  }[] = [
     {
       id: 'active',
       letter: 'A',
       title: '主体的な行動力の向上',
-      color: '#ffd66b',
-      bgColor: 'rgba(255, 214, 107, 0.12)',
-      borderColor: 'rgba(255, 214, 107, 0.4)',
+      accentRgb: '224 158 22',
+      tapeClass: 'craft-tape--cream',
+      icon: 'rocket',
       description:
         '「指示待ち」ではなく、自分で問いを立てて動く力が育ちます。アクションを起こすことで得られる学びのサイクルが、自分への確信（自己効力感）を支えます。',
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-          <path
-            d="M24 6 L28 14 L36 16 L30 24 L32 32 L24 28 L16 32 L18 24 L12 16 L20 14 Z"
-            fill="rgba(255, 214, 107, 0.25)"
-            stroke="#ffd66b"
-            strokeWidth="2"
-          />
-          <path d="M24 6 L24 28 M24 28 L18 32 M24 28 L30 32" stroke="#f0a629" strokeWidth="2.5" strokeLinecap="round" />
-        </svg>
-      ),
     },
     {
       id: 'flexible',
       letter: 'F',
       title: '柔軟な適応力の向上',
-      color: '#f06a6a',
-      bgColor: 'rgba(240, 106, 106, 0.12)',
-      borderColor: 'rgba(240, 106, 106, 0.4)',
+      accentRgb: 'var(--pink-rgb)',
+      tapeClass: 'craft-tape--pink',
+      icon: 'leaf',
       description:
         '異なる価値観を持つ仲間との対話を通じ、変化をチャンスとして捉えるしなやかさを養います。これは現代社会で不可欠な「情報編集力（＝自分らしく情報を組み立て、伝える力）」の土台となります。',
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-          <path
-            d="M8 18 Q12 10, 20 12 Q28 14, 24 22 Q20 30, 28 32 Q36 34, 40 26"
-            stroke="#f06a6a"
-            strokeWidth="3"
-            fill="none"
-            strokeLinecap="round"
-          />
-          <circle cx="8" cy="18" r="3" fill="#f06a6a" />
-          <circle cx="40" cy="26" r="3" fill="#f06a6a" />
-        </svg>
-      ),
     },
     {
       id: 'trial',
       letter: 'T',
       title: '何度も試し続ける精神',
-      color: '#34c6be',
-      bgColor: 'rgba(52, 198, 190, 0.12)',
-      borderColor: 'rgba(52, 198, 190, 0.4)',
+      accentRgb: 'var(--brand-rgb)',
+      tapeClass: '',
+      icon: 'clock',
       description:
         '「学ばなきゃ」という義務感から解放され、「やってみたい」という好奇心で挑み続ける。たとえ道が変わっても、その周辺にある多様な可能性に気づける強さが身につきます。',
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="16" stroke="#34c6be" strokeWidth="3" fill="none" />
-          <path d="M24 8 L24 24 L36 24" stroke="#34c6be" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path
-            d="M36 12 L40 16 L36 20"
-            stroke="#58c3a2"
-            strokeWidth="2.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
     },
   ];
 
   return (
-    <section
-      style={{
-        width: '100%',
-        padding: 'clamp(80px, 12vw, 120px) 20px',
-        background: `
-          radial-gradient(ellipse 900px 500px at 50% 30%, rgba(52, 198, 190, 0.06), transparent 60%),
-          radial-gradient(ellipse 600px 400px at 20% 70%, rgba(255, 214, 107, 0.06), transparent 50%),
-          linear-gradient(180deg, #FFF6E9 0%, #fbfefe 50%, #fff 100%)
-        `,
-        position: 'relative',
-      }}
-    >
+    <section className="hp-section hp-programs">
       <div className="container">
         {/* ========== Part 1: CLAFTアルファベット・タブ ========== */}
         <div className="reveal" style={{ marginBottom: '64px' }}>
-          <h2
-            className="heading-lg"
-            style={{
-              textAlign: 'center',
-              marginBottom: '32px',
-              color: 'var(--ink-900)',
-            }}
-          >
-            CLAFTとは？
-            <br />
-            <span style={{ color: 'var(--brand)' }}>創って伝えて</span>学ぶ場所
-          </h2>
+          <div className="hp-section-head" style={{ marginBottom: '30px' }}>
+            <SectionTitle variant={1} lineColor="var(--brand)">
+              CLAFTとは？
+              <br />
+              <span style={{ color: 'var(--brand-deep)' }}>創って伝えて</span>学ぶ場所
+            </SectionTitle>
+          </div>
 
-          {/* タブナビゲーション */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '8px',
-              marginBottom: '32px',
-              flexWrap: 'wrap',
-            }}
-          >
+          {/* タブナビゲーション（紙の積み木） */}
+          <div className="ho-tabs" role="tablist">
             {claftTabs.map((tab) => (
               <button
                 key={tab.letter}
-                onClick={() => setActiveTab(tab.letter as 'C' | 'L' | 'A' | 'F' | 'T')}
-                style={{
-                  width: 'clamp(56px, 13vw, 68px)',
-                  height: 'clamp(56px, 13vw, 68px)',
-                  borderRadius: 'var(--radius)',
-                  background: activeTab === tab.letter ? tab.bgColor : '#fff',
-                  border: `2px solid ${activeTab === tab.letter ? tab.color : 'rgba(0, 0, 0, 0.08)'}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 'clamp(1.5rem, 5vw, 2rem)',
-                  fontWeight: 900,
-                  color: activeTab === tab.letter ? tab.color : 'var(--ink-400)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: activeTab === tab.letter ? 'var(--shadow)' : 'none',
-                }}
+                role="tab"
+                aria-selected={activeTab === tab.letter}
+                onClick={() => setActiveTab(tab.letter)}
+                className={`ho-tab ${activeTab === tab.letter ? 'ho-tab--active' : ''}`}
+                style={{ '--accent-rgb': tab.accentRgb } as CSSProperties}
               >
                 {tab.letter}
               </button>
@@ -1404,32 +718,14 @@ function PhilosophySection() {
           </div>
 
           {/* タブコンテンツ */}
-          <div
-            style={{
-              background: '#fff',
-              borderRadius: 'var(--radius-lg)',
-              padding: 'clamp(28px, 7vw, 40px)',
-              boxShadow: 'var(--shadow)',
-              minHeight: '300px',
-            }}
-          >
+          <div className="craft-paper" style={{ padding: '32px 26px', minHeight: '300px' }}>
             {/* C: Creative & Communication */}
             {activeTab === 'C' && (
-              <div
-                style={{
-                  animation: 'fadeIn 0.4s ease',
-                }}
-              >
-                <h3 className="heading-md" style={{ marginBottom: '24px', textAlign: 'center' }}>
+              <div style={{ animation: 'fadeIn 0.4s ease' }}>
+                <h3 className="cd-card-title" style={{ textAlign: 'center', marginBottom: '24px' }}>
                   【CL】好奇心の循環をつくる
                 </h3>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginBottom: '24px',
-                  }}
-                >
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
                   <svg width="240" height="180" viewBox="0 0 240 180">
                     <defs>
                       <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -1473,7 +769,7 @@ function PhilosophySection() {
                     </text>
                   </svg>
                 </div>
-                <p className="body-base" style={{ textAlign: 'center' }}>
+                <p style={{ margin: 0, textAlign: 'center', fontSize: 'var(--text-base)', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
                   自分の興味を形にする（<strong style={{ color: '#34c6be' }}>Creative</strong>）なかで、
                   それを人に発表し共有する（<strong style={{ color: '#58c3a2' }}>Communication</strong>）。
                   <br />
@@ -1485,70 +781,63 @@ function PhilosophySection() {
             {/* L: Learning */}
             {activeTab === 'L' && (
               <div style={{ animation: 'fadeIn 0.4s ease' }}>
-                <h3 className="heading-md" style={{ marginBottom: '24px', textAlign: 'center' }}>
+                <h3 className="cd-card-title" style={{ textAlign: 'center', marginBottom: '24px' }}>
                   【L】後悔（Regret）を学び（Learning）へ
                 </h3>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px',
-                    marginBottom: '24px',
-                  }}
-                >
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div
+                      className="craft-paper"
                       style={{
                         width: '60px',
                         height: '60px',
-                        borderRadius: '14px',
-                        background: 'rgba(0, 0, 0, 0.06)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        display: 'grid',
+                        placeItems: 'center',
                         fontSize: '1.8rem',
                         fontWeight: 900,
-                        color: 'var(--ink-400)',
+                        color: 'var(--ink-500)',
                         textDecoration: 'line-through',
+                        transform: 'rotate(-3deg)',
                       }}
                     >
                       R
                     </div>
-                    <p style={{ fontSize: '0.7rem', color: 'var(--ink-400)', marginTop: '6px' }}>Regret</p>
+                    <p style={{ fontSize: '0.7rem', color: 'var(--ink-500)', marginTop: '6px' }}>Regret</p>
                   </div>
-                  <svg width="36" height="20" viewBox="0 0 36 20">
-                    <path
-                      d="M4 10 L28 10 M22 5 L28 10 L22 15"
-                      stroke="var(--brand)"
-                      strokeWidth="2.5"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <span style={{ color: 'var(--brand)' }} aria-hidden="true">
+                    <svg width="36" height="20" viewBox="0 0 36 20">
+                      <path
+                        d="M4 10 C 12 9, 20 11, 28 10 M22 5 C 24.2 6.8, 26.2 8.5, 28 10 C 26 11.8, 24 13.5, 22 15"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div
+                      className="craft-paper"
                       style={{
                         width: '60px',
                         height: '60px',
-                        borderRadius: '14px',
-                        background: 'linear-gradient(135deg, rgba(88, 195, 162, 0.25), rgba(52, 198, 190, 0.35))',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        display: 'grid',
+                        placeItems: 'center',
                         fontSize: '1.8rem',
                         fontWeight: 900,
-                        color: '#34c6be',
-                        boxShadow: '0 6px 16px rgba(52, 198, 190, 0.3)',
+                        color: 'var(--brand-deep)',
+                        backgroundColor: 'rgb(var(--brand-rgb) / 0.12)',
+                        transform: 'rotate(2deg)',
+                        boxShadow: 'var(--shadow-paper-lift)',
                       }}
                     >
                       L
                     </div>
-                    <p style={{ fontSize: '0.7rem', color: '#34c6be', marginTop: '6px', fontWeight: 700 }}>Learning</p>
+                    <p style={{ fontSize: '0.7rem', color: 'var(--brand-deep)', marginTop: '6px', fontWeight: 700 }}>Learning</p>
                   </div>
                 </div>
-                <p className="body-base" style={{ textAlign: 'center' }}>
+                <p style={{ margin: 0, textAlign: 'center', fontSize: 'var(--text-base)', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
                   人生100年時代、学びと仕事は往復し続けるものです。
                   <br />
                   失敗を
@@ -1562,10 +851,10 @@ function PhilosophySection() {
             {/* A: Active */}
             {activeTab === 'A' && (
               <div style={{ animation: 'fadeIn 0.4s ease' }}>
-                <h3 className="heading-md" style={{ marginBottom: '16px', color: '#f0a629' }}>
+                <h3 className="cd-card-title" style={{ color: 'rgb(224 158 22)' }}>
                   Active：自ら問いを立て、動き出す主体性
                 </h3>
-                <p className="body-base">
+                <p style={{ margin: 0, fontSize: 'var(--text-base)', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
                   正解のない問いに向き合い、自分で考え判断する力。
                   <br />
                   PBLや探究学習を通じて、主体的に動く力が育ちます。
@@ -1576,10 +865,10 @@ function PhilosophySection() {
             {/* F: Flexible */}
             {activeTab === 'F' && (
               <div style={{ animation: 'fadeIn 0.4s ease' }}>
-                <h3 className="heading-md" style={{ marginBottom: '16px', color: '#f06a6a' }}>
+                <h3 className="cd-card-title" style={{ color: 'var(--pink)' }}>
                   Flexible：変化をチャンスとして楽しむ柔軟性
                 </h3>
-                <p className="body-base">
+                <p style={{ margin: 0, fontSize: 'var(--text-base)', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
                   多様な価値観に触れ、固定観念にとらわれない思考力。
                   <br />
                   変化を恐れず、むしろ楽しめる柔軟性が身につきます。
@@ -1590,10 +879,10 @@ function PhilosophySection() {
             {/* T: Trial */}
             {activeTab === 'T' && (
               <div style={{ animation: 'fadeIn 0.4s ease' }}>
-                <h3 className="heading-md" style={{ marginBottom: '16px', color: '#34c6be' }}>
+                <h3 className="cd-card-title" style={{ color: 'var(--brand-deep)' }}>
                   Trial：失敗を恐れず、何度でも試す精神
                 </h3>
-                <p className="body-base">
+                <p style={{ margin: 0, fontSize: 'var(--text-base)', lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
                   失敗は成功への道標。トライ＆エラーを繰り返すことで、
                   <br />
                   本当に大切なことを見つけられる強さが育ちます。
@@ -1605,142 +894,70 @@ function PhilosophySection() {
 
         {/* ========== Part 2: AFTアコーディオン ========== */}
         <div className="reveal">
-          <h2
-            className="heading-lg"
-            style={{
-              textAlign: 'center',
-              marginBottom: '24px',
-              color: 'var(--ink-900)',
-            }}
-          >
-            CLAFTによって、
-            <br />
-            どう<span style={{ color: 'var(--brand)' }}>変わる</span>か（AFT）
-          </h2>
-          <p
-            className="body-base"
-            style={{
-              textAlign: 'center',
-              marginBottom: '40px',
-            }}
-          >
+          <div className="hp-section-head" style={{ marginBottom: '22px' }}>
+            <SectionTitle variant={2} lineColor="var(--brand)">
+              CLAFTによって、
+              <br />
+              どう<span style={{ color: 'var(--brand-deep)' }}>変わる</span>か（AFT）
+            </SectionTitle>
+          </div>
+
+          <p className="cd-hero-lead" style={{ marginBottom: '36px' }}>
             主体的な行動力と、しなやかな適応力。
             <br />
             それが<strong className="emphasis">「希望」</strong>の正体です。
           </p>
 
           {/* アコーディオン */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {aftItems.map((item, index) => (
-              <article
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            {aftItems.map((item, i) => (
+              <details
                 key={item.id}
-                style={{
-                  background: '#fff',
-                  borderRadius: 'var(--radius-lg)',
-                  boxShadow: 'var(--shadow)',
-                  border: `2px solid ${item.borderColor}`,
-                  overflow: 'hidden',
-                }}
+                className="cd-acc craft-paper craft-tilt"
+                style={
+                  {
+                    '--accent-rgb': item.accentRgb,
+                    '--rot': `${i % 2 === 0 ? -0.4 : 0.4}deg`,
+                  } as CSSProperties
+                }
               >
-                {/* ヘッダー（常に表示） */}
-                <button
-                  onClick={() => toggleAccordion(item.id)}
-                  style={{
-                    width: '100%',
-                    padding: 'clamp(20px, 5vw, 28px)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    background: openAccordion === item.id ? item.bgColor : 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'background 0.3s ease',
-                  }}
-                >
-                  {/* アイコン */}
-                  <div
-                    style={{
-                      minWidth: '48px',
-                      height: '48px',
-                      borderRadius: '12px',
-                      background: item.bgColor,
-                      border: `2px solid ${item.borderColor}`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {item.icon}
-                  </div>
-
-                  {/* タイトル */}
-                  <div style={{ flex: 1, textAlign: 'left' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                <summary>
+                  <span className="cd-acc-icon" aria-hidden="true">
+                    <DoodleIcon name={item.icon} size={28} />
+                  </span>
+                  <span className="cd-acc-title">
+                    <strong>
                       <span
                         style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '28px',
-                          height: '28px',
-                          borderRadius: '8px',
-                          background: item.color,
-                          fontSize: '0.9rem',
-                          fontWeight: 900,
+                          display: 'inline-grid',
+                          placeItems: 'center',
+                          width: '26px',
+                          height: '26px',
+                          marginRight: '8px',
+                          background: 'rgb(var(--accent-rgb))',
                           color: '#fff',
+                          fontSize: '0.85rem',
+                          fontWeight: 900,
+                          border: '2px solid #fff',
+                          borderRadius: '46% 54% 48% 52% / 52% 48% 54% 46%',
+                          boxShadow: '0 1px 4px rgba(92, 77, 42, 0.25)',
+                          transform: 'rotate(-4deg)',
+                          verticalAlign: 'middle',
                         }}
                       >
                         {item.letter}
                       </span>
-                    </div>
-                    <h3 className="heading-sm" style={{ margin: 0 }}>
                       {item.title}
-                    </h3>
-                  </div>
-
-                  {/* 開閉アイコン */}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    style={{
-                      transform: openAccordion === item.id ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <path
-                      d="M6 9 L12 15 L18 9"
-                      stroke={item.color}
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                {/* コンテンツ（展開時のみ表示） */}
-                <div
-                  style={{
-                    maxHeight: openAccordion === item.id ? '500px' : '0',
-                    opacity: openAccordion === item.id ? 1 : 0,
-                    overflow: 'hidden',
-                    transition: 'max-height 0.4s ease, opacity 0.3s ease',
-                  }}
-                >
-                  <div
-                    style={{
-                      padding: '0 clamp(20px, 5vw, 28px) clamp(24px, 6vw, 32px)',
-                      paddingLeft: 'clamp(84px, 18vw, 92px)',
-                    }}
-                  >
-                    <p className="body-base" style={{ margin: 0 }}>
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </article>
+                    </strong>
+                  </span>
+                  <span className="cd-acc-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                      <polyline points="6,9 12,15 18,9" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </summary>
+                <p className="cd-acc-body">{item.description}</p>
+              </details>
             ))}
           </div>
         </div>
@@ -1754,71 +971,34 @@ function PhilosophySection() {
 // =========================================
 function CTASection() {
   return (
-    <section
-      style={{
-        width: '100%',
-        padding: 'clamp(80px, 12vw, 120px) 20px clamp(100px, 15vw, 140px)',
-        background: `
-          radial-gradient(ellipse 1000px 600px at 50% 80%, rgba(52, 198, 190, 0.1), transparent 60%),
-          radial-gradient(ellipse 600px 400px at 20% 20%, rgba(255, 214, 107, 0.1), transparent 50%),
-          linear-gradient(180deg, #fff 0%, #FFF6E9 50%, rgba(52, 198, 190, 0.05) 100%)
-        `,
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* 装飾 */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '-50px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '800px',
-          height: '400px',
-          background: 'radial-gradient(ellipse, rgba(52, 198, 190, 0.08), transparent 70%)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ width: 'min(480px, 92%)', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-        {/* メインメッセージ */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h2
-            style={{
-              fontSize: 'clamp(1.5rem, 5vw, 2rem)',
-              fontWeight: 900,
-              color: 'var(--ink-900)',
-              lineHeight: 1.4,
-              marginBottom: '28px',
-            }}
-          >
+    <section className="hp-section" style={{ paddingBottom: '90px' }}>
+      <div className="container">
+        <div className="hp-section-head" style={{ marginBottom: '30px' }}>
+          <SectionTitle variant={3} lineColor="var(--brand)">
             予測不可能な未来を、
             <br />
-            <span style={{ color: '#34c6be' }}>自分の手</span>で創っていく
-          </h2>
+            <span style={{ color: 'var(--brand-deep)' }}>自分の手</span>で創っていく
+          </SectionTitle>
+        </div>
 
-          <div
-            style={{
-              fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
-              lineHeight: 2,
-              color: 'var(--ink-700)',
-            }}
-          >
-            <p style={{ marginBottom: '16px' }}>
-              「未来がどうなるか分からない」ことは、
-              <br />
-              不安なことではありません。
-            </p>
-            <p style={{ marginBottom: '16px' }}>
-              自分で考え、仲間と対話し、何度もカタチにしてみる。
-              <br />
-              その過程で得られる手応えこそが、
-              <br />
-              今後のキャリアを支える一番の根っこになります。
-            </p>
-          </div>
+        <div className="reveal" style={{ textAlign: 'center', fontSize: 'var(--text-base)', lineHeight: 2, color: 'var(--ink-700)' }}>
+          <p style={{ marginBottom: '16px' }}>
+            「未来がどうなるか分からない」ことは、
+            <br />
+            不安なことではありません。
+          </p>
+          <p style={{ marginBottom: '16px' }}>
+            自分で考え、仲間と対話し、何度もカタチにしてみる。
+            <br />
+            その過程で得られる手応えこそが、
+            <br />
+            今後のキャリアを支える一番の根っこになります。
+          </p>
+        </div>
+
+        {/* 手描きの締め飾り */}
+        <div className="reveal" style={{ textAlign: 'center', marginTop: '24px' }}>
+          <Underline variant={1} className="craft-draw" style={{ width: 'min(260px, 70%)', color: 'var(--cream)' }} />
         </div>
       </div>
     </section>
@@ -1826,4 +1006,3 @@ function CTASection() {
 }
 
 export default ClaftHopeClient;
-

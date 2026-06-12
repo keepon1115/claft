@@ -24,7 +24,14 @@
       "PowerShell(node --version)",
       "PowerShell(node -e \"console.log\\('Node OK'\\)\")",
       "Bash(node generate-nav-proposal.js)",
-      "PowerShell(Start-Process \"C:\\\\dev\\\\claft-HP\\\\design-proposal\\\\nav-proposal.svg\")"
+      "PowerShell(Start-Process \"C:\\\\dev\\\\claft-HP\\\\design-proposal\\\\nav-proposal.svg\")",
+      "PowerShell(npm run *)",
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(npx next lint --file components/Hero.tsx --file components/ProgramsScrapbook.tsx --file components/Philosophy.tsx --file components/EntranceDoors.tsx --file components/FlowApply.tsx --file components/FAQ.tsx --file components/Students.tsx --file components/SiteGrid.tsx --file \"app/\\(site\\)/page.tsx\" --file components/craft/HandDrawn.tsx --file components/craft/DoodleIcon.tsx --file components/craft/SectionTitle.tsx)",
+      "PowerShell(python \"C:\\\\Users\\\\skawa\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\claft-shots.py\")",
+      "PowerShell($cands = @\\('py', 'python3', 'python.exe'\\); foreach \\($c in $cands\\) { try { $v = & $c --version 2>$null; if \\($v\\) { Write-Output \"$c => $v\" } } catch {} }; try { $n = & node --version; Write-Output \"node => $n\" } catch {}; if \\(Test-Path node_modules\\\\playwright\\) { Write-Output \"playwright\\(node\\) installed\" } else { Write-Output \"no node playwright in project\" })",
+      "PowerShell(New-Item *)",
+      "PowerShell(Get-ChildItem *)"
     ],
     "additionalDirectories": [
       "c:\\dev\\claft-HP\\app\\(site)\\yononaka"

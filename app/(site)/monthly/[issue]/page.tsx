@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!issue) return {};
   return {
     title: `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume} | CLAFT`,
-    description: issue.coverSubtitle,
+    description: issue.coverSubtitle ?? `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume}`,
   };
 }
 
@@ -54,7 +54,7 @@ export default function IssuePage({ params }: Props) {
 
       {/* ===== 目次 ===== */}
       <Section className="scroll-animate" style={{ paddingTop: '4px', paddingBottom: '4px' }}>
-        <JournalToc features={issue.features} />
+        <JournalToc features={issue.features} featureColorOverrides={issue.featureColors} />
       </Section>
 
       {/* ===== 区切り ===== */}
@@ -66,9 +66,9 @@ export default function IssuePage({ params }: Props) {
       </div>
 
       {/* ===== 各特集 ===== */}
-      {issue.features.map((feature, i) => (
+      {issue.features.map((feature) => (
         <Section key={feature.id} style={{ paddingTop: '4px', paddingBottom: '4px' }}>
-          <FeatureSection feature={feature} theme={theme} index={i} />
+          <FeatureSection feature={feature} theme={theme} accentOverrides={issue.featureColors} />
         </Section>
       ))}
 
@@ -89,10 +89,10 @@ export default function IssuePage({ params }: Props) {
               top: '-10px',
               left: '20px',
               padding: '3px 16px',
-              background: 'rgba(52,198,190,0.2)',
+              background: `${theme.accent}33`,
               fontSize: '11px',
               fontWeight: 700,
-              color: '#2a9d96',
+              color: theme.accent,
               borderRadius: '3px',
               transform: 'rotate(-1.5deg)',
             }}
@@ -119,13 +119,13 @@ export default function IssuePage({ params }: Props) {
               alignItems: 'center',
               gap: '6px',
               padding: '12px 24px',
-              background: 'rgba(52,198,190,0.1)',
-              color: '#2a9d96',
+              background: `${theme.accent}1a`,
+              color: theme.accent,
               borderRadius: '50px',
               fontWeight: 700,
               fontSize: '14px',
               textDecoration: 'none',
-              border: '1.5px solid rgba(52,198,190,0.3)',
+              border: `1.5px solid ${theme.accent}4d`,
             }}
           >
             ← バックナンバー一覧

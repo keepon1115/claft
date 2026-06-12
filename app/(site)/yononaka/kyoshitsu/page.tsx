@@ -1359,7 +1359,7 @@ export default function YononakaKyoshitsuPage() {
           </p>
 
           <a
-            href="/contact"
+            href="/contact?type=owner#contact-form"
             className="cta-btn"
             style={{
               display: 'block',

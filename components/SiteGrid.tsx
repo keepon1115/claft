@@ -38,33 +38,29 @@ export function SiteGrid({ children }: { children: React.ReactNode }){
         <Header />
       </div>
 
-      {/* Main Grid Layout (1280px以上で適用) */}
-      <div className="site-grid xl:grid xl:grid-cols-[300px_1fr_360px] xl:gap-[18px] xl:w-[min(1280px,96%)] xl:mx-auto xl:py-4">
+      {/* Main Grid Layout (1280px以上で適用。スタイルは globals.css が単一ソース) */}
+      <div className="site-grid">
 
         {/* Left Sidebar (PC Navigation) */}
-        <aside className="site-left hidden xl:block sticky top-4 h-[calc(100dvh-32px)] bg-white p-[10px] rounded-[14px]">
-          <div className="site-left-scroll h-full overflow-auto">
+        <aside className="site-left">
+          <div className="site-left-scroll">
             <Nav />
           </div>
         </aside>
 
         {/* Main Content */}
-        <div className="site-main w-full min-w-0">
+        <div className="site-main">
           {children}
         </div>
 
-        {/* Right Sidebar (Icons)
-            justify-center を削除しました。これでCSS側の flex-start (上揃え) が適用されます。
-        */}
-        <aside className="site-right account-icons hidden xl:flex sticky top-4 h-[calc(100dvh-32px)] bg-white rounded-[14px] items-start pt-3 px-3 w-[360px]">
+        {/* Right Sidebar (Icons) */}
+        <aside className="site-right account-icons">
           <RightRail />
         </aside>
       </div>
 
-      {/* Mobile Footer */}
-      <div className="xl:hidden">
-        <Footer />
-      </div>
+      {/* Footer（モバイル・PC共通。机の端のクラフト紙帯） */}
+      <Footer />
 
       {/* FAB (Mobile Only) */}
       <div className="fab xl:hidden fixed right-4 bottom-4 z-50">

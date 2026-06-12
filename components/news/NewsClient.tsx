@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function NewsClient({ events, fetchError }: Props) {
-  const [filter, setFilter] = useState<SourceFilter>('claft');
+  const [filter, setFilter] = useState<SourceFilter>('keepon');
   const [view, setView] = useState<ViewMode>('list');
 
   const filtered =
@@ -34,17 +34,13 @@ export default function NewsClient({ events, fetchError }: Props) {
           font-size: 13px;
           font-weight: 700;
         }
-        .news-tab[aria-selected="true"] {
-          background: #34c6be;
-          color: #fff;
-        }
         .news-tab[aria-selected="false"] {
           background: rgba(0,0,0,0.05);
           color: #4b5563;
         }
         .news-tab[aria-selected="false"]:hover {
-          background: rgba(52,198,190,0.12);
-          color: #2a9d96;
+          background: rgba(0,0,0,0.09);
+          color: #1f2937;
         }
         .view-toggle-btn {
           transition: background 0.18s ease, color 0.18s ease;
@@ -134,16 +130,17 @@ export default function NewsClient({ events, fetchError }: Props) {
         >
           {(
             [
-              { val: 'keepon', label: 'キープオン' },
-              { val: 'claft', label: 'CLAFT' },
+              { val: 'keepon', label: 'キープオン', activeColor: '#f06a6a' },
+              { val: 'claft', label: 'CLAFT', activeColor: '#34c6be' },
             ] as const
-          ).map(({ val, label }) => (
+          ).map(({ val, label, activeColor }) => (
             <button
               key={val}
               role="tab"
               aria-selected={filter === val}
               className="news-tab"
               onClick={() => setFilter(val)}
+              style={filter === val ? { background: activeColor, color: '#fff' } : undefined}
             >
               {label}
             </button>

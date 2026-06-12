@@ -1,28 +1,20 @@
-'use client';
+import { Underline } from '@/components/craft/HandDrawn';
 
 export function HeroSection() {
   return (
-    <section className="relative py-16 px-4 text-center reveal">
+    <section className="cd-hero reveal" style={{ padding: '52px 16px 36px' }}>
       {/* キャッチコピー */}
-      <h1 className="heading-xl mb-6" style={{ lineHeight: 'var(--leading-tight)' }}>
+      <h1 className="cd-hero-title craft-misprint">
         <span className="block">メンバーの</span>
         <span className="block">ストーリー</span>
       </h1>
-      
+      <Underline variant={1} className="cd-hero-line craft-draw craft-draw--auto" style={{ color: 'var(--brand)' }} />
+
       {/* サブテキスト */}
-      <p className="body-base text-[var(--ink-600)]" style={{ lineHeight: 'var(--leading-loose)' }}>
+      <p className="cd-hero-lead">
         CLAFTで学ぶスクール生が、<br />
         どのように成長しているのかをご紹介します。
       </p>
-      
-      {/* 装飾的なグラデーション背景 */}
-      <div 
-        className="absolute inset-0 -z-10 opacity-30"
-        style={{
-          background: 'radial-gradient(circle at 30% 20%, rgba(52, 198, 190, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255, 214, 107, 0.15) 0%, transparent 50%)'
-        }}
-        aria-hidden="true"
-      />
     </section>
   );
 }

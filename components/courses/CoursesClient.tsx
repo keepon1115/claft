@@ -1,317 +1,143 @@
-'use client';
-
 import { MobileContainer, Section } from '@/components/MobileContainer';
-import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
 import { Students } from '@/components/Students';
+import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
+import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 
-// コースカードコンポーネント
+// コースカードコンポーネント（紙片＋テープ＋値札）
 const CourseCard = ({
   title,
   description,
   target,
   price,
-  color,
+  priceLabel = '月額料金',
+  priceNote,
+  accentRgb,
+  tapeClass = '',
   icon,
   link,
+  external = false,
   ageGroup,
-  delay = 0,
-  isVisible = false
+  rotate = '0deg',
+  delay = 0
 }: {
   title: string;
   description: string;
   target: string;
   price: string;
-  color: string;
-  icon: string;
+  priceLabel?: string;
+  priceNote?: string;
+  accentRgb: string;
+  tapeClass?: string;
+  icon: DoodleIconName;
   link: string;
+  external?: boolean;
   ageGroup: string;
+  rotate?: string;
   delay?: number;
-  isVisible?: boolean;
 }) => (
   <div
-    style={{
-      opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-      transition: `all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms`
-    }}
+    className="cs-card craft-paper craft-tilt craft-lift reveal"
+    style={
+      {
+        '--rot': rotate,
+        '--accent-rgb': accentRgb,
+        '--tape-rgb': accentRgb,
+        transitionDelay: `${delay}ms`
+      } as CSSProperties
+    }
   >
-    <div
-      style={{
-        background: 'var(--card)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'clamp(24px, 5vw, 32px)',
-        boxShadow: 'var(--shadow)',
-        border: `3px solid ${color}`,
-        position: 'relative',
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        cursor: 'pointer'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-8px)';
-        e.currentTarget.style.boxShadow = `0 20px 40px rgba(31, 41, 55, 0.12)`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = 'var(--shadow)';
-      }}
-    >
-      {/* 対象年齢層バッジ */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-12px',
-          left: '20px',
-          background: color,
-          color: 'white',
-          padding: '6px 16px',
-          borderRadius: '20px',
-          fontSize: 'clamp(12px, 2.5vw, 14px)',
-          fontWeight: 'var(--font-bold)',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
-        }}
-      >
-        {ageGroup}
+    <span className={`craft-tape ${tapeClass}`} aria-hidden="true" />
+
+    {/* 対象年齢層バッジ */}
+    <div className="cs-card-badge">{ageGroup}</div>
+
+    {/* アイコン */}
+    <span className="cs-card-icon" aria-hidden="true">
+      <DoodleIcon name={icon} size={36} />
+    </span>
+
+    {/* タイトル */}
+    <h3 className="cs-card-title">{title}</h3>
+
+    {/* 説明 */}
+    <p className="cs-card-desc">{description}</p>
+
+    {/* 対象・料金（値札） */}
+    <div className="cs-card-info">
+      <div className="cs-card-info-row">
+        <span className="cs-card-info-label">対象</span>
+        <p className="cs-card-info-value">{target}</p>
       </div>
-
-      {/* アイコン */}
-      <div
-        style={{
-          fontSize: 'clamp(48px, 10vw, 64px)',
-          marginTop: '20px',
-          marginBottom: '16px'
-        }}
-      >
-        {icon}
+      <div className="cs-card-info-row">
+        <span className="cs-card-info-label">{priceLabel}</span>
+        <p className="cs-card-price">{price}</p>
+        {priceNote && <p className="cs-card-note">{priceNote}</p>}
       </div>
-
-      {/* タイトル */}
-      <h3 className="heading-md" style={{ marginBottom: '12px', color: color }}>
-        {title}
-      </h3>
-
-      {/* 説明 */}
-      <p className="body-base" style={{ marginBottom: '24px', lineHeight: '1.7' }}>
-        {description}
-      </p>
-
-      {/* 対象・料金 */}
-      <div
-        style={{
-          background: 'var(--bg)',
-          borderRadius: '12px',
-          padding: '16px',
-          marginBottom: '20px'
-        }}
-      >
-        <div style={{ marginBottom: '12px' }}>
-          <span className="body-sm" style={{ color: 'var(--ink-600)' }}>
-            対象
-          </span>
-          <p className="body-base emphasis" style={{ marginTop: '4px' }}>
-            {target}
-          </p>
-        </div>
-        <div>
-          <span className="body-sm" style={{ color: 'var(--ink-600)' }}>
-            月額料金
-          </span>
-          <p
-            className="heading-md"
-            style={{ marginTop: '4px', color: color, fontSize: 'clamp(20px, 4vw, 24px)' }}
-          >
-            {price}
-          </p>
-        </div>
-      </div>
-
-      {/* CTAボタン */}
-      <Link
-        href={link}
-        className="btn btn-primary"
-        style={{
-          width: '100%',
-          justifyContent: 'center',
-          background: color,
-          fontSize: 'clamp(14px, 3vw, 16px)',
-          padding: 'clamp(12px, 3vw, 16px)',
-          textDecoration: 'none',
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        詳しく見る →
-      </Link>
     </div>
+
+    {/* CTAボタン */}
+    {external ? (
+      <a href={link} target="_blank" rel="noopener" className="craft-sticker cs-card-cta">
+        詳しく見る
+        <ArrowRightDoodle width={22} />
+      </a>
+    ) : (
+      <Link href={link} className="craft-sticker cs-card-cta">
+        詳しく見る
+        <ArrowRightDoodle width={22} />
+      </Link>
+    )}
   </div>
 );
 
+const doodle = (style: Record<string, string | number>) => style as CSSProperties;
+
 export function CoursesClient() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false]);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
-  // カードのアニメーション
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleCards([true, false, false]);
-            setTimeout(() => setVisibleCards([true, true, false]), 200);
-            setTimeout(() => setVisibleCards([true, true, true]), 400);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardsRef.current) {
-      observer.observe(cardsRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <MobileContainer>
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .reveal {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease;
-        }
-        .reveal.in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      `}</style>
-
       {/* ========================================
           Hero Section
           ======================================== */}
       <Section>
-        <div
-          style={{
-            position: 'relative',
-            overflow: 'hidden',
-            paddingTop: '40px',
-            paddingBottom: '40px'
-          }}
-        >
-          {/* 背景グラデーション */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: `
-                radial-gradient(ellipse at 30% 20%, rgba(88, 195, 162, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(240, 106, 106, 0.12) 0%, transparent 50%)
-              `,
-              zIndex: -1
-            }}
-          />
-
-          {/* 浮遊アイコン */}
-          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-            <div
-              style={{
-                position: 'absolute',
-                top: '10%',
-                left: '5%',
-                fontSize: '32px',
-                animation: 'float 3s ease-in-out infinite',
-                opacity: 0.3
-              }}
+        <div className="cs-hero">
+          {/* 浮遊する道具（装飾） */}
+          <div aria-hidden="true">
+            <span
+              className="craft-doodle craft-float"
+              style={doodle({ top: '8%', left: '4%', color: 'var(--green)', opacity: 0.45, '--rot': '-10deg' })}
             >
-              🎮
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                top: '15%',
-                right: '8%',
-                fontSize: '28px',
-                animation: 'float 3.5s ease-in-out 0.5s infinite',
-                opacity: 0.3
-              }}
+              <DoodleIcon name="gamepad" size={34} />
+            </span>
+            <span
+              className="craft-doodle craft-float craft-float--slow"
+              style={doodle({ top: '12%', right: '6%', color: 'var(--pink)', opacity: 0.45, '--rot': '12deg' })}
             >
-              🤖
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '20%',
-                left: '10%',
-                fontSize: '24px',
-                animation: 'float 4s ease-in-out 1s infinite',
-                opacity: 0.3
-              }}
+              <DoodleIcon name="wrench" size={30} />
+            </span>
+            <span
+              className="craft-doodle craft-float"
+              style={doodle({ bottom: '12%', left: '8%', color: 'var(--cream)', opacity: 0.8, '--rot': '-6deg', animationDelay: '1s' })}
             >
-              💡
-            </div>
+              <DoodleIcon name="bulb" size={26} />
+            </span>
           </div>
 
-          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-            {/* キャッチコピー */}
-            <div
-              style={{
-                display: 'inline-block',
-                background: 'linear-gradient(135deg, var(--brand) 0%, var(--green) 100%)',
-                padding: '8px 20px',
-                borderRadius: '20px',
-                marginBottom: '20px',
-                boxShadow: '0 4px 12px rgba(52, 198, 190, 0.25)'
-              }}
-            >
-              <p
-                className="body-lg emphasis"
-                style={{ color: 'white', margin: 0, letterSpacing: '0.05em' }}
-              >
-                コース・料金
-              </p>
-            </div>
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            {/* キャッチコピー（荷札タグ） */}
+            <p className="cs-hero-label craft-label">コース・料金</p>
 
-            <h1 className="heading-xl" style={{ marginBottom: '16px', animation: 'fadeInUp 0.8s ease-out' }}>
+            <h1 className="cs-hero-title craft-misprint">
               未来を創る力を、
               <br />
               遊びから。
             </h1>
+            <Underline variant={2} className="cs-hero-line craft-draw craft-draw--auto" />
 
-            <p
-              className="body-lg"
-              style={{
-                color: 'var(--ink-700)',
-                lineHeight: '1.7',
-                maxWidth: '400px',
-                margin: '0 auto',
-                animation: 'fadeInUp 0.8s ease-out 0.2s',
-                opacity: 0,
-                animationFillMode: 'forwards'
-              }}
-            >
-              興味に合わせて選べるコース
-            </p>
+            <p className="cs-hero-lead">興味に合わせて選べるコース</p>
           </div>
         </div>
       </Section>
@@ -320,19 +146,19 @@ export function CoursesClient() {
           Course Cards
           ======================================== */}
       <Section>
-        <div ref={cardsRef} style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+        <div className="cs-cards">
           {/* カードA：マイクラSDGsコース */}
           <CourseCard
             title="マイクラSDGsコース"
             description="マイクラ×SDGs×プログラミングで、楽しみながら新たな価値を生み出そう！SDGsの目標を深く理解し、身近な問題として捉え、創造的な解決策を考え、実行する力を育みます。"
             target="小学3年生〜"
             price="¥7,700〜"
-            color="var(--green)"
-            icon="🎮"
+            accentRgb="var(--green-rgb)"
+            icon="gamepad"
             link="/minecraft"
             ageGroup="小学生・中学生向け"
+            rotate="-1.2deg"
             delay={0}
-            isVisible={visibleCards[0]}
           />
 
           {/* カードB：ロボットプログラミングコース */}
@@ -341,12 +167,13 @@ export function CoursesClient() {
             description="世界で採用されている、アーテックロボットを使った本格的なプログラミング学習。ブロックで遊びながらかたちを組み立て、プログラミングをして思い通りの動きを表現します。"
             target="小学3年生〜"
             price="¥7,700〜"
-            color="var(--pink)"
-            icon="🤖"
+            accentRgb="var(--pink-rgb)"
+            tapeClass="craft-tape--tr"
+            icon="wrench"
             link="https://www.keeponlearning.fun/online"
             ageGroup="小学生・中学生向け"
-            delay={200}
-            isVisible={visibleCards[1]}
+            rotate="1deg"
+            delay={90}
           />
 
           {/* カードC：キャリアコース */}
@@ -355,12 +182,47 @@ export function CoursesClient() {
             description="クエスト・PBL・ジブンクラフトが含まれます。"
             target="中学生〜"
             price="¥7,700〜"
-            color="var(--cream)"
-            icon="✏️"
+            accentRgb="224 158 22"
+            tapeClass="craft-tape--cream"
+            icon="compass"
             link="/jibun-craft"
             ageGroup="中学生・高校生向け"
-            delay={400}
-            isVisible={visibleCards[2]}
+            rotate="-0.8deg"
+            delay={180}
+          />
+
+          {/* カードD：英会話×STEAMコース */}
+          <CourseCard
+            title="英会話×STEAMコース"
+            description="「作る → 英語で深める → 発表する」を1ヶ月で1サイクル。ロボットプログラミング×1on1英会話で、英語で自分の意見を語れる力を育てる個別カリキュラムです。内容はお子さまの興味に合わせてカスタマイズできます。"
+            target="小学3年生〜"
+            price="¥11,000 + ¥2,750/回"
+            priceNote="ロボット月2回 + 英会話チケット制（推奨 月2回）／教材費 ¥13,000（別途）"
+            accentRgb="var(--brand-rgb)"
+            tapeClass="craft-tape--tl"
+            icon="mic"
+            link="/english-steam"
+            ageGroup="小学生・中学生向け"
+            rotate="0.9deg"
+            delay={270}
+          />
+
+          {/* カードE：英会話（Hello Kiwi英会話） */}
+          <CourseCard
+            title="英会話（Hello Kiwi英会話）"
+            description="ニュージーランド育ちの日本人講師と学ぶ英会話。一人ひとりの目標やレベルに合わせてレッスンをカスタマイズ。通学またはオンラインで受講できます。"
+            target="小学生〜大人"
+            price="¥2,750/回"
+            priceLabel="料金"
+            priceNote="45分・チケット制"
+            accentRgb="var(--green-rgb)"
+            tapeClass="craft-tape--green"
+            icon="talk"
+            link="https://www.hellokiwieikaiwa.com/"
+            external
+            ageGroup="小学生〜大人向け"
+            rotate="-1deg"
+            delay={360}
           />
         </div>
       </Section>
@@ -372,4 +234,3 @@ export function CoursesClient() {
     </MobileContainer>
   );
 }
-

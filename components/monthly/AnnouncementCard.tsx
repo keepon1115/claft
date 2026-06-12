@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Announcement } from '@/lib/monthlyData';
+import ImagePlaceholder from './ImagePlaceholder';
 
 interface Props {
   announcement: Announcement;
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export default function AnnouncementCard({ announcement, accentColor = '#34c6be' }: Props) {
-  const { title, date, audience, body, link } = announcement;
+  const { title, date, audience, body, image, link } = announcement;
 
   return (
     <article
@@ -61,6 +62,18 @@ export default function AnnouncementCard({ announcement, accentColor = '#34c6be'
         <h3 style={{ margin: '0 0 10px', fontSize: '16px', fontWeight: 700, color: 'var(--ink-900)', lineHeight: 1.4 }}>
           {title}
         </h3>
+
+        {/* 見出しと本文の間の画像 */}
+        {image !== undefined && (
+          <div style={{ margin: '0 0 12px' }}>
+            <ImagePlaceholder
+              width={640}
+              height={360}
+              src={image.src}
+              alt={image.alt || title}
+            />
+          </div>
+        )}
 
         <p style={{ margin: '0 0 16px', fontSize: '14px', lineHeight: 1.75, color: 'var(--ink-700)' }}>
           {body}

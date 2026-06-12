@@ -20,7 +20,7 @@ export function StudentDetailContent({ student }: StudentDetailContentProps) {
   useReveal();
 
   return (
-    <MobileContainer className="px-0 bg-[var(--bg)]">
+    <MobileContainer className="px-0">
       {/* 戻るボタン */}
       <BackButton />
 

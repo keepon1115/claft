@@ -1,83 +1,117 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
 import { MobileContainer, Section } from '@/components/MobileContainer';
+import type { CSSProperties } from 'react';
+import { SectionTitle } from '@/components/craft/SectionTitle';
+import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
+import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
+
+export const metadata = {
+  title: 'Yononaka（対話ワーク） | CLAFT',
+  description:
+    'お金や時間など、身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合う学びです。'
+};
 
 // 過去のワークデータ
-const pastWorks = [
+const pastWorks: {
+  id: number;
+  title: string;
+  description: string;
+  accentRgb: string;
+  tapeClass: string;
+  icon: DoodleIconName;
+}[] = [
   {
     id: 1,
     title: 'おかねって何だろう？',
     description: 'お金の価値、使い方、もらい方について考えました。',
-    color: '#ffd66b',
-    emoji: '💰'
+    accentRgb: '224 158 22',
+    tapeClass: 'craft-tape--cream',
+    icon: 'coin'
   },
   {
     id: 2,
     title: '自分のまちについて話そう',
     description: '住んでいる街の魅力や課題を発見しました。',
-    color: '#34c6be',
-    emoji: '🏘️'
+    accentRgb: 'var(--brand-rgb)',
+    tapeClass: '',
+    icon: 'home'
   },
   {
     id: 3,
     title: 'こころとからだの関係',
     description: '心と体のつながりについて探究しました。',
-    color: '#f06a6a',
-    emoji: '💭'
+    accentRgb: 'var(--pink-rgb)',
+    tapeClass: 'craft-tape--pink',
+    icon: 'heart'
   }
 ];
 
 // ワークの流れデータ
-const workflowSteps = [
+const workflowSteps: {
+  num: string;
+  title: string;
+  description: string;
+  examples: string;
+  accentRgb: string;
+  icon: DoodleIconName;
+}[] = [
   {
     num: '1',
     title: '身近なテーマ',
     description: 'よのなかにある身近なモノ・コトを扱います。',
     examples: '「おかねって何だろう」「自分のまちについて話そう」「こころとからだの関係を考えよう」',
-    color: '#ffd66b',
-    icon: '🎯'
+    accentRgb: '224 158 22',
+    icon: 'flag'
   },
   {
     num: '2',
     title: '正解がひとつでないお題',
     description: 'テーマごとに3〜4つのお題があります。まずは一人で考える時間をとります。',
     examples: '「お金持ちってどんなイメージ？」「つい行ってしまう場所はどこ？」「緊張を和らげるには？」',
-    color: '#34c6be',
-    icon: '🤔'
+    accentRgb: 'var(--brand-rgb)',
+    icon: 'bulb'
   },
   {
     num: '3',
     title: '意見共有（少人数グループ）',
-    description: '少人数のグループで順番に話します。各回約20名参加しますが、少数のグループで1人1人順番に発言できるので安心です。',
+    description:
+      '少人数のグループで順番に話します。各回約20名参加しますが、少数のグループで1人1人順番に発言できるので安心です。',
     examples: '',
-    color: '#9b87f5',
-    icon: '💬'
+    accentRgb: 'var(--violet-rgb)',
+    icon: 'talk'
   }
 ];
 
 // 育つことデータ
-const growthItems = [
+const growthItems: {
+  id: number;
+  title: string;
+  content: string;
+  icon: DoodleIconName;
+  accentRgb: string;
+}[] = [
   {
     id: 1,
     title: '何事においても立ち止まって考える習慣が身につく！',
-    content: '正解が一つではない問いに向き合い、自分なりの答えを導き出す経験を通じて、「考える力」を養います。また、他者の意見に触れることで「自分ならどう考えるか」を繰り返し、時には「本当にそうなのか？」と問い直すことで、当たり前や常識に立ち止まって、多様な視点から深く考える力が身につきます。',
-    icon: '🧠',
-    color: '#ffd66b'
+    content:
+      '正解が一つではない問いに向き合い、自分なりの答えを導き出す経験を通じて、「考える力」を養います。また、他者の意見に触れることで「自分ならどう考えるか」を繰り返し、時には「本当にそうなのか？」と問い直すことで、当たり前や常識に立ち止まって、多様な視点から深く考える力が身につきます。',
+    icon: 'bulb',
+    accentRgb: '224 158 22'
   },
   {
     id: 2,
     title: 'コミュニケーションへの不安や恐怖がなくなる！',
-    content: '「人を傷つけないことであれば何を言ってもOK」というルールで、心理的安全性を重視しています。「わからないこと」や「失敗すること」を恐れずに意見を交わせる体験を通じて、話すことへの自信が身につきます。そのうえで、わかりやすく話す力、表現する力、他者の考えを聴く力などが養われるのだと思います。',
-    icon: '💪',
-    color: '#34c6be'
+    content:
+      '「人を傷つけないことであれば何を言ってもOK」というルールで、心理的安全性を重視しています。「わからないこと」や「失敗すること」を恐れずに意見を交わせる体験を通じて、話すことへの自信が身につきます。そのうえで、わかりやすく話す力、表現する力、他者の考えを聴く力などが養われるのだと思います。',
+    icon: 'bolt',
+    accentRgb: 'var(--brand-rgb)'
   },
   {
     id: 3,
     title: '自己理解が深まり、やりたいことが湧いてくる！',
-    content: '会話をしながら自分の意見を見直すことで、自分自身の価値観や考え方の癖に気づくことができます。さまざまなテーマについて話し合う中で、自分の興味や得意なことに気づいたり、また、これから挑戦したいことや探究したいことが心の底から自然と湧いてきます。',
-    icon: '✨',
-    color: '#9b87f5'
+    content:
+      '会話をしながら自分の意見を見直すことで、自分自身の価値観や考え方の癖に気づくことができます。さまざまなテーマについて話し合う中で、自分の興味や得意なことに気づいたり、また、これから挑戦したいことや探究したいことが心の底から自然と湧いてきます。',
+    icon: 'sparkle',
+    accentRgb: 'var(--violet-rgb)'
   }
 ];
 
@@ -101,25 +135,39 @@ const voices = [
 ];
 
 // 関連コンテンツデータ
-const relatedContents = [
+const relatedContents: {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  buttonText: string;
+  buttonLink: string;
+  accentRgb: string;
+  tapeClass: string;
+  enabled: boolean;
+}[] = [
   {
     id: 1,
     title: 'Yononaka Story（インタビュー企画）',
-    description: 'ゲストのこれまでのキャリアストーリーや、現在の活動、その始まりのきっかけ、そしてこれからのビジョンについて深く伺っていくインタビュー。一人ひとり異なるキャリアの軌跡を知ることで、キャリアを見つめ直すヒントや新しい視点を得られるきっかけになれば幸いです。',
+    description:
+      'ゲストのこれまでのキャリアストーリーや、現在の活動、その始まりのきっかけ、そしてこれからのビジョンについて深く伺っていくインタビュー。一人ひとり異なるキャリアの軌跡を知ることで、キャリアを見つめ直すヒントや新しい視点を得られるきっかけになれば幸いです。',
     image: '/assets/yononaka/story.jpg',
     buttonText: 'YouTubeで見る',
     buttonLink: 'https://www.youtube.com/playlist?list=PLg8PlJHz4ogs0wfyxguL7TCkwg_3GGeEz',
-    color: '#f06a6a',
+    accentRgb: 'var(--pink-rgb)',
+    tapeClass: 'craft-tape--pink',
     enabled: true
   },
   {
     id: 2,
     title: 'Yononaka レディオ（ポッドキャスト）',
-    description: '何かのために話すというより、ただおしゃべりを楽しむ先にぽろりと生まれるものを大切にしたい──そんなゆるい番組です。カチッと言えば「創造的対話」。会話の波に乗ったり降りたりしながら、これまでの経験をもとに意見を共有したり、価値観をそっと手放したりしつつ、新しい見方・考え方を試しています。ここで芽生えたアイデアから、いつかモノやサービスが生まれたらいいなぁ──そんな願いも込めた"実験室"です。よろしければ、本編をのぞいてみてください。',
+    description:
+      '何かのために話すというより、ただおしゃべりを楽しむ先にぽろりと生まれるものを大切にしたい──そんなゆるい番組です。カチッと言えば「創造的対話」。会話の波に乗ったり降りたりしながら、これまでの経験をもとに意見を共有したり、価値観をそっと手放したりしつつ、新しい見方・考え方を試しています。ここで芽生えたアイデアから、いつかモノやサービスが生まれたらいいなぁ──そんな願いも込めた"実験室"です。よろしければ、本編をのぞいてみてください。',
     image: '/assets/yononaka/radio.jpg',
     buttonText: 'Podcastで聴く',
     buttonLink: 'https://podcasts.apple.com/jp/podcast/yononaka-radio/id1766887467',
-    color: '#34c6be',
+    accentRgb: 'var(--brand-rgb)',
+    tapeClass: '',
     enabled: true
   },
   {
@@ -129,438 +177,122 @@ const relatedContents = [
     image: '/assets/yononaka/cardgame.jpg',
     buttonText: 'Coming Soon',
     buttonLink: '',
-    color: '#9b87f5',
+    accentRgb: 'var(--violet-rgb)',
+    tapeClass: 'craft-tape--violet',
     enabled: false
   }
 ];
 
-// アコーディオンコンポーネント
-function AccordionItem({ item, isOpen, onToggle }: { 
-  item: typeof growthItems[0], 
-  isOpen: boolean, 
-  onToggle: () => void 
-}) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(contentRef.current.scrollHeight);
-    }
-  }, []);
-
-  return (
-    <div
-      style={{
-        background: '#fff',
-        borderRadius: '20px',
-        overflow: 'hidden',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
-        border: '2px dashed rgba(0, 0, 0, 0.08)',
-        transition: 'all 0.3s ease'
-      }}
-    >
-      {/* ヘッダー部分（常に表示） */}
-      <button
-        onClick={onToggle}
-        style={{
-          width: '100%',
-          padding: '20px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          textAlign: 'left'
-        }}
-      >
-        <span
-          style={{
-            fontSize: '32px',
-            flexShrink: 0
-          }}
-        >
-          {item.icon}
-        </span>
-        <span
-          className="heading-sm"
-          style={{
-            flex: 1,
-            lineHeight: 'var(--leading-snug)'
-          }}
-        >
-          {item.title}
-        </span>
-        <span
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            padding: '8px 16px',
-            borderRadius: '20px',
-            background: isOpen ? item.color : 'rgba(0, 0, 0, 0.05)',
-            color: isOpen ? '#fff' : 'var(--ink-600)',
-            fontSize: '14px',
-            fontWeight: 'var(--font-bold)',
-            transition: 'all 0.3s ease',
-            flexShrink: 0
-          }}
-        >
-          {isOpen ? '閉じる' : '詳細'}
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            style={{
-              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-              transition: 'transform 0.3s ease'
-            }}
-          >
-            <polyline points="6,9 12,15 18,9" />
-          </svg>
-        </span>
-      </button>
-
-      {/* コンテンツ部分（トグル） */}
-      <div
-        style={{
-          height: isOpen ? height : 0,
-          overflow: 'hidden',
-          transition: 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-        }}
-      >
-        <div
-          ref={contentRef}
-          style={{
-            padding: '0 24px 24px 24px',
-            borderTop: '1px dashed rgba(0, 0, 0, 0.1)'
-          }}
-        >
-          <p
-            className="body-base"
-            style={{
-              marginTop: '20px',
-              lineHeight: 'var(--leading-loose)',
-              color: 'var(--ink-700)'
-            }}
-          >
-            {item.content}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+// 3つのルール
+const rules = [
+  { num: '①', text: '静かにしない', accentRgb: 'var(--pink-rgb)', desc: '思ったことはつぶやいてOK' },
+  { num: '②', text: 'すべて信じない', accentRgb: 'var(--brand-rgb)', desc: 'ワークの内容にも疑問を持ってOK' },
+  { num: '③', text: '正解がないから減点はない', accentRgb: '224 158 22', desc: 'どんな意見でも大歓迎！' }
+];
 
 export default function YononakaPage(){
-  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
-
-  // スクロールアニメーション
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll('.scroll-animate');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <MobileContainer>
-      {/* カスタムスタイル */}
-      <style jsx global>{`
-        .scroll-animate {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .scroll-animate.animate-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .horizontal-scroll {
-          display: flex;
-          gap: 20px;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          -webkit-overflow-scrolling: touch;
-          padding: 10px 0 20px 0;
-          margin: 0 -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-        .horizontal-scroll::-webkit-scrollbar {
-          height: 6px;
-        }
-        .horizontal-scroll::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.05);
-          border-radius: 10px;
-        }
-        .horizontal-scroll::-webkit-scrollbar-thumb {
-          background: rgba(52, 198, 190, 0.4);
-          border-radius: 10px;
-        }
-        .horizontal-scroll > * {
-          flex-shrink: 0;
-          scroll-snap-align: start;
-        }
-        .float-animation {
-          animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        .pulse-glow {
-          animation: pulseGlow 2s ease-in-out infinite;
-        }
-        @keyframes pulseGlow {
-          0%, 100% { box-shadow: 0 0 20px rgba(52, 198, 190, 0.2); }
-          50% { box-shadow: 0 0 40px rgba(52, 198, 190, 0.4); }
-        }
-        .wave-text {
-          display: inline-block;
-          animation: wave 2s ease-in-out infinite;
-        }
-        @keyframes wave {
-          0%, 100% { transform: rotate(-2deg); }
-          50% { transform: rotate(2deg); }
-        }
-      `}</style>
-
       {/* ===== 冒頭（ヒーロー）===== */}
-      <Section className="relative overflow-hidden scroll-animate">
-        {/* 背景グラデーション */}
-        <div 
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: `
-              radial-gradient(circle at 20% 30%, rgba(52, 198, 190, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(255, 214, 107, 0.1) 0%, transparent 50%)
-            `,
-            zIndex: -1
-          }}
-          aria-hidden="true"
-        />
+      <Section className="cd-hero">
+        <p className="cd-hero-label craft-label" style={{ color: 'var(--brand-deep)' }}>
+          小学生〜高校生・保護者の方へ
+        </p>
 
-        {/* メインタイトル */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <span
-            style={{
-              display: 'inline-block',
-              marginBottom: '16px',
-              padding: '6px 16px',
-              background: 'rgba(52, 198, 190, 0.12)',
-              color: '#2a9d96',
-              borderRadius: '50px',
-              fontSize: '13px',
-              fontWeight: 'var(--font-bold)',
-            }}
-          >
-            小学生〜高校生・保護者の方へ
-          </span>
-          <h1 
-            className="heading-xl"
-            style={{
-              marginBottom: '16px',
-              position: 'relative',
-              display: 'inline-block'
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 1 }}>
-              Yononaka<span style={{ fontSize: '0.7em', marginLeft: '8px' }}>(対話ワーク)</span>
-            </span>
-            {/* 手書き風アンダーライン */}
-            <svg
-              style={{
-                position: 'absolute',
-                bottom: '-8px',
-                left: '-10px',
-                width: 'calc(100% + 20px)',
-                height: '20px',
-                zIndex: 0
-              }}
-              viewBox="0 0 300 20"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M5,15 Q80,12 150,13 T295,15"
-                stroke="#34c6be"
-                strokeWidth="4"
-                fill="none"
-                strokeLinecap="round"
-                style={{ opacity: 0.6 }}
-              />
-            </svg>
-          </h1>
-        </div>
+        <h1 className="cd-hero-title craft-misprint">
+          Yononaka<span className="cd-hero-small">(対話ワーク)</span>
+        </h1>
+        <Underline variant={2} className="cd-hero-line craft-draw craft-draw--auto" style={{ color: 'var(--brand)' }} />
 
-        {/* 説明文 */}
-        <p 
-          className="body-base"
-          style={{
-            textAlign: 'center',
-            maxWidth: '600px',
-            margin: '0 auto',
-            lineHeight: 'var(--leading-loose)'
-          }}
-        >
+        <p className="cd-hero-lead">
           年齢も立場も関係なく、お子さんが自分の意見を堂々と話せる、オンラインの対話の広場です。<br />
           お金や時間など身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合います。<br />
           ちがう意見を聞く中で、世界の見え方が少しずつ広がっていきます。
         </p>
 
-        {/* 装飾的な浮遊アイコン */}
-        <div 
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '24px',
-            marginTop: '32px',
-            fontSize: '40px'
-          }}
-          aria-hidden="true"
-        >
-          <span className="float-animation" style={{ animationDelay: '0s' }}>💬</span>
-          <span className="float-animation" style={{ animationDelay: '0.3s' }}>🌏</span>
-          <span className="float-animation" style={{ animationDelay: '0.6s' }}>💡</span>
+        {/* 漂う手描きアイコン */}
+        <div className="cd-float-row" aria-hidden="true">
+          <span className="craft-float" style={doodle({ color: 'var(--brand)', '--rot': '-6deg' })}>
+            <DoodleIcon name="talk" size={38} />
+          </span>
+          <span className="craft-float" style={doodle({ color: 'var(--green)', '--rot': '4deg', animationDelay: '0.5s' })}>
+            <DoodleIcon name="globe" size={38} />
+          </span>
+          <span className="craft-float" style={doodle({ color: 'var(--cream)', '--rot': '-4deg', animationDelay: '1s' })}>
+            <DoodleIcon name="bulb" size={38} />
+          </span>
         </div>
       </Section>
 
       {/* ===== 安心して話せる環境 ===== */}
-      <Section className="scroll-animate">
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 
-            className="heading-lg"
-            style={{
-              position: 'relative',
-              display: 'inline-block'
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 1 }}>安心して話せる環境</span>
-            <svg
-              style={{
-                position: 'absolute',
-                bottom: '-6px',
-                left: '-8px',
-                width: 'calc(100% + 16px)',
-                height: '16px',
-                zIndex: 0
-              }}
-              viewBox="0 0 200 16"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M3,12 Q50,10 100,11 T197,12"
-                stroke="#ffd66b"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                style={{ opacity: 0.6 }}
-              />
-            </svg>
-          </h2>
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '26px' }}>
+          <SectionTitle variant={1} lineColor="var(--cream)">
+            安心して話せる環境
+          </SectionTitle>
         </div>
 
-        {/* 写真 */}
-        <figure 
-          className="pulse-glow"
-          style={{
-            margin: '0 0 32px 0',
-            borderRadius: '24px',
-            overflow: 'hidden'
-          }}
-        >
-          <img 
-            src="/assets/yononaka/hero.jpg" 
-            alt="対話型ワークショップの様子" 
-            style={{
-              width: '100%',
-              aspectRatio: '16/9',
-              objectFit: 'cover'
-            }}
-          />
-        </figure>
+        {/* 写真（テープ留めポラロイド） */}
+        <div className="cd-photo craft-photo reveal" style={{ marginBottom: '32px' }}>
+          <span className="craft-tape" aria-hidden="true" />
+          <span className="craft-tape craft-tape--tr craft-tape--cream" aria-hidden="true" />
+          <img src="/assets/yononaka/hero.jpg" alt="対話型ワークショップの様子" />
+        </div>
 
         {/* 3つのルール */}
-        <div
-          style={{
-            background: '#fff',
-            borderRadius: '24px',
-            padding: '28px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
-            border: '2px dashed rgba(0, 0, 0, 0.08)'
-          }}
-        >
-          <p 
-            className="body-sm"
-            style={{ 
-              marginBottom: '20px', 
-              color: 'var(--ink-500)',
-              textAlign: 'center'
-            }}
-          >
+        <div className="cd-card craft-paper craft-tilt reveal" style={{ '--rot': '-0.4deg' } as CSSProperties}>
+          <span className="craft-tape" aria-hidden="true" />
+
+          <p style={{ margin: '0 0 20px', textAlign: 'center', fontSize: 'var(--text-sm)', color: 'var(--ink-500)' }}>
             ワークの冒頭で、この3つの声掛けをします
           </p>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {[
-              { num: '①', text: '静かにしない', color: '#f06a6a', desc: '思ったことはつぶやいてOK' },
-              { num: '②', text: 'すべて信じない', color: '#34c6be', desc: 'ワークの内容にも疑問を持ってOK' },
-              { num: '③', text: '正解がないから減点はない', color: '#ffd66b', desc: 'どんな意見でも大歓迎！' }
-            ].map((rule, i) => (
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {rules.map((rule, i) => (
               <div
                 key={i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '16px 20px',
-                  background: `linear-gradient(135deg, ${rule.color}15, ${rule.color}05)`,
-                  borderRadius: '16px',
-                  border: `2px solid ${rule.color}30`
-                }}
+                className="cd-tip"
+                style={
+                  {
+                    '--accent-rgb': rule.accentRgb,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    padding: '14px 16px'
+                  } as CSSProperties
+                }
               >
                 <span
                   style={{
-                    fontSize: '24px',
-                    fontWeight: 'var(--font-bold)',
-                    color: rule.color
+                    fontSize: '22px',
+                    fontWeight: 'var(--font-black)',
+                    color: 'rgb(var(--accent-rgb))',
+                    flexShrink: 0
                   }}
                 >
                   {rule.num}
                 </span>
-                <div>
-                  <p className="heading-sm" style={{ marginBottom: '4px' }}>{rule.text}</p>
-                  <p className="body-sm" style={{ color: 'var(--ink-500)' }}>{rule.desc}</p>
-                </div>
+                <span>
+                  <strong style={{ display: 'block', color: 'var(--ink-900)', fontSize: 'var(--text-base)' }}>
+                    {rule.text}
+                  </strong>
+                  <span style={{ display: 'block', marginTop: '2px', color: 'var(--ink-500)', fontSize: 'var(--text-sm)' }}>
+                    {rule.desc}
+                  </span>
+                </span>
               </div>
             ))}
           </div>
 
-          <p 
-            className="body-base"
-            style={{ 
-              marginTop: '24px',
+          <p
+            style={{
+              margin: '22px 0 0',
               padding: '16px',
-              background: 'rgba(52, 198, 190, 0.08)',
-              borderRadius: '12px',
-              lineHeight: 'var(--leading-relaxed)'
+              background: 'rgb(var(--brand-rgb) / 0.08)',
+              borderRadius: '3px 8px 4px 9px / 8px 3px 9px 4px',
+              fontSize: 'var(--text-base)',
+              lineHeight: 'var(--leading-relaxed)',
+              color: 'var(--ink-700)'
             }}
           >
             事前知識なしでOK、親子参加大歓迎！<br />
@@ -570,52 +302,36 @@ export default function YononakaPage(){
       </Section>
 
       {/* ===== 過去のワーク ===== */}
-      <Section className="scroll-animate">
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <h2 className="heading-lg">過去のワーク</h2>
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '20px' }}>
+          <SectionTitle variant={2} lineColor="var(--brand)">
+            過去のワーク
+          </SectionTitle>
         </div>
 
-        <div className="horizontal-scroll">
+        <div className="cd-hscroll">
           {pastWorks.map((work, i) => (
             <div
               key={work.id}
-              style={{
-                width: '280px',
-                background: '#fff',
-                borderRadius: '24px',
-                padding: '28px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
-                border: '2px dashed rgba(0, 0, 0, 0.08)',
-                transform: `rotate(${i % 2 === 0 ? '-1' : '1'}deg)`,
-                transition: 'transform 0.3s ease'
-              }}
-            >
-              <div
-                style={{
-                  fontSize: '48px',
-                  marginBottom: '16px',
+              className="cd-scroll-card craft-paper craft-tilt"
+              style={
+                {
+                  '--accent-rgb': work.accentRgb,
+                  '--tape-rgb': work.accentRgb,
+                  '--rot': `${i % 2 === 0 ? -1 : 1}deg`,
+                  width: '280px',
                   textAlign: 'center'
-                }}
-              >
-                {work.emoji}
-              </div>
-              <h3 
-                className="heading-sm"
-                style={{
-                  marginBottom: '12px',
-                  textAlign: 'center',
-                  color: work.color
-                }}
-              >
-                {work.title}
-              </h3>
-              <p 
-                className="body-sm"
-                style={{
-                  textAlign: 'center',
-                  color: 'var(--ink-600)'
-                }}
-              >
+                } as CSSProperties
+              }
+            >
+              <span className={`craft-tape ${work.tapeClass}`} aria-hidden="true" />
+
+              <span className="cd-card-icon" style={{ marginInline: 'auto', marginBottom: '10px' }} aria-hidden="true">
+                <DoodleIcon name={work.icon} size={30} />
+              </span>
+
+              <h3 style={{ color: 'rgb(var(--accent-rgb))' }}>{work.title}</h3>
+              <p className="cd-scroll-desc" style={{ margin: 0 }}>
                 {work.description}
               </p>
             </div>
@@ -624,123 +340,43 @@ export default function YononakaPage(){
       </Section>
 
       {/* ===== ワークの流れ ===== */}
-      <Section className="scroll-animate">
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <h2 
-            className="heading-lg"
-            style={{
-              position: 'relative',
-              display: 'inline-block'
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 1 }}>ワークの流れ</span>
-            <svg
-              style={{
-                position: 'absolute',
-                bottom: '-6px',
-                left: '-8px',
-                width: 'calc(100% + 16px)',
-                height: '16px',
-                zIndex: 0
-              }}
-              viewBox="0 0 200 16"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M3,12 Q50,10 100,11 T197,12"
-                stroke="#34c6be"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                style={{ opacity: 0.6 }}
-              />
-            </svg>
-          </h2>
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '20px' }}>
+          <SectionTitle variant={3} lineColor="var(--brand)">
+            ワークの流れ
+          </SectionTitle>
         </div>
 
-        <div className="horizontal-scroll">
+        <div className="cd-hscroll">
           {workflowSteps.map((step, i) => (
             <div
               key={step.num}
-              style={{
-                width: '300px',
-                background: '#fff',
-                borderRadius: '24px',
-                padding: '28px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
-                border: '2px dashed rgba(0, 0, 0, 0.08)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
+              className="cd-scroll-card craft-paper craft-tilt"
+              style={
+                {
+                  '--accent-rgb': step.accentRgb,
+                  '--tape-rgb': step.accentRgb,
+                  '--rot': `${i % 2 === 0 ? -0.8 : 0.8}deg`
+                } as CSSProperties
+              }
             >
-              {/* 角のカラーアクセント */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '80px',
-                  height: '80px',
-                  background: `linear-gradient(135deg, ${step.color}40, transparent)`,
-                  borderRadius: '0 24px 0 100%'
-                }}
-              />
+              <span className="craft-tape" aria-hidden="true" />
 
-              {/* ステップ番号 */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: '16px'
-                }}
-              >
-                <span
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '40px',
-                    height: '40px',
-                    background: step.color,
-                    color: '#fff',
-                    borderRadius: '50%',
-                    fontWeight: 'var(--font-bold)',
-                    fontSize: '18px'
-                  }}
-                >
-                  {step.num}
+              <div className="cd-scroll-card-head">
+                <span className="cd-num">{step.num}</span>
+                <span style={{ color: 'rgb(var(--accent-rgb))' }} aria-hidden="true">
+                  <DoodleIcon name={step.icon} size={30} />
                 </span>
-                <span style={{ fontSize: '28px' }}>{step.icon}</span>
               </div>
 
-              <h3 className="heading-sm" style={{ marginBottom: '12px' }}>
-                {step.title}
-              </h3>
-
-              <p 
-                className="body-sm"
-                style={{
-                  marginBottom: step.examples ? '16px' : '0',
-                  color: 'var(--ink-600)',
-                  lineHeight: 'var(--leading-relaxed)'
-                }}
-              >
+              <h3>{step.title}</h3>
+              <p className="cd-scroll-desc" style={{ flex: 1 }}>
                 {step.description}
               </p>
 
               {step.examples && (
-                <p 
-                  className="body-sm"
-                  style={{
-                    padding: '12px',
-                    background: `${step.color}15`,
-                    borderRadius: '12px',
-                    color: 'var(--ink-700)',
-                    lineHeight: 'var(--leading-relaxed)'
-                  }}
-                >
-                  <span style={{ fontWeight: 'var(--font-bold)' }}>例：</span>
+                <p className="cd-tip">
+                  <strong>例：</strong>
                   {step.examples}
                 </p>
               )}
@@ -750,279 +386,141 @@ export default function YononakaPage(){
       </Section>
 
       {/* ===== Yononakaで育つこと ===== */}
-      <Section className="scroll-animate">
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 
-            className="heading-lg"
-            style={{
-              position: 'relative',
-              display: 'inline-block'
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 1 }}>Yononakaで育つこと</span>
-            <svg
-              style={{
-                position: 'absolute',
-                bottom: '-6px',
-                left: '-8px',
-                width: 'calc(100% + 16px)',
-                height: '16px',
-                zIndex: 0
-              }}
-              viewBox="0 0 200 16"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M3,12 Q50,10 100,11 T197,12"
-                stroke="#9b87f5"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                style={{ opacity: 0.6 }}
-              />
-            </svg>
-          </h2>
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '26px' }}>
+          <SectionTitle variant={1} lineColor="var(--violet)">
+            Yononakaで育つこと
+          </SectionTitle>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {growthItems.map((item) => (
-            <AccordionItem
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          {growthItems.map((item, i) => (
+            <details
               key={item.id}
-              item={item}
-              isOpen={openAccordion === item.id}
-              onToggle={() => setOpenAccordion(openAccordion === item.id ? null : item.id)}
-            />
+              className="cd-acc craft-paper craft-tilt reveal"
+              style={
+                {
+                  '--accent-rgb': item.accentRgb,
+                  '--rot': `${i % 2 === 0 ? -0.4 : 0.4}deg`
+                } as CSSProperties
+              }
+            >
+              <summary>
+                <span className="cd-acc-icon" aria-hidden="true">
+                  <DoodleIcon name={item.icon} size={28} />
+                </span>
+                <span className="cd-acc-title">
+                  <strong>{item.title}</strong>
+                </span>
+                <span className="cd-acc-pill">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                    <polyline points="6,9 12,15 18,9" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </summary>
+              <p className="cd-acc-body">{item.content}</p>
+            </details>
           ))}
         </div>
       </Section>
 
       {/* ===== 参加者の声 ===== */}
-      <Section className="scroll-animate">
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 className="heading-lg">参加者の声</h2>
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '26px' }}>
+          <SectionTitle variant={2} lineColor="var(--pink)">
+            参加者の声
+          </SectionTitle>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
           {voices.map((voice, i) => (
             <article
               key={i}
-              style={{
-                background: '#fff',
-                borderRadius: '24px',
-                padding: '28px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
-                border: '2px dashed rgba(0, 0, 0, 0.08)',
-                position: 'relative'
-              }}
+              className="cd-voice craft-paper craft-tilt reveal"
+              style={{ '--rot': `${i % 2 === 0 ? -0.5 : 0.5}deg`, transitionDelay: `${i * 80}ms` } as CSSProperties}
             >
-              {/* 引用符 */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '12px',
-                  left: '20px',
-                  fontSize: '60px',
-                  color: 'rgba(52, 198, 190, 0.2)',
-                  fontFamily: 'Georgia, serif',
-                  lineHeight: 1
-                }}
-              >
-                "
+              <div className="cd-voice-head">
+                <span className="cd-voice-grade">{voice.grade}</span>
+                <span className="cd-voice-title">{voice.title}</span>
               </div>
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                {/* ラベル */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                  <span
-                    style={{
-                      padding: '4px 12px',
-                      background: '#34c6be',
-                      color: '#fff',
-                      borderRadius: '12px',
-                      fontSize: '13px',
-                      fontWeight: 'var(--font-bold)'
-                    }}
-                  >
-                    {voice.grade}
-                  </span>
-                  <span className="heading-sm" style={{ color: 'var(--ink-800)' }}>
-                    {voice.title}
-                  </span>
-                </div>
-
-                <p 
-                  className="body-base"
-                  style={{
-                    lineHeight: 'var(--leading-loose)',
-                    color: 'var(--ink-700)'
-                  }}
-                >
-                  {voice.text}
-                </p>
-              </div>
+              <p>{voice.text}</p>
             </article>
           ))}
         </div>
       </Section>
 
       {/* ===== 関連コンテンツ ===== */}
-      <Section className="scroll-animate">
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 
-            className="heading-lg"
-            style={{
-              position: 'relative',
-              display: 'inline-block'
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 1 }}>関連コンテンツ</span>
-            <svg
-              style={{
-                position: 'absolute',
-                bottom: '-6px',
-                left: '-8px',
-                width: 'calc(100% + 16px)',
-                height: '16px',
-                zIndex: 0
-              }}
-              viewBox="0 0 200 16"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M3,12 Q50,10 100,11 T197,12"
-                stroke="#f06a6a"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                style={{ opacity: 0.6 }}
-              />
-            </svg>
-          </h2>
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '26px' }}>
+          <SectionTitle variant={3} lineColor="var(--pink)">
+            関連コンテンツ
+          </SectionTitle>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {relatedContents.map((content) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '34px' }}>
+          {relatedContents.map((content, i) => (
             <article
               key={content.id}
-              style={{
-                background: '#fff',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
-                border: '2px dashed rgba(0, 0, 0, 0.08)',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-              }}
+              className="cd-card craft-paper craft-tilt craft-lift reveal"
+              style={
+                {
+                  '--accent-rgb': content.accentRgb,
+                  '--tape-rgb': content.accentRgb,
+                  '--rot': `${i % 2 === 0 ? -0.6 : 0.6}deg`
+                } as CSSProperties
+              }
             >
-              {/* 画像 */}
-              <figure style={{ margin: 0 }}>
-                <img 
-                  src={content.image} 
-                  alt={content.title}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '16/9',
-                    objectFit: 'cover'
-                  }}
-                />
-              </figure>
+              <span className={`craft-tape ${content.tapeClass}`} aria-hidden="true" />
 
-              {/* コンテンツ */}
-              <div style={{ padding: '24px' }}>
-                <h3 className="heading-sm" style={{ marginBottom: '12px' }}>
-                  {content.title}
-                </h3>
-                <p 
-                  className="body-sm"
-                  style={{
-                    marginBottom: '20px',
-                    lineHeight: 'var(--leading-relaxed)',
-                    color: 'var(--ink-600)'
-                  }}
-                >
-                  {content.description}
-                </p>
-
-                {content.enabled ? (
-                  <a
-                    href={content.buttonLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '12px 24px',
-                      background: `linear-gradient(135deg, ${content.color}, ${content.color}dd)`,
-                      color: '#fff',
-                      borderRadius: '50px',
-                      fontWeight: 'var(--font-bold)',
-                      textDecoration: 'none',
-                      boxShadow: `0 4px 12px ${content.color}40`,
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    {content.buttonText}
-                    <span>→</span>
-                  </a>
-                ) : (
-                  <button
-                    disabled
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '12px 24px',
-                      background: 'rgba(0, 0, 0, 0.1)',
-                      color: 'var(--ink-400)',
-                      borderRadius: '50px',
-                      fontWeight: 'var(--font-bold)',
-                      border: 'none',
-                      cursor: 'not-allowed'
-                    }}
-                  >
-                    {content.buttonText}
-                  </button>
-                )}
+              {/* 画像（ポラロイド） */}
+              <div className="cd-photo craft-photo">
+                <img src={content.image} alt={content.title} />
               </div>
+
+              <h3 className="cd-card-title">{content.title}</h3>
+              <p style={{ margin: '0 0 20px' }}>{content.description}</p>
+
+              {content.enabled ? (
+                <a
+                  href={content.buttonLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="craft-sticker"
+                  style={{ background: 'rgb(var(--accent-rgb))' }}
+                >
+                  {content.buttonText}
+                  <ArrowRightDoodle width={22} />
+                </a>
+              ) : (
+                <button
+                  disabled
+                  className="craft-sticker"
+                  style={{ background: 'rgba(92, 77, 42, 0.25)', cursor: 'not-allowed' }}
+                >
+                  {content.buttonText}
+                </button>
+              )}
             </article>
           ))}
         </div>
       </Section>
 
       {/* ===== 法人・教室向けへの導線 ===== */}
-      <Section className="scroll-animate">
-        <div
-          style={{
-            textAlign: 'center',
-            padding: '24px',
-            background: 'rgba(0, 0, 0, 0.02)',
-            borderRadius: '16px',
-            border: '2px dashed rgba(0, 0, 0, 0.06)',
-          }}
-        >
-          <p className="body-sm" style={{ color: 'var(--ink-600)', marginBottom: '12px' }}>
+      <Section>
+        <div className="cd-banner craft-paper craft-paper--warm craft-tilt reveal" style={{ '--rot': '-0.4deg' } as CSSProperties}>
+          <span className="craft-tape craft-tape--cream" aria-hidden="true" />
+          <p style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', color: 'var(--ink-600)' }}>
             習い事教室・法人での導入をご検討の方へ
           </p>
-          <a
-            href="/yononaka-kyoshitsu"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: '#34c6be',
-              textDecoration: 'none',
-              fontWeight: 'var(--font-bold)',
-              fontSize: '15px',
-            }}
-          >
+          <a href="/yononaka-kyoshitsu" className="cd-textlink">
             法人向けページを見る
-            <span>→</span>
+            <ArrowRightDoodle width={22} />
           </a>
         </div>
       </Section>
 
       {/* JSON-LD 構造化データ */}
-      <script 
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -1037,3 +535,5 @@ export default function YononakaPage(){
     </MobileContainer>
   );
 }
+
+const doodle = (style: Record<string, string | number>) => style as CSSProperties;

@@ -11,15 +11,15 @@ export const navItems: NavItem[] = [
   {
     label: 'お知らせ・活動報告',
     href: '/news',
+    alwaysOpen: true,
+    children: [
+      { label: 'KEEPON JOURNAL', href: '/monthly' },
+    ],
   },
   {
     label: '「CLAFT」という希望',
     href: '/claft-hope',
     variant: 'cream',
-    alwaysOpen: true,
-    children: [
-      { label: 'ロードマップ', href: '/roadmap' },
-    ],
   },
   { 
     label: 'メンバーのストーリー', 
@@ -56,19 +56,16 @@ export const navItems: NavItem[] = [
     label: 'ジブンクラフト', 
     href: '/jibun-craft'
   },
-  { 
-    label: 'コース・料金', 
+  {
+    label: 'コース・料金',
     href: '/courses',
     alwaysOpen: true,
     children: [
       { label: 'マイクラSDGs', href: '/minecraft' },
-      { label: 'ロボットプログラミング', href: 'https://www.keeponlearning.fun/online', external: true }
+      { label: 'ロボットプログラミング', href: 'https://www.keeponlearning.fun/online', external: true },
+      { label: '英会話×STEAM', href: '/english-steam' },
+      { label: '英会話（Hello Kiwi英会話）', href: 'https://www.hellokiwieikaiwa.com/', external: true },
     ]
-  },
-  {
-    label: 'KEEPON JOURNAL',
-    href: '/monthly',
-    variant: 'cream',
   },
   {
     label: '無料体験/問合せ',

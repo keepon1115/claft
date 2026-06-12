@@ -8,7 +8,6 @@ const CATEGORY_STYLES: Record<string, { bg: string; text: string }> = {
   '検定':          { bg: '#fff4e0', text: '#b87d2b' },
   '発表会':        { bg: '#ffe8ef', text: '#b0384d' },
   'Yononaka':      { bg: '#e0f7f7', text: '#1a8c86' },
-  '世の中探究':    { bg: '#e0f7f7', text: '#1a8c86' },
   'ワークショップ': { bg: '#ede8f7', text: '#6b4bcc' },
   '展示会':        { bg: '#e4f7ee', text: '#2a7a56' },
 };
@@ -111,8 +110,8 @@ export default function EventCard({ event }: Props) {
                 borderRadius: '50px',
                 fontSize: '10px',
                 fontWeight: 700,
-                background: event.source === 'claft' ? '#34c6be' : '#e8f7f6',
-                color: event.source === 'claft' ? '#fff' : '#1a8c86',
+                background: event.source === 'claft' ? '#34c6be' : '#f06a6a',
+                color: '#fff',
               }}
             >
               {event.source === 'claft' ? 'CLAFT' : 'キープオン'}

@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(python -c \"import fitz; print\\(fitz.__doc__\\)\")",
+      "Bash(py --version)",
+      "Bash(pdfimages -v)",
+      "Bash(magick -version)",
+      "Bash(mkdir -p /tmp/pdfimg)",
+      "Read(//tmp/**)",
+      "Bash(npx -y pdf-export-images \"c:/dev/claft-HP/app/\\(site\\)/english-steam.pdf\" ./out)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\skawa\\.claude\\projects\\c--dev-claft-HP\\memory"
     ]
   }
 }

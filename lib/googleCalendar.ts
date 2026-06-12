@@ -3,6 +3,7 @@
 // - 全体共通の予定: キープオンカレンダー（KEEPON_CALENDAR_ID）
 // 各予定の説明欄に必要に応じて以下を記載（すべて任意）:
 //   対象: （自由記述）
+//   場所: （開催場所）← Googleカレンダーの「場所」欄ではなく説明欄に記載
 //   申込: （フォームURL）
 //   カテゴリ: （検定/発表会/Yononaka/ワークショップ/展示会 等）
 //   配信: （告知したWeekly/MonthlyのURL）
@@ -22,17 +23,41 @@ export interface CalendarEvent {
   rawDescription?: string;
 }
 
+// Google Calendar API returns HTML-formatted descriptions (e.g. <br> line breaks,
+// URLs wrapped in <a href="https://www.google.com/url?q=REAL_URL&...">REAL_URL</a>).
+// This helper strips tags and decodes entities, keeping anchor text (the real URL).
+function stripHtml(html: string): string {
+  return html
+    .replace(/<a\s[^>]*>([\s\S]*?)<\/a>/gi, (_m, inner) =>
+      inner.replace(/<[^>]+>/g, '').trim()
+    )
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .trim();
+}
+
 function parseDescription(
   description: string | undefined
-): Pick<CalendarEvent, 'audience' | 'applyUrl' | 'category' | 'broadcastUrl'> {
+): Pick<CalendarEvent, 'audience' | 'location' | 'applyUrl' | 'category' | 'broadcastUrl'> {
   if (!description) return {};
-  const result: Pick<CalendarEvent, 'audience' | 'applyUrl' | 'category' | 'broadcastUrl'> = {};
-  for (const line of description.split('\n')) {
-    const t = line.trim();
-    if (t.startsWith('対象:')) result.audience = t.slice(3).trim();
-    else if (t.startsWith('申込:')) result.applyUrl = t.slice(3).trim();
-    else if (t.startsWith('カテゴリ:')) result.category = t.slice(5).trim();
-    else if (t.startsWith('配信:')) result.broadcastUrl = t.slice(3).trim();
+  const result: Pick<CalendarEvent, 'audience' | 'location' | 'applyUrl' | 'category' | 'broadcastUrl'> = {};
+
+  // Normalize HTML line breaks to \n before splitting
+  const normalized = description.replace(/<br\s*\/?>/gi, '\n');
+
+  for (const line of normalized.split('\n')) {
+    const t = stripHtml(line).trim();
+    // Support both full-width（：）and half-width（:）colons
+    if (/^対象[：:]/.test(t)) result.audience = t.replace(/^対象[：:]\s*/, '');
+    else if (/^場所[：:]/.test(t)) result.location = t.replace(/^場所[：:]\s*/, '');
+    else if (/^申込[：:]/.test(t)) result.applyUrl = t.replace(/^申込[：:]\s*/, '');
+    else if (/^カテゴリ[：:]/.test(t)) result.category = t.replace(/^カテゴリ[：:]\s*/, '');
+    else if (/^配信[：:]/.test(t)) result.broadcastUrl = t.replace(/^配信[：:]\s*/, '');
   }
   return result;
 }

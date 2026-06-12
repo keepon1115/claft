@@ -1,4 +1,5 @@
-'use client';
+import type { CSSProperties } from 'react';
+import { SectionTitle } from '@/components/craft/SectionTitle';
 
 export type TimelineEvent = {
   date: string;
@@ -11,81 +12,69 @@ type TimelineProps = {
   events: TimelineEvent[];
 };
 
-// 星アイコンのSVGコンポーネント
+// 星マーカー（手描きの揺らぎ付き）
 function StarIcon({ isCurrent }: { isCurrent?: boolean }) {
   return (
-    <svg 
-      width="20" 
-      height="20" 
-      viewBox="0 0 24 24" 
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
       fill={isCurrent ? 'var(--brand)' : 'var(--cream)'}
       className="flex-shrink-0"
       style={{
-        filter: isCurrent ? 'drop-shadow(0 2px 6px rgba(52, 198, 190, 0.5))' : 'drop-shadow(0 1px 3px rgba(255, 214, 107, 0.5))'
+        filter: isCurrent
+          ? 'drop-shadow(0 2px 4px rgba(52, 198, 190, 0.45))'
+          : 'drop-shadow(0 1px 2px rgba(92, 77, 42, 0.3))',
+        transform: isCurrent ? 'rotate(-8deg) scale(1.15)' : 'rotate(6deg)',
       }}
+      aria-hidden="true"
     >
-      <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.6-6.3 4.6 2.3-7.4-6-4.6h7.6z"/>
+      <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.6-6.3 4.6 2.3-7.4-6-4.6h7.6z" stroke="#fff" strokeWidth="1.2" />
     </svg>
   );
 }
 
 export function Timeline({ events }: TimelineProps) {
   return (
-    <section className="py-10 px-4 reveal">
+    <section className="py-8 px-4">
       {/* セクションタイトル */}
-      <h2 className="heading-lg mb-6 flex items-center gap-2">
-        <span className="text-2xl">📅</span>
-        スクールでの歩み
-      </h2>
-      
-      {/* タイムライン */}
-      <div className="relative pl-8">
-        {/* 左側の縦ライン */}
-        <div 
-          className="absolute left-[9px] top-2 bottom-2 w-[3px] rounded-full"
-          style={{ background: 'linear-gradient(to bottom, var(--brand), rgba(52, 198, 190, 0.3))' }}
-          aria-hidden="true"
-        />
-        
-        {/* イベント一覧 */}
+      <div className="hp-section-head" style={{ marginBottom: '24px' }}>
+        <SectionTitle variant={3} lineColor="var(--cream)">
+          スクールでの歩み
+        </SectionTitle>
+      </div>
+
+      {/* タイムライン（点線の手描きルート） */}
+      <div className="ss-timeline">
         <div className="space-y-6">
           {events.map((event, index) => (
-            <div key={index} className="relative">
-              {/* 星アイコン（ライン上） */}
-              <div 
-                className="absolute -left-8 top-0"
-                style={{ transform: 'translateX(-1px)' }}
-              >
+            <div key={index} className="relative reveal" style={{ transitionDelay: `${index * 60}ms` }}>
+              {/* 星マーカー（ライン上） */}
+              <div className="absolute -left-8 top-0" style={{ transform: 'translateX(-1px)' }}>
                 <StarIcon isCurrent={event.isCurrent} />
               </div>
-              
+
               {/* コンテンツ */}
-              <div 
-                className="rounded-[16px] p-4"
-                style={{ 
-                  background: event.isCurrent 
-                    ? 'linear-gradient(135deg, rgba(52, 198, 190, 0.12) 0%, rgba(52, 198, 190, 0.04) 100%)'
-                    : 'rgba(0, 0, 0, 0.02)',
-                  border: event.isCurrent ? '1px solid rgba(52, 198, 190, 0.3)' : '1px solid transparent',
-                  lineHeight: 'var(--leading-loose)'
-                }}
+              <div
+                className={event.isCurrent ? 'craft-paper craft-tilt p-4' : 'ss-item'}
+                style={
+                  event.isCurrent
+                    ? ({ '--rot': '-0.5deg', backgroundColor: 'rgb(var(--brand-rgb) / 0.08)' } as CSSProperties)
+                    : ({ '--accent-rgb': 'var(--cream-rgb)' } as CSSProperties)
+                }
               >
                 {/* 日付 */}
-                <span 
+                <span
                   className="text-[var(--text-xs)] font-bold"
-                  style={{ color: event.isCurrent ? 'var(--brand)' : 'var(--ink-500)' }}
+                  style={{ color: event.isCurrent ? 'var(--brand-deep)' : 'var(--ink-500)' }}
                 >
                   {event.date}
-                  {event.isCurrent && (
-                    <span className="ml-2 py-0.5 px-2 rounded-full bg-[var(--brand)] text-white text-[10px]">
-                      NOW
-                    </span>
-                  )}
+                  {event.isCurrent && <span className="ss-now">NOW</span>}
                 </span>
-                
+
                 {/* タイトル */}
                 <h3 className="heading-sm mt-1 mb-0">{event.title}</h3>
-                
+
                 {/* 説明 */}
                 {event.description && (
                   <p className="body-sm text-[var(--ink-600)] mt-2 mb-0">{event.description}</p>

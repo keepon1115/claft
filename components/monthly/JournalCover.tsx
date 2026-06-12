@@ -43,10 +43,10 @@ export default function JournalCover({ issue }: Props) {
           top: '14px',
           left: '-6px',
           padding: '3px 18px 3px 14px',
-          background: 'rgba(52,198,190,0.18)',
+          background: `${theme.accent}28`,
           fontSize: '11px',
           fontWeight: 700,
-          color: '#2a9d96',
+          color: 'var(--ink-700)',
           borderRadius: '2px',
           transform: 'rotate(-1deg)',
           letterSpacing: '0.05em',
@@ -81,7 +81,7 @@ export default function JournalCover({ issue }: Props) {
           >
             <path
               d="M3,9 Q50,7 100,8 T197,9"
-              stroke="#34c6be"
+              stroke={theme.accent}
               strokeWidth="4"
               fill="none"
               strokeLinecap="round"
@@ -96,7 +96,7 @@ export default function JournalCover({ issue }: Props) {
         <span
           style={{
             padding: '4px 14px',
-            background: '#34c6be',
+            background: theme.accent,
             color: '#fff',
             borderRadius: '50px',
             fontSize: '13px',
@@ -121,16 +121,18 @@ export default function JournalCover({ issue }: Props) {
       </div>
 
       {/* サブコピー */}
-      <p
-        style={{
-          margin: '0 0 24px',
-          fontSize: '13px',
-          color: 'var(--ink-600)',
-          lineHeight: 1.6,
-        }}
-      >
-        {issue.coverSubtitle}
-      </p>
+      {issue.coverSubtitle && (
+        <p
+          style={{
+            margin: '0 0 24px',
+            fontSize: '13px',
+            color: 'var(--ink-600)',
+            lineHeight: 1.6,
+          }}
+        >
+          {issue.coverSubtitle}
+        </p>
+      )}
 
       {/* 動画ボタン */}
       <a
@@ -150,6 +152,7 @@ export default function JournalCover({ issue }: Props) {
           textDecoration: 'none',
           boxShadow: '0 4px 16px rgba(255,0,0,0.3)',
           transition: 'transform 0.2s ease',
+          marginTop: issue.coverSubtitle ? '0' : '10px',
         }}
         aria-label={`${issue.year}年${issue.month}月号の動画を見る（YouTube）`}
       >

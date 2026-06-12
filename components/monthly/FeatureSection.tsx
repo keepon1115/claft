@@ -6,18 +6,11 @@ import ImagePlaceholder from './ImagePlaceholder';
 interface Props {
   feature: Feature;
   theme: SeasonTheme;
-  index: number;
+  accentOverrides?: Partial<Record<Feature['id'], string>>;
 }
 
-const featureImageConfig: Record<Feature['id'], { width: number; height: number; caption: string }> = {
-  recap: { width: 640, height: 360, caption: '検定の様子' },
-  news: { width: 640, height: 360, caption: '農業ロボット「新ボ」' },
-  info: { width: 640, height: 200, caption: '' },
-};
-
-export default function FeatureSection({ feature, theme, index }: Props) {
-  const accentColor = featureColors[feature.id];
-  const imgConfig = featureImageConfig[feature.id];
+export default function FeatureSection({ feature, theme, accentOverrides }: Props) {
+  const accentColor = accentOverrides?.[feature.id] ?? featureColors[feature.id];
 
   return (
     <section
@@ -95,10 +88,16 @@ export default function FeatureSection({ feature, theme, index }: Props) {
           borderTop: 'none',
         }}
       >
-        {/* 画像プレースホルダー（infoは省略） */}
+        {/* 画像（infoは省略、feature.imageがある場合のみ） */}
         {feature.id !== 'info' && (
           <div style={{ marginBottom: '18px' }}>
-            <ImagePlaceholder {...imgConfig} />
+            <ImagePlaceholder
+              width={640}
+              height={360}
+              src={feature.image?.src}
+              alt={feature.image?.alt || feature.title}
+              caption={feature.image?.caption}
+            />
           </div>
         )}
 
@@ -118,7 +117,7 @@ export default function FeatureSection({ feature, theme, index }: Props) {
             }}
           >
             <p style={{ margin: '0 0 10px', fontSize: '12px', color: 'var(--ink-500)', fontWeight: 700 }}>
-              📻 配信からの掛け合い
+              📻
             </p>
             {feature.dialogues.map((d, i) => (
               <DialogueBubble key={i} dialogue={d} />
@@ -164,8 +163,8 @@ export default function FeatureSection({ feature, theme, index }: Props) {
               <div
                 key={i}
                 style={{
-                  background: 'rgba(52,198,190,0.05)',
-                  border: '1px dashed rgba(52,198,190,0.3)',
+                  background: `${accentColor}0d`,
+                  border: `1px dashed ${accentColor}4d`,
                   borderRadius: '10px',
                   padding: '12px 14px',
                 }}

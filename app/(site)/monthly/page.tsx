@@ -72,7 +72,7 @@ export default function MonthlyIndexPage() {
             </svg>
           </h1>
           <p className="body-sm" style={{ color: 'var(--ink-500)', marginTop: '12px' }}>
-            創って伝える、毎月の記録
+            "創って伝える"スクールの、毎月の記録
           </p>
         </div>
       </Section>

@@ -9,14 +9,14 @@ export default function StudentStoryIndexPage() {
   useReveal();
 
   return (
-    <MobileContainer className="px-0 bg-[var(--bg)]">
+    <MobileContainer className="px-0">
       {/* Hero Section */}
       <HeroSection />
 
       {/* スクール生カード一覧 */}
       <Section className="px-4">
         <div className="flex flex-col gap-6">
-          {studentsData.map((student) => (
+          {studentsData.map((student, i) => (
             <StudentCard
               key={student.slug}
               slug={student.slug}
@@ -24,6 +24,7 @@ export default function StudentStoryIndexPage() {
               grade={student.grade}
               avatarEmoji={student.avatarEmoji}
               shortIntro={student.shortIntro}
+              index={i}
             />
           ))}
         </div>
