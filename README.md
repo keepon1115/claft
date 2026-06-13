@@ -10,11 +10,12 @@
 
 主な掲載内容:
 
-- コース紹介（マイクラSDGs / PBL / Yononaka / ジブンクラフト / ミライクラフト など）
+- コース紹介（マイクラSDGs / PBL / Yononaka / ジブンクラフト / ミライクラフト / ロボプロ / English STEAM など）
 - 学校・社会向けプログラム（STEAM キャンプ / PLAY CLAFT）
 - 生徒ストーリー（[slug] による個別ページ）
-- CLAFT HOPE（奨学・支援）＋ロードマップ
-- Yononaka サブページ（授業レポ / AIロボット社会）
+- ニュース・月刊レポート（月号別 [issue] ページ）
+- CLAFT HOPE（奨学・支援）
+- Yononaka サブページ（授業レポ / AIロボット社会 / 教室）
 - お問い合わせ・資料ダウンロード
 
 ---
@@ -26,6 +27,7 @@
 | フレームワーク | [Next.js](https://nextjs.org/) 14 (App Router) |
 | 言語 | TypeScript 5 |
 | スタイリング | Tailwind CSS 3 + styled-jsx |
+| アイコン | lucide-react |
 | フォント | Zen Maru Gothic / Noto Sans JP (Google Fonts) |
 | Lint / Format | ESLint (eslint-config-next) / Prettier |
 
@@ -44,35 +46,45 @@ claft-HP/
 │   │   ├── pbl/              # PBL（課題解決型学習）
 │   │   ├── yononaka/         # Yononaka（対話ワーク）
 │   │   │   ├── jugyo-repo/   # 授業レポ
-│   │   │   └── ai-robot/     # AIロボット社会
+│   │   │   ├── ai-robot/     # AIロボット社会
+│   │   │   └── kyoshitsu/    # Yononaka教室
 │   │   ├── jibun-craft/      # ジブンクラフト
 │   │   ├── futurecraft/      # ミライクラフト
 │   │   │   ├── Exhibition/       # なんでも展示会
 │   │   │   ├── Exhibition-game/  # ゲーム展示会
 │   │   │   └── Presentation/     # なんでも発表会
+│   │   ├── robopro/          # ロボプロ
+│   │   ├── english-steam/    # English STEAM
 │   │   ├── play-claft/       # PLAY CLAFT
 │   │   ├── asia-steam-camp/  # STEAMキャンプ
 │   │   ├── claft-hope/       # CLAFT HOPE
-│   │   ├── roadmap/          # ロードマップ
+│   │   ├── news/             # ニュース
+│   │   ├── monthly/          # 月刊レポート
+│   │   │   └── [issue]/      # 号別ページ
 │   │   ├── student-story/    # メンバーのストーリー一覧 & [slug]
 │   │   ├── keepon-lab/       # Keepon Lab ページ
 │   │   ├── contact/          # 無料体験 / お問い合わせ
-│   │   └── (hidden)/         # 非公開ページ群 (career / school_society / workshop)
-│   ├── (keepon-lab)/         # Keepon Lab 専用レイアウトグループ
+│   │   └── (hidden)/         # 非公開ページ群 (career / school_society / workshop / roadmap)
 │   ├── layout.tsx            # ルートレイアウト（フォント・SiteGrid）
 │   ├── globals.css           # グローバルスタイル
 │   ├── sitemap.ts            # 自動生成サイトマップ
 │   └── robots.ts             # robots.txt 設定
 ├── components/               # 共通 UI コンポーネント
 │   ├── Header.tsx / Nav.tsx / Footer.tsx
-│   ├── Hero.tsx              # トップ Hero セクション
-│   ├── ProgramsScrapbook.tsx # コース一覧（スクラップブック風）
+│   ├── CourseGrid.tsx        # コースグリッドレイアウト
+│   ├── Values.tsx            # CLAFTの価値観セクション
+│   ├── Download.tsx          # 資料ダウンロード
+│   ├── MobileContainer.tsx   # モバイルラッパー
+│   ├── RightRail.tsx         # サイドレール
+│   ├── NavigatorAbout.tsx    # ページ内ナビゲーション
 │   ├── OpeningAnimation.tsx  # オープニングアニメーション
 │   ├── SiteGrid.tsx          # サイト全体のグリッドレイアウト
 │   ├── courses/              # コース一覧ページ用クライアントコンポーネント
 │   ├── roadmap/              # ロードマップ用クライアントコンポーネント
 │   ├── keepon-lab/           # Keepon Lab 専用コンポーネント
-│   └── ...                   # その他セクションコンポーネント
+│   ├── asia-steam-camp/      # STEAMキャンプ用コンポーネント
+│   ├── play-claft/           # PLAY CLAFT用コンポーネント
+│   └── student-story/        # 生徒ストーリー用コンポーネント
 ├── lib/
 │   ├── nav.ts                # ナビゲーション定義
 │   ├── studentData.ts        # 生徒データ

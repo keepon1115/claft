@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Zen_Maru_Gothic, Noto_Sans_JP } from 'next/font/google';
-import { Suspense } from 'react';
 import './globals.css';
-import { SiteGrid } from '@/components/SiteGrid';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['400', '500', '700'],
@@ -33,11 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja" className={`${zenMaru.variable} ${notoSans.variable}`}>
       <body className={zenMaru.className} style={{ margin: 0, minHeight: '100vh' }}>
-        <Suspense>
-          <SiteGrid>
-            {children}
-          </SiteGrid>
-        </Suspense>
+        {children}
       </body>
     </html>
   );

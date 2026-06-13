@@ -1,0 +1,753 @@
+/* ============================================================
+   キープオンラボ PWA — スタイル
+   トークンは globals.css の :root と名前が衝突するため（--green,
+   --paper, --card）、すべて .lab-app 配下にスコープする。
+   ============================================================ */
+
+.lab-app {
+  /* デザイントークン（KEEPON_LAB_SPEC.md） */
+  --navy: #213a5a;
+  --navy-deep: #172a43;
+  --orange: #ef8a3c;
+  --orange-deep: #df7322;
+  --green: #74ab3d;
+  --green-deep: #5f9230;
+  --paper: #f3ead9;
+  --paper-2: #ece0c9;
+  --card: #fbf6ec;
+  --ink: #2b2b2b;
+  --line: #cdbf9f;
+
+  font-family: var(--font-zen), 'Zen Maru Gothic', var(--font-noto),
+    'Noto Sans JP', sans-serif;
+  color: var(--ink);
+  /* クラフト紙＋微細グレイン */
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/></svg>");
+
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* デスクトップではHPの机の上に置かれた端末のように見せる */
+@media (min-width: 520px) {
+  .lab-app {
+    box-shadow: 0 0 0 1px #0002, 0 24px 60px -20px #0005;
+  }
+}
+
+/* キーボードフォーカスを必ず見せる（受け入れ条件） */
+.lab-app :focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.lab-app a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ====== ヘッダー（全画面共通） ====== */
+.lab-header {
+  background: var(--navy);
+  color: #fff;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--orange);
+  flex-shrink: 0;
+}
+.lab-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.lab-logo b {
+  font-weight: 900;
+  font-size: 21px;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+.lab-logo b .ra { color: var(--orange); }
+.lab-logo b .bo { color: var(--green); }
+.lab-logo small {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #bcd0e6;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.lab-header-icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.lab-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: #ffffff18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background 0.15s;
+}
+.lab-icon-btn:hover { background: #ffffff2e; }
+.lab-icon-btn svg {
+  width: 21px;
+  height: 21px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lab-icon-btn .lab-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--navy);
+}
+
+/* ====== ストーリーズ（横スクロール） ====== */
+.lab-stories {
+  display: flex;
+  gap: 13px;
+  padding: 14px 14px 13px;
+  overflow-x: auto;
+  background: var(--card);
+  border-bottom: 1px dashed var(--line);
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+.lab-stories::-webkit-scrollbar { display: none; }
+.lab-story {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 62px;
+}
+.lab-ring {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  padding: 2.5px;
+  /* 紺→緑→オレンジのグラデ（仕様） */
+  background: linear-gradient(135deg, var(--navy), var(--green) 55%, var(--orange));
+}
+.lab-ring.alt {
+  background: linear-gradient(135deg, var(--orange), var(--green) 70%);
+}
+.lab-ring.navy {
+  background: linear-gradient(135deg, var(--navy), var(--green));
+}
+.lab-ring i {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--card);
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  font-style: normal;
+  border: 2px solid var(--card);
+}
+.lab-story span {
+  font-size: 9px;
+  color: var(--navy);
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ====== フィード（縦スクロール） ====== */
+.lab-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 24px;
+  scrollbar-width: none;
+}
+.lab-feed::-webkit-scrollbar { display: none; }
+.lab-feed-h {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green-deep);
+  letter-spacing: 0.12em;
+  margin: 2px 2px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lab-feed-h::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.lab-post {
+  display: block;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  box-shadow: 2px 3px 0 #d8cba8; /* 紙のドロップシャドウ */
+  transition: transform 0.15s;
+}
+.lab-post:active { transform: scale(0.985); }
+.lab-post-thumb {
+  height: 128px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+}
+.lab-post-thumb.t-navy   { background: linear-gradient(135deg, #2f4f74, #213a5a); }
+.lab-post-thumb.t-orange { background: linear-gradient(135deg, #f0993f, #df7322); }
+.lab-post-thumb.t-green  { background: linear-gradient(135deg, #7cb245, #5f9230); }
+.lab-post-thumb .emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 46px;
+  opacity: 0.92;
+}
+.lab-chip {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #0006;
+  padding: 3px 9px;
+  border-radius: 20px;
+  backdrop-filter: blur(2px);
+}
+.lab-post-body { padding: 11px 13px 13px; }
+.lab-post-body h3 {
+  font-size: 14px;
+  color: var(--navy);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+.lab-post-body p {
+  font-size: 10.5px;
+  color: #766a55;
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+.lab-post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 9px;
+}
+.lab-post-date { font-size: 9px; color: #a89a7d; }
+.lab-post-link {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange-deep);
+}
+
+/* ====== 下段固定バー ====== */
+.lab-tabbar {
+  background: #fffefb;
+  border-top: 1.5px solid var(--line);
+  padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 9px;
+  align-items: stretch;
+  flex-shrink: 0;
+  box-shadow: 0 -6px 16px #0001;
+}
+.lab-cta {
+  flex: 1;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 9px 4px;
+  font-weight: 700;
+  transition: transform 0.12s;
+}
+.lab-cta:active { transform: translateY(2px); }
+.lab-cta svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lab-cta span {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+/* オレンジは最重要CTA（受講予約）だけ */
+.lab-cta.primary {
+  flex: 1.5;
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--orange-deep);
+}
+.lab-cta.primary svg { stroke: #fff; }
+.lab-cta.ghost {
+  background: #fff;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+}
+.lab-cta.ghost svg { stroke: var(--navy); }
+.lab-cta.sub {
+  background: #f0f6e8;
+  border: 1.5px solid var(--green);
+  color: var(--green-deep);
+}
+.lab-cta.sub svg { stroke: var(--green-deep); }
+
+/* ====== サブページ共通 ====== */
+.lab-page-header {
+  background: var(--navy);
+  color: #fff;
+  padding: calc(10px + env(safe-area-inset-top)) 12px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 3px solid var(--orange);
+  flex-shrink: 0;
+}
+.lab-page-header h1 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+}
+.lab-back {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #ffffff18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.lab-back svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lab-page-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 16px calc(28px + env(safe-area-inset-bottom));
+  scrollbar-width: none;
+}
+.lab-page-body::-webkit-scrollbar { display: none; }
+.lab-lead {
+  font-size: 12px;
+  color: #766a55;
+  line-height: 1.7;
+  margin: 0 2px 16px;
+}
+
+/* ====== 予約：大ボタン ====== */
+.lab-bigbtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 26px 16px 22px;
+  box-shadow: 2px 3px 0 #d8cba8;
+  text-align: center;
+  margin-bottom: 14px;
+  transition: transform 0.12s;
+}
+.lab-bigbtn:active { transform: scale(0.985); }
+.lab-bigbtn .big-emoji { font-size: 44px; line-height: 1; }
+.lab-bigbtn b { font-size: 16px; color: var(--navy); }
+.lab-bigbtn .desc { font-size: 11px; color: #766a55; line-height: 1.5; }
+.lab-bigbtn .go {
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
+  padding: 6px 18px;
+  border-radius: 20px;
+  background: var(--navy);
+  color: #fff;
+}
+/* オレンジは最重要（受講予約）だけ */
+.lab-bigbtn.accent { border-color: var(--orange); }
+.lab-bigbtn.accent .go {
+  background: var(--orange);
+  box-shadow: 0 3px 0 var(--orange-deep);
+}
+
+/* ====== フォーム ====== */
+.lab-field { display: block; margin-bottom: 14px; }
+.lab-field > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.lab-req {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--orange);
+  border-radius: 8px;
+  padding: 1px 7px;
+}
+.lab-input,
+.lab-textarea {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+}
+.lab-input:focus,
+.lab-textarea:focus {
+  border-color: var(--green);
+  outline: none;
+}
+.lab-textarea { resize: vertical; min-height: 110px; }
+.lab-submit {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 18px;
+  transition: transform 0.12s;
+}
+.lab-submit:active { transform: translateY(2px); }
+.lab-submit.navy { background: var(--navy); box-shadow: 0 4px 0 var(--navy-deep); }
+.lab-submit.green { background: var(--green); box-shadow: 0 4px 0 var(--green-deep); }
+.lab-form-note {
+  font-size: 10.5px;
+  color: #9c8e72;
+  line-height: 1.6;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ====== 送信完了画面 ====== */
+.lab-done {
+  text-align: center;
+  padding: 56px 20px 40px;
+}
+.lab-done .done-emoji { font-size: 58px; display: block; }
+.lab-done h2 {
+  font-size: 19px;
+  font-weight: 900;
+  color: var(--navy);
+  margin: 16px 0 0;
+}
+.lab-done p {
+  font-size: 12.5px;
+  color: #766a55;
+  line-height: 1.8;
+  margin: 12px 0 0;
+}
+.lab-done .lab-done-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+}
+.lab-done-sub {
+  display: block;
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  border-radius: 15px;
+  padding: 13px;
+  font-weight: 700;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ====== ガイド・設定のカード ====== */
+.lab-card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 15px;
+  margin-bottom: 12px;
+  box-shadow: 2px 3px 0 #d8cba8;
+}
+.lab-card h3 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.lab-card p {
+  font-size: 11.5px;
+  color: #766a55;
+  line-height: 1.7;
+  margin: 7px 0 0;
+}
+.lab-card ol {
+  font-size: 11.5px;
+  color: #766a55;
+  line-height: 1.9;
+  margin: 7px 0 0;
+  padding-left: 18px;
+  list-style: decimal; /* HP側globalsのリストリセットを打ち消す */
+}
+
+/* ====== トグルスイッチ ====== */
+.lab-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 14px;
+  margin-bottom: 10px;
+}
+.lab-toggle-row .t-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.lab-toggle-row .t-desc {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: #9c8e72;
+  margin-top: 2px;
+}
+.lab-switch {
+  width: 46px;
+  height: 26px;
+  border-radius: 20px;
+  background: #d8cba8;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.lab-switch::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: left 0.15s;
+  box-shadow: 0 1px 3px #0003;
+}
+.lab-switch[aria-checked='true'] { background: var(--green); }
+.lab-switch[aria-checked='true']::after { left: 23px; }
+
+/* ====== ストーリービューア（全画面） ====== */
+.lab-sv {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.lab-sv.t-navy   { background: linear-gradient(160deg, #2f4f74, var(--navy)); }
+.lab-sv.t-orange { background: linear-gradient(160deg, #f0993f, var(--orange-deep)); }
+.lab-sv.t-green  { background: linear-gradient(160deg, #7cb245, var(--green-deep)); }
+
+/* 進行ドット（セグメント）。activeは自動送りと同じ6秒で満ちる */
+.lab-sv-dots {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top));
+  left: 14px;
+  right: 64px;
+  display: flex;
+  gap: 4px;
+  z-index: 30;
+}
+.lab-sv-dots i {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: #ffffff50;
+  overflow: hidden;
+  position: relative;
+}
+.lab-sv-dots i.done { background: #fff; }
+.lab-sv-dots i.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform-origin: left;
+  animation: lab-sv-fill 6s linear forwards;
+}
+@keyframes lab-sv-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* タップ送りゾーン（透明）。CTAや閉じるより下のレイヤー */
+.lab-sv-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+.lab-sv-zone.prev { left: 0; width: 34%; }
+.lab-sv-zone.next { right: 0; width: 66%; }
+
+.lab-sv-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 18px calc(30px + env(safe-area-inset-bottom));
+  position: relative;
+  z-index: 20;
+  pointer-events: none; /* タップ送りを透過。リンクだけ下で復活させる */
+  animation: lab-sv-in 0.25s ease-out;
+}
+@keyframes lab-sv-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.lab-sv-emoji {
+  font-size: 76px;
+  text-align: center;
+  margin: auto 0;
+  filter: drop-shadow(0 6px 14px #0004);
+}
+.lab-sv-cat {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  background: #ffffff26;
+  border-radius: 20px;
+  padding: 4px 12px;
+  margin-bottom: 10px;
+}
+.lab-sv-text h2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.4;
+}
+.lab-sv-text p {
+  font-size: 12.5px;
+  color: #ffffffd9;
+  line-height: 1.8;
+  margin: 10px 0 0;
+}
+.s-cta {
+  display: block;
+  text-align: center;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 15px;
+  padding: 14px;
+  margin-top: 22px;
+  box-shadow: 0 4px 0 var(--orange-deep);
+  pointer-events: auto;
+}
+.lab-sv.t-orange .s-cta {
+  background: #fff;
+  color: var(--orange-deep);
+  box-shadow: 0 4px 0 #0003;
+}
+.lab-story-close {
+  position: absolute;
+  top: calc(26px + env(safe-area-inset-top));
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff22;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+.lab-story-close svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* ====== モーション配慮 ====== */
+@media (prefers-reduced-motion: reduce) {
+  .lab-app *,
+  .lab-app *::before,
+  .lab-app *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

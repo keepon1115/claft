@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keeponラボ アプリ — デザイン提案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#213a5a;        /* 基調：ヘッダー・文字・土台 */
+    --navy-deep:#172a43;
+    --orange:#ef8a3c;      /* アクセント：最重要CTA */
+    --orange-deep:#df7322;
+    --green:#74ab3d;       /* サブ：アクティブ・補助 */
+    --green-deep:#5f9230;
+    --paper:#f3ead9;       /* クラフト紙 */
+    --paper-2:#ece0c9;
+    --card:#fbf6ec;
+    --ink:#2b2b2b;
+    --line:#cdbf9f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Zen Maru Gothic','Noto Sans JP',sans-serif;
+    background:#dfd6c4;
+    color:var(--ink);
+    padding:40px 20px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* クラフト紙のグレイン */
+  .grain{position:relative;}
+  .grain::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");
+    mix-blend-mode:multiply;opacity:.5;
+  }
+
+  .wrap{max-width:1120px;margin:0 auto;}
+
+  /* ボード見出し */
+  .board-head{text-align:center;margin-bottom:38px;}
+  .board-eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:.32em;color:var(--green-deep);
+    font-weight:700;border:1.5px solid var(--green);border-radius:30px;padding:5px 16px;
+    background:#fff8;margin-bottom:14px;
+  }
+  .board-title{font-size:30px;font-weight:900;color:var(--navy);letter-spacing:.04em;}
+  .board-sub{margin-top:8px;font-size:14px;color:#6b6253;}
+  .palette{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .swatch{display:flex;align-items:center;gap:7px;font-size:11px;color:#5b5446;font-weight:500;}
+  .dot{width:16px;height:16px;border-radius:50%;box-shadow:0 1px 3px #0002;}
+
+  /* レイアウト：左=高精細トップ / 右=ワイヤー群 */
+  .stage{display:flex;gap:40px;align-items:flex-start;justify-content:center;flex-wrap:wrap;}
+
+  .col-label{
+    font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.16em;
+    text-align:center;margin-bottom:14px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .col-label::before,.col-label::after{content:"";height:1px;width:26px;background:var(--line);}
+
+  /* 端末フレーム */
+  .phone{
+    width:300px;border-radius:42px;background:#11203a;
+    padding:11px;box-shadow:0 26px 50px -18px #0007, 0 6px 14px #0003;
+    position:relative;
+  }
+  .phone.hero{width:330px;border-radius:46px;padding:13px;
+    box-shadow:0 34px 60px -16px #0008, 0 10px 20px #0004;}
+  .screen{
+    border-radius:34px;overflow:hidden;background:var(--paper);
+    height:660px;position:relative;display:flex;flex-direction:column;
+  }
+  .hero .screen{height:712px;border-radius:36px;}
+  .notch{
+    position:absolute;top:13px;left:50%;transform:translateX(-50%);
+    width:96px;height:22px;background:#11203a;border-radius:0 0 16px 16px;z-index:30;
+  }
+  .hero .notch{top:15px;}
+
+  /* ====== アプリ内：ヘッダー ====== */
+  .app-header{
+    background:var(--navy);color:#fff;padding:34px 16px 13px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:3px solid var(--orange);position:relative;z-index:5;
+  }
+  .logo{display:flex;align-items:baseline;gap:1px;font-weight:900;font-size:21px;letter-spacing:.01em;}
+  .logo .k{color:#fff;}
+  .logo .ra{color:var(--orange);} .logo .bo{color:var(--green);}
+  .logo small{display:block;font-size:8px;letter-spacing:.18em;color:#bcd0e6;font-weight:500;margin-top:2px;}
+  .logo-wrap{display:flex;flex-direction:column;}
+  .header-icons{display:flex;gap:6px;align-items:center;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:14px;background:#ffffff18;
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .icon-btn svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:1.8;}
+  .icon-btn .badge{
+    position:absolute;top:-3px;right:-3px;width:16px;height:16px;border-radius:50%;
+    background:var(--orange);color:#fff;font-size:9px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;border:2px solid var(--navy);
+  }
+  .idea-tag{
+    position:absolute;top:46px;right:14px;font-size:8.5px;color:var(--orange);
+    font-weight:700;background:#fff;padding:2px 7px;border-radius:8px;
+    box-shadow:0 2px 5px #0002;z-index:20;
+  }
+  .idea-tag::before{content:"";position:absolute;top:-4px;right:14px;border:5px solid transparent;border-bottom-color:#fff;}
+
+  /* ====== ストーリーズ ====== */
+  .stories{
+    display:flex;gap:13px;padding:14px 14px 13px;overflow-x:auto;
+    background:var(--card);border-bottom:1px dashed var(--line);
+  }
+  .stories::-webkit-scrollbar{display:none;}
+  .story{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;width:60px;}
+  .ring{
+    width:58px;height:58px;border-radius:50%;padding:2.5px;
+    background:linear-gradient(135deg,var(--orange),var(--green) 70%);
+  }
+  .ring.navy{background:linear-gradient(135deg,var(--navy),var(--green));}
+  .ring.photo{background:linear-gradient(135deg,var(--green),var(--orange));}
+  .ring i{
+    display:flex;width:100%;height:100%;border-radius:50%;background:var(--card);
+    align-items:center;justify-content:center;font-size:23px;border:2px solid var(--card);
+  }
+  .story span{font-size:9px;color:var(--navy);font-weight:500;text-align:center;line-height:1.2;}
+
+  /* ====== フィード ====== */
+  .feed{flex:1;overflow-y:auto;padding:14px 14px 92px;}
+  .feed::-webkit-scrollbar{display:none;}
+  .feed-h{font-size:11px;font-weight:700;color:var(--green-deep);letter-spacing:.12em;margin:2px 2px 12px;display:flex;align-items:center;gap:6px;}
+  .feed-h::after{content:"";flex:1;height:1px;background:var(--line);}
+  .post{
+    background:var(--card);border:1.5px solid var(--line);border-radius:18px;
+    overflow:hidden;margin-bottom:15px;box-shadow:2px 3px 0 #d8cba8;
+  }
+  .post-thumb{height:128px;position:relative;display:flex;align-items:flex-end;padding:10px;}
+  .t1{background:linear-gradient(135deg,#2f4f74,#213a5a);}
+  .t2{background:linear-gradient(135deg,#f0993f,#df7322);}
+  .t3{background:linear-gradient(135deg,#7cb245,#5f9230);}
+  .post-thumb .emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:46px;opacity:.92;}
+  .chip{
+    font-size:9px;font-weight:700;color:#fff;background:#0006;
+    padding:3px 9px;border-radius:20px;backdrop-filter:blur(2px);
+  }
+  .post-body{padding:11px 13px 13px;}
+  .post-body h4{font-size:14px;color:var(--navy);font-weight:700;line-height:1.4;}
+  .post-body p{font-size:10.5px;color:#766a55;margin-top:4px;line-height:1.5;}
+  .post-meta{display:flex;align-items:center;justify-content:space-between;margin-top:9px;}
+  .post-date{font-size:9px;color:#a89a7d;}
+  .post-link{font-size:10px;font-weight:700;color:var(--orange-deep);}
+
+  /* ====== 下段固定バー ====== */
+  .tabbar{
+    position:absolute;bottom:0;left:0;right:0;background:#fffefb;
+    border-top:1.5px solid var(--line);padding:9px 12px calc(9px + 6px);
+    display:flex;gap:9px;align-items:stretch;z-index:25;
+    box-shadow:0 -6px 16px #0001;
+  }
+  .cta{
+    flex:1;border-radius:15px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:3px;padding:9px 4px;font-weight:700;
+  }
+  .cta svg{width:20px;height:20px;stroke-width:1.9;fill:none;}
+  .cta span{font-size:10px;letter-spacing:.02em;}
+  .cta.primary{flex:1.5;background:var(--orange);color:#fff;box-shadow:0 4px 0 var(--orange-deep);}
+  .cta.primary svg{stroke:#fff;}
+  .cta.ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy);}
+  .cta.ghost svg{stroke:var(--navy);}
+  .cta.sub{background:#f0f6e8;border:1.5px solid var(--green);color:var(--green-deep);}
+  .cta.sub svg{stroke:var(--green-deep);}
+
+  /* ====== ワイヤーフレーム列 ====== */
+  .wires{display:flex;flex-direction:column;gap:30px;}
+  .wire-row{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;}
+  .wphone{width:212px;}
+  .wscreen{
+    border:2px solid var(--navy);border-radius:26px;height:430px;background:#fcf8f0;
+    position:relative;overflow:hidden;display:flex;flex-direction:column;
+  }
+  .wlabel{text-align:center;margin-top:11px;font-size:12px;font-weight:700;color:var(--navy);}
+  .wlabel small{display:block;font-size:9.5px;color:#8a7f6c;font-weight:400;margin-top:2px;}
+  .wh{background:var(--navy);height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;}
+  .wh b{color:#fff;font-size:11px;}
+  .wh .wi{width:22px;height:22px;border-radius:7px;background:#ffffff30;}
+  .wbody{flex:1;padding:12px;display:flex;flex-direction:column;gap:9px;overflow:hidden;}
+  .wbar{height:11px;border-radius:4px;background:#e2d7bf;}
+  .wbar.s{width:55%;} .wbar.m{width:78%;} .wbar.l{width:100%;}
+  .wbox{border:1.6px dashed #b9a980;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;color:#9c8e72;font-size:10px;font-weight:700;text-align:center;padding:6px;line-height:1.4;}
+  .wbtn{border-radius:10px;height:34px;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#fff;}
+  .wbtn.o{background:var(--orange);} .wbtn.n{background:var(--navy);} .wbtn.g{background:var(--green);}
+  .wbtn.line{background:#fff;border:1.6px solid var(--navy);color:var(--navy);}
+  .wnote{font-size:9px;color:#9c8e72;text-align:center;}
+  .wgrid2{display:flex;gap:9px;}
+  .wgrid2 .wbox{flex:1;height:96px;flex-direction:column;gap:5px;}
+  .wstory-dots{position:absolute;top:10px;left:12px;right:12px;display:flex;gap:4px;z-index:5;}
+  .wstory-dots i{flex:1;height:3px;border-radius:2px;background:#ffffff70;}
+  .wstory-dots i.on{background:#fff;}
+  .wfull{flex:1;background:linear-gradient(160deg,#2f4f74,#213a5a);display:flex;flex-direction:column;justify-content:flex-end;padding:14px;}
+
+  .legend{
+    margin-top:46px;background:var(--card);border:1.5px solid var(--line);
+    border-radius:20px;padding:22px 26px;box-shadow:3px 4px 0 #d8cba8;
+  }
+  .legend h3{font-size:15px;color:var(--navy);font-weight:900;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .legend h3::before{content:"";width:18px;height:18px;border-radius:5px;background:var(--orange);}
+  .legend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 26px;}
+  .legend-item{font-size:12px;color:#5b5446;line-height:1.6;}
+  .legend-item b{color:var(--navy);}
+  .tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 8px;border-radius:20px;margin-right:5px;}
+  .tag.o{background:#fbe6d3;color:var(--orange-deep);}
+  .tag.g{background:#e7f1d8;color:var(--green-deep);}
+  .tag.n{background:#dde6f1;color:var(--navy);}
+
+  @media(max-width:680px){
+    .phone.hero{width:300px;} .hero .screen{height:660px;}
+    body{padding:24px 12px 60px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="board-head">
+    <span class="board-eyebrow">KEEPON ラボ ・ PWA デザイン提案</span>
+    <h1 class="board-title">0→1 を、手のひらに。</h1>
+    <p class="board-sub">通うスクール生・保護者のための、見て・知って・動けるコミュニティアプリ</p>
+    <div class="palette">
+      <div class="swatch"><span class="dot" style="background:#213a5a"></span>紺 / 基調</div>
+      <div class="swatch"><span class="dot" style="background:#ef8a3c"></span>オレンジ / 最重要CTA</div>
+      <div class="swatch"><span class="dot" style="background:#74ab3d"></span>緑 / アクティブ・補助</div>
+      <div class="swatch"><span class="dot" style="background:#f3ead9;border:1px solid #cdbf9f"></span>クラフト紙 / 下地</div>
+    </div>
+  </div>
+
+  <div class="stage">
+
+    <!-- ============ 高精細トップ ============ -->
+    <div>
+      <div class="col-label">トップ画面（高精細）</div>
+      <div class="phone hero grain">
+        <div class="notch"></div>
+        <div class="screen">
+
+          <!-- ヘッダー -->
+          <div class="app-header">
+            <div class="logo-wrap">
+              <div class="logo"><span class="k">Keepon</span><span class="ra">ラ</span><span class="bo">ボ</span></div>
+              <small>0→1 コミュニティ</small>
+            </div>
+            <div class="header-icons">
+              <div class="icon-btn">
+                <svg viewBox="0 0 24 24"><path d="M3 8l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+              </div>
+              <div class="icon-btn">
+                <!-- 手紙=アイデア箱 -->
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                <span class="badge">!</span>
+              </div>
+            </div>
+          </div>
+          <div class="idea-tag">💡 アイデア箱</div>
+
+          <!-- ストーリーズ -->
+          <div class="stories">
+            <div class="story"><div class="ring"><i>📣</i></div><span>募集<br>イベント</span></div>
+            <div class="story"><div class="ring"><i>🎤</i></div><span>発表会</span></div>
+            <div class="story"><div class="ring navy"><i>💼</i></div><span>キャリア<br>インタ</span></div>
+            <div class="story"><div class="ring"><i>🌱</i></div><span>スクール<br>生紹介</span></div>
+            <div class="story"><div class="ring navy"><i>🗣️</i></div><span>Yononaka</span></div>
+            <div class="story"><div class="ring photo"><i>📸</i></div><span>今週の<br>フォト</span></div>
+          </div>
+
+          <!-- フィード -->
+          <div class="feed">
+            <div class="feed-h">お知らせ・活動報告</div>
+
+            <div class="post">
+              <div class="post-thumb t2"><span class="emoji">🎪</span><span class="chip">募集イベント</span></div>
+              <div class="post-body">
+                <h4>7月「なんでも発表会」参加者募集スタート</h4>
+                <p>つくったもの・調べたこと、なんでもOK。発表のコツも事前に配ります。</p>
+                <div class="post-meta"><span class="post-date">2026.06.10</span><span class="post-link">くわしく見る →</span></div>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="post-thumb t3"><span class="emoji">📸</span><span class="chip">今週のスクールフォト</span></div>
+              <div class="post-body">
+                <h4>今週のラボの様子をお届け</h4>
+                <p>マイクラSDGsチームの白熱した1コマ。お子さんの「夢中」が見えます。</p>
+                <div class="post-meta"><span class="post-date">2026.06.09</span><span class="post-link">くわしく見る →</span></div>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="post-thumb t1"><span class="emoji">💼</span><span class="chip">キャリアインタビュー</span></div>
+              <div class="post-body">
+                <h4>vol.12 「パティシエという仕事」公開</h4>
+                <p>好きを仕事にした先輩の話。斜めの大人に出会える連載です。</p>
+                <div class="post-meta"><span class="post-date">2026.06.06</span><span class="post-link">くわしく見る →</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下段固定バー -->
+          <div class="tabbar">
+            <div class="cta primary">
+              <svg viewBox="0 0 24 24" stroke="#fff"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>受講予約</span>
+            </div>
+            <div class="cta ghost">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>
+              <span>面談申込</span>
+            </div>
+            <div class="cta sub">
+              <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>歩き方</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ワイヤーフレーム群 ============ -->
+    <div class="wires">
+      <div class="col-label">主要画面ワイヤーフレーム</div>
+
+      <div class="wire-row">
+        <!-- ストーリー全画面 -->
+        <div class="wphone">
+          <div class="wscreen">
+            <div class="wstory-dots"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+            <div class="wfull">
+              <div class="wbar l" style="background:#ffffff90;height:13px"></div>
+              <div class="wbar m" style="background:#ffffff60;margin-top:7px"></div>
+              <div class="wbtn o" style="margin-top:12px">詳細ページを見る →</div>
+            </div>
+          </div>
+          <div class="wlabel">① ストーリー閲覧<small>全画面でスワイプ → 最後に詳細へ</small></div>
+        </div>
+
+        <!-- 予約ページ -->
+        <div class="wphone">
+          <div class="wscreen">
+            <div class="wh"><b>受講予約</b><div class="wi"></div></div>
+            <div class="wbody">
+              <div class="wbox" style="height:108px;flex-direction:column;gap:6px">🎓 受講予約<span style="font-weight:400;font-size:9px">select-typeへ</span></div>
+              <div class="wbox" style="height:108px;flex-direction:column;gap:6px">🎪 イベント予約<span style="font-weight:400;font-size:9px">/news へ</span></div>
+              <div class="wnote">画像ボタン2つ → 外部リンク</div>
+            </div>
+          </div>
+          <div class="wlabel">② 予約ページ<small>受講 / イベントの2択</small></div>
+        </div>
+
+        <!-- アイデア箱フォーム -->
+        <div class="wphone">
+          <div class="wscreen">
+            <div class="wh"><b>💡 アイデア箱</b><div class="wi"></div></div>
+            <div class="wbody">
+              <div class="wbar s"></div>
+              <div class="wbox" style="height:90px">こんなのあったら<br>いいな、を書く</div>
+              <div class="wbar s"></div>
+              <div class="wbar m" style="height:28px;background:#fff;border:1.5px solid #cdbf9f"></div>
+              <div class="wbtn g" style="margin-top:auto">送信する</div>
+            </div>
+          </div>
+          <div class="wlabel">③ アイデア箱<small>手紙マークから / 双方向の種</small></div>
+        </div>
+      </div>
+
+      <div class="wire-row">
+        <!-- 面談申込 -->
+        <div class="wphone">
+          <div class="wscreen">
+            <div class="wh"><b>面談申込</b><div class="wi"></div></div>
+            <div class="wbody">
+              <div class="wbar m"></div>
+              <div class="wbar l" style="height:26px;background:#fff;border:1.5px solid #cdbf9f"></div>
+              <div class="wbar l" style="height:26px;background:#fff;border:1.5px solid #cdbf9f"></div>
+              <div class="wbox" style="height:60px">希望日時を選ぶ</div>
+              <div class="wbtn n" style="margin-top:auto">この内容で申し込む</div>
+            </div>
+          </div>
+          <div class="wlabel">④ 面談申込<small>個別面談フォーム</small></div>
+        </div>
+
+        <!-- ラボの歩き方 -->
+        <div class="wphone">
+          <div class="wscreen">
+            <div class="wh"><b>ラボの歩き方</b><div class="wi"></div></div>
+            <div class="wbody">
+              <div class="wbox" style="height:70px">はじめての方へ</div>
+              <div class="wbar l"></div><div class="wbar m"></div>
+              <div class="wbar l"></div><div class="wbar s"></div>
+              <div class="wnote" style="margin-top:auto">使い方・各機能ガイド</div>
+            </div>
+          </div>
+          <div class="wlabel">⑤ ラボの歩き方<small>初めての人の道しるべ</small></div>
+        </div>
+
+        <!-- 設定/通知 -->
+        <div class="wphone">
+          <div class="wscreen">
+            <div class="wh"><b>設定</b><div class="wi"></div></div>
+            <div class="wbody">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:#5b5446;font-weight:700">プッシュ通知</span><div style="width:38px;height:21px;border-radius:20px;background:var(--green);position:relative"><div style="width:17px;height:17px;border-radius:50%;background:#fff;position:absolute;right:2px;top:2px"></div></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;color:#5b5446;font-weight:700">新着イベント</span><div style="width:38px;height:21px;border-radius:20px;background:var(--green);position:relative"><div style="width:17px;height:17px;border-radius:50%;background:#fff;position:absolute;right:2px;top:2px"></div></div></div>
+              <div class="wbar m"></div>
+              <div class="wbox" style="height:54px;margin-top:auto">ホーム画面に追加</div>
+            </div>
+          </div>
+          <div class="wlabel">⑥ 通知・設定<small>PWA：通知ON/OFF・ホーム追加</small></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 凡例 -->
+  <div class="legend grain">
+    <h3>この提案のポイント</h3>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="tag n">構造</span><b>上＝知る／下＝動く</b>。迷ってない人はすぐ予約、迷ってる人は雰囲気から。Instagram慣れした指にそのまま馴染む配置。</div>
+      <div class="legend-item"><span class="tag o">CTA</span><b>受講予約だけオレンジ</b>で希少化。色に序列をつけ、一番してほしい行動を一目で。</div>
+      <div class="legend-item"><span class="tag g">体験</span><b>ストーリーで中身を味見</b>→詳細へ。円ボタンが本物のストーリー挙動で、肩透かしにならない。</div>
+      <div class="legend-item"><span class="tag o">0→1</span><b>アイデア箱</b>で「受け取る人」から「言う・つくる側」へ。DM位置の手紙マークから、わくわく投稿。</div>
+      <div class="legend-item"><span class="tag n">中身</span><b>CLAFT HPと同内容</b>。連携できれば更新は一度きり。今週のスクールフォトで"通わせてよかった"を毎週届ける。</div>
+      <div class="legend-item"><span class="tag g">PWA</span><b>プッシュ通知（ON/OFF可）</b>とホーム追加。新着イベントを逃さない——アプリ化の最大の価値。</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -512,7 +512,7 @@ export default function YononakaPage(){
           <p style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', color: 'var(--ink-600)' }}>
             習い事教室・法人での導入をご検討の方へ
           </p>
-          <a href="/yononaka-kyoshitsu" className="cd-textlink">
+          <a href="/yononaka/kyoshitsu" className="cd-textlink">
             法人向けページを見る
             <ArrowRightDoodle width={22} />
           </a>

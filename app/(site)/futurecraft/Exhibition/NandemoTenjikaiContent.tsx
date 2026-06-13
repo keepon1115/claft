@@ -584,6 +584,20 @@ export default function NandemoTenjikaiContent() {
             次回の開催は7/26を予定しています。また後日お知らせします。
           </p>
 
+          <div className="mt-10 reveal">
+            <a
+              href="/futurecraft/Exhibition/nandemo-2026-07"
+              className="group inline-flex items-center gap-3 bg-[#E04E2C] text-[#FFF8EC] font-display tracking-wider px-8 py-5 rounded-full hover:bg-[#1F1810] transition-colors duration-300 shadow-lg text-lg"
+            >
+              <Frame className="w-6 h-6" />
+              <span>オンライン展示をみる</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <p className="font-handwritten text-sm text-[#1F1810]/60 mt-3">
+              ↑ 作品を見て、顔文字とコメントで応援できます
+            </p>
+          </div>
+
           <p className="font-handwritten text-[#1F1810]/60 mt-10 reveal">
             あなたの展示、楽しみに待っています。— Keep On
           </p>
