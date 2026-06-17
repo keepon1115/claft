@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LabPageHeader } from '@/components/lab/LabPageHeader';
 
-export const metadata: Metadata = { title: 'ラボの歩き方 | キープオンラボ' };
+export const metadata: Metadata = { title: 'アプリの使い方 | キープオンラボ' };
 
-// ⑥ ラボの歩き方：初めての人向けの使い方ガイド
+// アプリの使い方：初めての人向けの機能ガイド（ヘッダーの「?」から開く）
 export default function GuidePage() {
   return (
     <>
-      <LabPageHeader title="ラボの歩き方" />
+      <LabPageHeader title="アプリの使い方" />
       <main className="lab-page-body">
         <p className="lab-lead">
           はじめまして！　このアプリは、キープオンラボに通うみなさんと保護者の方のための

@@ -5,8 +5,8 @@ import { LabTabBar } from '@/components/lab/LabTabBar';
 import { getLabContent } from '@/lib/lab/content';
 
 // トップ：ヘッダー / ストーリーズ / フィード / 下段固定バー の4ブロック構成。
-export default function LabTopPage() {
-  const { stories, posts } = getLabContent();
+export default async function LabTopPage() {
+  const { stories, posts } = await getLabContent();
 
   return (
     <>
