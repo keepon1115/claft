@@ -38,6 +38,8 @@ export type FeedPost = {
   date: string;
   emoji: string;
   thumbTheme: 'navy' | 'orange' | 'green';
+  /** 実写真サムネ（microCMSアップロード）。あれば絵文字+グラデの代わりに表示 */
+  thumbnailUrl?: string;
   /** くわしく見る → の遷移先（CLAFT HP 等） */
   href: string;
 };
@@ -185,11 +187,75 @@ const posts: FeedPost[] = [
   },
 ];
 
+// ============================================================
+// microCMS 連携（posts のみ）。ストーリーは当面コード側の静的データ。
+// ============================================================
+
+/** microCMS の posts API の1件（管理画面のフィールドIDと一致させる） */
+type MicroCMSPost = {
+  id: string;
+  title: string;
+  excerpt?: string;
+  categoryLabel?: string;
+  emoji?: string;
+  /** セレクトは配列で返る（単一選択でも ["orange"]） */
+  thumbTheme?: string[] | string;
+  thumbnail?: { url: string; width: number; height: number };
+  href?: string;
+  /** 表示用の日付（任意）。未指定なら publishedAt を使う */
+  date?: string;
+  publishedAt?: string;
+};
+
+const THEMES = ['navy', 'orange', 'green'] as const;
+type Theme = (typeof THEMES)[number];
+
+function pickTheme(v: MicroCMSPost['thumbTheme']): Theme {
+  const s = Array.isArray(v) ? v[0] : v;
+  return (THEMES as readonly string[]).includes(s ?? '') ? (s as Theme) : 'navy';
+}
+
+/** ISO日時 → YYYY.MM.DD */
+function formatDate(iso?: string): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}.${p(d.getMonth() + 1)}.${p(d.getDate())}`;
+}
+
+function mapPost(p: MicroCMSPost): FeedPost {
+  return {
+    id: p.id,
+    categorySlug: '',
+    categoryLabel: p.categoryLabel?.trim() || 'お知らせ',
+    title: p.title,
+    excerpt: p.excerpt ?? '',
+    date: formatDate(p.date || p.publishedAt),
+    emoji: p.emoji?.trim() || '📌',
+    thumbTheme: pickTheme(p.thumbTheme),
+    thumbnailUrl: p.thumbnail?.url,
+    href: p.href?.trim() || '#',
+  };
+}
+
+/** お知らせ・活動報告。microCMSにあればそれを、無ければ静的ダミーを返す。 */
+async function getPosts(): Promise<FeedPost[]> {
+  const { fetchList } = await import('./microcms');
+  const cms = await fetchList<MicroCMSPost>('posts', 'orders=-publishedAt');
+  if (cms && cms.length > 0) return cms.map(mapPost);
+  return posts; // 未設定・空ならフォールバック
+}
+
+/** ストーリー（当面は静的）。story系ページから同期的に使う。 */
+export function getStories(): StoryCategory[] {
+  return stories;
+}
+
 /**
- * ラボの全コンテンツを返す。
- * 段階2（HP記事・Googleカレンダー連携）ではこの関数の中身だけを
- * fetch 実装に差し替える。呼び出し側は変更しないこと。
+ * ラボの全コンテンツを返す（トップ画面用）。
+ * posts は microCMS（ISR）から取得し、未設定時は静的へフォールバックする。
  */
-export function getLabContent(): LabContent {
-  return { stories, posts };
+export async function getLabContent(): Promise<LabContent> {
+  return { stories, posts: await getPosts() };
 }
