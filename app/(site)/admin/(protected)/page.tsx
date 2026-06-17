@@ -9,17 +9,17 @@ interface PendingComment {
   id: string;
   comment_type: CommentType;
   body: string;
-  display_name: string | null;
+  viewer_nickname: string | null;
   created_at: string;
-  moderation: { decision?: string; reasons?: string[] } | null;
-  works: { title: string; author_name: string } | null;
+  ai_flag: { decision?: string; reasons?: string[] } | null;
+  works: { title: string; author_nickname: string } | null;
 }
 
 export default async function ModerationQueuePage() {
   const supabase = getAdminClient();
   const { data, error } = await supabase
     .from('comments')
-    .select('id, comment_type, body, display_name, created_at, moderation, works(title, author_name)')
+    .select('id, comment_type, body, viewer_nickname, created_at, ai_flag, works(title, author_nickname)')
     .eq('status', 'pending')
     .order('created_at', { ascending: true });
 
@@ -51,8 +51,8 @@ export default async function ModerationQueuePage() {
               <span className="rounded-full bg-[#2E7D7D]/10 px-2 py-0.5 font-medium text-[#2E7D7D]">
                 {COMMENT_TYPE_META[c.comment_type].label}
               </span>
-              <span>宛先: {c.works ? `${c.works.title}（${c.works.author_name}）` : '不明な作品'}</span>
-              <span>投稿者: {c.display_name || 'ななし'}</span>
+              <span>宛先: {c.works ? `${c.works.title}（${c.works.author_nickname}）` : '不明な作品'}</span>
+              <span>投稿者: {c.viewer_nickname || 'ななし'}</span>
               <time>{new Date(c.created_at).toLocaleString('ja-JP')}</time>
             </header>
 
@@ -60,9 +60,9 @@ export default async function ModerationQueuePage() {
               {c.body}
             </p>
 
-            {c.moderation?.reasons && c.moderation.reasons.length > 0 && (
+            {c.ai_flag?.reasons && c.ai_flag.reasons.length > 0 && (
               <p className="mt-2 text-xs text-[#E04E2C]">
-                AI判定理由: {c.moderation.reasons.join(' / ')}
+                AI判定理由: {c.ai_flag.reasons.join(' / ')}
               </p>
             )}
 

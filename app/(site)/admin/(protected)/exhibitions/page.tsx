@@ -1,9 +1,22 @@
 import Link from 'next/link';
 import { getAdminClient } from '@/lib/exhibition/adminAuth';
-import type { Exhibition } from '@/lib/exhibition/types';
-import { createExhibition, setExhibitionPublished } from '../../actions';
+import type { Exhibition, ExhibitionStatus } from '@/lib/exhibition/types';
+import { createExhibition, setExhibitionStatus } from '../../actions';
 
 export const dynamic = 'force-dynamic';
+
+const STATUS_LABEL: Record<ExhibitionStatus, string> = {
+  draft: '下書き（非公開）',
+  open: '公開中',
+  closed: '終了（閲覧のみ）',
+};
+
+// 次の状態への遷移ボタン定義
+const NEXT_ACTIONS: { status: ExhibitionStatus; label: string; color: string }[] = [
+  { status: 'open', label: '公開する', color: '#E04E2C' },
+  { status: 'closed', label: '終了にする', color: '#2E7D7D' },
+  { status: 'draft', label: '下書きに戻す', color: '#1F1810' },
+];
 
 export default async function AdminExhibitionsPage() {
   const supabase = getAdminClient();
@@ -17,6 +30,9 @@ export default async function AdminExhibitionsPage() {
     <div className="space-y-10">
       <section>
         <h1 className="mb-4 text-lg font-bold text-[#1F1810]">展示会（開催回）</h1>
+        <p className="mb-4 text-xs text-[#1F1810]/60">
+          公開中(open)・終了(closed)の展示会だけが閲覧者に見えます。作品の公開可否はこの状態で一括制御されます。
+        </p>
         <div className="space-y-3">
           {exhibitions.length === 0 && (
             <p className="text-sm text-[#1F1810]/50">まだ展示会がありません。下のフォームから作成してください。</p>
@@ -29,8 +45,7 @@ export default async function AdminExhibitionsPage() {
               <div className="min-w-0 flex-1">
                 <p className="font-bold text-[#1F1810]">{e.title}</p>
                 <p className="text-xs text-[#1F1810]/50">
-                  /futurecraft/Exhibition/{e.slug}
-                  {e.is_published ? '（公開中）' : '（非公開）'}
+                  /futurecraft/Exhibition/{e.slug} ・ {STATUS_LABEL[e.status]}
                 </p>
               </div>
               <Link
@@ -39,18 +54,17 @@ export default async function AdminExhibitionsPage() {
               >
                 作品を管理
               </Link>
-              <form action={setExhibitionPublished.bind(null, e.id, !e.is_published)}>
-                <button
-                  type="submit"
-                  className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${
-                    e.is_published
-                      ? 'border border-[#1F1810]/30 text-[#1F1810]/60 hover:bg-[#1F1810]/10'
-                      : 'bg-[#E04E2C] text-white hover:bg-[#1F1810]'
-                  }`}
-                >
-                  {e.is_published ? '非公開にする' : '公開する'}
-                </button>
-              </form>
+              {NEXT_ACTIONS.filter((a) => a.status !== e.status).map((a) => (
+                <form key={a.status} action={setExhibitionStatus.bind(null, e.id, a.status)}>
+                  <button
+                    type="submit"
+                    className="rounded-full px-4 py-1.5 text-xs font-bold text-white transition-opacity hover:opacity-85"
+                    style={{ backgroundColor: a.color }}
+                  >
+                    {a.label}
+                  </button>
+                </form>
+              ))}
             </div>
           ))}
         </div>
@@ -77,9 +91,9 @@ export default async function AdminExhibitionsPage() {
             />
           </label>
           <label className="block text-xs text-[#1F1810]/70 sm:col-span-2">
-            説明（任意）
+            テーマ・説明（任意）
             <textarea
-              name="description"
+              name="theme"
               rows={2}
               className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none"
             />
@@ -89,7 +103,7 @@ export default async function AdminExhibitionsPage() {
               type="submit"
               className="rounded-full bg-[#1F1810] px-6 py-2 text-sm font-bold text-[#FFF8EC] hover:bg-[#E04E2C] transition-colors"
             >
-              作成（非公開で作られます）
+              作成（下書きで作られます）
             </button>
           </div>
         </form>

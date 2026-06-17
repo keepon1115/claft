@@ -214,7 +214,7 @@ export function CoursesClient() {
             target="小学生〜大人"
             price="¥2,750/回"
             priceLabel="料金"
-            priceNote="45分・チケット制"
+            priceNote="50分・チケット制"
             accentRgb="var(--green-rgb)"
             tapeClass="craft-tape--green"
             icon="talk"

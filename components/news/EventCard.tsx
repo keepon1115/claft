@@ -152,6 +152,13 @@ export default function EventCard({ event }: Props) {
             </p>
           )}
 
+          {/* 時間 */}
+          {event.time && (
+            <p style={{ fontSize: '12px', color: 'var(--ink-500)', margin: '0 0 3px' }}>
+              <span style={{ fontWeight: 600 }}>時間：</span>{event.time}
+            </p>
+          )}
+
           {/* 場所 */}
           {event.location && (
             <p style={{ fontSize: '12px', color: 'var(--ink-500)', margin: '0 0 3px' }}>

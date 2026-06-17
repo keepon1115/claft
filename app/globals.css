@@ -1399,6 +1399,11 @@
   line-height: 34px;
 }
 
+/* 罫線紙の中の付箋（cd-tip）は独自の行間を保つ */
+.craft-paper--ruled p.cd-tip {
+  line-height: var(--leading-relaxed);
+}
+
 /* 傾き（--rot で個別指定） */
 .craft-tilt {
   transform: rotate(var(--rot, 0deg));
@@ -4003,6 +4008,24 @@
   margin-top: 12px;
 }
 
+/* 写真に貼るバッジ（日付・ラベル＝ステッカー） */
+.cd-photo-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 14px;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.04em;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(92, 77, 42, 0.25);
+  transform: rotate(2deg);
+  z-index: 3;
+}
+
 /* 写真（ポラロイド枠） */
 .cd-photo {
   margin: 0 0 22px;
@@ -4528,6 +4551,120 @@
 .ss-back:hover {
   transform: translateX(-3px);
   box-shadow: var(--shadow-paper-lift);
+}
+
+/* =========================================
+   SUBPAGE: asia-steam-camp (sc-*) — 旅のジャーナル
+   ========================================= */
+
+/* パスポートスタンプ（紙片＋二重ダッシュ枠） */
+.sc-stamp {
+  position: relative;
+  padding: 26px 22px 22px;
+}
+
+.sc-stamp::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 2px dashed rgb(var(--accent-rgb, var(--brand-rgb)) / 0.5);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.sc-stamp-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  padding: 4px 15px;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.04em;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(92, 77, 42, 0.22);
+  transform: rotate(-2deg);
+  z-index: 2;
+}
+
+.sc-stamp-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 10px;
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+  background: rgb(var(--accent-rgb, var(--brand-rgb)) / 0.13);
+  border-radius: 46% 54% 48% 52% / 52% 48% 54% 46%;
+}
+
+/* フェーズ見出しラベル（搭乗ゲートの札） */
+.sc-phase-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 7px 18px;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  color: #fff;
+  font-weight: var(--font-bold);
+  font-size: var(--text-base);
+  border: 2px solid #fff;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sticker);
+  transform: rotate(-1.5deg);
+}
+
+/* フライトルートのタイムライン */
+.sc-tl {
+  display: flex;
+  gap: 16px;
+}
+
+.sc-tl-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.sc-tl-dot {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(92, 77, 42, 0.25);
+  transform: rotate(-4deg);
+}
+
+.sc-tl-line {
+  width: 0;
+  flex: 1;
+  min-height: 28px;
+  margin-top: 4px;
+  border-left: 3px dashed rgb(var(--accent-rgb, var(--brand-rgb)) / 0.5);
+}
+
+.sc-tl-card {
+  flex: 1;
+  margin-bottom: 18px;
+  padding: 16px 18px;
+}
+
+.sc-date {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 12px;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  border-radius: 6px;
 }
 
 /* ---------- Reduced Motion ---------- */

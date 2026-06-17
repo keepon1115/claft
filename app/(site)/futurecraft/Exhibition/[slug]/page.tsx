@@ -18,14 +18,15 @@ export async function generateMetadata({
   return {
     title: exhibition ? `${exhibition.title} 作品一覧 | CLAFT` : '展示会 | CLAFT',
     description:
-      exhibition?.description ??
+      exhibition?.theme ??
       'なんでも展示会のオンラインギャラリー。作品を見て、顔文字で反応して、コメントで応援しよう。',
   };
 }
 
 function coverImage(work: Work): string | null {
-  if (work.photos[0]) return work.photos[0];
-  if (work.video_url) return youTubeThumbnail(work.video_url);
+  if (work.thumbnail_url) return work.thumbnail_url;
+  if (work.work_images && work.work_images[0]) return work.work_images[0].url;
+  if (work.youtube_url) return youTubeThumbnail(work.youtube_url);
   return null;
 }
 
@@ -63,9 +64,14 @@ export default async function WorksListPage({ params }: { params: { slug: string
             {exhibition.title}
             <Sparkles className="inline-block ml-3 -mt-2 w-7 h-7 text-[#F2B544] sparkle-anim" />
           </h1>
-          {exhibition.description && (
+          {exhibition.theme && (
             <p className="font-body text-sm sm:text-base text-[#1F1810]/70 leading-loose max-w-xl mx-auto mt-6 reveal">
-              {exhibition.description}
+              {exhibition.theme}
+            </p>
+          )}
+          {exhibition.status === 'closed' && (
+            <p className="font-handwritten text-sm text-[#E04E2C] mt-4 reveal">
+              ※ この展示会は終了しました（作品は引き続き見られます）
             </p>
           )}
           <p className="font-handwritten text-sm text-[#1F1810]/50 mt-6 reveal">
@@ -113,8 +119,8 @@ export default async function WorksListPage({ params }: { params: { slug: string
                       {work.title}
                     </p>
                     <p className="font-handwritten text-xs sm:text-sm text-[#1F1810]/60 mt-1">
-                      by {work.author_name}
-                      {work.author_note ? `（${work.author_note}）` : ''}
+                      by {work.author_nickname}
+                      {work.genre ? ` ・ ${work.genre}` : ''}
                     </p>
                   </div>
                 </Link>

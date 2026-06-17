@@ -1,38 +1,56 @@
 export type CommentType = 'cheer' | 'review' | 'question';
 export type ContentStatus = 'pending' | 'approved' | 'rejected';
+export type ExhibitionStatus = 'draft' | 'open' | 'closed';
 
 export interface Exhibition {
   id: string;
-  slug: string;
   title: string;
-  description: string | null;
-  is_published: boolean;
-  starts_at: string | null;
-  ends_at: string | null;
+  slug: string;
+  theme: string | null;
+  status: ExhibitionStatus;
+  opens_at: string | null;
+  closes_at: string | null;
   created_at: string;
+}
+
+export interface WorkImage {
+  id: string;
+  work_id: string;
+  url: string;
+  sort_order: number;
 }
 
 export interface Work {
   id: string;
   exhibition_id: string;
   title: string;
-  author_name: string;
-  author_note: string | null;
-  video_url: string | null;
-  photos: string[];
-  story_process: string | null;
-  story_idea: string | null;
-  story_struggle: string | null;
+  author_nickname: string;
+  genre: string | null;
+  thumbnail_url: string | null;
+  youtube_url: string | null;
+  author_intro: string | null;
+  story_made: string | null;
+  story_devised: string | null;
+  story_struggled: string | null;
   story_learned: string | null;
-  is_published: boolean;
-  sort_order: number;
   created_at: string;
+  /** join で同梱される作品写真（sort_order 昇順） */
+  work_images?: WorkImage[];
+}
+
+export interface ReactionType {
+  id: string;
+  exhibition_id: string;
+  emoji: string;
+  label: string | null;
+  sort_order: number;
 }
 
 export interface AuthorReply {
   id: string;
   comment_id: string;
   body: string;
+  status: ContentStatus;
   created_at: string;
 }
 
@@ -41,26 +59,25 @@ export interface Comment {
   work_id: string;
   comment_type: CommentType;
   body: string;
-  display_name: string | null;
+  viewer_nickname: string | null;
   status: ContentStatus;
   created_at: string;
-  approved_at: string | null;
+  reviewed_at: string | null;
   author_replies?: AuthorReply[];
 }
 
-export interface ReactionCount {
-  kind_id: string;
-  emoji: string;
-  label: string;
-  count: number;
+/** RPC reaction_counts の生の返り値 */
+export interface ReactionCountRow {
+  reaction_type_id: string;
+  cnt: number;
 }
 
-export interface ReactionKind {
-  id: string;
+/** 画面表示用に reaction_types と集計をマージしたもの */
+export interface ReactionTally {
+  reaction_type_id: string;
   emoji: string;
-  label: string;
-  is_active: boolean;
-  sort_order: number;
+  label: string | null;
+  count: number;
 }
 
 /** コメント種別ごとの表示情報（「問い」は Phase 1 では固定文） */
@@ -74,3 +91,11 @@ export const COMMENT_TYPE_META: Record<
 };
 
 export const COMMENT_TYPES: CommentType[] = ['cheer', 'review', 'question'];
+
+/** 制作ストーリーの表示メタ（カラム名 → 見出し） */
+export const STORY_FIELDS: { key: keyof Work; label: string }[] = [
+  { key: 'story_made', label: 'どうやって作った？' },
+  { key: 'story_devised', label: 'くふうしたところ' },
+  { key: 'story_struggled', label: 'たいへんだったところ' },
+  { key: 'story_learned', label: '学んだこと・気づき' },
+];

@@ -4,6 +4,7 @@
 // 各予定の説明欄に必要に応じて以下を記載（すべて任意）:
 //   対象: （自由記述）
 //   場所: （開催場所）← Googleカレンダーの「場所」欄ではなく説明欄に記載
+//   時間: （例: 13:00〜15:00）← 補足的な時間帯の記載
 //   申込: （フォームURL）
 //   カテゴリ: （検定/発表会/Yononaka/ワークショップ/展示会 等）
 //   配信: （告知したWeekly/MonthlyのURL）
@@ -17,6 +18,7 @@ export interface CalendarEvent {
   location?: string;
   source: 'keepon' | 'claft';
   audience?: string;    // 説明欄「対象:」
+  time?: string;        // 説明欄「時間:」
   applyUrl?: string;    // 説明欄「申込:」
   category?: string;    // 説明欄「カテゴリ:」
   broadcastUrl?: string; // 説明欄「配信:」
@@ -43,9 +45,9 @@ function stripHtml(html: string): string {
 
 function parseDescription(
   description: string | undefined
-): Pick<CalendarEvent, 'audience' | 'location' | 'applyUrl' | 'category' | 'broadcastUrl'> {
+): Pick<CalendarEvent, 'audience' | 'location' | 'time' | 'applyUrl' | 'category' | 'broadcastUrl'> {
   if (!description) return {};
-  const result: Pick<CalendarEvent, 'audience' | 'location' | 'applyUrl' | 'category' | 'broadcastUrl'> = {};
+  const result: Pick<CalendarEvent, 'audience' | 'location' | 'time' | 'applyUrl' | 'category' | 'broadcastUrl'> = {};
 
   // Normalize HTML line breaks to \n before splitting
   const normalized = description.replace(/<br\s*\/?>/gi, '\n');
@@ -55,6 +57,7 @@ function parseDescription(
     // Support both full-width（：）and half-width（:）colons
     if (/^対象[：:]/.test(t)) result.audience = t.replace(/^対象[：:]\s*/, '');
     else if (/^場所[：:]/.test(t)) result.location = t.replace(/^場所[：:]\s*/, '');
+    else if (/^時間[：:]/.test(t)) result.time = t.replace(/^時間[：:]\s*/, '');
     else if (/^申込[：:]/.test(t)) result.applyUrl = t.replace(/^申込[：:]\s*/, '');
     else if (/^カテゴリ[：:]/.test(t)) result.category = t.replace(/^カテゴリ[：:]\s*/, '');
     else if (/^配信[：:]/.test(t)) result.broadcastUrl = t.replace(/^配信[：:]\s*/, '');

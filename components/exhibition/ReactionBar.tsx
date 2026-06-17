@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { ReactionCount } from '@/lib/exhibition/types';
+import type { ReactionTally } from '@/lib/exhibition/types';
 
 /**
  * 顔文字リアクションバー。
@@ -13,9 +13,9 @@ export default function ReactionBar({
   initialCounts,
 }: {
   workId: string;
-  initialCounts: ReactionCount[];
+  initialCounts: ReactionTally[];
 }) {
-  const [counts, setCounts] = useState<ReactionCount[]>(initialCounts);
+  const [counts, setCounts] = useState<ReactionTally[]>(initialCounts);
   const [mine, setMine] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState<string | null>(null);
 
@@ -34,27 +34,29 @@ export default function ReactionBar({
     };
   }, [workId]);
 
-  async function toggle(kindId: string) {
+  async function toggle(reactionTypeId: string) {
     if (busy) return;
-    setBusy(kindId);
+    setBusy(reactionTypeId);
     // 楽観的更新
-    const had = mine.has(kindId);
+    const had = mine.has(reactionTypeId);
     setMine((prev) => {
       const next = new Set(prev);
-      if (had) next.delete(kindId);
-      else next.add(kindId);
+      if (had) next.delete(reactionTypeId);
+      else next.add(reactionTypeId);
       return next;
     });
     setCounts((prev) =>
       prev.map((c) =>
-        c.kind_id === kindId ? { ...c, count: Math.max(0, c.count + (had ? -1 : 1)) } : c,
+        c.reaction_type_id === reactionTypeId
+          ? { ...c, count: Math.max(0, c.count + (had ? -1 : 1)) }
+          : c,
       ),
     );
     try {
       const res = await fetch('/api/exhibition/reactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ workId, kindId }),
+        body: JSON.stringify({ workId, reactionTypeId }),
       });
       const json = await res.json();
       if (json?.ok) {
@@ -71,22 +73,24 @@ export default function ReactionBar({
   return (
     <div className="flex flex-wrap gap-3">
       {counts.map((c) => {
-        const active = mine.has(c.kind_id);
+        const active = mine.has(c.reaction_type_id);
         return (
           <button
-            key={c.kind_id}
+            key={c.reaction_type_id}
             type="button"
-            onClick={() => toggle(c.kind_id)}
+            onClick={() => toggle(c.reaction_type_id)}
             disabled={busy !== null}
             aria-pressed={active}
             className={`group flex items-center gap-2 rounded-full border-2 px-4 py-2.5 transition-all duration-300 ${
               active
                 ? 'border-[#E04E2C] bg-[#E04E2C] text-[#FFF8EC] shadow-[3px_3px_0_0_#1F1810]'
                 : 'border-[#1F1810] bg-white text-[#1F1810] shadow-[3px_3px_0_0_#1F1810] hover:-translate-y-0.5'
-            } ${busy === c.kind_id ? 'scale-95' : ''}`}
+            } ${busy === c.reaction_type_id ? 'scale-95' : ''}`}
           >
             <span className="font-body text-base sm:text-lg whitespace-nowrap">{c.emoji}</span>
-            <span className="font-handwritten text-xs opacity-80 whitespace-nowrap">{c.label}</span>
+            {c.label && (
+              <span className="font-handwritten text-xs opacity-80 whitespace-nowrap">{c.label}</span>
+            )}
             <span
               className={`font-display min-w-[1.5rem] rounded-full px-1.5 py-0.5 text-center text-xs ${
                 active ? 'bg-[#FFF8EC]/20' : 'bg-[#F2B544]/30'

@@ -1,13 +1,18 @@
 'use server';
 
+import { randomBytes } from 'node:crypto';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { getAdminClient, getAdminUser } from '@/lib/exhibition/adminAuth';
+import type { ExhibitionStatus } from '@/lib/exhibition/types';
 
 /**
  * 運営用サーバーアクション。
  * すべて「ログイン済みユーザーのセッション付きクライアント」で実行するため、
- * 仮にチェックを抜けても RLS（authenticated のみ書き込み可）が最後の砦になる。
+ * 仮にチェックを抜けても RLS（service role 以外は anon 同等＝書き込み不可）が最後の砦になる。
+ *
+ * 注意: 正本スキーマには「作品個別の公開フラグ」がない。作品の公開可否は
+ * 展示会の status（draft/open/closed）で一括制御する設計。
  */
 
 async function requireAdmin() {
@@ -41,7 +46,7 @@ export async function approveComment(commentId: string) {
   const supabase = getAdminClient();
   await supabase
     .from('comments')
-    .update({ status: 'approved', approved_at: new Date().toISOString() })
+    .update({ status: 'approved', reviewed_at: new Date().toISOString() })
     .eq('id', commentId);
   revalidatePath('/admin');
 }
@@ -49,7 +54,10 @@ export async function approveComment(commentId: string) {
 export async function rejectComment(commentId: string) {
   await requireAdmin();
   const supabase = getAdminClient();
-  await supabase.from('comments').update({ status: 'rejected' }).eq('id', commentId);
+  await supabase
+    .from('comments')
+    .update({ status: 'rejected', reviewed_at: new Date().toISOString() })
+    .eq('id', commentId);
   revalidatePath('/admin');
 }
 
@@ -60,17 +68,17 @@ export async function createExhibition(formData: FormData) {
   await requireAdmin();
   const slug = String(formData.get('slug') ?? '').trim();
   const title = String(formData.get('title') ?? '').trim();
-  const description = String(formData.get('description') ?? '').trim() || null;
+  const theme = String(formData.get('theme') ?? '').trim() || null;
   if (!slug || !title) return;
   const supabase = getAdminClient();
-  await supabase.from('exhibitions').insert({ slug, title, description });
+  await supabase.from('exhibitions').insert({ slug, title, theme });
   revalidatePath('/admin/exhibitions');
 }
 
-export async function setExhibitionPublished(exhibitionId: string, publish: boolean) {
+export async function setExhibitionStatus(exhibitionId: string, status: ExhibitionStatus) {
   await requireAdmin();
   const supabase = getAdminClient();
-  await supabase.from('exhibitions').update({ is_published: publish }).eq('id', exhibitionId);
+  await supabase.from('exhibitions').update({ status }).eq('id', exhibitionId);
   revalidatePath('/admin/exhibitions');
 }
 
@@ -80,8 +88,8 @@ export async function setExhibitionPublished(exhibitionId: string, publish: bool
 export async function createWork(exhibitionId: string, formData: FormData) {
   await requireAdmin();
   const title = String(formData.get('title') ?? '').trim();
-  const authorName = String(formData.get('author_name') ?? '').trim();
-  if (!title || !authorName) return;
+  const authorNickname = String(formData.get('author_nickname') ?? '').trim();
+  if (!title || !authorNickname) return;
 
   const photos = String(formData.get('photos') ?? '')
     .split('\n')
@@ -94,42 +102,51 @@ export async function createWork(exhibitionId: string, formData: FormData) {
     .insert({
       exhibition_id: exhibitionId,
       title,
-      author_name: authorName,
-      author_note: String(formData.get('author_note') ?? '').trim() || null,
-      video_url: String(formData.get('video_url') ?? '').trim() || null,
-      photos,
-      story_process: String(formData.get('story_process') ?? '').trim() || null,
-      story_idea: String(formData.get('story_idea') ?? '').trim() || null,
-      story_struggle: String(formData.get('story_struggle') ?? '').trim() || null,
+      author_nickname: authorNickname,
+      genre: String(formData.get('genre') ?? '').trim() || null,
+      thumbnail_url: String(formData.get('thumbnail_url') ?? '').trim() || null,
+      youtube_url: String(formData.get('youtube_url') ?? '').trim() || null,
+      author_intro: String(formData.get('author_intro') ?? '').trim() || null,
+      story_made: String(formData.get('story_made') ?? '').trim() || null,
+      story_devised: String(formData.get('story_devised') ?? '').trim() || null,
+      story_struggled: String(formData.get('story_struggled') ?? '').trim() || null,
       story_learned: String(formData.get('story_learned') ?? '').trim() || null,
-      sort_order: Number(formData.get('sort_order') ?? 0) || 0,
     })
     .select('id')
     .single();
   if (error || !work) return;
 
-  // 限定URLトークンを発行（tokenはDB既定値で自動生成）
-  await supabase.from('author_tokens').insert({ work_id: work.id });
+  // 写真を work_images に展開
+  if (photos.length > 0) {
+    await supabase
+      .from('work_images')
+      .insert(photos.map((url, i) => ({ work_id: work.id, url, sort_order: i })));
+  }
+
+  // 限定URLトークンを発行（token は正本スキーマに既定値がないためサーバーで生成）
+  const token = randomBytes(24).toString('hex');
+  await supabase.from('work_access_tokens').insert({ work_id: work.id, token });
   revalidatePath(`/admin/exhibitions/${exhibitionId}`);
 }
 
-export async function setWorkPublished(workId: string, exhibitionId: string, publish: boolean) {
+export async function deleteWork(workId: string, exhibitionId: string) {
   await requireAdmin();
   const supabase = getAdminClient();
-  await supabase.from('works').update({ is_published: publish }).eq('id', workId);
+  await supabase.from('works').delete().eq('id', workId);
   revalidatePath(`/admin/exhibitions/${exhibitionId}`);
 }
 
 // ---------------------------------------------------------------------------
-// リアクション種類
+// リアクション種類（展示会ごと）
 // ---------------------------------------------------------------------------
-export async function createReactionKind(formData: FormData) {
+export async function createReactionType(exhibitionId: string, formData: FormData) {
   await requireAdmin();
   const emoji = String(formData.get('emoji') ?? '').trim();
-  const label = String(formData.get('label') ?? '').trim();
-  if (!emoji || !label) return;
+  const label = String(formData.get('label') ?? '').trim() || null;
+  if (!emoji) return;
   const supabase = getAdminClient();
-  await supabase.from('reaction_kinds').insert({
+  await supabase.from('reaction_types').insert({
+    exhibition_id: exhibitionId,
     emoji,
     label,
     sort_order: Number(formData.get('sort_order') ?? 0) || 0,
@@ -137,9 +154,9 @@ export async function createReactionKind(formData: FormData) {
   revalidatePath('/admin/reactions');
 }
 
-export async function setReactionKindActive(kindId: string, active: boolean) {
+export async function deleteReactionType(reactionTypeId: string) {
   await requireAdmin();
   const supabase = getAdminClient();
-  await supabase.from('reaction_kinds').update({ is_active: active }).eq('id', kindId);
+  await supabase.from('reaction_types').delete().eq('id', reactionTypeId);
   revalidatePath('/admin/reactions');
 }

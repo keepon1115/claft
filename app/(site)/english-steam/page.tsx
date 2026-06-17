@@ -493,7 +493,7 @@ export default function EnglishSteamPage() {
               <p className="es-price-amount">
                 ¥2,750<small>（税込）</small>
               </p>
-              <p className="es-price-unit">/ 回（45分・チケット制）</p>
+              <p className="es-price-unit">/ 回（50分・チケット制）</p>
               <dl className="es-price-meta">
                 <dt>受講形態</dt>
                 <dd>通学 または オンライン</dd>

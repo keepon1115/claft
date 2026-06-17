@@ -1,95 +1,97 @@
 -- =============================================================================
--- 開発確認用シードデータ（展示会1件＋作品3件＋顔文字リアクション4種）
--- schema_phase1.sql 適用後に実行してください。
--- 実データ投入前に truncate して入れ替えられるよう、固定UUIDを使っています。
+-- 開発確認用シードデータ（正本スキーマ準拠）
+-- app/(site)/futurecraft/Exhibition/schema_phase1.sql 適用後に実行。
+-- 展示会1 / 作品3 / リアクション種類4 / コメント(approved 1 + pending 1) /
+-- 作者返信 / 限定URLトークン / 写真。固定UUIDで入れ替えやすくしています。
 -- =============================================================================
 
--- 顔文字リアクション 4種
-insert into reaction_kinds (id, emoji, label, is_active, sort_order) values
-  ('a1000000-0000-4000-8000-000000000001', '(≧▽≦)',   'すごい！',     true, 1),
-  ('a1000000-0000-4000-8000-000000000002', '(*´ω｀*)', 'ほっこり',     true, 2),
-  ('a1000000-0000-4000-8000-000000000003', 'Σ(ﾟДﾟ)',   'びっくり！',   true, 3),
-  ('a1000000-0000-4000-8000-000000000004', '(｀･ω･´)ゞ', 'がんばったね', true, 4)
-on conflict (id) do nothing;
-
--- 展示会（公開済み）
-insert into exhibitions (id, slug, title, description, is_published, starts_at) values
+-- 展示会（status='open' = 公開中）
+insert into exhibitions (id, title, slug, theme, status, opens_at) values
   ('e1000000-0000-4000-8000-000000000001',
-   'nandemo-2026-07',
-   'なんでも展示会 2026夏',
+   'なんでも展示会 2026夏', 'nandemo-2026-07',
    '自分の好きなモノ、得意なこと、自由研究、おもしろい遊び、旅行の思い出 ── なんでも自由に伝えられるオンライン展示会です。',
-   true,
-   '2026-07-26T00:00:00+09:00')
+   'open', '2026-07-26T00:00:00+09:00')
 on conflict (id) do nothing;
 
--- 作品3件
-insert into works (id, exhibition_id, title, author_name, author_note, video_url, photos,
-                   story_process, story_idea, story_struggle, story_learned, is_published, sort_order) values
-  ('c1000000-0000-4000-8000-000000000001',
-   'e1000000-0000-4000-8000-000000000001',
-   'うちのウサギ、もちこの観察日記',
-   'ゆうき', '小3',
+-- リアクション種類（展示会ごと）4種
+insert into reaction_types (id, exhibition_id, emoji, label, sort_order) values
+  ('a1000000-0000-4000-8000-000000000001', 'e1000000-0000-4000-8000-000000000001', '(≧▽≦)',   'すごい！',     1),
+  ('a1000000-0000-4000-8000-000000000002', 'e1000000-0000-4000-8000-000000000001', '(*´ω｀*)', 'ほっこり',     2),
+  ('a1000000-0000-4000-8000-000000000003', 'e1000000-0000-4000-8000-000000000001', 'Σ(ﾟДﾟ)',   'びっくり！',   3),
+  ('a1000000-0000-4000-8000-000000000004', 'e1000000-0000-4000-8000-000000000001', '(｀･ω･´)ゞ', 'がんばったね', 4)
+on conflict (id) do nothing;
+
+-- 作品3件（created_at をずらして表示順を固定）
+insert into works (id, exhibition_id, title, author_nickname, genre, thumbnail_url, youtube_url, author_intro,
+                   story_made, story_devised, story_struggled, story_learned, created_at) values
+  ('c1000000-0000-4000-8000-000000000001', 'e1000000-0000-4000-8000-000000000001',
+   'うちのウサギ、もちこの観察日記', 'ゆうき（小3）', '生きもの',
+   'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=1200&q=80',
    'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-   '["https://images.unsplash.com/photo-1535241749838-299277b6305f?w=1200&q=80"]'::jsonb,
+   'もちこが大すきな小3です。毎日いっしょにあそんでいます。',
    '毎日もちこの様子をノートに書いて、1か月分をまとめました。',
    '食べたものと機嫌の関係をグラフにしてみたところ。',
    '夜行性だから、観察する時間を合わせるのが大変でした。',
    'ウサギは耳で気持ちがわかること。',
-   true, 1),
-  ('c1000000-0000-4000-8000-000000000002',
-   'e1000000-0000-4000-8000-000000000001',
-   'マイクラでつくった空中都市',
-   'はると', '小5',
+   '2026-07-26T10:00:00+09:00'),
+  ('c1000000-0000-4000-8000-000000000002', 'e1000000-0000-4000-8000-000000000001',
+   'マイクラでつくった空中都市', 'はると（小5）', 'デジタル作品',
+   'https://images.unsplash.com/photo-1606503153255-59d8b8b82176?w=1200&q=80',
    'https://youtu.be/jNQXAC9IVRw',
-   '["https://images.unsplash.com/photo-1606503153255-59d8b8b82176?w=1200&q=80","https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&q=80"]'::jsonb,
+   'マイクラ歴3年。建築がいちばん好きです。',
    '設計図を紙に描いてから、3週間かけて建てました。',
    '水路で街全体をつないで、ボートで移動できるようにしたこと。',
    '高いところの建築で何回も落ちました。',
    '先に設計図を描くと、迷わずに作れること。',
-   true, 2),
-  ('c1000000-0000-4000-8000-000000000003',
-   'e1000000-0000-4000-8000-000000000001',
-   'はじめてのひとりバンド演奏',
-   'みお', '中1',
+   '2026-07-26T10:01:00+09:00'),
+  ('c1000000-0000-4000-8000-000000000003', 'e1000000-0000-4000-8000-000000000001',
+   'はじめてのひとりバンド演奏', 'みお（中1）', '音楽',
+   'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&q=80',
    null,
-   '["https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&q=80","https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1200&q=80"]'::jsonb,
+   'ギターとピアノをれんしゅう中です。',
    'ギター、ピアノ、歌を別々に録音して、アプリで重ねました。',
    'サビだけ自分でハモリを入れたところ。',
    'リズムを合わせるのが難しくて、20回以上録り直しました。',
    '失敗しても録り直せばいい、と思えるようになったこと。',
-   true, 3)
+   '2026-07-26T10:02:00+09:00')
 on conflict (id) do nothing;
 
--- 作者ページ限定URLトークン（開発用に固定値。本番では自動生成に任せる）
-insert into author_tokens (work_id, token) values
+-- 写真（work_images 別テーブル）
+insert into work_images (work_id, url, sort_order) values
+  ('c1000000-0000-4000-8000-000000000001', 'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=1200&q=80', 0),
+  ('c1000000-0000-4000-8000-000000000002', 'https://images.unsplash.com/photo-1606503153255-59d8b8b82176?w=1200&q=80', 0),
+  ('c1000000-0000-4000-8000-000000000002', 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&q=80', 1),
+  ('c1000000-0000-4000-8000-000000000003', 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&q=80', 0),
+  ('c1000000-0000-4000-8000-000000000003', 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1200&q=80', 1);
+
+-- 限定URLトークン（開発用固定値。本番は管理画面から自動生成）
+insert into work_access_tokens (work_id, token) values
   ('c1000000-0000-4000-8000-000000000001', 'dev-token-mochiko-0001'),
   ('c1000000-0000-4000-8000-000000000002', 'dev-token-midair-0002'),
   ('c1000000-0000-4000-8000-000000000003', 'dev-token-band-0003')
 on conflict (work_id) do nothing;
 
--- 動作確認用コメント:
---   1件は承認済み（トリガーで pending 固定のため、INSERT後にUPDATEで承認する）
---   1件は pending のまま（anon から見えないことの確認用）
-insert into comments (id, work_id, comment_type, body, display_name) values
-  ('d1000000-0000-4000-8000-000000000001',
-   'c1000000-0000-4000-8000-000000000001',
-   'cheer', 'グラフにしたのがすごい！もちこのジャンプも見たいです。', 'たろう')
-on conflict (id) do nothing;
+-- 確認用リアクション（集計が0でないことの確認用）
+insert into reactions (work_id, reaction_type_id, viewer_fingerprint) values
+  ('c1000000-0000-4000-8000-000000000001', 'a1000000-0000-4000-8000-000000000001', 'seed-fp-1'),
+  ('c1000000-0000-4000-8000-000000000001', 'a1000000-0000-4000-8000-000000000001', 'seed-fp-2'),
+  ('c1000000-0000-4000-8000-000000000001', 'a1000000-0000-4000-8000-000000000002', 'seed-fp-1')
+on conflict do nothing;
 
-update comments
-set status = 'approved', approved_at = now(),
-    moderation = '{"decision":"pass","reasons":[],"model":"seed"}'::jsonb
-where id = 'd1000000-0000-4000-8000-000000000001';
-
-insert into comments (id, work_id, comment_type, body, display_name) values
-  ('d1000000-0000-4000-8000-000000000002',
-   'c1000000-0000-4000-8000-000000000001',
+-- コメント（トリガーで pending 固定 → 1件だけ後で承認）
+insert into comments (id, work_id, comment_type, body, viewer_nickname) values
+  ('d1000000-0000-4000-8000-000000000001', 'c1000000-0000-4000-8000-000000000001',
+   'cheer', 'グラフにしたのがすごい！もちこのジャンプも見たいです。', 'たろう'),
+  ('d1000000-0000-4000-8000-000000000002', 'c1000000-0000-4000-8000-000000000001',
    'question', '（これは承認待ちのまま残す確認用コメント）', null)
 on conflict (id) do nothing;
 
+update comments
+set status = 'approved', reviewed_at = now(),
+    ai_flag = '{"decision":"pass","reasons":[],"model":"seed"}'::jsonb
+where id = 'd1000000-0000-4000-8000-000000000001';
+
 -- 承認済みコメントへの作者返信
-insert into author_replies (id, comment_id, body) values
-  ('f1000000-0000-4000-8000-000000000001',
-   'd1000000-0000-4000-8000-000000000001',
-   'ありがとう！こんどジャンプの動画もとってみます。')
-on conflict (id) do nothing;
+insert into author_replies (comment_id, body, status) values
+  ('d1000000-0000-4000-8000-000000000001',
+   'ありがとう！こんどジャンプの動画もとってみます。', 'approved');

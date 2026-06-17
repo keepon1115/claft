@@ -2,19 +2,41 @@
 
 実装日: 2026-06-12 / 実装: Claude (Fable 5)
 
-## 0. 最重要の注記: schema_phase1.sql について
+## 0. 最重要の経緯: schema_phase1.sql の正本化（2026-06-13 更新）
 
-ブリーフに「添付: schema_phase1.sql（DBの正）」とあったが、**リポジトリ内・c:\dev 配下のどこにもファイルが存在しなかった**。
-そのため、ブリーフ本文に明記された制約から [supabase/schema_phase1.sql](../supabase/schema_phase1.sql) を起こした:
+当初ブリーフ添付の schema_phase1.sql が見つからず、制約から自作スキーマを起こして全実装した。
+その後ユーザーが**正本** `app/(site)/futurecraft/Exhibition/schema_phase1.sql` を提示。
+正本に厳密準拠する方針が確定し、**自作スキーマは破棄、全アプリコードを正本のテーブル/カラム名に移行した。**
 
-- `comment_type` = cheer / review / question（厳守）
-- `status` = pending / approved / rejected（厳守）
-- INSERT トリガーで pending 固定（approved での INSERT は構造的に不可能）
-- RPC `reaction_counts(p_work_id)` による集計
+正本と自作の主な差分（移行で吸収済み）:
+| 項目 | 正本（採用） | 自作（破棄） |
+|---|---|---|
+| enum | text + CHECK | create type enum |
+| 展示会公開 | `status` draft/open/closed | is_published bool |
+| リアクション種類 | `reaction_types`（**展示会ごと**） | reaction_kinds（グローバル） |
+| 写真 | `work_images` 別テーブル | works.photos jsonb |
+| 作者名 | `author_nickname` | author_name |
+| 動画 | `youtube_url` | video_url |
+| トークン | `work_access_tokens` | author_tokens |
+| リアクション本体 | `reaction_type_id` / `viewer_fingerprint` | kind_id / visitor_hash |
+| コメント | `viewer_nickname` / `ai_flag` / `reviewed_at` | display_name / moderation / approved_at |
+| 集計RPC返り値 | `(reaction_type_id, cnt)` | (kind_id, emoji, label, count) |
+| 作者返信 | `status` あり | なし |
 
-**正となるファイルが見つかったら、テーブル/カラム名の差分を必ず照合すること。**
-（自分で決めた名前: `works.story_process / story_idea / story_struggle / story_learned`、
-`author_tokens` テーブル分離、`reactions.visitor_hash`、`author_replies` など）
+正本の MCP 適用は `apply_migration`（migration名: `exhibition_phase1_schema`）で実施。
+シードは [supabase/seed_phase1.sql](../supabase/seed_phase1.sql)（正本準拠に書き直し済み）。
+
+### 正本で「やらない」と確定した機能（ユーザー判断: 正本に厳密準拠）
+- **作品個別の公開/非公開フラグはなし**。作品の公開可否は展示会 `status` で一括制御。
+- リアクション種類は**展示会ごと**管理（管理画面もそれに合わせた）。
+
+### 正本ならではの設計（自作と異なる重要点）
+- **anon の直接 INSERT を許可**（comments は `with check(status='pending')`、reactions は許可）。
+  だが本実装はコメント/リアクションとも**APIルート（service role）経由**を使う
+  （AIモデレーション・fingerprint秘匿のため）。RLSの anon INSERT は最後の保険として残る。
+- BEFORE トリガー `force_pending_comment` が status を pending に矯正 → その後 RLS WITH CHECK 評価。
+  この順序のため、anon が `status='approved'` を指定して投稿しても**pendingとして入る**（=安全）。
+  検証スクリプトはこの挙動を踏まえた内容に修正済み（§5）。
 
 ## 1. アーキテクチャ判断
 
@@ -79,7 +101,8 @@ LPを後でシェルに乗せ替えるのは任意。
 
 ## 3. セットアップ手順（運用者向け）
 
-1. Supabase プロジェクト作成 → SQL Editor で `supabase/schema_phase1.sql` → `supabase/seed_phase1.sql` を実行
+1. スキーマ＝正本 `app/(site)/futurecraft/Exhibition/schema_phase1.sql`。
+   （本プロジェクトは MCP の `apply_migration` で適用済み。別環境では SQL Editor で正本→`supabase/seed_phase1.sql`）
 2. Authentication → Providers → Email: **Disable signup** にし、運営アカウントは
    ダッシュボードの「Add user」で作成
 3. `.env.local` に4変数を設定（`.env.example` 参照）
@@ -100,28 +123,43 @@ API ルート・サーバーアクションが動かない。
   RSC から import できないため、`lib/exhibition/youtube.ts` に分離。
 - **RLS はカラム単位でない** → author_tokens テーブル分離（上述）。
 
-## 5. 検証結果（2026-06-12 実施）
+## 5. 検証結果（2026-06-13 実DBで実施）
+
+MCP経由で Supabase（project ref: vfxvcmympnugluqfqgks）に正本スキーマ＋シードを適用し、
+**実DBに対して**検証した。
 
 ### 実施できた検証 ✅
 - `npx tsc --noEmit` … エラー 0
-- `npm run build` … 成功（exit 0）。新ルートはすべて Dynamic(ƒ) として登録:
-  `/futurecraft/Exhibition/[slug]`, `…/works/[workId]`, `/author/[token]`,
-  `/admin` 一式, `/api/exhibition/comments`, `/api/exhibition/reactions`, `/api/author/reply`
-- 本番サーバー（`next start`）+ Playwright（実ブラウザ）で確認:
-  - LP の CTA「オンライン展示をみる」が描画され visible、href は
-    `/futurecraft/Exhibition/nandemo-2026-07`（DOM アサーションで count=1 / visible=true）
-  - robots.txt に `Disallow: /author/` と `Disallow: /admin/` が出力される
-  - 既存LP・既存ページのビルドは無傷（全ルートがビルド成功）
-- 補足: このサイトは SiteGrid が useSearchParams を使うため、静的ページも初期HTMLは
-  シェルのみでボディはクライアント描画（既存からの挙動。今回の変更とは無関係）。
+- `npm run build` … 成功（exit 0）。新ルートはすべて Dynamic(ƒ) として登録。既存ページ無傷。
+- **`node scripts/verify-phase1.mjs`（anon実キーで実DB）… 全項目合格**:
+  - A: anon には approved コメントだけが見える（pending非表示）
+  - A2: シードの pending コメントは ID 直撃でも見えない
+  - B: anon から work_access_tokens（限定URLトークン）は読めない
+  - C: anon から reactions の生データ（viewer_fingerprint）は読めない
+  - D: reaction_counts RPC は anon で使え、返り値は reaction_type_id/cnt のみ（PIIなし）
+  - E1: anon が status=approved を指定しても公開コメントは増えない（pendingに矯正）
+  - E2: anon が投稿したコメントは anon から一切見えない
+  - E3: anon は pending コメントを approved に書き換えられない
+  - F（トリガー）は service_role キー未投入のため SKIP（キー投入後に自動実行される）
+- 本番サーバー（`next start`）+ Playwright（実ブラウザ・実DBデータ）で確認:
+  - 作品一覧に実DBの3作品が描画、作品カードリンク3つ
+  - 作品詳細: 制作ストーリー／リアクション4種／承認済みコメント本文／作者返信が描画され、
+    **pendingコメントはページに出ない**
+  - LP の CTA「オンライン展示をみる」は前回確認済み（href=nandemo-2026-07, visible）
+  - robots.txt に `/author/` `/admin/` の Disallow
 
-### 未実施（環境がないため不可能だった検証）⚠️
-**Supabase プロジェクトが未作成（資格情報なし・Docker なしでローカルSupabaseも不可）のため、
-実DBに対する以下は未検証。** 「やったつもり」報告を避けるため明記する:
-- 承認前コメントが anon から見えないこと（RLS実証）
-- pending固定トリガー、リアクションの1人1回、AI自動承認の実走
+### Supabase security advisor の指摘（いずれも正本設計どおり・対応方針）
+- `work_access_tokens` RLSポリシーなし → **意図どおり**（anon全拒否）。INFO。
+- `reactions` の anon INSERT が `with_check(true)` → 正本の設計（anon直投稿許可）。本実装はAPI経由。
+- `reaction_counts` が SECURITY DEFINER で anon 実行可 → **意図どおり**（集計公開・fingerprint秘匿）。
+- `force_pending_comment` の search_path 未設定 → WARN。正本厳守のため未変更（無害な強化は将来任意）。
 
-その代わり、資格情報を `.env.local` に入れた直後に
-**`npm run verify:phase1` の1コマンドで上記すべてを自動実証できるスクリプト**
-（[scripts/verify-phase1.mjs](../scripts/verify-phase1.mjs)）を用意した。
-セットアップ手順（§3）の4番で必ず全OKを確認してから公開すること。
+### キー投入後に動く（現状 service_role 未投入のため未確認）⚠️
+service_role / ANTHROPIC_API_KEY は MCP で取得できない秘匿値のため `.env.local` 空欄。
+これらは**運用者が手動投入**する。投入後に動く＝現時点で実ブラウザ未確認なのは:
+- 作者ページ `/author/[token]`（service roleでトークン解決するため、未投入だとエラー）
+- 管理画面の表示・操作（承認/却下/展示会・作品・リアクション管理）
+- コメント投稿→AIモデレーション、リアクション書き込み、作者返信（書き込み系API全般）
+
+→ service_role と ANTHROPIC_API_KEY を入れて `npm run verify:phase1` を再実行（F含め全OK）、
+   その後 `/admin` ログイン・作者ページ・コメント投稿を一通り通せば全機能の実証完了。

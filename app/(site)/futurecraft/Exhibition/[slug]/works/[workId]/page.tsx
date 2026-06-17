@@ -9,9 +9,11 @@ import CommentSection from '@/components/exhibition/CommentSection';
 import {
   fetchApprovedComments,
   fetchExhibitionBySlug,
-  fetchReactionCounts,
+  fetchReactionTally,
+  fetchReactionTypes,
   fetchWork,
 } from '@/lib/exhibition/queries';
+import type { Work } from '@/lib/exhibition/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,15 +26,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: work ? `${work.title} | なんでも展示会 | CLAFT` : '作品 | CLAFT',
     description: work
-      ? `${work.author_name}さんの作品「${work.title}」。見て、顔文字で反応して、コメントで応援しよう。`
+      ? `${work.author_nickname}さんの作品「${work.title}」。見て、顔文字で反応して、コメントで応援しよう。`
       : undefined,
   };
 }
 
 const STORY_ITEMS = [
-  { key: 'story_process', label: 'どうやって作った？', icon: Hammer, color: '#E04E2C' },
-  { key: 'story_idea', label: 'くふうしたところ', icon: Lightbulb, color: '#F2B544' },
-  { key: 'story_struggle', label: 'たいへんだったところ', icon: Mountain, color: '#2E7D7D' },
+  { key: 'story_made', label: 'どうやって作った？', icon: Hammer, color: '#E04E2C' },
+  { key: 'story_devised', label: 'くふうしたところ', icon: Lightbulb, color: '#F2B544' },
+  { key: 'story_struggled', label: 'たいへんだったところ', icon: Mountain, color: '#2E7D7D' },
   { key: 'story_learned', label: '学んだこと・気づき', icon: Sprout, color: '#E89BB0' },
 ] as const;
 
@@ -43,14 +45,17 @@ export default async function WorkDetailPage({ params }: Params) {
   ]);
   if (!exhibition || !work || work.exhibition_id !== exhibition.id) notFound();
 
-  const [comments, counts] = await Promise.all([
+  const reactionTypes = await fetchReactionTypes(exhibition.id);
+  const [comments, tally] = await Promise.all([
     fetchApprovedComments(work.id),
-    fetchReactionCounts(work.id),
+    fetchReactionTally(work.id, reactionTypes),
   ]);
 
-  const stories = STORY_ITEMS.map((item) => ({ ...item, text: work[item.key] })).filter(
-    (s): s is (typeof STORY_ITEMS)[number] & { text: string } => !!s.text,
-  );
+  const photos = (work.work_images ?? []).map((img) => img.url);
+  const stories = STORY_ITEMS.map((item) => ({
+    ...item,
+    text: work[item.key as keyof Work] as string | null,
+  })).filter((s): s is (typeof STORY_ITEMS)[number] & { text: string } => !!s.text);
 
   return (
     <ExhibitionShell>
@@ -67,22 +72,27 @@ export default async function WorkDetailPage({ params }: Params) {
         <header className="mt-10 mb-12 text-center">
           <h1 className="font-display text-3xl sm:text-5xl leading-tight reveal">{work.title}</h1>
           <p className="font-handwritten text-base sm:text-lg text-[#2E7D7D] mt-4 reveal">
-            つくった人: {work.author_name}
-            {work.author_note ? `（${work.author_note}）` : ''}
+            つくった人: {work.author_nickname}
+            {work.genre ? ` ・ ${work.genre}` : ''}
           </p>
+          {work.author_intro && (
+            <p className="font-body text-sm text-[#1F1810]/70 max-w-xl mx-auto mt-4 leading-relaxed reveal">
+              {work.author_intro}
+            </p>
+          )}
         </header>
 
         {/* ----------------- 動画（クリックで読み込み） ----------------- */}
-        {work.video_url && (
+        {work.youtube_url && (
           <div className="mb-12 reveal">
-            <LiteYouTube url={work.video_url} title={work.title} />
+            <LiteYouTube url={work.youtube_url} title={work.title} />
           </div>
         )}
 
         {/* ----------------- 写真（遅延読み込み） ----------------- */}
-        {work.photos.length > 0 && (
+        {photos.length > 0 && (
           <div className="mb-14 grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {work.photos.map((src, i) => (
+            {photos.map((src, i) => (
               <figure
                 key={`${src}-${i}`}
                 className="reveal relative bg-white p-3 pb-8 shadow-[0_18px_40px_-20px_rgba(31,24,16,0.45)]"
@@ -139,15 +149,17 @@ export default async function WorkDetailPage({ params }: Params) {
         )}
 
         {/* ----------------- リアクション ----------------- */}
-        <section className="mb-16">
-          <h2 className="font-display text-2xl sm:text-3xl mb-3 reveal">
-            顔文字で「見たよ！」を伝える
-          </h2>
-          <p className="font-handwritten text-sm text-[#1F1810]/60 mb-6 reveal">
-            タップするだけでOK。同じ顔文字は1人1回まで。
-          </p>
-          <ReactionBar workId={work.id} initialCounts={counts} />
-        </section>
+        {tally.length > 0 && (
+          <section className="mb-16">
+            <h2 className="font-display text-2xl sm:text-3xl mb-3 reveal">
+              顔文字で「見たよ！」を伝える
+            </h2>
+            <p className="font-handwritten text-sm text-[#1F1810]/60 mb-6 reveal">
+              タップするだけでOK。同じ顔文字は1人1回まで。
+            </p>
+            <ReactionBar workId={work.id} initialCounts={tally} />
+          </section>
+        )}
 
         {/* ----------------- コメント ----------------- */}
         <section>

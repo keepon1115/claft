@@ -9,13 +9,13 @@ export const dynamic = 'force-dynamic';
 
 /**
  * コメント投稿。
- * 1. anon クライアントで対象作品が公開中であることを確認
+ * 1. anon クライアントで対象作品が公開中（展示会が open/closed）であることを確認
  * 2. service role で INSERT（トリガーが status=pending を強制）
  * 3. AIモデレーション: pass なら approved に更新、それ以外は pending のまま
  * レスポンスは常に同じ（投稿者には承認状態を見せない）。
  */
 export async function POST(req: NextRequest) {
-  let payload: { workId?: string; commentType?: string; body?: string; displayName?: string };
+  let payload: { workId?: string; commentType?: string; body?: string; nickname?: string };
   try {
     payload = await req.json();
   } catch {
@@ -25,9 +25,9 @@ export async function POST(req: NextRequest) {
   const workId = typeof payload.workId === 'string' ? payload.workId : '';
   const commentType = payload.commentType as CommentType;
   const body = typeof payload.body === 'string' ? payload.body.trim() : '';
-  const displayName =
-    typeof payload.displayName === 'string' && payload.displayName.trim()
-      ? payload.displayName.trim().slice(0, 30)
+  const nickname =
+    typeof payload.nickname === 'string' && payload.nickname.trim()
+      ? payload.nickname.trim().slice(0, 30)
       : null;
 
   if (!workId || !COMMENT_TYPES.includes(commentType) || !body || body.length > 500) {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   const service = getServiceClient();
   const { data: inserted, error: insertError } = await service
     .from('comments')
-    .insert({ work_id: workId, comment_type: commentType, body, display_name: displayName })
+    .insert({ work_id: workId, comment_type: commentType, body, viewer_nickname: nickname })
     .select('id, status')
     .single();
   if (insertError || !inserted) {
@@ -52,14 +52,14 @@ export async function POST(req: NextRequest) {
   }
 
   // AIモデレーション（失敗時は flag = pending のまま運営承認待ち）
-  const result = await moderateComment({ commentType, body, displayName });
+  const result = await moderateComment({ commentType, body, displayName: nickname });
   if (result.decision === 'pass') {
     await service
       .from('comments')
-      .update({ status: 'approved', approved_at: new Date().toISOString(), moderation: result })
+      .update({ status: 'approved', reviewed_at: new Date().toISOString(), ai_flag: result })
       .eq('id', inserted.id);
   } else {
-    await service.from('comments').update({ moderation: result }).eq('id', inserted.id);
+    await service.from('comments').update({ ai_flag: result }).eq('id', inserted.id);
   }
 
   return NextResponse.json({ ok: true });

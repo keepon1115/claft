@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 /**
  * 作者の返信。限定URLトークンの解決はこのサーバー内でのみ行う。
- * - トークン → work_id を service role で解決
+ * - work_access_tokens から token → work_id を service role で解決
  * - 返信先コメントがその作品の approved コメントであることを確認してから INSERT
  */
 export async function POST(req: NextRequest) {
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   const service = getServiceClient();
 
   const { data: tokenRow } = await service
-    .from('author_tokens')
+    .from('work_access_tokens')
     .select('work_id')
     .eq('token', token)
     .maybeSingle();
@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: 'comment_not_found' }, { status: 404 });
   }
 
+  // 作者返信は status='approved' 既定で投稿（正本スキーマの既定値どおり）
   const { error } = await service
     .from('author_replies')
     .insert({ comment_id: commentId, body });

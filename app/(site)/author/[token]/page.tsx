@@ -3,8 +3,13 @@ import { notFound } from 'next/navigation';
 import { MailOpen, Sparkles } from 'lucide-react';
 import ExhibitionShell from '@/components/exhibition/ExhibitionShell';
 import { getServiceClient } from '@/lib/exhibition/supabaseServer';
-import { fetchReactionCounts } from '@/lib/exhibition/queries';
-import type { Comment, CommentType, Work } from '@/lib/exhibition/types';
+import type {
+  Comment,
+  CommentType,
+  ReactionCountRow,
+  ReactionType,
+  Work,
+} from '@/lib/exhibition/types';
 import { COMMENT_TYPE_META } from '@/lib/exhibition/types';
 import ReplyForm from './ReplyForm';
 
@@ -37,7 +42,7 @@ export default async function AuthorPage({ params }: { params: { token: string }
   const service = getServiceClient();
 
   const { data: tokenRow } = await service
-    .from('author_tokens')
+    .from('work_access_tokens')
     .select('work_id')
     .eq('token', params.token)
     .maybeSingle();
@@ -51,19 +56,34 @@ export default async function AuthorPage({ params }: { params: { token: string }
   if (!workRow) notFound();
   const work = workRow as Work;
 
-  const [{ data: commentRows }, counts] = await Promise.all([
+  const [{ data: commentRows }, { data: typeRows }, { data: countRows }] = await Promise.all([
     service
       .from('comments')
       .select(
-        'id, work_id, comment_type, body, display_name, status, created_at, approved_at, author_replies(id, comment_id, body, created_at)',
+        'id, work_id, comment_type, body, viewer_nickname, status, created_at, reviewed_at, author_replies(id, comment_id, body, status, created_at)',
       )
       .eq('work_id', work.id)
       .eq('status', 'approved')
       .order('created_at', { ascending: false }),
-    fetchReactionCounts(work.id),
+    service.from('reaction_types').select('*').eq('exhibition_id', work.exhibition_id).order('sort_order'),
+    service.rpc('reaction_counts', { p_work_id: work.id }),
   ]);
+
   const comments = (commentRows ?? []) as unknown as Comment[];
-  const totalReactions = counts.reduce((sum, c) => sum + c.count, 0);
+  for (const c of comments) {
+    c.author_replies = (c.author_replies ?? []).filter((r) => r.status === 'approved');
+  }
+
+  const countMap = new Map<string, number>();
+  for (const row of (countRows ?? []) as ReactionCountRow[]) {
+    countMap.set(row.reaction_type_id, Number(row.cnt));
+  }
+  const tally = ((typeRows ?? []) as ReactionType[]).map((rt) => ({
+    emoji: rt.emoji,
+    label: rt.label,
+    count: countMap.get(rt.id) ?? 0,
+  }));
+  const totalReactions = tally.reduce((sum, c) => sum + c.count, 0);
 
   return (
     <ExhibitionShell>
@@ -76,7 +96,7 @@ export default async function AuthorPage({ params }: { params: { token: string }
 
         <header className="text-center mb-12">
           <p className="font-handwritten text-[#2E7D7D] mb-3">
-            {work.author_name} さんの作者ページ
+            {work.author_nickname} さんの作者ページ
           </p>
           <h1 className="font-display text-3xl sm:text-4xl leading-tight">{work.title}</h1>
           <p className="font-body text-xs text-[#1F1810]/50 mt-4 leading-relaxed">
@@ -91,13 +111,13 @@ export default async function AuthorPage({ params }: { params: { token: string }
             届いたリアクション（ぜんぶで {totalReactions} 回）
           </h2>
           <div className="flex flex-wrap gap-3">
-            {counts.map((c) => (
+            {tally.map((c) => (
               <div
-                key={c.kind_id}
+                key={c.emoji}
                 className="flex items-center gap-2 rounded-full bg-[#FFF8EC] border border-[#1F1810]/15 px-4 py-2"
               >
                 <span className="font-body text-base">{c.emoji}</span>
-                <span className="font-handwritten text-xs text-[#1F1810]/60">{c.label}</span>
+                {c.label && <span className="font-handwritten text-xs text-[#1F1810]/60">{c.label}</span>}
                 <span className="font-display text-sm text-[#E04E2C]">{c.count}</span>
               </div>
             ))}
@@ -131,7 +151,7 @@ export default async function AuthorPage({ params }: { params: { token: string }
                     {COMMENT_TYPE_META[c.comment_type].label}
                   </span>
                   <span className="font-handwritten text-sm text-[#1F1810]/70">
-                    {c.display_name || 'ななしさん'}
+                    {c.viewer_nickname || 'ななしさん'}
                   </span>
                   <time className="font-body text-xs text-[#1F1810]/40">
                     {formatDate(c.created_at)}

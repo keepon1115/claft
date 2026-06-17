@@ -18,10 +18,10 @@ export function LabTabBar() {
         </svg>
         <span>面談申込</span>
       </Link>
-      <Link href="/lab/guide" className="lab-cta sub">
+      <Link href="/lab/roadmap" className="lab-cta sub">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M9 18l6-6-6-6" />
+          <path d="M9 20l-5.5 1.5L5 4l5-1 4 2 5.5-1.5L18 20l-4 1z" />
+          <path d="M10 3v16M14 5v16" />
         </svg>
         <span>ラボの歩き方</span>
       </Link>

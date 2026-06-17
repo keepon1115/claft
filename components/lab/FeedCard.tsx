@@ -5,7 +5,12 @@ export function FeedCard({ post }: { post: FeedPost }) {
   return (
     <a className="lab-post" href={post.href} target="_blank" rel="noopener noreferrer">
       <div className={`lab-post-thumb t-${post.thumbTheme}`}>
-        <span className="emoji" aria-hidden="true">{post.emoji}</span>
+        {post.thumbnailUrl ? (
+          // 実写真があれば背景に敷く（unoptimized運用なので素の<img>でOK）
+          <img className="lab-post-photo" src={post.thumbnailUrl} alt="" />
+        ) : (
+          <span className="emoji" aria-hidden="true">{post.emoji}</span>
+        )}
         <span className="lab-chip">{post.categoryLabel}</span>
       </div>
       <div className="lab-post-body">

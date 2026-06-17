@@ -48,7 +48,7 @@ export default function CommentSection({
           workId,
           commentType: type,
           body: body.trim(),
-          displayName: name.trim() || undefined,
+          nickname: name.trim() || undefined,
         }),
       });
       const json = await res.json();
@@ -178,7 +178,7 @@ export default function CommentSection({
                 {COMMENT_TYPE_META[c.comment_type].label}
               </span>
               <span className="font-handwritten text-sm text-[#1F1810]/70">
-                {c.display_name || 'ななしさん'}
+                {c.viewer_nickname || 'ななしさん'}
               </span>
               <time className="font-body text-xs text-[#1F1810]/40">{formatDate(c.created_at)}</time>
             </header>
