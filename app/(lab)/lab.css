@@ -1418,3 +1418,128 @@
     transition: none !important;
   }
 }
+
+/* ============================================================
+   初回チュートリアル（スポットライト型コーチマーク）
+   .lab-tour は position:fixed で全画面を覆う。.lab-app に transform 系の
+   祖先がないため、getBoundingClientRect のビューポート座標と噛み合う。
+   ============================================================ */
+.lab-tour {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  /* 背面の操作を遮断（暗転はホールの box-shadow が担う） */
+}
+/* 導入ステップ（ハイライト無し）は全面を暗転 */
+.lab-tour.is-plain {
+  background: rgba(23, 42, 67, 0.74);
+}
+
+.lab-tour-hole {
+  position: fixed;
+  border-radius: 16px;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 3px rgba(239, 138, 60, 0.95),
+    0 0 0 100vmax rgba(23, 42, 67, 0.74);
+  transition: top 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    left 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lab-tour-bubble {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  max-width: 360px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 15px 18px 13px;
+  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.45);
+  animation: labTourPop 0.28s ease;
+}
+@keyframes labTourPop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lab-tour-step {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--orange-deep);
+}
+.lab-tour-bubble h3 {
+  margin: 0.15em 0 0.4em;
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--navy-deep);
+}
+.lab-tour-bubble p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.lab-tour-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+}
+.lab-tour-spacer {
+  flex: 1;
+}
+.lab-tour-skip {
+  font-size: 0.85rem;
+  color: #7a6f5b;
+  background: none;
+  border: none;
+  padding: 8px 4px;
+  cursor: pointer;
+}
+.lab-tour-back {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: none;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.lab-tour-next {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--orange);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 3px 0 var(--orange-deep);
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.lab-tour-next:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--orange-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-tour-hole {
+    transition: none;
+  }
+  .lab-tour-bubble {
+    animation: none;
+  }
+}

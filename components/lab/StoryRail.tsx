@@ -4,7 +4,7 @@ import type { StoryCategory } from '@/lib/lab/content';
 // ストーリーズ：円形ボタンの横スクロール。タップで全画面ビューアへ。
 export function StoryRail({ stories }: { stories: StoryCategory[] }) {
   return (
-    <nav className="lab-stories" aria-label="ストーリー">
+    <nav className="lab-stories" aria-label="ストーリー" data-tour="stories">
       {stories.map((story) => (
         <Link key={story.slug} href={`/lab/story/${story.slug}`} className="lab-story">
           <span className={`lab-ring ${story.ring === 'default' ? '' : story.ring}`}>
