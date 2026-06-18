@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Shippori_Mincho } from 'next/font/google';
+import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties, ReactNode } from 'react';
 import { FlowApply } from '@/components/FlowApply';
@@ -126,24 +127,14 @@ function HeroSection() {
         <div className="craft-photo craft-tilt reveal" style={{ '--rot': '-1deg', marginBottom: '36px' } as CSSProperties}>
           <span className="craft-tape" aria-hidden="true" />
           <span className="craft-tape craft-tape--tr craft-tape--cream" aria-hidden="true" />
-          <div
-            style={{
-              aspectRatio: '4/3',
-              display: 'grid',
-              placeItems: 'center',
-              borderRadius: '2px',
-              background: `
-                linear-gradient(135deg,
-                  rgb(var(--brand-rgb) / 0.15) 0%,
-                  rgb(var(--cream-rgb) / 0.15) 50%,
-                  rgb(var(--pink-rgb) / 0.1) 100%
-                )
-              `,
-            }}
-          >
-            <span style={{ color: 'var(--green)' }} aria-hidden="true">
-              <DoodleIcon name="leaf" size={72} />
-            </span>
+          <div style={{ position: 'relative', aspectRatio: '4/3', borderRadius: '2px', overflow: 'hidden' }}>
+            <Image
+              src="/assets/images/courses/about/hero.jpg"
+              alt="CLAFTという希望"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+            />
           </div>
         </div>
 

@@ -72,6 +72,11 @@
 .lab-logo-img {
   height: 44px;
   width: auto;
+  /* 透過PNGの輪郭に白い淡縁を出し、ネイビーのサブ文字を同色背景から浮かせる。
+     ロゴの配色自体は不可侵なので、CSSのハローのみで視認性を確保する。 */
+  filter:
+    drop-shadow(0 0 1.5px rgba(255,255,255,.95))
+    drop-shadow(0 0 1px rgba(255,255,255,.7));
 }
 .lab-header-icons {
   display: flex;
@@ -108,7 +113,7 @@
   border-radius: 50%;
   background: var(--orange);
   color: #fff;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -163,7 +168,7 @@
   border: 2px solid var(--card);
 }
 .lab-story span {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--navy);
   font-weight: 500;
   text-align: center;
@@ -182,7 +187,7 @@
 }
 .lab-feed::-webkit-scrollbar { display: none; }
 .lab-feed-h {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--green-deep);
   letter-spacing: 0.12em;
@@ -236,7 +241,7 @@
   display: block;
 }
 .lab-chip {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   color: #fff;
   background: #0006;
@@ -246,14 +251,14 @@
 }
 .lab-post-body { padding: 11px 13px 13px; }
 .lab-post-body h3 {
-  font-size: 14px;
+  font-size: 15.5px;
   color: var(--navy);
   font-weight: 700;
   line-height: 1.4;
   margin: 0;
 }
 .lab-post-body p {
-  font-size: 10.5px;
+  font-size: 12px;
   color: #766a55;
   margin: 4px 0 0;
   line-height: 1.5;
@@ -264,9 +269,9 @@
   justify-content: space-between;
   margin-top: 9px;
 }
-.lab-post-date { font-size: 9px; color: #a89a7d; }
+.lab-post-date { font-size: 10px; color: #a89a7d; }
 .lab-post-link {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--orange-deep);
 }
@@ -304,7 +309,7 @@
   stroke-linejoin: round;
 }
 .lab-cta span {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.02em;
 }
 /* オレンジは最重要CTA（受講予約）だけ */
@@ -340,7 +345,7 @@
   flex-shrink: 0;
 }
 .lab-page-header h1 {
-  font-size: 15px;
+  font-size: 16.5px;
   font-weight: 700;
   margin: 0;
   flex: 1;
@@ -373,7 +378,7 @@
 }
 .lab-page-body::-webkit-scrollbar { display: none; }
 .lab-lead {
-  font-size: 12px;
+  font-size: 13.5px;
   color: #766a55;
   line-height: 1.7;
   margin: 0 2px 16px;
@@ -390,13 +395,13 @@
   display: block;
 }
 .lab-soon h2 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
   color: var(--navy);
   margin: 18px 0 0;
 }
 .lab-soon p {
-  font-size: 12.5px;
+  font-size: 14px;
   color: #766a55;
   line-height: 1.85;
   margin: 12px 0 0;
@@ -407,7 +412,7 @@
   border-radius: 14px;
   padding: 12px 14px;
   margin-top: 22px !important;
-  font-size: 11.5px !important;
+  font-size: 13px !important;
 }
 
 /* ====== 予約：大ボタン ====== */
@@ -427,10 +432,10 @@
 }
 .lab-bigbtn:active { transform: scale(0.985); }
 .lab-bigbtn .big-emoji { font-size: 44px; line-height: 1; }
-.lab-bigbtn b { font-size: 16px; color: var(--navy); }
-.lab-bigbtn .desc { font-size: 11px; color: #766a55; line-height: 1.5; }
+.lab-bigbtn b { font-size: 17.5px; color: var(--navy); }
+.lab-bigbtn .desc { font-size: 12.5px; color: #766a55; line-height: 1.5; }
 .lab-bigbtn .go {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   margin-top: 4px;
   padding: 6px 18px;
@@ -451,13 +456,13 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--navy);
   margin-bottom: 6px;
 }
 .lab-req {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   color: #fff;
   background: var(--orange);
@@ -471,7 +476,7 @@
   border: 1.5px solid var(--line);
   border-radius: 12px;
   padding: 11px 12px;
-  font-size: 14px;
+  font-size: 15.5px;
   font-family: inherit;
   color: var(--ink);
 }
@@ -488,7 +493,7 @@
   border-radius: 15px;
   padding: 14px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15.5px;
   color: #fff;
   cursor: pointer;
   font-family: inherit;
@@ -499,7 +504,7 @@
 .lab-submit.navy { background: var(--navy); box-shadow: 0 4px 0 var(--navy-deep); }
 .lab-submit.green { background: var(--green); box-shadow: 0 4px 0 var(--green-deep); }
 .lab-form-note {
-  font-size: 10.5px;
+  font-size: 12px;
   color: #9c8e72;
   line-height: 1.6;
   margin-top: 10px;
@@ -513,13 +518,13 @@
 }
 .lab-done .done-emoji { font-size: 58px; display: block; }
 .lab-done h2 {
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 900;
   color: var(--navy);
   margin: 16px 0 0;
 }
 .lab-done p {
-  font-size: 12.5px;
+  font-size: 14px;
   color: #766a55;
   line-height: 1.8;
   margin: 12px 0 0;
@@ -539,7 +544,7 @@
   border-radius: 15px;
   padding: 13px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14.5px;
   font-family: inherit;
   cursor: pointer;
 }
@@ -554,7 +559,7 @@
   box-shadow: 2px 3px 0 #d8cba8;
 }
 .lab-card h3 {
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--navy);
   margin: 0;
@@ -563,13 +568,13 @@
   gap: 7px;
 }
 .lab-card p {
-  font-size: 11.5px;
+  font-size: 13px;
   color: #766a55;
   line-height: 1.7;
   margin: 7px 0 0;
 }
 .lab-card ol {
-  font-size: 11.5px;
+  font-size: 13px;
   color: #766a55;
   line-height: 1.9;
   margin: 7px 0 0;
@@ -590,13 +595,13 @@
   margin-bottom: 10px;
 }
 .lab-toggle-row .t-label {
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--navy);
 }
 .lab-toggle-row .t-desc {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 400;
   color: #9c8e72;
   margin-top: 2px;
@@ -711,7 +716,7 @@
 }
 .lab-sv-cat {
   display: inline-block;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   background: #ffffff26;
   border-radius: 20px;
@@ -719,13 +724,13 @@
   margin-bottom: 10px;
 }
 .lab-sv-text h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
   margin: 0;
   line-height: 1.4;
 }
 .lab-sv-text p {
-  font-size: 12.5px;
+  font-size: 14px;
   color: #ffffffd9;
   line-height: 1.8;
   margin: 10px 0 0;
@@ -736,7 +741,7 @@
   background: var(--orange);
   color: #fff;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14.5px;
   border-radius: 15px;
   padding: 14px;
   margin-top: 22px;
@@ -1199,9 +1204,10 @@
   border: 1.5px solid var(--roadmap-accent);
   border-radius: 16px;
   background: rgba(255,255,255,.64);
-  color: #4d453e;
-  font-size: 12px;
-  line-height: 1.85;
+  color: #3f3832;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.9;
   overflow-wrap: anywhere;
   box-shadow: 1px 2px 0 rgba(216,201,168,.72);
 }
@@ -1220,7 +1226,7 @@
   display: block;
   margin-bottom: 2px;
   color: var(--roadmap-accent-ink);
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1;
   letter-spacing: .12em;
 }
@@ -1238,9 +1244,9 @@
 .roadmap-parent-note p {
   margin: 0;
   color: #6a6058;
-  font-size: 11.5px;
+  font-size: 13.5px;
   font-style: italic;
-  line-height: 1.8;
+  line-height: 1.85;
   overflow-wrap: anywhere;
 }
 
@@ -1248,7 +1254,7 @@
   display: block;
   margin-bottom: 2px;
   color: var(--roadmap-accent-ink);
-  font-size: 9px;
+  font-size: 10px;
   font-style: normal;
   line-height: 1;
   letter-spacing: .12em;
@@ -1261,7 +1267,7 @@
   border-radius: 12px;
   background: rgba(255,255,255,.42);
   color: var(--roadmap-accent-ink);
-  font-size: 11.5px;
+  font-size: 13px;
   font-weight: 900;
   line-height: 1.7;
 }
@@ -1360,7 +1366,7 @@
 .roadmap-loop p {
   margin: 0;
   color: #5d544c;
-  font-size: 12.5px;
+  font-size: 14.5px;
   font-weight: 700;
   line-height: 1.9;
 }
@@ -1371,7 +1377,7 @@
   border-radius: 15px;
   background: var(--roadmap-accent-soft);
   color: var(--roadmap-accent-ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 900;
   line-height: 1.75;
 }
@@ -1397,7 +1403,7 @@
 
   .roadmap-bubble > p,
   .roadmap-parent-note p {
-    font-size: 11.25px;
+    font-size: 13px;
   }
 }
 
