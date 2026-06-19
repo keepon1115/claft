@@ -31,6 +31,15 @@ function formatShortDate(
   return { month, day, weekday, time };
 }
 
+// microCMSのCDN画像なら最適化クエリを付与（軽量・横長バナー比でトリミング）。
+// 既にクエリ付き、または他ホストのURLはそのまま使う。
+function optimizedBanner(url: string): string {
+  if (url.includes('microcms-assets.io') && !url.includes('?')) {
+    return `${url}?fm=webp&fit=crop&w=900&h=340&q=80`;
+  }
+  return url;
+}
+
 function ExternalLinkIcon({ size = 12 }: { size?: number }) {
   return (
     <svg
@@ -67,6 +76,31 @@ export default function EventCard({ event }: Props) {
         overflow: 'hidden',
       }}
     >
+      {/* バナー画像（説明欄「画像:」がある場合のみ・カード上部に横長表示） */}
+      {event.imageUrl && (
+        <div
+          style={{
+            width: '100%',
+            aspectRatio: '900 / 340',
+            background: 'rgba(0,0,0,0.03)',
+            borderBottom: '1.5px solid rgba(0,0,0,0.06)',
+          }}
+        >
+          <img
+            src={optimizedBanner(event.imageUrl)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            style={{
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      )}
+
       <div style={{ display: 'flex' }}>
         {/* 日付カラム */}
         <div

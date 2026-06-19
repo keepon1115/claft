@@ -73,6 +73,13 @@ export function StoryViewer({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
+      {/* 背景写真（microCMSで設定された場合のみ。下に暗いスクリムを敷いて文字を読みやすく） */}
+      {card.imageUrl && (
+        <>
+          <img className="lab-sv-bg" key={`${card.id}-bg`} src={card.imageUrl} alt="" />
+          <div className="lab-sv-scrim" />
+        </>
+      )}
       {/* 進行ドット */}
       <div className="lab-sv-dots" aria-label={`${cards.length}枚中${index + 1}枚目`}>
         {cards.map((c, i) => (
@@ -95,7 +102,9 @@ export function StoryViewer({
 
       {/* カード本体（index をkeyにして切替時にふわっと出す） */}
       <div className="lab-sv-body" key={card.id}>
-        <span className="lab-sv-emoji" aria-hidden="true">{card.emoji}</span>
+        {!card.imageUrl && (
+          <span className="lab-sv-emoji" aria-hidden="true">{card.emoji}</span>
+        )}
         <div className="lab-sv-text">
           <span className="lab-sv-cat">
             {category.emoji} {category.label.replace('\n', '')}

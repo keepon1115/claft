@@ -6,18 +6,20 @@ import { getStories } from '@/lib/lab/content';
 // ② ストーリー閲覧：全画面スワイプビューア。
 // 最後のカードに「詳細ページを見る →」→ CLAFT HP の該当ページへ。
 
-export function generateStaticParams() {
-  return getStories().map((s) => ({ category: s.slug }));
+export async function generateStaticParams() {
+  const stories = await getStories();
+  return stories.map((s) => ({ category: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: { category: string } }): Metadata {
-  const story = getStories().find((s) => s.slug === params.category);
+export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+  const stories = await getStories();
+  const story = stories.find((s) => s.slug === params.category);
   const label = story ? story.label.replace('\n', '') : 'ストーリー';
   return { title: `${label} | キープオンラボ` };
 }
 
-export default function StoryPage({ params }: { params: { category: string } }) {
-  const stories = getStories();
+export default async function StoryPage({ params }: { params: { category: string } }) {
+  const stories = await getStories();
   const idx = stories.findIndex((s) => s.slug === params.category);
   if (idx === -1) notFound();
 

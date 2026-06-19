@@ -15,6 +15,8 @@ export type StoryCard = {
   text: string;
   emoji: string;
   theme: 'navy' | 'orange' | 'green';
+  /** 全画面の背景写真（microCMSアップロード）。あれば絵文字の代わりに敷く */
+  imageUrl?: string;
 };
 
 export type StoryCategory = {
@@ -23,6 +25,8 @@ export type StoryCategory = {
   label: string;
   emoji: string;
   ring: RingVariant;
+  /** 円の中のサムネ写真（microCMS）。あれば絵文字の代わりに表示 */
+  ringImageUrl?: string;
   /** 最後のカード「詳細ページを見る →」の遷移先（CLAFT HP） */
   hpUrl: string;
   cards: StoryCard[];
@@ -57,6 +61,8 @@ export const EXTERNAL_LINKS = {
   reserveEvent: 'https://claft-hp.vercel.app/news',
 } as const;
 
+// 並び順は ① 募集イベント → ② 今週のフォト → ③ 発表会 → ④ Yononaka → ⑤ インタビュー → ⑥ スクール生紹介。
+// microCMS の stories が未設定のときに使う静的フォールバック（CMSでは order フィールドで並び替え）。
 const stories: StoryCategory[] = [
   {
     slug: 'event',
@@ -71,6 +77,18 @@ const stories: StoryCategory[] = [
     ],
   },
   {
+    slug: 'photo',
+    label: '今週の\nフォト',
+    emoji: '📸',
+    ring: 'default',
+    hpUrl: 'https://claft-hp.vercel.app/keepon-lab',
+    cards: [
+      { id: 'photo-1', emoji: '⛏️', theme: 'green', title: 'マイクラSDGsチーム', text: '白熱の作戦会議。お子さんの「夢中」が見える1コマです。' },
+      { id: 'photo-2', emoji: '✂️', theme: 'orange', title: '工作テーブルのいま', text: 'ダンボール都市、ついに高架鉄道が開通しました。' },
+      { id: 'photo-3', emoji: '🌤️', theme: 'navy', title: '帰りぎわの一枚', text: '「またね！」の瞬間がいちばんいい顔だったりします。' },
+    ],
+  },
+  {
     slug: 'happyokai',
     label: '発表会',
     emoji: '🎤',
@@ -82,8 +100,19 @@ const stories: StoryCategory[] = [
     ],
   },
   {
+    slug: 'yononaka',
+    label: 'Yononaka',
+    emoji: '🗣️',
+    ring: 'navy',
+    hpUrl: 'https://claft-hp.vercel.app/yononaka',
+    cards: [
+      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '「はたらくって何だろう？」', text: '6月のYononakaは、答えがひとつじゃない問いにみんなで向き合いました。' },
+      { id: 'yononaka-2', emoji: '🙋', theme: 'orange', title: '次回テーマ募集中', text: '次に話したいテーマはある？　アイデア箱で待っています。' },
+    ],
+  },
+  {
     slug: 'career',
-    label: 'キャリア\nインタ',
+    label: 'インタ\nビュー',
     emoji: '💼',
     ring: 'navy',
     hpUrl: 'https://claft-hp.vercel.app/student-story',
@@ -102,29 +131,6 @@ const stories: StoryCategory[] = [
     cards: [
       { id: 'students-1', emoji: '🛠️', theme: 'green', title: 'ゲームをつくる小5', text: '「失敗してもデバッグすればいい」。彼の口ぐせに、学びの本質がありました。' },
       { id: 'students-2', emoji: '📚', theme: 'navy', title: '歴史マニアの中1', text: '戦国武将の家紋を全部描けるようになった彼女の、次の野望とは。' },
-    ],
-  },
-  {
-    slug: 'yononaka',
-    label: 'Yononaka',
-    emoji: '🗣️',
-    ring: 'navy',
-    hpUrl: 'https://claft-hp.vercel.app/yononaka',
-    cards: [
-      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '「はたらくって何だろう？」', text: '6月のYononakaは、答えがひとつじゃない問いにみんなで向き合いました。' },
-      { id: 'yononaka-2', emoji: '🙋', theme: 'orange', title: '次回テーマ募集中', text: '次に話したいテーマはある？　アイデア箱で待っています。' },
-    ],
-  },
-  {
-    slug: 'photo',
-    label: '今週の\nフォト',
-    emoji: '📸',
-    ring: 'default',
-    hpUrl: 'https://claft-hp.vercel.app/keepon-lab',
-    cards: [
-      { id: 'photo-1', emoji: '⛏️', theme: 'green', title: 'マイクラSDGsチーム', text: '白熱の作戦会議。お子さんの「夢中」が見える1コマです。' },
-      { id: 'photo-2', emoji: '✂️', theme: 'orange', title: '工作テーブルのいま', text: 'ダンボール都市、ついに高架鉄道が開通しました。' },
-      { id: 'photo-3', emoji: '🌤️', theme: 'navy', title: '帰りぎわの一枚', text: '「またね！」の瞬間がいちばんいい顔だったりします。' },
     ],
   },
 ];
@@ -247,15 +253,88 @@ async function getPosts(): Promise<FeedPost[]> {
   return posts; // 未設定・空ならフォールバック
 }
 
-/** ストーリー（当面は静的）。story系ページから同期的に使う。 */
-export function getStories(): StoryCategory[] {
-  return stories;
+// ============================================================
+// microCMS 連携（stories）。未設定・空ならコード側の静的データへフォールバック。
+// ============================================================
+
+/** microCMS の stories API の1件（管理画面のフィールドIDと一致させる） */
+type MicroCMSStory = {
+  id: string;
+  /** ルーティング用スラッグ（任意）。未指定なら microCMS の id を使う */
+  slug?: string;
+  label: string;
+  /** 並び順。小さいほど左（CMS取得は orders=order でソート） */
+  order?: number;
+  emoji?: string;
+  /** 円のフチ色。セレクトは配列で返る（default|alt|navy） */
+  ringTheme?: string[] | string;
+  /** 円の中のサムネ写真 */
+  ringImage?: { url: string };
+  /** 最後のカードの「詳細ページを見る →」遷移先 */
+  hpUrl?: string;
+  /** 全画面カード（繰り返しフィールド）。各要素が1枚 */
+  cards?: Array<{
+    fieldId?: string;
+    title?: string;
+    text?: string;
+    emoji?: string;
+    /** navy|orange|green */
+    theme?: string[] | string;
+    /** 全画面の背景写真（任意） */
+    cardImage?: { url: string };
+  }>;
+};
+
+const RINGS = ['default', 'alt', 'navy'] as const;
+
+function pickRing(v: MicroCMSStory['ringTheme']): RingVariant {
+  const s = Array.isArray(v) ? v[0] : v;
+  return (RINGS as readonly string[]).includes(s ?? '') ? (s as RingVariant) : 'default';
+}
+
+function mapStory(s: MicroCMSStory): StoryCategory {
+  const slug = (s.slug?.trim() || s.id).trim();
+  const label = s.label?.trim() || '';
+  const emoji = s.emoji?.trim() || '✨';
+  const hpUrl = s.hpUrl?.trim() || 'https://claft-hp.vercel.app';
+
+  const cards: StoryCard[] = (s.cards ?? []).map((c, i) => ({
+    id: `${slug}-${i + 1}`,
+    title: c.title?.trim() || '',
+    text: c.text?.trim() || '',
+    emoji: c.emoji?.trim() || emoji,
+    theme: pickTheme(c.theme),
+    imageUrl: c.cardImage?.url,
+  }));
+
+  // カードが未登録（CSVだけ取り込んだ直後など）でもビューアが成立するよう、
+  // ストーリー自身の情報から1枚だけ自動生成する。
+  if (cards.length === 0) {
+    cards.push({
+      id: `${slug}-1`,
+      title: label.replace(/\n/g, ''),
+      text: '',
+      emoji,
+      theme: 'navy',
+    });
+  }
+
+  return { slug, label, emoji, ring: pickRing(s.ringTheme), ringImageUrl: s.ringImage?.url, hpUrl, cards };
+}
+
+/** ストーリー。microCMSにあればそれを、無ければ静的ダミーを返す。 */
+export async function getStories(): Promise<StoryCategory[]> {
+  const { fetchList } = await import('./microcms');
+  const cms = await fetchList<MicroCMSStory>('stories', 'orders=order');
+  if (cms && cms.length > 0) return cms.map(mapStory);
+  return stories; // 未設定・空ならフォールバック
 }
 
 /**
  * ラボの全コンテンツを返す（トップ画面用）。
- * posts は microCMS（ISR）から取得し、未設定時は静的へフォールバックする。
+ * stories / posts ともに microCMS（ISR）から取得し、未設定時は静的へフォールバックする。
  */
 export async function getLabContent(): Promise<LabContent> {
-  return { stories, posts: await getPosts() };
+  const [storyList, postList] = await Promise.all([getStories(), getPosts()]);
+  return { stories: storyList, posts: postList };
 }

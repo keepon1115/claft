@@ -167,6 +167,16 @@
   font-style: normal;
   border: 2px solid var(--card);
 }
+/* microCMSのサムネ写真（あれば絵文字の代わりに円形で表示） */
+.lab-ring-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--card);
+  border: 2px solid var(--card);
+}
 .lab-story span {
   font-size: 10px;
   color: var(--navy);
@@ -274,6 +284,39 @@
   font-size: 11px;
   font-weight: 700;
   color: var(--orange-deep);
+}
+
+/* お知らせ（カレンダー）カード：バナーは横長16:9 */
+.lab-news-thumb {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+.lab-news-info {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.lab-news-info p {
+  margin: 0;
+  font-size: 12px;
+  color: #766a55;
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.lab-news-info p span { flex-shrink: 0; }
+.lab-feed-empty {
+  margin: 10px 4px;
+  padding: 22px 16px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #8a7d64;
+  text-align: center;
+  background: var(--card);
+  border: 1.5px dashed var(--line);
+  border-radius: 16px;
 }
 
 /* ====== 下段固定バー ====== */
@@ -503,6 +546,18 @@
 .lab-submit:active { transform: translateY(2px); }
 .lab-submit.navy { background: var(--navy); box-shadow: 0 4px 0 var(--navy-deep); }
 .lab-submit.green { background: var(--green); box-shadow: 0 4px 0 var(--green-deep); }
+.lab-submit:disabled { opacity: 0.6; cursor: progress; }
+.lab-form-error {
+  margin-top: 14px;
+  padding: 11px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b0384d;
+  background: #ffe8ef;
+  border: 1.5px solid #f3c2cf;
+  border-radius: 12px;
+  text-align: center;
+}
 .lab-form-note {
   font-size: 12px;
   color: #9c8e72;
@@ -646,6 +701,24 @@
 .lab-sv.t-navy   { background: linear-gradient(160deg, #2f4f74, var(--navy)); }
 .lab-sv.t-orange { background: linear-gradient(160deg, #f0993f, var(--orange-deep)); }
 .lab-sv.t-green  { background: linear-gradient(160deg, #7cb245, var(--green-deep)); }
+
+/* 背景写真（microCMSでカードに設定された場合）。テーマのグラデの上に敷く。 */
+.lab-sv-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  animation: lab-sv-in 0.25s ease-out;
+}
+/* 文字を読みやすくする暗いスクリム（下ほど濃く） */
+.lab-sv-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.72) 100%);
+}
 
 /* 進行ドット（セグメント）。activeは自動送りと同じ6秒で満ちる */
 .lab-sv-dots {

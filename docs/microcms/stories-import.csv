@@ -1,0 +1,7 @@
+slug,label,order,emoji,ringTheme,hpUrl
+event,"募集イベント",1,📣,default,https://claft-hp.vercel.app/news
+photo,"今週のフォト",2,📸,default,https://claft-hp.vercel.app/keepon-lab
+happyokai,発表会,3,🎤,alt,https://claft-hp.vercel.app/news
+yononaka,Yononaka,4,🗣️,navy,https://claft-hp.vercel.app/yononaka
+career,"インタビュー",5,💼,navy,https://claft-hp.vercel.app/student-story
+students,"スクール生紹介",6,🌱,alt,https://claft-hp.vercel.app/student-story

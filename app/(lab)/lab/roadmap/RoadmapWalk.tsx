@@ -240,7 +240,7 @@ const STATIONS: Station[] = [
       },
     ],
     cta: 'コンテスト情報を見る',
-    ctaHref: '/lab',
+    ctaHref: 'https://keepon.my.canva.site/weekly-keepon6-19/#urc%EF%BC%86yononaka',
   },
   {
     n: '⑥',
@@ -267,7 +267,7 @@ const STATIONS: Station[] = [
       },
     ],
     cta: 'お仕事マップを見てみる',
-    ctaHref: '/lab',
+    ctaHref: '/lab/jobmap',
   },
   {
     n: '⑦',

@@ -3,17 +3,38 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+// 送信先：keeponlabo@gmail.com（FormSubmit.co のAJAXエンドポイント）。
+// ※初回のみFormSubmitから有効化メールが届くので、リンクを一度クリックして有効化すること。
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/keeponlabo@gmail.com';
+
 // ⑤ アイデア箱フォーム。「受け取る人」から「言う・つくる側」へ（0→1）。
-// 送信先は未定（オーナー確認待ち）のため、submit はローカル完了表示まで。
 export function IdeaForm() {
   const [done, setDone] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    // TODO: 送信先が未定（FormSubmit？Supabase？）。確定したらここで送信する。
-    console.log('[lab/idea] 送信内容（送信先TODO）:', data);
-    setDone(true);
+    setStatus('sending');
+    const data = new FormData(e.currentTarget);
+    data.append('_subject', '【キープオンラボ】アイデア箱に新着');
+    data.append('_template', 'table');
+    data.append('_captcha', 'false');
+
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      if (res.ok) {
+        setStatus('idle');
+        setDone(true);
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   }
 
   if (done) {
@@ -25,8 +46,6 @@ export function IdeaForm() {
           アイデアをありがとう。きみの「あったらいいな」が、
           ラボの次の一歩になります。
           スタッフみんなで、たいせつに読みます。
-          <br />
-          <small>※アプリ準備中のため、送信の接続は設定中です</small>
         </p>
         <div className="lab-done-actions">
           <button type="button" className="lab-done-sub" onClick={() => setDone(false)}>
@@ -40,6 +59,9 @@ export function IdeaForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* スパム対策（ハニーポット） */}
+      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
+
       <label className="lab-field">
         <span>ニックネーム</span>
         <input className="lab-input" name="nickname" placeholder="例）マイクラ博士（なくてもOK）" />
@@ -56,7 +78,15 @@ export function IdeaForm() {
         />
       </label>
 
-      <button type="submit" className="lab-submit green">送信する</button>
+      {status === 'error' && (
+        <p className="lab-form-error">
+          送信にしっぱいしました。電波のいい場所でもう一度ためしてね。
+        </p>
+      )}
+
+      <button type="submit" className="lab-submit green" disabled={status === 'sending'}>
+        {status === 'sending' ? '送信中…' : '送信する'}
+      </button>
       <p className="lab-form-note">
         ボツはありません。小さな思いつきほど、おもしろくなります。
       </p>

@@ -3,18 +3,38 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+// 送信先：keeponlabo@gmail.com（FormSubmit.co のAJAXエンドポイント）。
+// ※初回のみFormSubmitから有効化メールが届くので、リンクを一度クリックして有効化すること。
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/keeponlabo@gmail.com';
+
 // ④ 面談申込フォーム。
-// 送信先は未定（オーナー確認待ち）のため、submit はローカル完了表示まで。
 export function MeetingForm() {
   const [done, setDone] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    // TODO: 送信先が未定（FormSubmit？Supabase？）。確定したらここで送信する。
-    // 例: await fetch(MEETING_ENDPOINT, { method: 'POST', body: JSON.stringify(data) })
-    console.log('[lab/meeting] 送信内容（送信先TODO）:', data);
-    setDone(true);
+    setStatus('sending');
+    const data = new FormData(e.currentTarget);
+    data.append('_subject', '【キープオンラボ】面談申込');
+    data.append('_template', 'table');
+    data.append('_captcha', 'false');
+
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      if (res.ok) {
+        setStatus('idle');
+        setDone(true);
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   }
 
   if (done) {
@@ -25,8 +45,6 @@ export function MeetingForm() {
         <p>
           日程が決まりましたら、ご記入いただいた連絡先へ
           ラボからご連絡します。少しだけお待ちくださいね。
-          <br />
-          <small>※アプリ準備中のため、送信の接続は設定中です</small>
         </p>
         <div className="lab-done-actions">
           <Link href="/lab" className="lab-done-sub">トップへ戻る</Link>
@@ -37,6 +55,9 @@ export function MeetingForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* スパム対策（ハニーポット） */}
+      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
+
       <label className="lab-field">
         <span>保護者のお名前<em className="lab-req">必須</em></span>
         <input className="lab-input" name="parentName" required autoComplete="name" placeholder="例）山田 花子" />
@@ -76,7 +97,15 @@ export function MeetingForm() {
         />
       </label>
 
-      <button type="submit" className="lab-submit navy">この内容で申し込む</button>
+      {status === 'error' && (
+        <p className="lab-form-error">
+          送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。
+        </p>
+      )}
+
+      <button type="submit" className="lab-submit navy" disabled={status === 'sending'}>
+        {status === 'sending' ? '送信中…' : 'この内容で申し込む'}
+      </button>
       <p className="lab-form-note">いただいた内容は面談の調整にのみ使用します。</p>
     </form>
   );

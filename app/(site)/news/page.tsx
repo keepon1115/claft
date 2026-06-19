@@ -3,8 +3,8 @@ import { MobileContainer } from '@/components/MobileContainer';
 import { getUpcomingEvents } from '@/lib/googleCalendar';
 import NewsClient from '@/components/news/NewsClient';
 
-// 1時間ごとに ISR 再検証（APIコール削減。カレンダーの変更は最大1時間後に反映）
-export const revalidate = 3600;
+// 10分ごとに ISR 再検証（カレンダーの変更は最大10分後に反映）
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'お知らせ・活動報告 | CLAFT',
