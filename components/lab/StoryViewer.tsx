@@ -118,7 +118,7 @@ export function StoryViewer({
               target="_blank"
               rel="noopener noreferrer"
             >
-              詳細ページを見る →
+              {category.ctaLabel ?? '詳細ページを見る →'}
             </a>
           )}
         </div>

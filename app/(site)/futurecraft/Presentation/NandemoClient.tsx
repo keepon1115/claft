@@ -182,7 +182,7 @@ const schedule: { time: string; label: string; tag: "staff" | "main" | "break" |
 const pastEvents: { date: string; label: string; url: string }[] = [
   { date: "2025.07", label: "2025年 夏", url: "https://www.keeponlearning.fun/nandemo2025summer" },
   { date: "2025.03", label: "2025年 春", url: "https://www.keeponlearning.fun/nandemo2025" },
-  { date: "2024.07", label: "2024年 夏", url: "https://www.keeponlearning.fun/nandemo2024" },
+  { date: "2024.07", label: "2024年 夏　※録画あり", url: "https://www.keeponlearning.fun/nandemo2024" },
 ];
 
 function ApplyButton() {
