@@ -1,0 +1,14 @@
+/* =========================================
+   CLAFT — Fonts
+   Primary: Zen Maru Gothic (rounded gothic, used for body & UI)
+   Secondary: Noto Sans JP (clean gothic, longer-form text)
+   Both are Google Fonts; in the app they are bound via next/font to
+   --font-zen / --font-noto. Here we load them directly and expose the
+   same variables so the same vocabulary works in designs.
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+:root {
+  --font-zen: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  --font-noto: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}

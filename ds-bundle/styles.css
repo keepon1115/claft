@@ -1,0 +1,12 @@
+/* =========================================
+   CLAFT — Craft Design System (tokens + styling)
+   Entry stylesheet. Designs receive this file's transitive @import closure,
+   so everything reachable from here is what a design can use:
+     fonts/fonts.css   — Zen Maru Gothic + Noto Sans JP, --font-zen/--font-noto
+     tokens/tokens.css — color/surface/shadow/texture/radius tokens,
+                         typography scale, type & button utilities
+     tokens/craft.css  — the craft-* component-class vocabulary + keyframes
+   ========================================= */
+@import url('./fonts/fonts.css');
+@import url('./tokens/tokens.css');
+@import url('./tokens/craft.css');

@@ -1,0 +1,8 @@
+{
+  "projectId": "047ba1d2-411c-4385-b9ec-5290f53b41ba",
+  "projectName": "CLAFT",
+  "shape": "package",
+  "scope": "tokens-and-styling-only",
+  "readmeHeader": ".design-sync/conventions.md",
+  "notes": "Next.js website (claft-web), not a component library. No Storybook, no dist. Synced as tokens + styling only per owner decision: Craft design tokens, typography/button utilities, craft-* component-class vocabulary, and Google fonts. Bundle hand-authored from app/globals.css (reusable layers only; page-specific layers excluded)."
+}

@@ -13,6 +13,7 @@ export const navItems: NavItem[] = [
     href: '/news',
     alwaysOpen: true,
     children: [
+      { label: 'ブログ', href: '/blog' },
       { label: 'KEEPON JOURNAL', href: '/monthly' },
     ],
   },

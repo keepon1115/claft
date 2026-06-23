@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIロボット社会、僕たちはどう生きるか ― 第1回の実況と、第2回参加募集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* mood color, driven by JS per section */
+  --mood: #3aa0d6;
+  --mood-deep: #0c1430;
+  --ink: #f4f3f7;
+  --dim: #9aa0b8;
+  --bg: #070912;
+  --trans: 1.1s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-weight:400;
+  line-height:1.85;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.mincho{font-family:"Shippori Mincho",serif;}
+.mono{font-family:"Space Mono",monospace;letter-spacing:.08em;}
+
+/* ===== fixed background: cosmos grid + growing map ===== */
+.bgwrap{position:fixed;inset:0;z-index:0;pointer-events:none;
+  transition:background var(--trans);
+  background:radial-gradient(120% 90% at 50% 8%, color-mix(in srgb, var(--mood) 22%, transparent) 0%, transparent 55%), var(--bg);
+}
+.grid{position:absolute;inset:0;opacity:.35;
+  background-image:
+    linear-gradient(color-mix(in srgb,var(--mood) 14%,transparent) 1px,transparent 1px),
+    linear-gradient(90deg,color-mix(in srgb,var(--mood) 14%,transparent) 1px,transparent 1px);
+  background-size:54px 54px;
+  transition:background-image var(--trans);
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 30%,#000 30%,transparent 80%);
+          mask-image:radial-gradient(120% 80% at 50% 30%,#000 30%,transparent 80%);
+}
+.glow{position:absolute;left:50%;top:46%;width:75vmin;height:75vmin;transform:translate(-50%,-50%);
+  border-radius:50%;filter:blur(60px);opacity:.5;
+  background:radial-gradient(circle,color-mix(in srgb,var(--mood) 55%,transparent),transparent 65%);
+  transition:background var(--trans),opacity var(--trans);}
+
+/* map svg */
+.mapsvg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(86vw,560px);height:auto;opacity:.9;}
+.edge{stroke:color-mix(in srgb,var(--mood) 70%,#fff 0%);stroke-width:1.2;opacity:0;
+  transition:opacity .9s ease, stroke var(--trans);}
+.edge.lit{opacity:.55;}
+.node circle{fill:var(--bg);stroke:#3a4060;stroke-width:1.4;transition:stroke var(--trans), fill var(--trans);}
+.node .pulse{fill:none;opacity:0;}
+.node text{fill:#5b6188;font-family:"Space Mono",monospace;font-size:10px;transition:fill var(--trans);}
+.node.lit circle{stroke:var(--mood);fill:color-mix(in srgb,var(--mood) 28%,var(--bg));
+  filter:drop-shadow(0 0 8px color-mix(in srgb,var(--mood) 80%,transparent));}
+.node.lit text{fill:var(--ink);}
+@keyframes ping{0%{opacity:.6;r:6}100%{opacity:0;r:26}}
+.node.lit .pulse{stroke:var(--mood);stroke-width:1.5;animation:ping 1.6s ease-out 1;}
+
+/* ===== content ===== */
+.content{position:relative;z-index:2;}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:14vh 7vw;max-width:860px;margin:0 auto;}
+.eyebrow{font-size:.7rem;color:var(--mood);text-transform:uppercase;margin-bottom:1.4rem;
+  transition:color var(--trans);display:inline-flex;align-items:center;gap:.6rem;}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--mood);transition:background var(--trans);}
+
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}.reveal.d4{transition-delay:.48s}
+
+/* hero */
+#hero{min-height:100vh;justify-content:flex-end;padding-bottom:16vh;}
+#hero h1{font-size:clamp(2.2rem,7vw,4.6rem);font-weight:800;line-height:1.28;letter-spacing:.01em;}
+#hero h1 .q{color:var(--mood);transition:color var(--trans);}
+#hero .sub{margin-top:1.6rem;color:var(--dim);font-size:clamp(.85rem,2.4vw,1rem);}
+.scrollhint{position:absolute;bottom:5vh;left:50%;transform:translateX(-50%);
+  color:var(--dim);font-size:.66rem;text-align:center;}
+.scrollhint .arr{display:block;margin:.5rem auto 0;width:1px;height:42px;
+  background:linear-gradient(to top,var(--mood),transparent);position:relative;overflow:hidden;}
+.scrollhint .arr::after{content:"";position:absolute;left:-2px;top:0;width:5px;height:5px;border-radius:50%;
+  background:var(--mood);animation:up 2s ease-in-out infinite;}
+@keyframes up{0%{top:100%;opacity:0}30%{opacity:1}100%{top:-6px;opacity:0}}
+
+.big{font-size:clamp(1.7rem,5.2vw,3rem);font-weight:700;line-height:1.5;}
+.lead{font-size:clamp(1.05rem,3vw,1.3rem);color:var(--ink);font-weight:500;}
+.muted{color:var(--dim);font-size:clamp(.92rem,2.6vw,1.05rem);margin-top:1.1rem;}
+.mood-word{color:var(--mood);transition:color var(--trans);font-weight:700;}
+
+/* mystery */
+#mystery .frame{border:1px solid color-mix(in srgb,var(--mood) 45%,transparent);
+  border-radius:18px;padding:clamp(1.6rem,5vw,2.8rem);background:color-mix(in srgb,var(--mood) 7%,transparent);
+  transition:border var(--trans),background var(--trans);backdrop-filter:blur(3px);}
+#mystery .tag{font-size:.68rem;color:var(--mood);margin-bottom:1rem;transition:color var(--trans);}
+
+/* ===== 第1回ハイライト ===== */
+#highlight{max-width:880px;}
+.hl-head{font-size:clamp(1.9rem,6vw,3rem);font-weight:800;line-height:1.3;}
+.hl-block{margin-top:clamp(3.4rem,10vw,5.4rem);}
+.hl-block .piece{color:var(--mood);font-size:.8rem;letter-spacing:.06em;margin-bottom:.7rem;transition:color var(--trans);}
+.hl-block h3{font-size:clamp(1.5rem,5vw,2.4rem);font-weight:700;line-height:1.4;margin-bottom:1.3rem;}
+.story{color:var(--dim);font-size:clamp(.94rem,2.7vw,1.06rem);margin-top:1.15rem;}
+.story .em{color:var(--ink);font-weight:500;}
+.story .q{color:var(--mood);font-style:normal;transition:color var(--trans);}
+.kicker{color:var(--ink);font-weight:500;font-size:clamp(1.02rem,3vw,1.18rem);margin-top:1.4rem;line-height:1.7;}
+
+/* participant voices */
+.voices{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.5rem 0 .4rem;}
+.voice{border:1px solid color-mix(in srgb,var(--mood) 40%,transparent);
+  border-radius:100px;padding:.5rem 1.15rem;font-size:clamp(.85rem,2.4vw,.98rem);
+  color:var(--ink);background:color-mix(in srgb,var(--mood) 9%,transparent);
+  transition:border var(--trans),background var(--trans);}
+
+/* menti screenshot placeholder */
+.shot{margin-top:1.8rem;border:1px dashed color-mix(in srgb,var(--mood) 50%,transparent);
+  border-radius:16px;aspect-ratio:16/9;width:100%;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;text-align:center;
+  background:color-mix(in srgb,var(--mood) 5%,transparent);color:var(--dim);
+  transition:border var(--trans),background var(--trans);}
+.shot .ico{font-size:1.6rem;opacity:.55;letter-spacing:0;}
+.shot .lbl{font-size:.7rem;letter-spacing:.12em;}
+.shot .hint{font-size:.62rem;letter-spacing:.06em;opacity:.55;}
+.shot img{width:100%;height:100%;object-fit:cover;}
+
+/* archive links */
+.archive{margin-top:clamp(3rem,8vw,4.4rem);border-top:1px solid color-mix(in srgb,var(--mood) 28%,transparent);
+  padding-top:2.2rem;transition:border var(--trans);}
+.archive .lbl{font-size:.72rem;color:var(--mood);letter-spacing:.08em;margin-bottom:1.2rem;transition:color var(--trans);}
+.archive .note{color:var(--dim);font-size:.8rem;margin-top:1.2rem;}
+
+/* journey cards */
+.sess{display:flex;gap:clamp(1rem,4vw,2rem);align-items:flex-start;}
+.sess .no{font-size:clamp(2.4rem,9vw,4.4rem);font-weight:700;line-height:1;color:var(--mood);
+  transition:color var(--trans);flex-shrink:0;opacity:.85;}
+.sess .body h3{font-size:clamp(1.3rem,4.4vw,2rem);font-weight:700;margin-bottom:.5rem;
+  display:flex;align-items:center;flex-wrap:wrap;gap:.7rem;}
+.sess .body .piece{color:var(--mood);font-size:.82rem;margin-bottom:.8rem;transition:color var(--trans);}
+.sess .body p{color:var(--dim);font-size:clamp(.9rem,2.6vw,1rem);}
+.jlabel{font-size:.7rem;color:var(--dim);}
+.flag{font-family:"Space Mono",monospace;font-size:.58rem;letter-spacing:.12em;padding:.22rem .65rem;
+  border-radius:100px;border:1px solid var(--mood);color:var(--mood);transition:color var(--trans),border var(--trans);
+  white-space:nowrap;align-self:center;}
+.flag.done{background:var(--mood);color:var(--bg);}
+.sess-sec.is-soon{opacity:.62;}
+
+/* reader / cta cards */
+.card{border:1px solid #23283f;border-radius:18px;padding:clamp(1.4rem,4vw,2.2rem);
+  background:rgba(255,255,255,.02);}
+.btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.4rem;padding:.95rem 1.7rem;
+  border-radius:100px;font-weight:700;font-size:.95rem;text-decoration:none;border:1px solid var(--mood);
+  color:var(--bg);background:var(--mood);transition:transform .25s ease,background var(--trans),box-shadow .25s,color var(--trans);}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px color-mix(in srgb,var(--mood) 40%,transparent);}
+.btn.ghost{background:transparent;color:var(--mood);}
+.btn.ghost:hover{background:color-mix(in srgb,var(--mood) 12%,transparent);}
+.ctas{display:flex;flex-wrap:wrap;gap:.9rem;}
+
+/* apply CTA */
+.apply-card{border:1px solid color-mix(in srgb,var(--mood) 48%,transparent);
+  border-radius:20px;padding:clamp(1.7rem,5vw,2.8rem);
+  background:color-mix(in srgb,var(--mood) 9%,transparent);backdrop-filter:blur(3px);
+  transition:border var(--trans),background var(--trans);}
+.specs{list-style:none;margin:1.8rem 0 .4rem;display:grid;gap:.85rem;}
+.specs li{display:flex;gap:1.1rem;align-items:baseline;color:var(--ink);font-size:clamp(.92rem,2.6vw,1.04rem);}
+.specs .k{color:var(--mood);min-width:4.6rem;font-size:.72rem;letter-spacing:.08em;
+  font-family:"Space Mono",monospace;flex-shrink:0;transition:color var(--trans);padding-top:.15rem;}
+.specs .v small{display:block;color:var(--dim);font-size:.86rem;font-weight:400;margin-top:.2rem;line-height:1.7;}
+
+.finale h2{font-size:clamp(1.9rem,6.4vw,3.4rem);font-weight:800;line-height:1.35;}
+footer{position:relative;z-index:2;text-align:center;padding:6vh 7vw 9vh;color:var(--dim);font-size:.75rem;border-top:1px solid #181c2e;}
+footer .nm{color:var(--ink);font-weight:700;letter-spacing:.04em;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none}
+  .scrollhint .arr::after{animation:none}
+  .node.lit .pulse{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bgwrap" aria-hidden="true">
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <svg class="mapsvg" viewBox="0 0 400 360" fill="none">
+    <!-- edges (drawn in scroll order) -->
+    <line class="edge" data-e="1" x1="200" y1="300" x2="90"  y2="210"/>
+    <line class="edge" data-e="2" x1="90"  y1="210" x2="150" y2="110"/>
+    <line class="edge" data-e="3" x1="150" y1="110" x2="200" y2="60"/>
+    <line class="edge" data-e="4" x1="200" y1="60"  x2="300" y2="120"/>
+    <line class="edge" data-e="5" x1="300" y1="120" x2="320" y2="225"/>
+    <line class="edge" data-e="6" x1="320" y1="225" x2="200" y2="300"/>
+    <line class="edge" data-e="6" x1="200" y1="300" x2="200" y2="180"/>
+    <line class="edge" data-e="6" x1="90" y1="210" x2="200" y2="180"/>
+    <line class="edge" data-e="6" x1="300" y1="120" x2="200" y2="180"/>
+    <!-- core node (curiosity) revealed last -->
+    <g class="node" data-n="6" transform="translate(200,180)">
+      <circle class="pulse" r="6"/><circle r="9"/><text x="14" y="4">0</text>
+    </g>
+    <g class="node" data-n="1" transform="translate(200,300)"><circle class="pulse" r="6"/><circle r="8"/><text x="12" y="4">01</text></g>
+    <g class="node" data-n="2" transform="translate(90,210)"><circle class="pulse" r="6"/><circle r="8"/><text x="-26" y="4">02</text></g>
+    <g class="node" data-n="3" transform="translate(150,110)"><circle class="pulse" r="6"/><circle r="8"/><text x="-26" y="4">03</text></g>
+    <g class="node" data-n="4" transform="translate(200,60)"><circle class="pulse" r="6"/><circle r="8"/><text x="12" y="4">04</text></g>
+    <g class="node" data-n="5" transform="translate(300,120)"><circle class="pulse" r="6"/><circle r="8"/><text x="12" y="4">05</text></g>
+    <g class="node" data-n="6b" transform="translate(320,225)"><circle class="pulse" r="6"/><circle r="8"/><text x="12" y="4">06</text></g>
+  </svg>
+</div>
+
+<div class="content">
+
+  <!-- 1. HERO -->
+  <section id="hero" data-mood="#3aa0d6">
+    <span class="eyebrow mono reveal">YONONAKA ／ 全6回の対話ワークショップ</span>
+    <h1 class="mincho reveal d1">AIロボット社会、<br>僕たちは<span class="q">どう生きるか</span>。</h1>
+    <p class="sub mono reveal d2">中高生が正解のない問いに向き合う1時間を、実況中継する。<br>正解は、誰も持っていない。— 僕も、学びに来ています。</p>
+  </section>
+  <div class="scrollhint mono">SWIPE UP<span class="arr"></span></div>
+
+  <!-- 2. 前提 -->
+  <section data-mood="#3aa0d6">
+    <span class="eyebrow mono reveal">前提</span>
+    <p class="big mincho reveal d1">10年後の世界が<br>どうなるか、<span class="mood-word">誰も知らない。</span></p>
+    <p class="muted reveal d2">AIとロボットは日進月歩で進んでいる。だから僕がやるのは、最新の現実と、考えるきっかけを渡すこと。そこから何を思い、どう動き、どんなキャリアを描くか——決めるのは、教室の中高生と、画面の外で読んでいるあなたです。</p>
+    <p class="muted reveal d3" style="margin-top:1.6rem">AIロボット社会を<span class="mood-word">怖がる</span>んやなくて、<span class="mood-word">面白がっていく</span>。それだけ。</p>
+  </section>
+
+  <!-- 3. これは、なに？ -->
+  <section data-mood="#3aa0d6">
+    <span class="eyebrow mono reveal">これは、なに？</span>
+    <p class="lead reveal d1">月に一度ひらく、答えのない問いをめぐる中高生の対話の場「Yononaka」。その<strong>1時間を、実況中継します。</strong></p>
+    <p class="muted reveal d2"><strong style="color:var(--ink)">第1回は、もう終わった。</strong>以下は、そこで何が起きたかの記録です。誰が何を言って、場が一瞬止まったか。生の声を、登場人物の台詞のように書きます。そして——<strong style="color:var(--ink)">あなたの声も、この物語の一部になる。</strong></p>
+  </section>
+
+  <!-- 4. 第1回ハイライト（LPの心臓部） -->
+  <section id="highlight" data-mood="#3aa0d6">
+    <span class="eyebrow mono reveal">第1回ハイライト ／ 2026.06</span>
+    <p class="hl-head mincho reveal d1">教室で、<br><span class="mood-word">何が起きたか。</span></p>
+
+    <!-- 4-1 -->
+    <div class="hl-block">
+      <p class="piece mono reveal">SESSION 01 ／ 境界線</p>
+      <h3 class="reveal d1">AIって、どんなもの？</h3>
+      <p class="story reveal d2">最初の問いはシンプルだった。<span class="q">「AIってどんなもの？」</span>返ってきた言葉は、一人ひとりぜんぜん違う。</p>
+      <div class="voices reveal d2">
+        <span class="voice">ほとんど全ての問題を解ける機械</span>
+        <span class="voice">企画崩壊の原因</span>
+        <span class="voice">人を媒介せず要件をサポートしてくれる玉</span>
+        <span class="voice">ほぼ何でもできる</span>
+      </div>
+      <p class="story reveal d2"><span class="em">"企画崩壊の原因"</span>と答えた中学生は、学校の授業でAIを使っていいと言われた結果、新聞づくりの企画が"終わった"経験を語った。「便利すぎるから、使えるところは注意しないといけない」。</p>
+      <p class="story reveal d2">大人の参加者からは「AIを使わないと仕事が遅れる」という声。でも同時に「実際に使うようになったから、AIだけじゃ絶対に人間に置き換わられへんなっていう弱点が見えた」。</p>
+      <p class="kicker reveal d3">怖がるでも持ち上げるでもない。使ってるからこそ見える景色が、部屋の中で混ざり合っていた。</p>
+      <figure class="shot reveal d1" data-shot="menti-q1">
+        <span class="ico mono">▦</span>
+        <span class="lbl mono">MENTI ／ お題① ワードクラウド</span>
+        <span class="hint mono">画像を差し替え：&lt;img src="…"&gt; をここに</span>
+        <!-- 差し替え例: <img src="./images/menti-q1.png" alt="お題① AIってどんなもの？のワードクラウド"> -->
+      </figure>
+    </div>
+
+    <!-- 4-2 -->
+    <div class="hl-block">
+      <p class="piece mono reveal">SESSION 01 ／ 線引き</p>
+      <h3 class="reveal d1">どこまで、任せていい？</h3>
+      <p class="story reveal d2">8つの「人間の思考・行動」を並べて、「どこまでAIに任せていいか」を1〜5で答えてもらった。意外だったのは、ほとんどの参加者が<span class="em">「自分でやる」寄り</span>だったこと。</p>
+      <div class="voices reveal d2">
+        <span class="voice">黒板をノートに書くのは自分でやる。書かないと覚えられない</span>
+        <span class="voice">服は自分で選ばなかったら、もはや自分じゃない</span>
+      </div>
+      <p class="story reveal d2">でも種明かしをすると、1〜5番はもう技術的にはAIにできる。驚きと、「でも自分はやりたい」が同時に走る。</p>
+      <p class="kicker reveal d3"><span class="q">"できるかどうか"</span>じゃない。<span class="q">"任せたいかどうか"</span>。自分の線を引いた瞬間、それが「自分が人間でおきたい場所」になっていた。</p>
+      <figure class="shot reveal d1" data-shot="menti-scales">
+        <span class="ico mono">▥</span>
+        <span class="lbl mono">MENTI ／ お題② Scales（割れたグラフ）</span>
+        <span class="hint mono">画像を差し替え：&lt;img src="…"&gt; をここに</span>
+        <!-- 差し替え例: <img src="./images/menti-scales.png" alt="お題② どこまで任せていいかのScalesグラフ"> -->
+      </figure>
+    </div>
+
+    <!-- 4-3 -->
+    <div class="hl-block">
+      <p class="piece mono reveal">SESSION 01 ／ BMI</p>
+      <h3 class="reveal d1">脳にチップ。あなたは、入れる？</h3>
+      <p class="story reveal d2">全身麻痺のアーティストが、考えるだけでカーソルを動かし、20年ぶりに自分の名前を書いた動画を観た。<span class="em">部屋が静かになった。</span></p>
+      <div class="voices reveal d2">
+        <span class="voice">障害者にとっては革命的な発明。でも体が健康なうちは入れたくない</span>
+        <span class="voice">1回導入しちゃったら、体を動かすのがめんどくさいなってなる可能性がある</span>
+        <span class="voice">思ってることが全部文字に出たら、あちこちで喧嘩が起きそう</span>
+      </div>
+      <p class="story reveal d2">技術への驚きと、自分の体への感覚が同時にぶつかる。</p>
+      <p class="kicker reveal d3">答えは出ない。出なくていい。でも、問いは残った。</p>
+    </div>
+
+    <!-- 4-4 アーカイブ -->
+    <div class="archive reveal">
+      <p class="lbl mono">第1回の全記録</p>
+      <div class="ctas">
+        <a class="btn" href="#" data-cta="youtube">アーカイブを観る ↗</a>
+        <a class="btn ghost" href="#" data-cta="canva">スライドを見る ↗</a>
+      </div>
+      <p class="note">ここに書いたのはハイライトだけ。全体の空気は、アーカイブで確かめてほしい。</p>
+    </div>
+  </section>
+
+  <!-- 5. 未回収の謎 -->
+  <section id="mystery" data-mood="#c0398b">
+    <span class="eyebrow mono reveal">第1回で、見つかった謎</span>
+    <div class="frame reveal d1">
+      <p class="tag mono">UNRESOLVED ／ 未回収</p>
+      <p class="big mincho">「好奇心」と「メタ認知」だけは、<br>今のところ、<span class="mood-word">機械から出てこない。</span></p>
+      <p class="muted" style="margin-top:1.2rem">人間の思考や行動は、もうほとんどAIに置き換わりはじめている。でも「なんか面白そう」と自分から動き出すことと、「本当にそう？」と自分を疑うことだけは、まだ残っているらしい。——けれど、それは<strong style="color:var(--ink)">本当に、最後まで人間のものなんやろうか？</strong></p>
+    </div>
+    <p class="muted reveal d2" style="margin-top:1.4rem">ある参加者はこう言った——<span class="mood-word">「AIに心をつけちゃったら、もう終わりですよ」</span>。果たして、そうなのか。次回、<strong style="color:var(--ink)">心のかたちを探しに行く。</strong></p>
+  </section>
+
+  <!-- 6. 6回の旅マップ -->
+  <section data-mood="#c0398b">
+    <span class="eyebrow mono reveal">6回の旅</span>
+    <p class="lead reveal d1">毎回、ピースが1つずつ表に出る。<br>追いかけるほど、<span class="mood-word">1枚の地図が組み上がっていく。</span></p>
+    <p class="jlabel mono reveal d2" style="margin-top:.8rem">↓ スクロールで、地図に灯がともる</p>
+  </section>
+
+  <section class="sess-sec" data-mood="#3aa0d6" data-node="1">
+    <div class="sess reveal">
+      <div class="no mincho">01</div>
+      <div class="body"><h3>境界線 <span class="flag done mono">DONE</span></h3>
+        <p class="piece mono">PIECE ─ 知能の地図と、置き換えの線引き</p>
+        <p>「どこまでAIに任せていい？」自分の手で線を引く。気づけば、もうほとんど置き換わっていた。残ったのは、たった2つ。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sess-sec" data-mood="#c0398b" data-node="2">
+    <div class="sess reveal">
+      <div class="no mincho">02</div>
+      <div class="body"><h3>心 <span class="flag mono">7/24（金）</span></h3>
+        <p class="piece mono">PIECE ─ 感情に名前をつける＝解像度を上げる</p>
+        <p>「"なんかいや"を、どこまで言葉にできる？」AIは感情を分類できる。でも、内側から感じてはいるんやろうか。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sess-sec is-soon" data-mood="#d98324" data-node="3">
+    <div class="sess reveal">
+      <div class="no mincho">03</div>
+      <div class="body"><h3>からだ <span class="flag mono">COMING SOON</span></h3>
+        <p class="piece mono">PIECE ─ 言葉にできない"コツ"＝渡しにくい知</p>
+        <p>「自転車の乗り方を、言葉だけで教えられる？」体が覚えていることは、データに渡せるのか。教室で、体を動かす異色回。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sess-sec is-soon" data-mood="#7a4fb5" data-node="4">
+    <div class="sess reveal">
+      <div class="no mincho">04</div>
+      <div class="body"><h3>自分 <span class="flag mono">COMING SOON</span></h3>
+        <p class="piece mono">PIECE ─ 視点は選べる／変えたくない核＝舵</p>
+        <p>「学校の自分と、家の自分。どっちが本物？」AIもキャラを演じ分ける。分人とAIのペルソナは、何が違うんやろう。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sess-sec is-soon" data-mood="#2e8b6e" data-node="5">
+    <div class="sess reveal">
+      <div class="no mincho">05</div>
+      <div class="body"><h3>情報 <span class="flag mono">COMING SOON</span></h3>
+        <p class="piece mono">PIECE ─ 同じ事実も、伝え方で像が変わる</p>
+        <p>同じニュース、2つの見出し。「どっちを信じる？」AIは"それっぽい"を量産できる。正しさの番人は、誰なんやろう。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sess-sec is-soon" data-mood="#c8932b" data-node="6">
+    <div class="sess reveal">
+      <div class="no mincho">06</div>
+      <div class="body"><h3>編集 — そして、地図が完成する <span class="flag mono">COMING SOON</span></h3>
+        <p class="piece mono">PIECE ─ 全部を貫いていた動力＝好奇心の正体</p>
+        <p>5回分の"自分の言葉"を素材に、「どう生きるか」を一人ひとり編む。最後に、あの謎の答えが明かされる。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 読者への問い -->
+  <section id="reader" data-mood="#c8932b">
+    <span class="eyebrow mono reveal">あなたも、登場人物。</span>
+    <p class="big mincho reveal d1" style="font-size:clamp(1.5rem,5vw,2.4rem)">第1回の声を聞いて、<br><span class="mood-word">あなたはどう思った？</span></p>
+    <div class="card reveal d2" style="margin-top:1.8rem">
+      <p class="muted" style="margin-top:0">参加者たちは、AIを「企画崩壊の原因」と呼び、「ほぼ何でもできる」と言い、「便利すぎるから注意がいる」と語った。</p>
+      <p class="lead" style="margin-top:1.2rem">あなたにとって、AIやロボットは<span class="mood-word">どんな存在</span>ですか？</p>
+      <p class="muted" style="margin-top:.7rem">ひとことだけ、教えてください。あなたの声は、<strong style="color:var(--ink)">次の教室に届けます。</strong>記名は不要、一問だけ。</p>
+      <div class="ctas">
+        <a class="btn" href="#" data-cta="form-reader">答える ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 参加申し込みCTA -->
+  <section id="apply" data-mood="#c0398b">
+    <span class="eyebrow mono reveal">第2回参加者募集</span>
+    <p class="big mincho reveal d1" style="font-size:clamp(1.7rem,5.6vw,2.8rem)">次回、<span class="mood-word">心のかたち</span>を<br>探しに行く。</p>
+    <div class="apply-card reveal d2" style="margin-top:1.8rem">
+      <ul class="specs">
+        <li><span class="k">日程</span><span class="v">2026年7月24日（金）</span></li>
+        <li><span class="k">形式</span><span class="v">Zoom</span></li>
+        <li><span class="k">対象</span><span class="v">中高生<small>スクール生は受講料込み・実質無料</small></span></li>
+        <li><span class="k">テーマ</span><span class="v">心のかたちを探しにいく<small>感情って「良い・悪い」で割れるもの？ AIは感情を分類できる。でも"感じて"はいるのか。</small></span></li>
+      </ul>
+      <div class="ctas">
+        <a class="btn" href="#" data-cta="form-apply">第2回に申し込む ↗</a>
+      </div>
+      <p class="muted" style="font-size:.86rem">第1回に参加していなくても大丈夫です。各回それぞれで完結する問いを扱います。</p>
+    </div>
+  </section>
+
+  <!-- 9. フィナーレ -->
+  <section class="finale" data-mood="#c8932b">
+    <span class="eyebrow mono reveal">6週間後</span>
+    <h2 class="mincho reveal d1">1枚の地図が、<br><span class="mood-word">完成する。</span></h2>
+    <p class="muted reveal d2">その地図に、あなたの線も引かれている。</p>
+    <div class="ctas reveal d3" style="margin-top:1.8rem">
+      <a class="btn" href="#" data-cta="form-apply">第2回に申し込む ↗</a>
+      <a class="btn ghost" href="#" data-cta="form-reader">読者の問いに答える</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p class="nm">Yononaka ／ CLAFT ・ KEEP ON</p>
+  <p style="margin-top:.6rem">AIロボット社会、僕たちはどう生きるか ― 中高生との対話、実況中継</p>
+</footer>
+
+<script>
+const root=document.documentElement;
+const moods={'#3aa0d6':'#0c1430','#c0398b':'#1a0c1c','#d98324':'#1c1308','#7a4fb5':'#140c20','#2e8b6e':'#08160f','#c8932b':'#1a1306'};
+
+// mood switching by section in view
+const secs=[...document.querySelectorAll('section[data-mood]')];
+const moodObs=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    const m=e.target.dataset.mood;
+    root.style.setProperty('--mood',m);
+    root.style.setProperty('--mood-deep',moods[m]||'#0c1430');
+    root.style.setProperty('--bg',moods[m]||'#070912');
+  }});
+},{threshold:.5});
+secs.forEach(s=>moodObs.observe(s));
+
+// reveal
+const revObs=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target);}});
+},{threshold:.25});
+document.querySelectorAll('.reveal').forEach(r=>revObs.observe(r));
+
+// growing map: light nodes/edges as session sections enter
+const litNodes=new Set();
+function lightUpTo(n){
+  for(let i=1;i<=n;i++){
+    document.querySelectorAll('.node[data-n="'+i+'"]').forEach(el=>el.classList.add('lit'));
+    document.querySelectorAll('.edge[data-e="'+i+'"]').forEach(el=>el.classList.add('lit'));
+  }
+  if(n>=6){
+    document.querySelector('.node[data-n="6b"]').classList.add('lit');
+    document.querySelector('.node[data-n="6"]').classList.add('lit'); // core curiosity
+  }
+}
+// 第1回は済 → ノード01は最初から灯す
+litNodes.add(1);
+document.querySelector('.node[data-n="1"]').classList.add('lit');
+const nodeObs=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    const n=parseInt(e.target.dataset.node);
+    if(!litNodes.has(n)){litNodes.add(n);}
+    lightUpTo(n);
+  }});
+},{threshold:.4});
+document.querySelectorAll('.sess-sec[data-node]').forEach(s=>nodeObs.observe(s));
+
+// hide scroll hint after first scroll
+const hint=document.querySelector('.scrollhint');
+addEventListener('scroll',()=>{if(scrollY>120)hint.style.opacity='0';},{passive:true});
+</script>
+</body>
+</html>

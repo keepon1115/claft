@@ -22,7 +22,8 @@ export default function SiteHome(){
       <Philosophy />
       <EntranceDoors />
       <FlowApply />
-      <FAQ />
+      {/* FAQPage 構造化データはトップでのみ出力（複数ページ重複を回避） */}
+      <FAQ jsonLd />
       <Students />
     </>
   );

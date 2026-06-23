@@ -1,0 +1,219 @@
+/* =========================================
+   CLAFT — Craft Design Tokens
+   Single source of truth for color, surface, shadow, texture, radius and
+   the typographic scale. Mirrors :root in the app's globals.css. Tailwind
+   in the app reads the same variables (brand, pink, cream, green, violet,
+   ink-*, paper, desk). Designs should consume these via var(--*).
+   ========================================= */
+:root {
+  /* ----- Colors ----- */
+  --brand: #34c6be;       /* CLAFT teal — primary brand color (immutable) */
+  --brand-deep: #1ba79f;
+  --pink: #f06a6a;
+  --cream: #ffd66b;
+  --green: #58c3a2;
+  --violet: #9b87f5;
+  --ink-900: #1f2937;
+  --ink-800: #273446;
+  --ink-700: #374151;
+  --ink-600: #4b5563;
+  --ink-500: #6b7280;
+
+  /* RGB triplets (for alpha modifiers, e.g. rgb(var(--brand-rgb) / 0.10)) */
+  --brand-rgb: 52 198 190;
+  --pink-rgb: 240 106 106;
+  --cream-rgb: 255 214 107;
+  --green-rgb: 88 195 162;
+  --violet-rgb: 155 135 245;
+  --ink-900-rgb: 31 41 55;
+  --ink-800-rgb: 39 52 70;
+  --ink-700-rgb: 55 65 81;
+  --ink-600-rgb: 75 85 99;
+  --ink-500-rgb: 107 114 128;
+
+  /* ----- Craft surfaces (desk & paper) ----- */
+  --desk: #f1e9d8;        /* the kraft-paper work surface (page background) */
+  --desk-deep: #e7dcc4;
+  --paper: #fffdf6;       /* the sheet that gets stuck down — cards, columns */
+  --paper-warm: #fdf6e7;
+  --paper-line: rgba(43, 56, 70, 0.12); /* notebook ruling */
+  --paper-edge: rgba(92, 77, 42, 0.10); /* paper edge border */
+  --bg: #fbfefe;          /* legacy */
+  --card: #fff;
+
+  /* ----- Shadows (paper "stuck-down" feel: short dark contact + soft drop) ----- */
+  --shadow: 0 10px 30px rgba(31, 41, 55, 0.08); /* legacy soft */
+  --shadow-paper:
+    0 1px 1px rgba(92, 77, 42, 0.14),
+    0 2px 3px rgba(92, 77, 42, 0.08),
+    0 8px 14px -6px rgba(92, 77, 42, 0.14),
+    0 18px 30px -18px rgba(92, 77, 42, 0.20);
+  --shadow-paper-lift:
+    0 2px 2px rgba(92, 77, 42, 0.10),
+    0 10px 16px -6px rgba(92, 77, 42, 0.18),
+    0 28px 44px -18px rgba(92, 77, 42, 0.28);
+  --shadow-sticker:
+    0 1px 1px rgba(92, 77, 42, 0.18),
+    0 4px 10px -2px rgba(92, 77, 42, 0.20),
+    0 14px 24px -10px rgba(92, 77, 42, 0.25);
+
+  --radius: 20px;
+  --radius-lg: 28px;
+  /* hand-cut paper: deliberately uneven corners */
+  --radius-paper: 8px 14px 9px 15px / 14px 9px 15px 8px;
+  --menu-cream: #FFF8E6;
+  --menu-pink: #FFE8EF;
+  --rail-cream: #FFF6E9;
+
+  /* ----- Textures ----- */
+  /* paper fibre (feTurbulence noise, tiled 180px, ~0.13 alpha) */
+  --tex-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.36 0 0 0 0 0.30 0 0 0 0 0.16 0 0 0 0.13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* grid dots (the cutting mat) */
+  --tex-dots: radial-gradient(rgba(31, 41, 55, 0.055) 1.1px, transparent 1.4px);
+
+  /* ----- Typography scale (container-relative: cqi, not vw) ----- */
+  --text-xs: clamp(12px, 3.1cqi, 13.5px);
+  --text-sm: clamp(13px, 3.4cqi, 15px);
+  --text-base: clamp(15px, 3.8cqi, 16.5px);
+  --text-lg: clamp(16px, 4.2cqi, 18px);
+  --text-xl: clamp(17px, 4.7cqi, 20px);
+  --text-2xl: clamp(19px, 5.3cqi, 23px);
+  --text-3xl: clamp(22px, 6.2cqi, 27px);
+  --text-4xl: clamp(25px, 7.1cqi, 31px);
+  --text-5xl: clamp(28px, 8.4cqi, 37px);
+  --text-6xl: clamp(31px, 9.6cqi, 42px);
+
+  /* Typography — config */
+  --tracking-wide: 0.01em;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+  --leading-loose: 1.8;
+  --font-medium: 500;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+}
+
+/* Fallback for browsers without container-query units (legacy vw scale) */
+@supports not (width: 1cqi) {
+  :root {
+    --text-xs: clamp(12px, 1.6vw, 14px);
+    --text-sm: clamp(13px, 1.8vw, 16px);
+    --text-base: clamp(15px, 2vw, 18px);
+    --text-lg: clamp(16px, 2.2vw, 20px);
+    --text-xl: clamp(18px, 2.4vw, 22px);
+    --text-2xl: clamp(20px, 2.8vw, 26px);
+    --text-3xl: clamp(24px, 3.5vw, 32px);
+    --text-4xl: clamp(28px, 4vw, 38px);
+    --text-5xl: clamp(32px, 5vw, 44px);
+    --text-6xl: clamp(36px, 6vw, 52px);
+  }
+}
+
+/* =========================================
+   BASE
+   The page is a kraft-paper desk; sheets of --paper sit on top of it.
+   ========================================= */
+body {
+  background-color: var(--desk);
+  background-image: var(--tex-grain);
+  color: var(--ink-800);
+  font-family: var(--font-zen);
+  margin: 0;
+}
+
+h1 { font-size: clamp(24px, 7cqi, 32px); line-height: 1.25; }
+h2 { font-size: clamp(20px, 6cqi, 26px); }
+h3 { font-size: clamp(18px, 5cqi, 22px); }
+
+/* Japanese typography discipline: balanced heading wraps + tight tracking,
+   body avoids orphan lines. */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  font-feature-settings: 'palt';
+  letter-spacing: 0.02em;
+}
+p { text-wrap: pretty; }
+
+/* =========================================
+   TYPOGRAPHY UTILITIES
+   ========================================= */
+.heading-xl {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-wide);
+  color: var(--ink-900);
+}
+.heading-lg {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-wide);
+  color: var(--ink-900);
+}
+.heading-md {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-snug);
+  color: var(--ink-900);
+}
+.heading-sm {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-snug);
+  color: var(--ink-900);
+}
+
+.body-xl { font-size: var(--text-xl); line-height: var(--leading-loose); color: var(--ink-700); }
+.body-lg { font-size: var(--text-lg); line-height: var(--leading-loose); color: var(--ink-700); }
+.body-base { font-size: var(--text-base); line-height: var(--leading-normal); color: var(--ink-700); }
+.body-sm { font-size: var(--text-sm); line-height: var(--leading-normal); color: var(--ink-700); }
+
+.emphasis { font-weight: var(--font-bold); color: var(--ink-900); }
+.lead { font-size: var(--text-lg); line-height: var(--leading-loose); color: var(--ink-600); }
+.subtitle {
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  font-weight: var(--font-bold);
+  color: var(--ink-500);
+}
+
+/* =========================================
+   BUTTONS (plain-CSS expansion of the app's @apply rules)
+   For the headline craft pill, prefer .craft-sticker (craft.css).
+   ========================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-ghost { background: #fff; color: var(--ink-800); border-color: rgba(0, 0, 0, 0.06); }
+
+/* Scroll-reveal helper (add .in when the element enters the viewport) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.6s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* A content column behaves as a query container so cqi type scales to it.
+   Wrap a design's main column in .craft-canvas to reproduce the app's
+   "single sheet of paper" sizing. */
+.craft-canvas {
+  container-type: inline-size;
+  width: 100%;
+}

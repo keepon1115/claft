@@ -36,5 +36,8 @@
     "additionalDirectories": [
       "c:\\dev\\claft-HP\\app\\(site)\\yononaka"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
 }

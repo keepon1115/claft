@@ -26,7 +26,18 @@ const nextConfig = {
   reactStrictMode: true,
   // basePath: '/claft', // 削除: ローカル開発やルートドメインでの運用に合わせて削除
   images: { unoptimized: true },
-  // redirects も削除
+  // SEO: 旧 vercel.app ホストへのアクセスを正規ドメインへ 301 集約する。
+  // ※ 旧 github.io（静的Jekyll）は別ホストのため、そちら側で別途リダイレクトが必要。
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'claft-hp.vercel.app' }],
+        destination: 'https://claft.keeponlearning.fun/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

@@ -6,6 +6,7 @@ import { Zen_Maru_Gothic } from 'next/font/google';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
 import { Students } from '@/components/Students';
+import { trackReservation } from '@/lib/analytics';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['500', '700', '900'],
@@ -115,6 +116,8 @@ export default function ContactPage() {
       });
       if (res.ok) {
         setStatus('success');
+        // GA4 コンバージョン計測（無料体験・個別相談の予約）
+        trackReservation(inquiryType);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         setStatus('error');
@@ -128,6 +131,7 @@ export default function ContactPage() {
 
   return (
     <div className="w-full">
+      {/* LocalBusiness 構造化データは root layout の <head> でサイト全体に出力済み（静的HTMLに残すため） */}
       {/* Hero Section - グラデーション背景 */}
       <section
         style={{
