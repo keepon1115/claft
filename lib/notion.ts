@@ -11,8 +11,9 @@ const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_BLOG_DB_ID = process.env.NOTION_BLOG_DB_ID;
 const NOTION_VERSION = '2022-06-28';
 const API = 'https://api.notion.com/v1';
-// ISR: 1時間ごとに再取得（Notion画像URLの失効対策にもなる）
-const REVALIDATE = 3600;
+// ISR: 60秒ごとに再取得。Notionで公開/編集した記事が約1分で反映される。
+// 即時反映したいときは /api/revalidate?secret=... を叩く。
+const REVALIDATE = 60;
 
 export const blogEnabled = Boolean(NOTION_TOKEN && NOTION_BLOG_DB_ID);
 

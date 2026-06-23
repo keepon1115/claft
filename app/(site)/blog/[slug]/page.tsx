@@ -7,7 +7,7 @@ import { NotionBlocks } from '@/components/blog/NotionBlocks';
 import { getPublishedPosts, getPostBySlug, getBlocks } from '@/lib/notion';
 import { SITE_NAME, SITE_URL, absoluteUrl, DEFAULT_OG_IMAGE } from '@/lib/seo';
 
-export const revalidate = 3600; // ISR
+export const revalidate = 60; // ISR
 
 export async function generateStaticParams() {
   const posts = await getPublishedPosts();

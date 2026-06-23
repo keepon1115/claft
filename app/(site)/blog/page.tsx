@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { getPublishedPosts } from '@/lib/notion';
 
-export const revalidate = 3600; // ISR: 1時間ごとに再生成
+export const revalidate = 60; // ISR: 60秒ごとに再生成
 
 export const metadata: Metadata = {
   title: 'ブログ｜探究・キャリア教育・オンライン学習',
