@@ -100,7 +100,8 @@ export default function ContactPage() {
     data.append('_subject', SUBJECT[inquiryType]);
     data.append('_template', 'table');
     data.append('_captcha', 'false');
-    data.append('_cc', 'keeponlabo@gmail.com');
+    // primary は keeponlabo@gmail.com（下のfetch URL）。担当にもCCで届くようにする。
+    data.append('_cc', 's.kawahara@keeponlearning.fun');
     data.append(
       '_autoresponse',
       'この度はお問い合わせいただきありがとうございます。\n内容を確認のうえ、原則24時間以内に担当者よりご連絡いたします。\n\n― CLAFT / Keep on learning'
@@ -109,12 +110,15 @@ export default function ContactPage() {
     data.append('お問い合わせ種別', TYPE_LABEL[inquiryType]);
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/s.kawahara@keeponlearning.fun', {
+      const res = await fetch('https://formsubmit.co/ajax/keeponlabo@gmail.com', {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: data,
       });
-      if (res.ok) {
+      // FormSubmit(AJAX) は未有効化時に success:"false" を返すため、本当に送れたか確認する。
+      const json = await res.json().catch(() => null);
+      const delivered = res.ok && (!json || json.success === 'true' || json.success === true);
+      if (delivered) {
         setStatus('success');
         // GA4 コンバージョン計測（無料体験・個別相談の予約）
         trackReservation(inquiryType);
