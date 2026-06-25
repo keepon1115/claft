@@ -45,8 +45,8 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
-      { id: 'event-1', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/93f30e89a0f4429e81a0a9e052eb662f/event-0619-1.png' },
-      { id: 'event-2', emoji: '🧭', theme: 'navy', title: '', text: ' 英語で遊ぼう！ゲームイベント', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d06219ce5bf049ea90cdf2aa47382db7/event-0619-2.png' },
+      { id: 'event-1', emoji: '🧭', theme: 'navy', title: '', text: ' 英語で遊ぼう！ゲームイベント', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d06219ce5bf049ea90cdf2aa47382db7/event-0619-2.png' },
+      { id: 'event-2', emoji: '🎪', theme: 'orange', title: '秋のスクールフェスタのイベントを企画しよう！', text: '5月から募集していたアイデア、たくさん集まりました！それをみなさんからの投票で、決めていこうと思います！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/3875755668404419bc2fa8eda354db12/event-0625.png' },
       { id: 'event-3', emoji: '🗓️', theme: 'green', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
   },
@@ -58,8 +58,8 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
-      { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: 'スクールの入り口に笹おいてます☺\n「1年後の自分へ」願い事を書いてみましょう！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/4969bd94156a4348b4459c3021dc7565/photo-0619-1.png' },
-      { id: 'photo-2', emoji: '📸', theme: 'navy', title: '', text: 'スクールの入り口に笹おいてます☺\n「1年後の自分へ」願い事を書いてみましょう！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/49e5427177134d4d9a49b09e73ac890e/photo-0619-2.png' },
+      { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '今月のゲームは、しおん君が考えた“パニックソニック”。\nピンポン玉をゲットできるか!?', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/185acd9d472345a484bca5024f8c4984/photo-0626-1.png' },
+      { id: 'photo-2', emoji: '📸', theme: 'navy', title: '', text: '授業画像をアップしていきます☺', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/ec807aa6d7f24641990783086ee21787/photo-0626-2.png' },
     ],
   },
   {

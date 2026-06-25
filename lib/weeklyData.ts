@@ -10,9 +10,11 @@ export interface WeeklyIssue {
 }
 
 export const weeklyIssues: WeeklyIssue[] = [
-  { id: 'w-144', date: '2026-06-12', title: 'Weekly KEEPON 第145号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-12' },
-  { id: 'w-143', date: '2026-06-05', title: 'Weekly KEEPON 第144号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-5' },
-  { id: 'w-142', date: '2026-05-29', title: 'Weekly KEEPON 第143号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-29' },
-  { id: 'w-141', date: '2026-05-22', title: 'Weekly KEEPON 第142号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-22' },
-  { id: 'w-140', date: '2026-05-15', title: 'Weekly KEEPON 第141号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-15' },
+  { id: 'w-147', date: '2026-06-26', title: 'Weekly KEEPON 第147号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-26' },
+  { id: 'w-146', date: '2026-06-19', title: 'Weekly KEEPON 第146号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-19' },
+  { id: 'w-145', date: '2026-06-12', title: 'Weekly KEEPON 第145号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-12' },
+  { id: 'w-144', date: '2026-06-05', title: 'Weekly KEEPON 第144号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon6-5' },
+  { id: 'w-143', date: '2026-05-29', title: 'Weekly KEEPON 第143号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-29' },
+  { id: 'w-142', date: '2026-05-22', title: 'Weekly KEEPON 第142号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-22' },
+  { id: 'w-141', date: '2026-05-15', title: 'Weekly KEEPON 第141号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon5-15' },
 ];
