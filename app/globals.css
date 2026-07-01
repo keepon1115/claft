@@ -4823,6 +4823,7 @@
   line-height: 1.4;
   margin: 10px 0;
   color: var(--ink-900);
+  text-wrap: wrap;
 }
 .blog-article-meta {
   display: flex;
@@ -4850,17 +4851,20 @@
   padding-bottom: 8px;
   border-bottom: 2px solid rgba(var(--brand-rgb) / 0.25);
   color: var(--ink-900);
+  text-wrap: wrap;
 }
 .blog-prose .blog-h3 {
   font-size: 20px;
   font-weight: 700;
   margin: 32px 0 12px;
   color: var(--ink-900);
+  text-wrap: wrap;
 }
 .blog-prose .blog-h4 {
   font-size: 17px;
   font-weight: 700;
   margin: 24px 0 10px;
+  text-wrap: wrap;
 }
 .blog-prose .blog-p {
   margin: 0 0 20px;

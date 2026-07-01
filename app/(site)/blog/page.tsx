@@ -6,7 +6,7 @@ import { getPublishedPosts } from '@/lib/notion';
 export const revalidate = 60; // ISR: 60秒ごとに再生成
 
 export const metadata: Metadata = {
-  title: 'ブログ｜探究・キャリア教育・オンライン学習',
+  title: '教育キャリアブログ｜探究・キャリア教育・オンライン学習',
   description:
     '学習塾とは違う「探究 × 対話 × 実践」の学び方、子どものキャリア教育、オンラインでの学び方について、CLAFTが保護者向けにわかりやすく解説します。',
   alternates: { canonical: '/blog' },

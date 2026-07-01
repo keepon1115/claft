@@ -82,7 +82,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'ホーム', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'ブログ', item: absoluteUrl('/blog') },
+      { '@type': 'ListItem', position: 2, name: '教育キャリアブログ', item: absoluteUrl('/blog') },
       { '@type': 'ListItem', position: 3, name: post.title, item: url },
     ],
   };
@@ -95,7 +95,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         <article className="blog-article">
           <nav className="blog-breadcrumb" aria-label="パンくず">
             <Link href="/">ホーム</Link> <span aria-hidden="true">/</span>{' '}
-            <Link href="/blog">ブログ</Link>
+            <Link href="/blog">教育キャリアブログ</Link>
           </nav>
 
           <header className="blog-article-head">
@@ -119,7 +119,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             <Link href="/contact?type=taiken" className="craft-sticker blog-cta">
               🎒 無料体験・個別相談を予約する
             </Link>
-            <p className="blog-back"><Link href="/blog">← ブログ一覧へ</Link></p>
+            <p className="blog-back"><Link href="/blog">← 教育キャリアブログ一覧へ</Link></p>
           </footer>
         </article>
       </Section>
