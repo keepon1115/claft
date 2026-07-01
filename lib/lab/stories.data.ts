@@ -45,8 +45,8 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
-      { id: 'event-1', emoji: '🧭', theme: 'navy', title: '', text: ' 英語で遊ぼう！ゲームイベント', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d06219ce5bf049ea90cdf2aa47382db7/event-0619-2.png' },
-      { id: 'event-2', emoji: '🎪', theme: 'orange', title: '秋のスクールフェスタのイベントを企画しよう！', text: '5月から募集していたアイデア、たくさん集まりました！それをみなさんからの投票で、決めていこうと思います！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/3875755668404419bc2fa8eda354db12/event-0625.png' },
+      { id: 'event-1', emoji: '🧭', theme: 'navy', title:'秋のスクールフェスタのイベントを企画しよう！', text: '5月から募集していたアイデア、たくさん集まりました！それをみなさんからの投票で、決めていこうと思います！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/3875755668404419bc2fa8eda354db12/event-0625.png' },
+      { id: 'event-2', emoji: '🎪', theme: 'orange', title: 'URC(国際ロボット競技会)', text: 'アーテック主催の国際競技会、今年は10回大会です', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d61b53eeba6b4fc19d5e6c2327c3553f/event-0704.jpg' },
       { id: 'event-3', emoji: '🗓️', theme: 'green', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
   },
@@ -58,8 +58,8 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
-      { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '今月のゲームは、しおん君が考えた“パニックソニック”。\nピンポン玉をゲットできるか!?', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/185acd9d472345a484bca5024f8c4984/photo-0626-1.png' },
-      { id: 'photo-2', emoji: '📸', theme: 'navy', title: '', text: '授業画像をアップしていきます☺', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/ec807aa6d7f24641990783086ee21787/photo-0626-2.png' },
+      { id: 'photo-1', emoji: '🎋', theme: 'green', title: 'ゲームまつり', text: 'ゲームを作って、遊んで、交流しました！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/40b769c3802b474fb62915db4b73eb75/photo-0705-1.jpg' },
+      { id: 'photo-2', emoji: '📸', theme: 'navy', title: 'ロボット作りの様子', text: '「ゲームをしたり」「紹介したり」「修正したり」', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d71a62c0acdb4ff8badcafbcea5f8a68/photo-0705-1%20(2).jpg' },
     ],
   },
   {
@@ -79,10 +79,10 @@ export const stories: StoryCategory[] = [
     label: 'Yononaka',
     emoji: '🗣️',
     ring: 'navy',
-    hpUrl: 'https://forms.gle/u9DcP6dW5mvXHTKj7',
+    hpUrl: 'https://forms.gle/KaP1MpQCQ8VGG1Nt8',
     ctaLabel: 'Yononakaに参加してみる →',
     cards: [
-      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: 'はたらきがいってなんなん？ ', text: '大人になる前から「はたらく」について学ぶことは、きっと新しくておもしろい発見があるはずです。URCに参加する人もしない人も、当日は楽しくいっぱい話し合いましょう！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/80e659f5fed64f17b5e4cd1d610ddda7/yononaka-0619.png'   },
+      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '中学生以上Yononaka ', text: '「AIロボット社会、僕たちはどう生きるか」シリーズ。小学生でも希望者受け付けます！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/91cc038a5a9448a4ba2065179f8580f2/yononaka-0701.jpg'   },
     ],
   },
   {
@@ -90,10 +90,10 @@ export const stories: StoryCategory[] = [
     label: 'インタ\nビュー',
     emoji: '💼',
     ring: 'navy',
-    hpUrl: 'https://note.com/yononaka_career/n/n45913c777105',
+    hpUrl: 'https://note.com/yononaka_career/n/n15fceefc4948?magazine_key=m7efb45600c66',
     ctaLabel: 'お仕事インタビューを読む →',
     cards: [
-      { id: 'career-1', emoji: '🍰', theme: 'orange', title: '', text: '今回は、大阪府八尾市で喫茶店「KISSAキッサ ZEROICHIゼロイチ」を営まれている武内さんにご協力いただきました。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/496f6616f0ea47c2aa45400a635fb9bd/career-0619.png'  },
+      { id: 'career-1', emoji: '🍰', theme: 'orange', title: '', text: '今回は「お金」に関するお仕事。島根県の銀行で働いているKさんにお話を伺いました。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/c334fdfd92c24017b1f5a9f089adcb83/career-0701.jpg'  },
     ],
   },
   {
