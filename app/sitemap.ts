@@ -3,6 +3,7 @@ import { absoluteUrl } from '@/lib/seo';
 import { issues } from '@/lib/monthlyData';
 import { getAllStudentSlugs } from '@/lib/studentData';
 import { getPublishedPosts } from '@/lib/notion';
+import { BLOG_CATEGORIES, monthOf } from '@/lib/blogTaxonomy';
 
 // 公開している静的ルート。
 // (hidden) / admin / author / api は意図的に除外（robots でも disallow）。
@@ -22,6 +23,7 @@ const STATIC_PATHS = [
   '/robopro',
   '/english-steam',
   '/keepon-lab',
+  '/summer-lab',
   '/play-claft',
   '/asia-steam-camp',
   '/futurecraft',
@@ -67,5 +69,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: p.pillar ? 0.8 : 0.7,
   }));
 
-  return [...staticUrls, ...monthlyUrls, ...storyUrls, ...blogUrls];
+  // ブログのカテゴリページ（記事が1本以上あるものだけ＝薄いページを出さない）。
+  const categoryUrls: MetadataRoute.Sitemap = BLOG_CATEGORIES.filter((c) =>
+    posts.some((p) => p.category === c.name)
+  ).map((c) => ({
+    url: absoluteUrl(`/blog/category/${c.slug}`),
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }));
+
+  // 月別アーカイブ。
+  const months = [...new Set(posts.map((p) => monthOf(p.publishedAt)).filter(Boolean))];
+  const archiveUrls: MetadataRoute.Sitemap = months.map((m) => ({
+    url: absoluteUrl(`/blog/archive/${m}`),
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.4,
+  }));
+
+  return [...staticUrls, ...monthlyUrls, ...storyUrls, ...blogUrls, ...categoryUrls, ...archiveUrls];
 }

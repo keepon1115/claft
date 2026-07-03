@@ -32,16 +32,42 @@ export type StoryCategory = {
   hpUrl: string;
   /** 最後のカードのCTAボタン文言。省略時は「詳細ページを見る →」 */
   ctaLabel?: string;
+  /** この日付（JST・YYYY-MM-DD）まで表示。過ぎたらレール・ビューアから自動で消える */
+  visibleUntil?: string;
+  /** カードを更新した日（JST・YYYY-MM-DD）。7日以内は円に「New」バッジを自動表示（lib/lab/content.ts参照）。
+   * 週次更新でカードの内容を変えたら、この日付も今日の日付に書き換える。 */
+  updatedAt?: string;
   cards: StoryCard[];
 };
 
-// 表示順は配列のとおり：① 募集イベント → ② 今週のフォト → ③ 発表会 → ④ Yononaka → ⑤ インタビュー → ⑥ スクール生紹介。
+// 表示順は配列のとおり：① 夏休み特別 → ② 募集イベント → ③ 今週のフォト → ④ 発表会 → ⑤ Yononaka → ⑥ インタビュー → ⑦ スクール生紹介。
+// 「夏休み特別」は visibleUntil を過ぎると getStories() のフィルタで自動的に消える（lib/lab/content.ts 参照）。
 export const stories: StoryCategory[] = [
+  {
+    slug: 'summer',
+    label: '夏休み\n特別',
+    emoji: '🌻',
+    ring: 'alt',
+    visibleUntil: '2026-08-31',
+    updatedAt: '2026-07-03',
+    hpUrl: 'https://claft-hp.vercel.app/summer-lab',
+    ctaLabel: '夏休み特別ページを見る →',
+    cards: [
+      {
+        id: 'summer-1',
+        emoji: '🌻',
+        theme: 'orange',
+        title: '夏休みだけ！サマプロ・ラボ',
+        text: '7・8月限定で「8回チケット」が登場！ロボットも、ゲームも、英会話も。好きなことを、好きなだけ楽しもう！\n\n同じ11,000円で、回数2倍。ふだんは4回チケットの11,000円（税込）が、この夏だけ8回に！1回あたり実質半額です。※8回セット購入時のみ\n\n有効期限は8月31日まで。はじめての人も大歓迎！くわしくは特設ページをチェック！',
+      },
+    ],
+  },
   {
     slug: 'event',
     label: '募集\nイベント',
     emoji: '📣',
     ring: 'default',
+    updatedAt: '2026-07-03',
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
@@ -55,6 +81,7 @@ export const stories: StoryCategory[] = [
     label: '今週の\nフォト',
     emoji: '📸',
     ring: 'default',
+    updatedAt: '2026-07-03',
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
@@ -79,6 +106,7 @@ export const stories: StoryCategory[] = [
     label: 'Yononaka',
     emoji: '🗣️',
     ring: 'navy',
+    updatedAt: '2026-07-03',
     hpUrl: 'https://forms.gle/KaP1MpQCQ8VGG1Nt8',
     ctaLabel: 'Yononakaに参加してみる →',
     cards: [
@@ -90,6 +118,7 @@ export const stories: StoryCategory[] = [
     label: 'インタ\nビュー',
     emoji: '💼',
     ring: 'navy',
+    updatedAt: '2026-07-03',
     hpUrl: 'https://note.com/yononaka_career/n/n15fceefc4948?magazine_key=m7efb45600c66',
     ctaLabel: 'お仕事インタビューを読む →',
     cards: [

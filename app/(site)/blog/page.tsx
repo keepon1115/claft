@@ -1,22 +1,16 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { getPublishedPosts } from '@/lib/notion';
+import { BlogIndexClient } from '@/components/blog/BlogIndexClient';
 
 export const revalidate = 60; // ISR: 60秒ごとに再生成
 
 export const metadata: Metadata = {
-  title: '教育キャリアブログ｜探究・キャリア教育・オンライン学習',
+  title: 'ブログ｜探究・キャリア教育・オンライン学習',
   description:
-    '学習塾とは違う「探究 × 対話 × 実践」の学び方、子どものキャリア教育、オンラインでの学び方について、CLAFTが保護者向けにわかりやすく解説します。',
+    '子育ての悩み・AI時代の学び・探究と対話の実践・習い事選びまで、小中学生の保護者向けブログ。探究スクールCLAFT（大阪・八尾／オンライン）が「自分で考え、選ぶ力」の育て方を現場から発信します。',
   alternates: { canonical: '/blog' },
 };
-
-function formatDate(iso: string | null) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
-}
 
 export default async function BlogIndex() {
   const posts = await getPublishedPosts();
@@ -26,32 +20,13 @@ export default async function BlogIndex() {
       <Section>
         <header className="blog-index-head">
           <p className="craft-label">CLAFT BLOG</p>
-          <h1 className="blog-index-title">学びのヒント</h1>
+          <h1 className="blog-index-title">子どもの「どうしたらいい？」に、問いから答える。</h1>
           <p className="blog-index-lead">
-            学習塾では扱わない「自分で考え、選ぶ力」の育て方を、保護者の方へ。
+            勉強のこと、AIのこと、やる気や自信のこと。正解をひとつに決めず、お子さまと一緒に考えるためのヒントを、探究スクールCLAFTの現場からお届けします。
           </p>
         </header>
 
-        {posts.length === 0 ? (
-          <p className="blog-empty">記事を準備中です。もうしばらくお待ちください。</p>
-        ) : (
-          <div className="blog-grid">
-            {posts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`} className="blog-card craft-paper craft-lift">
-                {post.coverImage && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className="blog-card-cover" src={post.coverImage} alt="" loading="lazy" />
-                )}
-                <div className="blog-card-body">
-                  {post.category && <span className="blog-card-cat">{post.category}</span>}
-                  <h2 className="blog-card-title">{post.title}</h2>
-                  {post.excerpt && <p className="blog-card-excerpt">{post.excerpt}</p>}
-                  <time className="blog-card-date">{formatDate(post.publishedAt)}</time>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
+        <BlogIndexClient posts={posts} />
       </Section>
     </MobileContainer>
   );

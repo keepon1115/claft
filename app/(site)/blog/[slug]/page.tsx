@@ -4,7 +4,10 @@ import { notFound } from 'next/navigation';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { JsonLd } from '@/components/JsonLd';
 import { NotionBlocks } from '@/components/blog/NotionBlocks';
+import { FeedbackBlock } from '@/components/blog/FeedbackBlock';
+import { BlogCard } from '@/components/blog/BlogIndexClient';
 import { getPublishedPosts, getPostBySlug, getBlocks } from '@/lib/notion';
+import { getCategoryByName } from '@/lib/blogTaxonomy';
 import { SITE_NAME, SITE_URL, absoluteUrl, DEFAULT_OG_IMAGE } from '@/lib/seo';
 
 export const revalidate = 60; // ISR
@@ -57,6 +60,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   const blocks = await getBlocks(post.id);
   const url = absoluteUrl(`/blog/${post.slug}`);
+  const cat = getCategoryByName(post.category);
+
+  // 関連記事：同カテゴリの最新3件（自分を除く）
+  const related = (await getPublishedPosts())
+    .filter((p) => p.slug !== post.slug && p.category === post.category)
+    .slice(0, 3);
 
   // Article 構造化データ（E-E-A-T: 著者・公開日・更新日）。
   const articleJsonLd = {
@@ -99,7 +108,14 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </nav>
 
           <header className="blog-article-head">
-            {post.category && <span className="blog-card-cat">{post.category}</span>}
+            {post.category &&
+              (cat ? (
+                <Link href={`/blog/category/${cat.slug}`} className="blog-card-cat">
+                  {post.category}
+                </Link>
+              ) : (
+                <span className="blog-card-cat">{post.category}</span>
+              ))}
             <h1 className="blog-article-title">{post.title}</h1>
             <div className="blog-article-meta">
               {post.publishedAt && <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>}
@@ -115,12 +131,27 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             <NotionBlocks blocks={blocks} />
           </div>
 
+          {/* フィードバック（役に立った？＋質問・感想） */}
+          <FeedbackBlock slug={post.slug} title={post.title} />
+
           <footer className="blog-article-foot">
             <Link href="/contact?type=taiken" className="craft-sticker blog-cta">
               🎒 無料体験・個別相談を予約する
             </Link>
             <p className="blog-back"><Link href="/blog">← 教育キャリアブログ一覧へ</Link></p>
           </footer>
+
+          {/* 関連記事（同カテゴリ） */}
+          {related.length > 0 && (
+            <aside className="blog-related">
+              <h2 className="blog-related-title">あわせて読みたい</h2>
+              <div className="blog-grid">
+                {related.map((p) => (
+                  <BlogCard key={p.id} post={p} />
+                ))}
+              </div>
+            </aside>
+          )}
         </article>
       </Section>
     </MobileContainer>

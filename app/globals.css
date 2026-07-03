@@ -4667,6 +4667,97 @@
   border-radius: 6px;
 }
 
+/* =========================================
+   SUBPAGE: summer-lab (sl-*) — サマプロ・ラボ 夏休み特別
+   ========================================= */
+
+/* 比較インフォグラフィック（4回 → 8回のバー。reveal と連動して伸びる） */
+.sl-compare-lead {
+  margin: 0 0 20px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+  text-align: center;
+}
+
+.sl-compare-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.sl-compare-label {
+  flex-shrink: 0;
+  width: 52px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-600);
+  text-align: right;
+}
+
+.sl-compare-bar {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 34px;
+  width: 0;
+  padding: 0 14px;
+  border-radius: 999px 6px 6px 999px;
+  color: #fff;
+  font-weight: var(--font-black);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sl-compare-bar--normal {
+  background: rgb(var(--brand-rgb) / 0.55);
+}
+
+.sl-compare-bar--summer {
+  background: rgb(var(--accent-rgb, 224 158 22));
+  box-shadow: var(--shadow-sticker);
+}
+
+.reveal.in .sl-compare-bar--normal {
+  width: 30%;
+}
+
+.reveal.in .sl-compare-bar--summer {
+  width: 60%;
+}
+
+.sl-compare-note {
+  margin: 4px 0 14px;
+  font-size: var(--text-base);
+  text-align: center;
+  color: var(--ink-700);
+}
+
+.sl-compare-note strong {
+  color: rgb(var(--accent-rgb, 224 158 22));
+  font-size: var(--text-lg);
+}
+
+.sl-compare-badge {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 8px 22px;
+  background: rgb(var(--accent-rgb, 224 158 22));
+  color: #fff;
+  font-weight: var(--font-black);
+  font-size: var(--text-xl);
+  border: 3px solid #fff;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sticker);
+  transform: rotate(-6deg);
+}
+
 /* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .craft-float,
@@ -4684,6 +4775,10 @@
     stroke-dasharray: none;
     stroke-dashoffset: 0;
     animation: none !important;
+  }
+
+  .sl-compare-bar {
+    transition: none;
   }
 }
 
@@ -4958,4 +5053,156 @@
 .blog-back a {
   color: var(--brand-deep);
   text-decoration: none;
+}
+
+/* ===== ブログ ナビゲーション（検索・カテゴリ・月別） ===== */
+.blog-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .blog-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.blog-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 16px;
+}
+@media (max-width: 760px) {
+  .blog-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .blog-nav-box {
+    flex: 1 1 200px;
+  }
+}
+.blog-nav-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-500);
+  margin-bottom: 8px;
+  display: block;
+}
+.blog-search {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(var(--ink-900-rgb) / 0.18);
+  border-radius: 10px;
+  font-size: 14px;
+  background: #fff;
+}
+.blog-search:focus {
+  outline: 2px solid rgba(var(--brand-rgb) / 0.5);
+  border-color: var(--brand);
+}
+.blog-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.blog-nav-list a {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ink-700);
+  text-decoration: none;
+}
+.blog-nav-list a:hover {
+  background: rgba(var(--brand-rgb) / 0.08);
+}
+.blog-nav-list a.is-active {
+  background: rgba(var(--brand-rgb) / 0.14);
+  color: var(--brand-deep);
+  font-weight: 700;
+}
+.blog-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* ===== 記事フィードバック ===== */
+.blog-feedback {
+  margin-top: 40px;
+  display: grid;
+  gap: 16px;
+}
+.blog-feedback-vote,
+.blog-feedback-form {
+  border: 1px dashed rgba(var(--ink-900-rgb) / 0.2);
+  border-radius: 14px;
+  padding: 18px;
+  background: rgba(var(--brand-rgb) / 0.04);
+}
+.blog-feedback-q {
+  font-weight: 700;
+  color: var(--ink-900);
+  margin-bottom: 8px;
+}
+.blog-feedback-note {
+  font-size: 13px;
+  color: var(--ink-600);
+  margin-bottom: 10px;
+}
+.blog-feedback-btns {
+  display: flex;
+  gap: 10px;
+}
+.blog-feedback-btn {
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--ink-900-rgb) / 0.18);
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.blog-feedback-btn:hover {
+  border-color: var(--brand);
+  background: rgba(var(--brand-rgb) / 0.08);
+}
+.blog-feedback-thanks {
+  color: var(--brand-deep);
+  font-size: 14px;
+}
+.blog-feedback-textarea,
+.blog-feedback-email {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(var(--ink-900-rgb) / 0.18);
+  border-radius: 10px;
+  font-size: 14px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+.blog-feedback-submit {
+  cursor: pointer;
+}
+.blog-feedback-error {
+  color: var(--pink);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* ===== 関連記事 ===== */
+.blog-related {
+  margin-top: 48px;
+}
+.blog-related-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--ink-900);
 }

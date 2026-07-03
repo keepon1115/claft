@@ -92,9 +92,10 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.12s;
 }
 .lab-icon-btn:hover { background: #ffffff2e; }
+.lab-icon-btn:active { transform: scale(0.92); }
 .lab-icon-btn svg {
   width: 21px;
   height: 21px;
@@ -119,6 +120,12 @@
   align-items: center;
   justify-content: center;
   border: 2px solid var(--navy);
+  animation: lab-badge-bounce 0.6s ease 0.5s both;
+}
+@keyframes lab-badge-bounce {
+  0% { transform: scale(0.6); }
+  55% { transform: scale(1.25); }
+  100% { transform: scale(1); }
 }
 
 /* ====== ストーリーズ（横スクロール） ====== */
@@ -140,14 +147,46 @@
   align-items: center;
   gap: 5px;
   width: 62px;
+  animation: lab-story-in 0.32s cubic-bezier(0.2, 1, 0.3, 1) both;
 }
+@keyframes lab-story-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+.lab-story:active .lab-ring { transform: scale(0.92); }
 .lab-ring {
   width: 58px;
   height: 58px;
   border-radius: 50%;
   padding: 2.5px;
+  position: relative;
+  transition: transform 0.12s;
   /* 紺→緑→オレンジのグラデ（仕様） */
   background: linear-gradient(135deg, var(--navy), var(--green) 55%, var(--orange));
+}
+/* 更新から日が浅いカテゴリの目印。赤字は仕様（オーナー指定） */
+.lab-new-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  z-index: 2;
+  background: #fff;
+  color: #e5322d;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  padding: 1.5px 5px;
+  border-radius: 999px;
+  border: 1.5px solid #e5322d;
+  box-shadow: 0 1px 2px #0002;
+  animation: lab-new-pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  animation-delay: 0.3s;
+}
+@keyframes lab-new-pop {
+  from { opacity: 0; transform: scale(0); }
+  60%  { opacity: 1; transform: scale(1.15); }
+  to   { transform: scale(1); }
 }
 .lab-ring.alt {
   background: linear-gradient(135deg, var(--orange), var(--green) 70%);
@@ -221,6 +260,11 @@
   margin-bottom: 15px;
   box-shadow: 2px 3px 0 #d8cba8; /* 紙のドロップシャドウ */
   transition: transform 0.15s;
+  animation: lab-post-in 0.38s cubic-bezier(0.2, 1, 0.3, 1) both;
+}
+@keyframes lab-post-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
 }
 .lab-post:active { transform: scale(0.985); }
 .lab-post-thumb {
@@ -307,6 +351,50 @@
   gap: 6px;
 }
 .lab-news-info p span { flex-shrink: 0; }
+.lab-relative-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--orange-deep);
+  padding: 1.5px 8px;
+  border-radius: 20px;
+  line-height: 1.6;
+}
+/* 教育・キャリアブログ導線バナー（常設・フィード最上部） */
+.lab-blog-banner {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: linear-gradient(120deg, var(--navy), var(--navy-deep));
+  color: #fff;
+  border-radius: 16px;
+  padding: 13px 14px;
+  margin-bottom: 15px;
+  box-shadow: 2px 3px 0 #17294066;
+  transition: transform 0.12s;
+  animation: lab-post-in 0.38s cubic-bezier(0.2, 1, 0.3, 1) both;
+}
+.lab-blog-banner:active { transform: scale(0.985); }
+.lab-blog-banner-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
+.lab-blog-banner-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lab-blog-banner-text b { font-size: 14px; font-weight: 700; color: #fff; }
+.lab-blog-banner-text span {
+  font-size: 11.5px;
+  color: #ffffffb8;
+  line-height: 1.4;
+}
+.lab-blog-banner-arrow {
+  font-size: 17px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: var(--orange);
+}
 .lab-feed-empty {
   margin: 10px 4px;
   padding: 22px 16px;
@@ -402,7 +490,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.12s;
 }
+.lab-back:active { transform: scale(0.92); }
 .lab-back svg {
   width: 20px;
   height: 20px;
@@ -807,6 +897,7 @@
   color: #ffffffd9;
   line-height: 1.8;
   margin: 10px 0 0;
+  white-space: pre-line;
 }
 .s-cta {
   display: block;

@@ -33,9 +33,16 @@ export const EXTERNAL_LINKS = {
   reserveLesson: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
   /** イベント予約（CLAFT HP /news） */
   reserveEvent: 'https://claft-hp.vercel.app/news',
+  /** 教育・キャリアブログ（CLAFT HP・別タブ） */
+  blog: 'https://claft.keeponlearning.fun/blog',
 } as const;
 
-/** ストーリー一覧を返す（単一の真実のソース＝stories.data.ts）。 */
+/** ストーリーの円に「New」バッジを出す期間（日数）。StoryRail 側で updatedAt と比較する。 */
+export const STORY_NEW_BADGE_DAYS = 7;
+
+/** ストーリー一覧を返す（単一の真実のソース＝stories.data.ts）。
+ * visibleUntil（JST）を過ぎたカテゴリは自動的に除外する。 */
 export async function getStories(): Promise<StoryCategory[]> {
-  return stories;
+  const todayJst = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return stories.filter((s) => !s.visibleUntil || s.visibleUntil >= todayJst);
 }

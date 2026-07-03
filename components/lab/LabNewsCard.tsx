@@ -29,11 +29,26 @@ function formatDate(isoDate: string, allDay: boolean): string {
   return `${d.getMonth() + 1}月${d.getDate()}日（${weekday}）`;
 }
 
+// JST基準で「今日」「明日」だけ判定する（それ以外は表示なし）。
+function relativeDayLabel(isoDate: string, allDay: boolean): string | null {
+  const d = new Date(allDay ? `${isoDate}T00:00:00+09:00` : isoDate);
+  if (Number.isNaN(d.getTime())) return null;
+  const jstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  const todayJst = jstNow.toISOString().slice(0, 10);
+  const jstDate = new Date(d.getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  if (jstDate === todayJst) return '今日';
+  const tomorrow = new Date(jstNow);
+  tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+  if (jstDate === tomorrow.toISOString().slice(0, 10)) return '明日';
+  return null;
+}
+
 // 中段お知らせ：キープオンカレンダーの予定を、ラボの紙カード体裁で表示。
 // 画像は説明欄「画像:」の公開URL（推奨 横長16:9 / 1280×720px）。
-export function LabNewsCard({ event }: { event: CalendarEvent }) {
+export function LabNewsCard({ event, index = 0 }: { event: CalendarEvent; index?: number }) {
   const meta = metaFor(event.category);
   const dateLabel = formatDate(event.start, event.allDay);
+  const relativeLabel = relativeDayLabel(event.start, event.allDay);
   // カード全体のリンク先：申込 > 配信 の優先。どちらも無ければリンクなし。
   const href = event.applyUrl || event.broadcastUrl;
   const linkLabel = event.applyUrl ? '申し込む →' : event.broadcastUrl ? 'くわしく見る →' : null;
@@ -58,6 +73,7 @@ export function LabNewsCard({ event }: { event: CalendarEvent }) {
               <span aria-hidden="true">🗓️</span>
               {dateLabel}
               {event.time ? `　${event.time}` : ''}
+              {relativeLabel && <span className="lab-relative-tag">{relativeLabel}</span>}
             </p>
           )}
           {event.location && (
@@ -84,12 +100,14 @@ export function LabNewsCard({ event }: { event: CalendarEvent }) {
     </>
   );
 
+  const style = { animationDelay: `${Math.min(index, 8) * 60}ms` };
+
   if (href) {
     return (
-      <a className="lab-post" href={href} target="_blank" rel="noopener noreferrer">
+      <a className="lab-post" href={href} target="_blank" rel="noopener noreferrer" style={style}>
         {inner}
       </a>
     );
   }
-  return <article className="lab-post">{inner}</article>;
+  return <article className="lab-post" style={style}>{inner}</article>;
 }
