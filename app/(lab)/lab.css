@@ -1589,6 +1589,321 @@
   }
 }
 
+/* ====== 夏休み特別（サマプロ・ラボ） ====== */
+.summer-hero {
+  padding: 6px 2px 22px;
+  text-align: center;
+}
+.summer-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  background: var(--card);
+  border: 1.5px solid var(--orange);
+  border-radius: 999px;
+  color: var(--orange-deep);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+.summer-hero h2 {
+  margin: 14px 0 10px;
+  color: var(--navy);
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+.summer-hero p {
+  margin: 0 auto;
+  max-width: 30em;
+  color: #5d544c;
+  font-size: 13.5px;
+  line-height: 1.8;
+  font-weight: 700;
+}
+
+.summer-h3 {
+  margin: 30px 2px 14px;
+  color: var(--navy);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.summer-card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 22px 18px;
+  box-shadow: 2px 3px 0 #d8cba8;
+  margin-bottom: 14px;
+}
+
+/* 比較インフォグラフィック（4回 → 8回のバー。マウント時に伸びるアニメ） */
+.summer-compare-lead {
+  margin: 0 0 18px;
+  text-align: center;
+  font-size: 14.5px;
+  font-weight: 900;
+  color: var(--navy);
+}
+.summer-compare-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.summer-compare-label {
+  flex-shrink: 0;
+  width: 44px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #766a55;
+  text-align: right;
+}
+.summer-compare-bar {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 32px;
+  width: 0;
+  padding: 0 12px;
+  border-radius: 999px 6px 6px 999px;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.summer-compare-bar.normal {
+  background: var(--navy);
+  opacity: 0.6;
+  animation: summer-bar-normal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+.summer-compare-bar.summer {
+  background: var(--orange);
+  box-shadow: 0 3px 0 var(--orange-deep);
+  animation: summer-bar-summer 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+@keyframes summer-bar-normal {
+  from { width: 0; }
+  to { width: 30%; }
+}
+@keyframes summer-bar-summer {
+  from { width: 0; }
+  to { width: 60%; }
+}
+.summer-compare-note {
+  margin: 6px 0 14px;
+  text-align: center;
+  font-size: 13.5px;
+  color: #5d544c;
+  font-weight: 700;
+}
+.summer-compare-note b {
+  color: var(--orange-deep);
+  font-size: 16px;
+}
+.summer-compare-badge {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 16px;
+  padding: 7px 20px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--orange-deep);
+  transform: rotate(-6deg);
+}
+.summer-note {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: #8a7d64;
+}
+
+/* この夏できること：チップグリッド */
+.summer-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.summer-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 10px 14px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 2px 3px 0 #d8cba8;
+  text-align: center;
+}
+.summer-chip-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(239, 138, 60, 0.15);
+  color: var(--orange-deep);
+}
+.summer-chip-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.summer-chip b {
+  font-size: 12.5px;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.4;
+}
+.summer-chip-note {
+  font-size: 10.5px;
+  color: #8a7d64;
+  font-weight: 700;
+}
+
+/* 3つの安心／チケット概要：紙片リスト */
+.summer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.summer-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+}
+.summer-list-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(33, 58, 90, 0.1);
+  color: var(--navy);
+}
+.summer-list-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.summer-list-item b {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13.5px;
+  font-weight: 900;
+  color: var(--navy);
+}
+.summer-list-item p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5d544c;
+}
+
+/* CTA */
+.summer-cta-card {
+  text-align: center;
+  border-color: var(--orange);
+}
+.summer-cta-card h3 {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--navy);
+}
+.summer-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 900;
+  box-shadow: 0 4px 0 var(--orange-deep);
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+.summer-cta:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--orange-deep);
+}
+.summer-cta-sub {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  color: #766a55;
+}
+.summer-cta-sub a {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* FAQ */
+.summer-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.summer-acc {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.summer-acc summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 16px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 900;
+  color: var(--navy);
+}
+.summer-acc summary::-webkit-details-marker { display: none; }
+.summer-acc summary svg {
+  flex-shrink: 0;
+  margin-left: auto;
+  width: 18px;
+  height: 18px;
+  color: var(--orange-deep);
+  transition: transform 0.25s ease;
+}
+.summer-acc[open] summary svg { transform: rotate(180deg); }
+.summer-acc p {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #5d544c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summer-compare-bar.normal,
+  .summer-compare-bar.summer {
+    animation: none;
+  }
+  .summer-compare-bar.normal { width: 30%; }
+  .summer-compare-bar.summer { width: 60%; }
+}
+
 /* ============================================================
    初回チュートリアル（スポットライト型コーチマーク）
    .lab-tour は position:fixed で全画面を覆う。.lab-app に transform 系の

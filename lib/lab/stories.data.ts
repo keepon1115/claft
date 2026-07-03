@@ -50,7 +50,7 @@ export const stories: StoryCategory[] = [
     ring: 'alt',
     visibleUntil: '2026-08-31',
     updatedAt: '2026-07-03',
-    hpUrl: 'https://claft-hp.vercel.app/summer-lab',
+    hpUrl: '/lab/summer-lab',
     ctaLabel: '夏休み特別ページを見る →',
     cards: [
       {

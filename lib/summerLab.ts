@@ -6,7 +6,7 @@
 // ============================================================
 
 export const SUMMER_LAB = {
-  path: '/summer-lab',
+  path: '/lab/summer-lab',
   /** この日付（JST）を過ぎたら受付終了表示に切り替える／ストーリーから消える */
   deadline: '2026-08-31',
   reserveUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',

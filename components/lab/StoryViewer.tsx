@@ -2,9 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import type { StoryCategory } from '@/lib/lab/content';
 
 const AUTO_ADVANCE_MS = 6000;
+
+// '/'始まり＝ラボアプリ内のページ。同一タブの Link 遷移にする（外部は新規タブ）。
+function isInternalHref(href: string) {
+  return href.startsWith('/');
+}
 
 // ② ストーリー閲覧：全画面・タップ/スワイプ/自動送り・上部進行ドット。
 // 最後のカードを送ると次カテゴリへ、最終カテゴリならトップへ戻る（Instagram挙動）。
@@ -112,14 +118,20 @@ export function StoryViewer({
           <h2>{card.title}</h2>
           <p>{card.text}</p>
           {isLast && (
-            <a
-              className="s-cta"
-              href={category.hpUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {category.ctaLabel ?? '詳細ページを見る →'}
-            </a>
+            isInternalHref(category.hpUrl) ? (
+              <Link className="s-cta" href={category.hpUrl}>
+                {category.ctaLabel ?? '詳細ページを見る →'}
+              </Link>
+            ) : (
+              <a
+                className="s-cta"
+                href={category.hpUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {category.ctaLabel ?? '詳細ページを見る →'}
+              </a>
+            )
           )}
         </div>
       </div>

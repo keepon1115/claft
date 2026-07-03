@@ -23,7 +23,6 @@ const STATIC_PATHS = [
   '/robopro',
   '/english-steam',
   '/keepon-lab',
-  '/summer-lab',
   '/play-claft',
   '/asia-steam-camp',
   '/futurecraft',

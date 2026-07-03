@@ -4667,97 +4667,6 @@
   border-radius: 6px;
 }
 
-/* =========================================
-   SUBPAGE: summer-lab (sl-*) — サマプロ・ラボ 夏休み特別
-   ========================================= */
-
-/* 比較インフォグラフィック（4回 → 8回のバー。reveal と連動して伸びる） */
-.sl-compare-lead {
-  margin: 0 0 20px;
-  font-size: var(--text-lg);
-  font-weight: var(--font-bold);
-  color: var(--ink-900);
-  text-align: center;
-}
-
-.sl-compare-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 14px;
-}
-
-.sl-compare-label {
-  flex-shrink: 0;
-  width: 52px;
-  font-size: var(--text-sm);
-  font-weight: var(--font-bold);
-  color: var(--ink-600);
-  text-align: right;
-}
-
-.sl-compare-bar {
-  position: relative;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 34px;
-  width: 0;
-  padding: 0 14px;
-  border-radius: 999px 6px 6px 999px;
-  color: #fff;
-  font-weight: var(--font-black);
-  font-size: var(--text-sm);
-  white-space: nowrap;
-  overflow: hidden;
-  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.sl-compare-bar--normal {
-  background: rgb(var(--brand-rgb) / 0.55);
-}
-
-.sl-compare-bar--summer {
-  background: rgb(var(--accent-rgb, 224 158 22));
-  box-shadow: var(--shadow-sticker);
-}
-
-.reveal.in .sl-compare-bar--normal {
-  width: 30%;
-}
-
-.reveal.in .sl-compare-bar--summer {
-  width: 60%;
-}
-
-.sl-compare-note {
-  margin: 4px 0 14px;
-  font-size: var(--text-base);
-  text-align: center;
-  color: var(--ink-700);
-}
-
-.sl-compare-note strong {
-  color: rgb(var(--accent-rgb, 224 158 22));
-  font-size: var(--text-lg);
-}
-
-.sl-compare-badge {
-  display: block;
-  width: fit-content;
-  margin: 0 auto 18px;
-  padding: 8px 22px;
-  background: rgb(var(--accent-rgb, 224 158 22));
-  color: #fff;
-  font-weight: var(--font-black);
-  font-size: var(--text-xl);
-  border: 3px solid #fff;
-  border-radius: 999px;
-  box-shadow: var(--shadow-sticker);
-  transform: rotate(-6deg);
-}
-
 /* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .craft-float,
@@ -4775,10 +4684,6 @@
     stroke-dasharray: none;
     stroke-dashoffset: 0;
     animation: none !important;
-  }
-
-  .sl-compare-bar {
-    transition: none;
   }
 }
 
@@ -5055,34 +4960,35 @@
   text-decoration: none;
 }
 
-/* ===== ブログ ナビゲーション（検索・カテゴリ・月別） ===== */
+/* ===== ブログ ナビゲーション（検索・カテゴリ・月別） =====
+   .site-main は常に幅480px固定（PC/モバイル共通の1枚の紙）なので、
+   ビューポート基準の @media ではなくコンテナ基準の @container で折り返す。 */
 .blog-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 1fr;
   gap: 28px;
   align-items: start;
 }
-@media (max-width: 760px) {
-  .blog-layout {
-    grid-template-columns: 1fr;
-  }
-}
 .blog-nav {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  position: sticky;
-  top: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px;
+  position: static;
 }
-@media (max-width: 760px) {
-  .blog-nav {
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 14px;
+.blog-nav-box {
+  flex: 1 1 200px;
+}
+@container main (min-width: 760px) {
+  .blog-layout {
+    grid-template-columns: 220px 1fr;
   }
-  .blog-nav-box {
-    flex: 1 1 200px;
+  .blog-nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 20px;
+    position: sticky;
+    top: 16px;
   }
 }
 .blog-nav-label {
