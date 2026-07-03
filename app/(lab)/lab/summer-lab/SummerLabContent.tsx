@@ -33,9 +33,9 @@ const reassurances: { icon: LucideIcon; title: string; text: string }[] = [
 ];
 
 const overview: { icon: LucideIcon; label: string; text: string }[] = [
-  { icon: Coins, label: '受講料', text: '11,000円（税込）' },
+  { icon: Coins, label: '月額受講料', text: '11,000円（税込）' },
   { icon: Flag, label: 'チケット枚数', text: '8回（1コマ60分）' },
-  { icon: Clock, label: '購入・利用期間', text: `7月〜8月末（${SUMMER_LAB.deadline}で有効期限切れ）` },
+  { icon: Clock, label: '利用期間', text: `7月購入は、7月末期限。8月購入は、8月末期限。` },
   { icon: Users, label: '対象', text: 'スクール生・新規どちらもOK' },
   { icon: Sparkles, label: 'ごきょうだいでの共有', text: 'できません（お一人さま専用のチケットです）' },
   { icon: Rocket, label: '使い切った後', text: '追加購入OK' },
