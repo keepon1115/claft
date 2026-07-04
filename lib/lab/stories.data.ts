@@ -59,7 +59,7 @@ export const stories: StoryCategory[] = [
         theme: 'orange',
         title: '夏休みだけ！サマプロ・ラボ',
         text: '',
-        imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/ac7a6b2078044ef2a89137b3f7bf6314/special.png',
+        imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/e3c27814199e4b5588c911121e68e1d7/special.png',
       },
     ],
   },
