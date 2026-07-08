@@ -63,7 +63,6 @@ export const navItems: NavItem[] = [
     alwaysOpen: true,
     children: [
       { label: 'マイクラSDGs', href: '/minecraft' },
-      { label: 'ロボットプログラミング', href: 'https://www.keeponlearning.fun/online', external: true },
       { label: '英会話×STEAM', href: '/english-steam' },
       { label: '英会話（Hello Kiwi英会話）', href: 'https://www.hellokiwieikaiwa.com/', external: true },
     ]

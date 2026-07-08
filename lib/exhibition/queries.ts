@@ -1,12 +1,5 @@
 import { getAnonClient } from './supabaseServer';
-import type {
-  Comment,
-  Exhibition,
-  ReactionCountRow,
-  ReactionTally,
-  ReactionType,
-  Work,
-} from './types';
+import type { Exhibition, ReactionCountRow, ReactionTally, ReactionType, Work } from './types';
 
 const VISIBLE = ['open', 'closed'];
 
@@ -46,26 +39,6 @@ export async function fetchWork(workId: string): Promise<Work | null> {
   const work = data as unknown as Work;
   work.work_images = (work.work_images ?? []).sort((a, b) => a.sort_order - b.sort_order);
   return work;
-}
-
-/** 公開コメント（RLS でも approved に絞られるが、明示的にも絞る）。作者返信は approved のみ */
-export async function fetchApprovedComments(workId: string): Promise<Comment[]> {
-  const supabase = getAnonClient();
-  const { data, error } = await supabase
-    .from('comments')
-    .select(
-      'id, work_id, comment_type, body, viewer_nickname, status, created_at, reviewed_at, author_replies(id, comment_id, body, status, created_at)',
-    )
-    .eq('work_id', workId)
-    .eq('status', 'approved')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  const rows = (data ?? []) as unknown as Comment[];
-  // 表示は approved 返信のみ
-  for (const c of rows) {
-    c.author_replies = (c.author_replies ?? []).filter((r) => r.status === 'approved');
-  }
-  return rows;
 }
 
 export async function fetchReactionTypes(exhibitionId: string): Promise<ReactionType[]> {

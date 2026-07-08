@@ -108,6 +108,10 @@ export default async function AdminWorksPage({ params }: { params: { id: string 
             <input name="genre" className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
           </label>
           <label className="block text-xs text-[#1F1810]/70">
+            表示する日にち（未入力なら今日の日付）
+            <input name="event_date" type="date" className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
+          </label>
+          <label className="block text-xs text-[#1F1810]/70">
             動画URL（YouTube）
             <input name="youtube_url" type="url" className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
           </label>
@@ -115,29 +119,13 @@ export default async function AdminWorksPage({ params }: { params: { id: string 
             サムネイルURL（一覧の表紙。未指定なら写真や動画から自動）
             <input name="thumbnail_url" type="url" className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
           </label>
-          <label className="block text-xs text-[#1F1810]/70">
-            作者しょうかい（任意）
-            <input name="author_intro" className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
-          </label>
           <label className="block text-xs text-[#1F1810]/70 sm:col-span-2">
             写真URL（1行に1つ）
             <textarea name="photos" rows={3} className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
           </label>
-          <label className="block text-xs text-[#1F1810]/70">
-            どうやって作った？
-            <textarea name="story_made" rows={2} className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
-          </label>
-          <label className="block text-xs text-[#1F1810]/70">
-            くふうしたところ
-            <textarea name="story_devised" rows={2} className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
-          </label>
-          <label className="block text-xs text-[#1F1810]/70">
-            たいへんだったところ
-            <textarea name="story_struggled" rows={2} className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
-          </label>
-          <label className="block text-xs text-[#1F1810]/70">
-            学んだこと・気づき
-            <textarea name="story_learned" rows={2} className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
+          <label className="block text-xs text-[#1F1810]/70 sm:col-span-2">
+            発表者コメント（どうやって作った？くふうした点など、自由に）
+            <textarea name="author_comment" rows={4} className="mt-1 w-full rounded-lg border border-[#1F1810]/20 px-3 py-2 text-sm focus:border-[#2E7D7D] focus:outline-none" />
           </label>
           <div className="sm:col-span-2">
             <button type="submit" className="rounded-full bg-[#1F1810] px-6 py-2 text-sm font-bold text-[#FFF8EC] hover:bg-[#E04E2C] transition-colors">

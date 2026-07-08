@@ -2169,6 +2169,503 @@
 }
 
 /* =========================================
+   TOP PAGE 追加レイヤー — 保護者CV改善
+   （CtaPair共通部品 / hp-hero 追加要素 / 簡単診断 hp-diag-* /
+     保護者の声 hp-voice-* / 料金早わかり hp-glance-* / ドア縮小 hp-door-mini）
+   ========================================= */
+
+/* ---------- CtaPair（全ページ共通のLINE｜体験 並列CTA） ---------- */
+.cta-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.cta-pair--compact {
+  gap: 12px;
+}
+
+.cta-pair-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.cta-pair-btn .craft-sticker {
+  width: 100%;
+  max-width: 360px;
+}
+
+.cta-pair-note {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-500);
+  text-align: center;
+}
+
+.cta-pair-linenote {
+  margin-top: 6px;
+  max-width: 360px;
+  text-align: left;
+}
+
+/* ---------- Hero 追加：保護者向け宛名ラベル・信頼チップ・動画クリック再生 ---------- */
+.hp-hero-eyebrow--parent {
+  margin-bottom: 10px;
+  max-width: 300px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  text-align: center;
+  transform: rotate(-2.2deg);
+}
+
+.hp-hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 22px 0 6px;
+}
+
+.hp-hero-chip {
+  padding: 8px 16px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+
+.hp-hero-hope-link {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.hp-hero-hope-link a {
+  font-size: var(--text-sm);
+  color: var(--ink-600);
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--brand-rgb) / 0.4);
+  text-underline-offset: 3px;
+}
+
+.hp-hero-play {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: #000;
+}
+
+.hp-hero-play-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.hp-hero-play-icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+
+.hp-hero-play-icon svg {
+  padding: 18px;
+  background: rgb(var(--brand-rgb) / 0.88);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sticker);
+}
+
+/* ---------- QuickDiagnosis（簡単診断） ---------- */
+.hp-diag-card {
+  padding: 32px 22px 30px;
+}
+
+.hp-diag-progress {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.hp-diag-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(var(--brand-rgb) / 0.2);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.hp-diag-dot--done {
+  background: rgb(var(--brand-rgb) / 0.55);
+}
+
+.hp-diag-dot--active {
+  background: var(--brand);
+  transform: scale(1.3);
+}
+
+.hp-diag-q-title {
+  margin: 0 0 20px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+  text-align: center;
+}
+
+.hp-diag-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hp-diag-opt {
+  width: 100%;
+  font-size: var(--text-base);
+}
+
+.hp-diag-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.hp-diag-result-stamp {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 16px;
+  background: rgb(var(--pink-rgb));
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  transform: rotate(-3deg);
+}
+
+.hp-diag-result-card {
+  width: 100%;
+  padding: 30px 22px 26px;
+  text-align: left;
+}
+
+.hp-diag-result-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 4px;
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+  background: rgb(var(--accent-rgb, var(--brand-rgb)) / 0.13);
+  border-radius: 46% 54% 48% 52% / 52% 48% 54% 46%;
+}
+
+.hp-diag-result-title {
+  margin: 12px 0 8px;
+  font-size: var(--text-xl);
+  font-weight: var(--font-black);
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.hp-diag-result-desc {
+  margin: 0 0 18px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.hp-diag-result-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  border: 1px dashed rgba(92, 77, 42, 0.3);
+  border-radius: 5px 9px 6px 10px / 9px 5px 10px 6px;
+  font-size: var(--text-sm);
+  color: var(--ink-700);
+}
+
+.hp-diag-result-meta strong {
+  font-size: var(--text-xl);
+  font-weight: var(--font-black);
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.hp-diag-runnerup {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-600);
+}
+
+.hp-diag-runnerup a {
+  color: var(--brand-deep);
+  font-weight: var(--font-bold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hp-diag-result-hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-600);
+}
+
+.hp-diag-reset {
+  background: none;
+  border: none;
+  padding: 4px;
+  font-size: var(--text-sm);
+  color: var(--ink-500);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ---------- ParentVoices（保護者の方からの手紙） ---------- */
+.hp-voice-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.hp-voice-stat {
+  font-size: var(--text-sm);
+}
+
+.hp-voice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.hp-voice-card {
+  padding: 30px 26px;
+}
+
+.hp-voice-change {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-600);
+}
+
+.hp-voice-change span:first-child {
+  text-decoration: line-through;
+  color: var(--ink-500);
+}
+
+.hp-voice-change span:last-child {
+  color: var(--brand-deep);
+}
+
+.hp-voice-quote {
+  margin: 0 0 18px;
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+  color: var(--ink-800);
+}
+
+.hp-voice-sign {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-600);
+  text-align: right;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: rgb(var(--brand-rgb) / 0.4);
+  text-underline-offset: 4px;
+}
+
+.hp-voice-fallback {
+  padding: 34px 26px;
+  text-align: center;
+}
+
+.hp-voice-fallback-text {
+  margin: 0 0 22px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+/* ---------- CoursePriceGlance（料金早わかり） ---------- */
+.hp-glance-card {
+  padding: 6px 4px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.hp-glance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hp-glance-table th,
+.hp-glance-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px dashed rgba(92, 77, 42, 0.25);
+}
+
+.hp-glance-table th:not(:first-child),
+.hp-glance-table td:not(:first-child) {
+  border-left: 1px dashed rgba(92, 77, 42, 0.2);
+}
+
+.hp-glance-table thead th {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.hp-glance-table tbody td:first-child {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+}
+
+.hp-glance-table tbody td:nth-child(2) {
+  font-size: var(--text-xs);
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.hp-glance-table tbody td:last-child {
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  color: var(--brand-deep);
+  white-space: nowrap;
+}
+
+.hp-glance-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.hp-glance-row--featured td {
+  background-color: rgb(var(--cream-rgb) / 0.28);
+}
+
+.hp-glance-row--featured td:first-child {
+  color: var(--brand-deep);
+}
+
+.hp-glance-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 9px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.hp-glance-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.hp-glance-chip {
+  font-size: var(--text-xs);
+}
+
+/* ---------- FlowApply：CtaPair挿入行・安心コピー ---------- */
+.hp-step-actions--cta {
+  padding-left: 64px;
+}
+
+@container main (max-width: 420px) {
+  .hp-step-actions--cta {
+    padding-left: 0;
+  }
+}
+
+.hp-step-note {
+  margin: 14px 0 0 64px;
+  font-size: var(--text-sm);
+  color: var(--ink-500);
+}
+
+@container main (max-width: 420px) {
+  .hp-step-note {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Entrance Doors：大人ドアの縮小版 ---------- */
+.hp-door-mini {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.hp-door-mini-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--brand-deep);
+  background: rgb(var(--brand-rgb) / 0.13);
+  border-radius: 46% 54% 48% 52% / 52% 48% 54% 46%;
+}
+
+.hp-door-mini-text {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.hp-door-mini-text strong {
+  color: var(--ink-900);
+}
+
+.hp-door-mini-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  color: var(--brand-deep);
+  font-weight: var(--font-bold);
+  white-space: nowrap;
+}
+
+.hp-door-mini-link svg {
+  flex-shrink: 0;
+}
+
+/* =========================================
    ENGLISH × STEAM PAGE (es-*) — /english-steam 専用レイヤー
    （クラフト部品の上に載せるページ固有のレイアウトのみ。色・文字はトークン参照）
    ========================================= */
@@ -4459,6 +4956,23 @@
   color: var(--ink-600);
 }
 
+/* AFT：実在メンバーの実例引用（1行） */
+.ho-aft-episode {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(92, 77, 42, 0.2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-600);
+}
+
+.ho-aft-episode a {
+  color: var(--brand-deep);
+  font-weight: var(--font-bold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* =========================================
    SUBPAGE: student-story (ss-*)
    ========================================= */
@@ -4687,12 +5201,18 @@
   }
 }
 
-/* ===== 予約CTA（サイト全体常駐 / CVゴール導線） ===== */
-.reserve-cta {
+/* ===== 予約CTA（サイト全体常駐 / CVゴール導線：LINE｜体験の並列2択） ===== */
+.reserve-cta-group {
   position: fixed;
   right: 16px;
   bottom: 16px;
   z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.reserve-cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -4713,19 +5233,36 @@
 .reserve-cta:active {
   transform: translateY(0);
 }
+.reserve-cta--line {
+  padding: 8px 14px;
+  font-size: 13px;
+  background: #06c755;
+  box-shadow: 0 6px 18px rgba(6, 199, 85, 0.35);
+}
+.reserve-cta--line:hover {
+  background: #05b34c;
+}
 .reserve-cta-label {
   font-size: 15px;
   line-height: 1;
 }
 /* スマホでは親指の届く位置に・少し控えめサイズに */
 @media (max-width: 640px) {
-  .reserve-cta {
+  .reserve-cta-group {
     right: 12px;
     bottom: 12px;
+  }
+  .reserve-cta {
     padding: 11px 16px;
   }
   .reserve-cta-label {
     font-size: 14px;
+  }
+  .reserve-cta--line {
+    padding: 7px 12px;
+  }
+  .reserve-cta--line .reserve-cta-label {
+    font-size: 13px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

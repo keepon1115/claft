@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import {
@@ -6,10 +9,15 @@ import {
   SparkleDoodle,
   SquiggleDoodle
 } from './craft/HandDrawn';
+import { CtaPair } from './CtaPair';
 
 const doodle = (style: Record<string, string | number>) => style as CSSProperties;
 
+const YOUTUBE_ID = 'awHyerZPBU4';
+
 export function Hero() {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <section className="hp-hero">
       {/* 机に散らばる道具（装飾） */}
@@ -44,7 +52,10 @@ export function Hero() {
       </div>
 
       <div className="hp-hero-inner">
-        {/* ① 荷札タグの前置き */}
+        {/* ① 保護者への宛名タグ＋既存の荷札タグ（紙が2枚重なる） */}
+        <p className="hp-hero-eyebrow hp-hero-eyebrow--parent craft-label">
+          勉強だけが、ものさしじゃない。
+        </p>
         <p className="hp-hero-eyebrow craft-label">自分のキャリア</p>
 
         {/* ② タイトル：切り抜いた紙片をテープで貼り込む */}
@@ -59,22 +70,43 @@ export function Hero() {
           </span>
         </h1>
 
-        {/* ③ 動画：スクラップブックに貼ったポラロイド */}
+        {/* ③ 動画：スクラップブックに貼ったポラロイド（クリックで再生） */}
         <div className="hp-hero-photo craft-photo">
           <span className="craft-tape craft-tape--tl" aria-hidden="true" />
           <span className="craft-tape craft-tape--tr craft-tape--cream" aria-hidden="true" />
           <div className="hp-hero-screen">
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/awHyerZPBU4?autoplay=1&mute=1&rel=0&controls=1&loop=1&playlist=awHyerZPBU4"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              style={{ display: 'block', width: '100%', height: '100%' }}
-            ></iframe>
+            {playing ? (
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&controls=1`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                style={{ display: 'block', width: '100%', height: '100%' }}
+              ></iframe>
+            ) : (
+              <button
+                type="button"
+                className="hp-hero-play"
+                onClick={() => setPlaying(true)}
+                aria-label="紹介動画を再生する"
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${YOUTUBE_ID}/hqdefault.jpg`}
+                  alt=""
+                  aria-hidden="true"
+                  className="hp-hero-play-thumb"
+                />
+                <span className="hp-hero-play-icon" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -85,14 +117,24 @@ export function Hero() {
           自分のキャリアを自分で切り拓くスクール
         </p>
 
-        {/* ⑤ 「CLAFT」という希望 リンクボタン */}
-        <div className="hp-hero-cta">
-          <Link href="/claft-hope" className="craft-sticker">
-            「CLAFT」という希望
-          </Link>
+        {/* ⑤ 信頼チップ */}
+        <div className="hp-hero-chips" aria-label="CLAFTの特徴">
+          <span className="craft-paper hp-hero-chip">1ヶ月無料体験</span>
+          <span className="craft-paper hp-hero-chip">月額¥7,700〜</span>
+          <span className="craft-paper hp-hero-chip">オンライン／八尾教室</span>
         </div>
 
-        {/* ⑥ スクロール誘導 */}
+        {/* ⑥ CTA：LINE｜体験 の並列2択 */}
+        <div className="hp-hero-cta">
+          <CtaPair location="hero" />
+        </div>
+
+        {/* ⑦ 「CLAFTという希望」はテキストリンクへ降格 */}
+        <p className="hp-hero-hope-link">
+          <Link href="/claft-hope">なぜCLAFTをつくったのか → 「CLAFT」という希望</Link>
+        </p>
+
+        {/* ⑧ スクロール誘導 */}
         <div className="hp-hero-scroll" aria-hidden="true">
           <ArrowDownDoodle className="craft-draw craft-draw--auto" width={26} />
           <span>scroll</span>

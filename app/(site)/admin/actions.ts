@@ -96,6 +96,9 @@ export async function createWork(exhibitionId: string, formData: FormData) {
     .map((s) => s.trim())
     .filter((s) => /^https?:\/\//.test(s));
 
+  // 表示日（例: 2026-07-26）。未指定なら DB 既定値（登録した瞬間の日時）を使う。
+  const eventDate = String(formData.get('event_date') ?? '').trim();
+
   const supabase = getAdminClient();
   const { data: work, error } = await supabase
     .from('works')
@@ -106,11 +109,8 @@ export async function createWork(exhibitionId: string, formData: FormData) {
       genre: String(formData.get('genre') ?? '').trim() || null,
       thumbnail_url: String(formData.get('thumbnail_url') ?? '').trim() || null,
       youtube_url: String(formData.get('youtube_url') ?? '').trim() || null,
-      author_intro: String(formData.get('author_intro') ?? '').trim() || null,
-      story_made: String(formData.get('story_made') ?? '').trim() || null,
-      story_devised: String(formData.get('story_devised') ?? '').trim() || null,
-      story_struggled: String(formData.get('story_struggled') ?? '').trim() || null,
-      story_learned: String(formData.get('story_learned') ?? '').trim() || null,
+      story_made: String(formData.get('author_comment') ?? '').trim() || null,
+      ...(eventDate ? { created_at: new Date(eventDate).toISOString() } : {}),
     })
     .select('id')
     .single();

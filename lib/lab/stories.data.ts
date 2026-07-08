@@ -82,12 +82,12 @@ export const stories: StoryCategory[] = [
     label: '今週の\nフォト',
     emoji: '📸',
     ring: 'default',
-    updatedAt: '2026-07-03',
+    updatedAt: '2026-07-08',
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
-      { id: 'photo-1', emoji: '🎋', theme: 'green', title: 'ゲームまつり', text: 'ゲームを作って、遊んで、交流しました！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/40b769c3802b474fb62915db4b73eb75/photo-0705-1.jpg' },
-      { id: 'photo-2', emoji: '📸', theme: 'navy', title: 'ロボット作りの様子', text: '「ゲームをしたり」「紹介したり」「修正したり」', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d71a62c0acdb4ff8badcafbcea5f8a68/photo-0705-1%20(2).jpg' },
+      { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '今月のゲームは“ピンポンバネとばし！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/18003e75b79e4b699fa6a7f12bfad5db/photo-0711-1.png' },
+      { id: 'photo-2', emoji: '📸', theme: 'navy', title: '', text: '英語を使ったゲームで盛り上がりました♪', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/a5eb8d098757467a9abd3bbdee8d259e/photo-0711-2.png' },
     ],
   },
   {

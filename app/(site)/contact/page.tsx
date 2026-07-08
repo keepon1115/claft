@@ -404,9 +404,8 @@ export default function ContactPage() {
                             </label>
                             <select id="course" name="希望コース" required defaultValue="" className={`${inputCls} appearance-none cursor-pointer`} style={selectStyle}>
                               <option value="" disabled>選択してください</option>
-                              <option>キャリアコース（クエスト・PBL・ジブンクラフト）</option>
+                              <option>キャリアコース（PBL・Yononaka・ミライクラフト・ジブンクラフト）</option>
                               <option>マイクラSDGsコース</option>
-                              <option>ロボットプログラミングコース</option>
                               <option>英会話×STEAMコース</option>
                               <option>英会話（Hello Kiwi英会話）</option>
                               <option>未定（相談したい）</option>

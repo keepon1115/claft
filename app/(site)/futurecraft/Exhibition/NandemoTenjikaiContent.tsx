@@ -96,27 +96,28 @@ export default function NandemoTenjikaiContent() {
       src: 'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=600&q=80',
       caption: 'うちのウサギ、もちこ',
       rotate: '-6deg',
-      pos: 'left-[2%] top-[12%] sm:left-[6%] sm:top-[10%] w-[42%] sm:w-[22%]',
     },
     {
       src: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80',
       caption: 'マイクラの大ぼうけん',
       rotate: '5deg',
-      pos: 'right-[3%] top-[8%] sm:right-[8%] sm:top-[14%] w-[44%] sm:w-[22%]',
     },
     {
       src: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80',
       caption: 'ひとりバンド演奏',
       rotate: '-4deg',
-      pos: 'left-[10%] bottom-[4%] sm:left-[18%] sm:bottom-[6%] w-[42%] sm:w-[20%] hidden sm:block',
     },
     {
       src: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&q=80',
       caption: 'はじめてのMV',
       rotate: '7deg',
-      pos: 'right-[8%] bottom-[6%] sm:right-[15%] sm:bottom-[10%] w-[44%] sm:w-[22%] hidden sm:block',
     },
   ];
+  // PC: 左右レールに飾る（中央のテキスト領域には写真を置かない = セーフゾーン方式）
+  const leftRailPolaroids = [heroPolaroids[0], heroPolaroids[2]];
+  const rightRailPolaroids = [heroPolaroids[1], heroPolaroids[3]];
+  // スマホ: 縦積みフローの中に横並びストリップとして添える（2枚のみ）
+  const mobilePolaroids = [heroPolaroids[0], heroPolaroids[1]];
 
   const examples = [
     {
@@ -182,57 +183,90 @@ export default function NandemoTenjikaiContent() {
 
       {/* ============================================================== */}
       {/*  HERO                                                           */}
+      {/*  セーフゾーン方式: PCは3カラムグリッドで写真を左右レールに閉じ込め、  */}
+      {/*  中央のテキスト領域には写真を一切置かない（文字被り事故を構造的に防止）。*/}
+      {/*  スマホは絶対配置をやめ、通常フローの縦積みにする。                  */}
       {/* ============================================================== */}
-      <section className="relative z-10 min-h-[100svh] pt-16 sm:pt-24 pb-24 px-5 sm:px-10">
+      <section className="relative z-10 min-h-[100svh] px-5 sm:px-6 lg:px-10 py-16 sm:py-20 flex flex-col">
         {/* リボン */}
-        <div className="absolute top-0 left-0 right-0 flex justify-center pt-4 sm:pt-6 z-20 pointer-events-none">
+        <div className="flex justify-center">
           <div className="ribbon font-display text-[10px] sm:text-xs tracking-[0.4em] text-[#FFF8EC] bg-[#E04E2C] px-6 py-1.5 shadow-md uppercase">
             ✦ Open Gallery 2026 ✦
           </div>
         </div>
 
-        {/* 浮かぶポラロイド */}
-        <div className="absolute inset-0 pointer-events-none">
-          {heroPolaroids.map((p, i) => (
-            <div
-              key={i}
-              className={`absolute float-anim ${p.pos}`}
-              style={{ animationDelay: `${i * 0.4}s` }}
-            >
-              <PolaroidCard src={p.src} caption={p.caption} rotate={p.rotate} />
+        <div className="flex-1 flex items-center">
+          <div className="w-full max-w-6xl mx-auto sm:grid sm:grid-cols-[1fr_minmax(0,42rem)_1fr] sm:items-center sm:gap-6 lg:gap-12">
+            {/* 左レール（PCのみ・飾り専用） */}
+            <div className="hidden sm:flex sm:flex-col sm:items-center sm:gap-10" aria-hidden>
+              {leftRailPolaroids.map((p, i) => (
+                <div
+                  key={p.caption}
+                  className="float-anim w-32 lg:w-40"
+                  style={{ animationDelay: `${i * 0.4}s` }}
+                >
+                  <PolaroidCard src={p.src} caption={p.caption} rotate={p.rotate} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* タイトル中央 */}
-        <div className="relative z-10 max-w-3xl mx-auto text-center pt-32 sm:pt-44 pb-16">
-          <p className="font-handwritten text-[#2E7D7D] text-base sm:text-lg mb-4 reveal">
-            ようこそ、世界でいちばん自由な展示会へ
-          </p>
+            {/* 中央: テキスト専用（写真はここに入らない） */}
+            <div className="text-center py-12 sm:py-0">
+              <p className="font-handwritten text-[#2E7D7D] text-base sm:text-lg mb-4 reveal">
+                ようこそ、世界でいちばん自由な展示会へ
+              </p>
 
-          <h1 className="font-display text-[#1F1810] leading-[0.95] tracking-tight mb-8">
-            <span className="block text-6xl sm:text-8xl reveal" style={{ transitionDelay: '0.1s' }}>
-              なんでも
-            </span>
-            <span className="relative inline-block reveal" style={{ transitionDelay: '0.25s' }}>
-              <span className="text-6xl sm:text-8xl text-[#E04E2C]">展示会</span>
-              <Sparkles className="absolute -top-2 -right-8 text-[#F2B544] w-8 h-8 sparkle-anim" />
-            </span>
-          </h1>
+              <h1 className="font-display text-[#1F1810] leading-[0.95] tracking-tight mb-8">
+                <span className="block text-5xl sm:text-7xl reveal" style={{ transitionDelay: '0.1s' }}>
+                  なんでも
+                </span>
+                <span className="relative inline-block reveal" style={{ transitionDelay: '0.25s' }}>
+                  <span className="text-5xl sm:text-7xl text-[#E04E2C]">展示会</span>
+                  <Sparkles className="absolute -top-2 -right-8 text-[#F2B544] w-8 h-8 sparkle-anim" />
+                </span>
+              </h1>
 
-          <p
-            className="font-body text-base sm:text-xl text-[#1F1810]/80 max-w-xl mx-auto leading-loose reveal"
-            style={{ transitionDelay: '0.4s' }}
-          >
-            あなたの<span className="quote-mark">「好き」</span>を、世界にひらこう。
-            <br className="hidden sm:block" />
-            動画でも、紙でも、工作でも ── ぜんぶ、主役になる場所です。
-          </p>
+              <p
+                className="font-body text-base sm:text-xl text-[#1F1810]/80 max-w-xl mx-auto leading-loose reveal"
+                style={{ transitionDelay: '0.4s' }}
+              >
+                あなたの<span className="quote-mark">「好き」</span>を、世界にひらこう。
+                <br className="hidden sm:block" />
+                動画でも、紙でも、工作でも ── ぜんぶ、主役になる場所です。
+              </p>
 
-          {/* スクロール案内 */}
-          <div className="mt-16 flex flex-col items-center gap-2 reveal" style={{ transitionDelay: '0.6s' }}>
-            <span className="font-handwritten text-xs text-[#1F1810]/50">scroll down</span>
-            <div className="w-px h-12 bg-[#1F1810]/30 scroll-line" />
+              {/* スマホ用: 写真ストリップ（通常フロー・被らない） */}
+              <div className="mt-10 flex justify-center gap-4 sm:hidden">
+                {mobilePolaroids.map((p, i) => (
+                  <div
+                    key={p.caption}
+                    className="float-anim w-[42%] max-w-[170px]"
+                    style={{ animationDelay: `${i * 0.4}s` }}
+                  >
+                    <PolaroidCard src={p.src} caption={p.caption} rotate={p.rotate} />
+                  </div>
+                ))}
+              </div>
+
+              {/* スクロール案内 */}
+              <div className="mt-12 sm:mt-16 flex flex-col items-center gap-2 reveal" style={{ transitionDelay: '0.6s' }}>
+                <span className="font-handwritten text-xs text-[#1F1810]/50">scroll down</span>
+                <div className="w-px h-12 bg-[#1F1810]/30 scroll-line" />
+              </div>
+            </div>
+
+            {/* 右レール（PCのみ・飾り専用） */}
+            <div className="hidden sm:flex sm:flex-col sm:items-center sm:gap-10" aria-hidden>
+              {rightRailPolaroids.map((p, i) => (
+                <div
+                  key={p.caption}
+                  className="float-anim w-32 lg:w-40"
+                  style={{ animationDelay: `${i * 0.4}s` }}
+                >
+                  <PolaroidCard src={p.src} caption={p.caption} rotate={p.rotate} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -243,7 +277,7 @@ export default function NandemoTenjikaiContent() {
       <section className="relative z-10 px-5 sm:px-10 py-24 sm:py-32 max-w-6xl mx-auto">
         <ExhibitTag no="01" label="ABOUT" />
 
-        <h2 className="font-display text-4xl sm:text-6xl mt-6 mb-10 leading-tight reveal">
+        <h2 className="font-display text-3xl sm:text-5xl mt-6 mb-10 leading-tight reveal">
           「なんでも」って、
           <br />
           <span className="relative inline-block">
@@ -253,7 +287,7 @@ export default function NandemoTenjikaiContent() {
         </h2>
 
         <div className="flex flex-col gap-10 items-start">
-          <div className="w-full space-y-6 font-body leading-loose text-base sm:text-lg reveal">
+          <div className="w-full max-w-prose space-y-6 font-body leading-loose text-base sm:text-lg reveal">
             <p>
               自分の好きなモノ、得意なこと、自由研究、おもしろい遊び、旅行の思い出
               ── なんでも自由に伝えられる展示会です。
@@ -265,14 +299,14 @@ export default function NandemoTenjikaiContent() {
 
             <div className="pt-6 reveal">
               <a
-                href="#"
+                href="/futurecraft/Presentation"
                 className="group inline-flex items-center gap-3 bg-[#1F1810] text-[#FFF8EC] font-display tracking-wider px-6 py-4 rounded-full hover:bg-[#E04E2C] transition-colors duration-300 shadow-lg"
               >
                 <PartyPopper className="w-5 h-5" />
                 <span>「なんでも発表会」もあるよ</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-              <p className="font-handwritten text-sm text-[#1F1810]/60 mt-3 ml-2">
+              <p className="font-handwritten text-sm text-[#1F1810]/70 mt-3 ml-2">
                 ↑ 展示会の発表バージョンはこちら
               </p>
             </div>
@@ -280,7 +314,7 @@ export default function NandemoTenjikaiContent() {
 
           {/* サイドの引用ふきだし */}
           <div className="w-full max-w-lg reveal" style={{ transitionDelay: '0.2s' }}>
-            <div className="relative bg-[#2E7D7D] text-[#FFF8EC] p-7 rounded-[28px] shadow-[0_20px_50px_-25px_rgba(46,125,125,0.7)] rotate-[-2deg]">
+            <div className="relative bg-[#2E7D7D] text-[#FFF8EC] p-7 rounded-[28px] shadow-[0_20px_50px_-25px_rgba(46,125,125,0.7)] rotate-[-1deg]">
               <Quote className="w-7 h-7 text-[#F2B544] mb-3" />
               <p className="font-handwritten text-lg leading-relaxed">
                 ペットのウサギ紹介、マイクラの作品、ミュージックビデオ、ひとりバンドの演奏 ── ぜんぶ「展示」になる。
@@ -292,7 +326,7 @@ export default function NandemoTenjikaiContent() {
 
         {/* 例: Polaroid Gallery */}
         <div className="mt-24">
-          <p className="font-handwritten text-center text-[#1F1810]/60 mb-10 reveal">
+          <p className="font-handwritten text-center text-[#1F1810]/70 mb-10 reveal">
             たとえば、こんなのが展示されました ↓
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10">
@@ -312,7 +346,7 @@ export default function NandemoTenjikaiContent() {
                 <img src={ex.src} alt={ex.title} className="w-full h-40 sm:h-44 object-cover" loading="lazy" />
                 <figcaption className="pt-3 px-1">
                   <p className="font-display text-base sm:text-lg text-[#1F1810]">{ex.title}</p>
-                  <p className="font-handwritten text-xs sm:text-sm text-[#1F1810]/60 mt-1 leading-snug">
+                  <p className="font-handwritten text-xs sm:text-sm text-[#1F1810]/70 mt-1 leading-snug">
                     {ex.memo}
                   </p>
                 </figcaption>
@@ -337,7 +371,7 @@ export default function NandemoTenjikaiContent() {
             </span>
           </div>
 
-          <h2 className="font-display text-4xl sm:text-6xl mt-6 mb-14 leading-tight reveal">
+          <h2 className="font-display text-3xl sm:text-5xl mt-6 mb-14 leading-tight reveal">
             やり方は、たったの<span className="text-[#F2B544]">2つ。</span>
           </h2>
 
@@ -417,7 +451,7 @@ export default function NandemoTenjikaiContent() {
       <section className="relative z-10 px-5 sm:px-10 py-24 sm:py-32 max-w-6xl mx-auto">
         <ExhibitTag no="03" label="WHY IT'S GOOD" />
 
-        <h2 className="font-display text-4xl sm:text-6xl mt-6 mb-16 leading-tight reveal">
+        <h2 className="font-display text-3xl sm:text-5xl mt-6 mb-16 leading-tight reveal">
           見せること、準備すること、
           <br />
           <span className="text-[#E04E2C]">それ自体が「学び」。</span>
@@ -471,7 +505,7 @@ export default function NandemoTenjikaiContent() {
 
           <ExhibitTag no="04" label="STUCK? START HERE" />
 
-          <h2 className="font-display text-3xl sm:text-5xl mt-6 mb-6 leading-tight reveal">
+          <h2 className="font-display text-3xl sm:text-4xl mt-6 mb-6 leading-tight reveal">
             何を展示するか迷ったら…
           </h2>
           <p className="font-body text-base sm:text-lg leading-loose text-[#1F1810]/80 max-w-2xl reveal">
@@ -494,7 +528,7 @@ export default function NandemoTenjikaiContent() {
                 className="reveal sticky-note bg-white px-5 py-6 font-handwritten text-[#1F1810] text-base sm:text-lg relative shadow-md"
                 style={{
                   transitionDelay: `${i * 0.05}s`,
-                  transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1.5}deg)`,
+                  transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1}deg)`,
                 }}
               >
                 <span className="text-2xl mr-2">{item.emoji}</span>
@@ -510,7 +544,7 @@ export default function NandemoTenjikaiContent() {
       {/* ============================================================== */}
       <section className="relative z-10 px-5 sm:px-10 py-24 sm:py-32 max-w-6xl mx-auto">
         <ExhibitTag no="05" label="RULES" />
-        <h2 className="font-display text-4xl sm:text-6xl mt-6 mb-14 leading-tight reveal">
+        <h2 className="font-display text-3xl sm:text-5xl mt-6 mb-14 leading-tight reveal">
           展示できるもの／<br />できないもの
         </h2>
 
@@ -559,7 +593,7 @@ export default function NandemoTenjikaiContent() {
       <section className="relative z-10 px-5 sm:px-10 py-24 sm:py-32">
         <div className="relative max-w-4xl mx-auto text-center">
           <Sparkles className="w-10 h-10 text-[#F2B544] mx-auto mb-6 sparkle-anim" />
-          <h2 className="font-display text-4xl sm:text-7xl leading-[1] mb-8 reveal">
+          <h2 className="font-display text-4xl sm:text-6xl leading-[1] mb-8 reveal">
             さあ、あなたの<br />
             <span className="relative inline-block">
               <span className="text-[#E04E2C]">「好き」</span>
@@ -593,12 +627,12 @@ export default function NandemoTenjikaiContent() {
               <span>オンライン展示をみる</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            <p className="font-handwritten text-sm text-[#1F1810]/60 mt-3">
+            <p className="font-handwritten text-sm text-[#1F1810]/70 mt-3">
               ↑ 作品を見て、顔文字とコメントで応援できます
             </p>
           </div>
 
-          <p className="font-handwritten text-[#1F1810]/60 mt-10 reveal">
+          <p className="font-handwritten text-[#1F1810]/70 mt-10 reveal">
             あなたの展示、楽しみに待っています。— Keep On
           </p>
         </div>
