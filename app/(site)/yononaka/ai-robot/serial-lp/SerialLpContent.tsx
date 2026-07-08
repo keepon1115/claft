@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Image from 'next/image'
 
 const MOODS: Record<string, string> = {
   '#3aa0d6': '#0c1430',
@@ -11,10 +12,127 @@ const MOODS: Record<string, string> = {
   '#c8932b': '#1a1306',
 }
 
+// サムネ／Mentiスクショの置き場所（オーナーが順次投入する前提）
+const IMG_BASE = '/assets/images/courses/yononaka/airobot/serial'
+
+type ParticleController = { start: () => void; stop: () => void }
+
+// 導入ステージの背景演出：ノードを結ぶ粒子群。WebGL不使用・軽量なcanvas 2D実装。
+function createParticleField(canvas: HTMLCanvasElement, moodHost: HTMLElement): ParticleController {
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return { start: () => {}, stop: () => {} }
+
+  const COUNT = 60
+  const LINK_DIST = 110
+  const ANCHOR_COLOR = '#34c6be' // キープオンの一員である証（ブランドアンカー、改変不可）
+
+  let particles: { x: number; y: number; vx: number; vy: number }[] = []
+  let raf = 0
+  let running = false
+
+  function resize() {
+    const { width, height } = canvas.getBoundingClientRect()
+    const dpr = Math.min(2, window.devicePixelRatio || 1)
+    canvas.width = width * dpr
+    canvas.height = height * dpr
+    ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
+  }
+
+  function seed() {
+    const { width, height } = canvas.getBoundingClientRect()
+    particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.18,
+    }))
+  }
+
+  function tick() {
+    if (!running) return
+    const { width, height } = canvas.getBoundingClientRect()
+    ctx!.clearRect(0, 0, width, height)
+    const mood = getComputedStyle(moodHost).getPropertyValue('--mood').trim() || '#3aa0d6'
+
+    for (const p of particles) {
+      p.x += p.vx
+      p.y += p.vy
+      if (p.x < 0 || p.x > width) p.vx *= -1
+      if (p.y < 0 || p.y > height) p.vy *= -1
+    }
+
+    ctx!.strokeStyle = mood
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x
+        const dy = particles[i].y - particles[j].y
+        const dist = Math.hypot(dx, dy)
+        if (dist < LINK_DIST) {
+          ctx!.globalAlpha = (1 - dist / LINK_DIST) * 0.35
+          ctx!.beginPath()
+          ctx!.moveTo(particles[i].x, particles[i].y)
+          ctx!.lineTo(particles[j].x, particles[j].y)
+          ctx!.stroke()
+        }
+      }
+    }
+
+    ctx!.globalAlpha = 0.85
+    particles.forEach((p, i) => {
+      ctx!.fillStyle = i === 0 ? ANCHOR_COLOR : mood
+      ctx!.beginPath()
+      ctx!.arc(p.x, p.y, i === 0 ? 2.2 : 1.6, 0, Math.PI * 2)
+      ctx!.fill()
+    })
+
+    raf = requestAnimationFrame(tick)
+  }
+
+  return {
+    start() {
+      if (running) return
+      running = true
+      resize()
+      seed()
+      raf = requestAnimationFrame(tick)
+    },
+    stop() {
+      running = false
+      cancelAnimationFrame(raf)
+    },
+  }
+}
+
+// 各回カードにそのまま載せる静止サムネ（開催済み＝カラー、未開催＝グレー）
+function PieceThumb({ n, dim }: { n: number; dim?: boolean }) {
+  return (
+    <div className={`sl-piece-thumb${dim ? ' is-dim' : ''}`}>
+      <Image src={`${IMG_BASE}/piece-${n}.jpg`} alt="" fill sizes="120px" />
+    </div>
+  )
+}
+
+// 「6回の旅」冒頭に並ぶ、裏返しから表になっていくピース盤
+function PieceFlipCard({ n, initiallyFlipped }: { n: number; initiallyFlipped?: boolean }) {
+  return (
+    <div className={`sl-piece-flip${initiallyFlipped ? ' flipped' : ''}`} data-piece={n}>
+      <div className="sl-piece-flip-inner">
+        <div className="sl-piece-face sl-piece-front">
+          <span>?</span>
+        </div>
+        <div className="sl-piece-face sl-piece-back">
+          <Image src={`${IMG_BASE}/piece-${n}.jpg`} alt="" fill sizes="140px" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function SerialLpContent() {
   useEffect(() => {
-    const root = document.querySelector('.sl-page')
+    const root = document.querySelector<HTMLElement>('.sl-page')
     if (!root) return
+    const cleanups: Array<() => void> = []
 
     // mood switching by section in view
     // rootMargin バンド方式：ビューポート中央を通過した瞬間に発火するので、
@@ -26,16 +144,16 @@ export default function SerialLpContent() {
           if (entry.isIntersecting) {
             const m = (entry.target as HTMLElement).dataset.mood
             if (!m) return
-            const el = root as HTMLElement
-            el.style.setProperty('--mood', m)
-            el.style.setProperty('--mood-deep', MOODS[m] || '#0c1430')
-            el.style.setProperty('--bg', MOODS[m] || '#070912')
+            root.style.setProperty('--mood', m)
+            root.style.setProperty('--mood-deep', MOODS[m] || '#0c1430')
+            root.style.setProperty('--bg', MOODS[m] || '#070912')
           }
         })
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
     )
     secs.forEach((s) => moodObs.observe(s))
+    cleanups.push(() => moodObs.disconnect())
 
     // reveal
     const revObs = new IntersectionObserver(
@@ -50,20 +168,27 @@ export default function SerialLpContent() {
       { threshold: 0.25 }
     )
     root.querySelectorAll('.reveal').forEach((r) => revObs.observe(r))
+    cleanups.push(() => revObs.disconnect())
 
-    // growing map: light nodes/edges as session sections enter
+    // growing map + ピース盤: セッションが画面に入るたびにノード・エッジ・ピースを表に返す
     const litNodes = new Set<number>()
+    let maxNodeReached = 1
     function lightUpTo(n: number) {
       for (let i = 1; i <= n; i++) {
         root!.querySelectorAll(`.node[data-n="${i}"]`).forEach((el) => el.classList.add('lit'))
         root!.querySelectorAll(`.edge[data-e="${i}"]`).forEach((el) => el.classList.add('lit'))
+        root!.querySelectorAll(`.sl-piece-flip[data-piece="${i}"]`).forEach((el) => el.classList.add('flipped'))
       }
       if (n >= 6) {
         root!.querySelector('.node[data-n="6b"]')?.classList.add('lit')
         root!.querySelector('.node[data-n="6"]')?.classList.add('lit') // core curiosity
       }
+      // 上に戻ってセッション1が再度交差しても、カウンターは最高到達値からは後退させない
+      maxNodeReached = Math.max(maxNodeReached, n)
+      const counterEl = root!.querySelector('.sl-piece-count')
+      if (counterEl) counterEl.textContent = String(Math.min(maxNodeReached, 6))
     }
-    // 第1回は済 → ノード01は最初から灯す
+    // 第1回は済 → ノード01・ピース01は最初から表
     litNodes.add(1)
     root.querySelector('.node[data-n="1"]')?.classList.add('lit')
     const nodeObs = new IntersectionObserver(
@@ -79,6 +204,7 @@ export default function SerialLpContent() {
       { threshold: 0.4 }
     )
     root.querySelectorAll('.sess-sec[data-node]').forEach((s) => nodeObs.observe(s))
+    cleanups.push(() => nodeObs.disconnect())
 
     // 地図が主役になるのは「6回の旅」ブロックの中だけ。
     // それ以外を読んでいる間は地図の存在感を落とし、本文の視認性を優先する。
@@ -93,6 +219,7 @@ export default function SerialLpContent() {
       { threshold: 0 }
     )
     if (journeyEl) focusObs.observe(journeyEl)
+    cleanups.push(() => focusObs.disconnect())
 
     // hide scroll hint after first scroll
     const hint = root.querySelector<HTMLElement>('.scrollhint')
@@ -100,14 +227,93 @@ export default function SerialLpContent() {
       if (hint && window.scrollY > 120) hint.style.opacity = '0'
     }
     addEventListener('scroll', onScroll, { passive: true })
+    cleanups.push(() => removeEventListener('scroll', onScroll))
 
-    return () => {
-      moodObs.disconnect()
-      revObs.disconnect()
-      nodeObs.disconnect()
-      focusObs.disconnect()
-      removeEventListener('scroll', onScroll)
+    // ===== 導入ステージ：スクロールジャックせず sticky + 進捗計算でその場切り替え =====
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const introEl = root.querySelector<HTMLElement>('.sl-intro')
+    const introFrames = [...root.querySelectorAll<HTMLElement>('.sl-frame')]
+    const introCountEl = root.querySelector<HTMLElement>('.sl-intro-count')
+
+    if (introEl && introFrames.length && !reduceMotion) {
+      const frameCount = introFrames.length
+      const bandSize = 1 / frameCount
+      const fadeFrac = 0.28 // 各バンドの前後28%をクロスフェードに使う
+
+      const updateIntro = () => {
+        const rect = introEl.getBoundingClientRect()
+        const vh = window.innerHeight
+        const total = introEl.offsetHeight - vh
+        let progress = total > 0 ? -rect.top / total : 0
+        progress = Math.min(1, Math.max(0, progress))
+
+        introFrames.forEach((frame, i) => {
+          const start = i * bandSize
+          const localT = Math.min(1, Math.max(0, (progress - start) / bandSize))
+          let opacity: number
+          if (i === 0) {
+            // 最初の1枚はフェードインの相手がいないので、開始直後から見えている
+            opacity = localT > 1 - fadeFrac ? (1 - localT) / fadeFrac : 1
+          } else if (localT < fadeFrac) opacity = localT / fadeFrac
+          else if (i < frameCount - 1 && localT > 1 - fadeFrac) opacity = (1 - localT) / fadeFrac
+          else opacity = 1
+          frame.style.opacity = String(opacity)
+          frame.style.transform = `translateY(${(1 - opacity) * 14}px)`
+          frame.classList.toggle('is-active', opacity > 0.5)
+        })
+
+        if (introCountEl) {
+          const activeIndex = Math.min(frameCount - 1, Math.floor(progress * frameCount))
+          introCountEl.textContent = String(activeIndex + 1).padStart(2, '0')
+        }
+      }
+
+      let ticking = false
+      const onIntroScroll = () => {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(() => {
+          updateIntro()
+          ticking = false
+        })
+      }
+      updateIntro()
+      addEventListener('scroll', onIntroScroll, { passive: true })
+      addEventListener('resize', onIntroScroll)
+      cleanups.push(() => {
+        removeEventListener('scroll', onIntroScroll)
+        removeEventListener('resize', onIntroScroll)
+      })
+
+      // 粒子コンステレーション：導入ブロックが画面内にある間だけ描画（CPU節約）
+      const canvasEl = root.querySelector<HTMLCanvasElement>('.sl-particles')
+      if (canvasEl) {
+        const field = createParticleField(canvasEl, root)
+        const introViewObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              introEl.classList.toggle('in-view', entry.isIntersecting)
+              if (entry.isIntersecting) field.start()
+              else field.stop()
+            })
+          },
+          { threshold: 0 }
+        )
+        introViewObs.observe(introEl)
+        cleanups.push(() => {
+          introViewObs.disconnect()
+          field.stop()
+        })
+      }
+    } else if (introFrames.length) {
+      // prefers-reduced-motion: 3枚とも静的に表示（CSS側の !important でも二重に担保）
+      introFrames.forEach((frame) => {
+        frame.style.opacity = '1'
+        frame.style.transform = 'none'
+      })
     }
+
+    return () => cleanups.forEach((fn) => fn())
   }, [])
 
   return (
@@ -142,59 +348,63 @@ export default function SerialLpContent() {
 
         <div className="content">
 
-          {/* 1. HERO */}
-          <section id="hero" data-mood="#3aa0d6">
-            <span className="eyebrow mono reveal">YONONAKA ／ 全6回の対話ワークショップ</span>
-            <h1 className="mincho reveal d1">AIロボット社会、<br />僕たちは<span className="q">どう生きるか</span>。</h1>
-            <p className="sub mono reveal d2">中高生が正解のない問いに向き合う1時間を、実況中継する。<br />正解は、誰も持っていない。― 僕も、学びに来ています。</p>
-            <div className="scrollhint mono">
-              <span className="hint-touch">SWIPE UP</span>
-              <span className="hint-mouse">SCROLL</span>
-              <span className="arr" />
+          {/* 1〜3. 導入ステージ（HERO／前提／これは、なに？を1画面に固定し、その場で切り替える） */}
+          <div className="sl-intro">
+            <div className="sl-intro-stage" data-mood="#3aa0d6">
+              <canvas className="sl-particles" aria-hidden="true" />
+              <div className="sl-horizon" aria-hidden="true" />
+              <div className="sl-intro-counter mono" aria-hidden="true">
+                <span className="sl-intro-count">01</span> / 03
+              </div>
+
+              <div className="sl-frame" data-frame="1">
+                <span className="eyebrow mono">YONONAKA ／ 全6回の対話ワークショップ</span>
+                <h1 className="mincho">AIロボット社会、<br />僕たちは<span className="q">どう生きるか</span>。</h1>
+                <p className="sub mono">中高生が正解のない問いに向き合う様子をご覧ください。<br />正解は、誰も持っていない。― 僕自身も学んでいます。</p>
+              </div>
+
+              <div className="sl-frame" data-frame="2">
+                <span className="eyebrow mono">前提</span>
+                <p className="big mincho">10年後の世界が<br />どうなるか、<span className="mood-word">誰も知らない。</span></p>
+                <p className="muted">AIとロボットは日進月歩で進んでいる。<br />昨日まで1ヶ月かかっていたことが5分でできちゃうことも。<br />そこから何を感じ、どう考え、どんなキャリアを築いていくか――。</p>
+                <p className="muted" style={{ marginTop: '1.6rem' }}>今後のAIロボット社会を<span className="mood-word">怖がる</span>のではなく、<span className="mood-word">面白がっていく</span>。そのための想像する時間であり、創造のための時間です。</p>
+              </div>
+
+              <div className="sl-frame" data-frame="3">
+                <span className="eyebrow mono">Yononakaって？</span>
+                <p className="lead">月に一度ひらく、正解のない問いに対し、自分の意見を共有する対話の場<strong>「Yononaka」</strong></p>
+                <p className="muted"><strong style={{ color: 'var(--ink)' }}>第1回の様子をご覧ください。<br /></strong>誰かが言ったことを、違う誰かが受け入れ、その人自身の言葉で表現すれば、また違う誰かへ受け継がれてしていく。それを受け取った――<strong style={{ color: 'var(--ink)' }}>あなたの声も、誰かのもとに。</strong></p>
+              </div>
+
+              <div className="scrollhint mono">
+                <span className="hint-touch">SWIPE UP</span>
+                <span className="hint-mouse">SCROLL</span>
+                <span className="arr" />
+              </div>
             </div>
-          </section>
-
-          {/* 2. 前提 */}
-          <section data-mood="#3aa0d6">
-            <span className="eyebrow mono reveal">前提</span>
-            <p className="big mincho reveal d1">10年後の世界が<br />どうなるか、<span className="mood-word">誰も知らない。</span></p>
-            <p className="muted reveal d2">AIとロボットは日進月歩で進んでいる。だから僕がやるのは、最新の現実と、考えるきっかけを渡すこと。そこから何を思い、どう動き、どんなキャリアを描くか――決めるのは、教室の中高生と、画面の外で読んでいるあなたです。</p>
-            <p className="muted reveal d3" style={{ marginTop: '1.6rem' }}>AIロボット社会を<span className="mood-word">怖がる</span>んやなくて、<span className="mood-word">面白がっていく</span>。それだけ。</p>
-          </section>
-
-          {/* 3. これは、なに？ */}
-          <section data-mood="#3aa0d6">
-            <span className="eyebrow mono reveal">これは、なに？</span>
-            <p className="lead reveal d1">月に一度ひらく、答えのない問いをめぐる中高生の対話の場「Yononaka」。その<strong>1時間を、実況中継します。</strong></p>
-            <p className="muted reveal d2"><strong style={{ color: 'var(--ink)' }}>第1回は、もう終わった。</strong>以下は、そこで何が起きたかの記録です。誰が何を言って、場が一瞬止まったか。生の声を、登場人物の台詞のように書きます。そして――<strong style={{ color: 'var(--ink)' }}>あなたの声も、この物語の一部になる。</strong></p>
-          </section>
+          </div>
 
           {/* 4. 第1回ハイライト（LPの心臓部） */}
           <section id="highlight" data-mood="#3aa0d6">
             <span className="eyebrow mono reveal">第1回ハイライト ／ 2026.06</span>
-            <p className="hl-head mincho reveal d1">教室で、<br /><span className="mood-word">何が起きたか。</span></p>
+            <p className="hl-head mincho reveal d1">AIと人間 ― <br /><span className="mood-word">境界線はどこにある？</span></p>
 
             {/* 4-1 */}
             <div className="hl-block">
               <p className="piece mono reveal">SESSION 01 ／ 境界線</p>
               <h3 className="reveal d1">AIって、どんなもの？</h3>
-              <p className="story reveal d2">最初の問いはシンプルだった。<span className="q">「AIってどんなもの？」</span>返ってきた言葉は、一人ひとりぜんぜん違う。</p>
+              <p className="story reveal d2">最初の問いはシンプル。<span className="q">「AIってどんなもの？」</span>返ってきた言葉は、一人ひとりぜんぜん違う。</p>
               <div className="voices reveal d2">
                 <span className="voice">ほとんど全ての問題を解ける機械</span>
                 <span className="voice">企画崩壊の原因</span>
                 <span className="voice">人を媒介せず要件をサポートしてくれる玉</span>
                 <span className="voice">ほぼ何でもできる</span>
               </div>
-              <p className="story reveal d2"><span className="em">&quot;企画崩壊の原因&quot;</span>と答えた中学生は、学校の授業でAIを使っていいと言われた結果、新聞づくりの企画が&quot;終わった&quot;経験を語った。「便利すぎるから、使えるところは注意しないといけない」。</p>
+              <p className="story reveal d2"><span className="em">&quot;企画崩壊の原因&quot;</span>と答えた中学生は、学校の授業でAIを使っていいと言われた結果、新聞づくりの企画が&quot;終わった&quot;経験を語った。「便利すぎるから、使うときや状況は注意しないといけない」。</p>
               <p className="story reveal d2">大人の参加者からは「AIを使わないと仕事が遅れる」という声。でも同時に「実際に使うようになったから、AIだけじゃ絶対に人間に置き換わられへんなっていう弱点が見えた」。</p>
-              <p className="kicker reveal d3">怖がるでも持ち上げるでもない。使ってるからこそ見える景色が、部屋の中で混ざり合っていた。</p>
+              <p className="kicker reveal d3">怖がるでも持ち上げるでもない。使ってるからこそ見える意見が、オンラインで混ざり合っていた。</p>
               <figure className="shot reveal d1" data-shot="menti-q1">
-                <span className="ico mono" aria-hidden="true">▦</span>
-                <figcaption>
-                  <span className="lbl mono">MENTI ／ お題① ワードクラウド</span>
-                  <span className="hint mono">画像を差し替え：&lt;img src=&quot;…&quot;&gt; をここに</span>
-                </figcaption>
-                {/* 差し替え例: <img loading="lazy" src="./images/menti-q1.png" alt="お題① AIってどんなもの？のワードクラウド"> */}
+                <Image src={`${IMG_BASE}/menti-q1.jpg`} alt="Mentiのワードクラウド：AIについて参加者から集まった言葉" fill sizes="(max-width: 480px) 92vw, 480px" style={{ objectFit: 'cover' }} />
               </figure>
             </div>
 
@@ -210,12 +420,7 @@ export default function SerialLpContent() {
               <p className="story reveal d2">でも種明かしをすると、1〜5番はもう技術的にはAIにできる。驚きと、「でも自分はやりたい」が同時に走る。</p>
               <p className="kicker reveal d3"><span className="q">&quot;できるかどうか&quot;</span>じゃない。<span className="q">&quot;任せたいかどうか&quot;</span>。自分の線を引いた瞬間、それが「自分が人間でおきたい場所」になっていた。</p>
               <figure className="shot reveal d1" data-shot="menti-scales">
-                <span className="ico mono" aria-hidden="true">▥</span>
-                <figcaption>
-                  <span className="lbl mono">MENTI ／ お題② Scales（割れたグラフ）</span>
-                  <span className="hint mono">画像を差し替え：&lt;img src=&quot;…&quot;&gt; をここに</span>
-                </figcaption>
-                {/* 差し替え例: <img loading="lazy" src="./images/menti-scales.png" alt="お題② どこまで任せていいかのScalesグラフ"> */}
+                <Image src={`${IMG_BASE}/menti-scales.jpg`} alt="Mentiの割れたグラフ：どこまでAIに任せていいかのScales結果" fill sizes="(max-width: 480px) 92vw, 480px" style={{ objectFit: 'cover' }} />
               </figure>
             </div>
 
@@ -237,10 +442,10 @@ export default function SerialLpContent() {
             <div className="archive reveal">
               <p className="lbl mono">第1回の全記録</p>
               <div className="ctas">
-                <a className="btn" href="#" data-cta="youtube">アーカイブを観る ↗</a>
-                <a className="btn ghost" href="#" data-cta="canva">スライドを見る ↗</a>
+                <a className="btn" href="https://youtu.be/CTenyzdI69Q&t=600s" data-cta="youtube" target="_blank" rel="noopener noreferrer">アーカイブを観る ↗</a>
+                <a className="btn ghost" href="https://canva.link/fr7wgiafgpvv00q" data-cta="canva" target="_blank" rel="noopener noreferrer">スライドを見る ↗</a>
               </div>
-              <p className="note">ここに書いたのはハイライトだけ。全体の空気は、アーカイブで確かめてほしい。</p>
+              <p className="note">ここに書いたのはハイライト。全体の空気は、アーカイブでご確認ください。</p>
             </div>
           </section>
 
@@ -249,8 +454,8 @@ export default function SerialLpContent() {
             <span className="eyebrow mono reveal">第1回で、見つかった謎</span>
             <div className="frame reveal d1">
               <p className="tag mono">UNRESOLVED ／ 未回収</p>
-              <p className="big mincho">「好奇心」と「メタ認知」だけは、<br />今のところ、<span className="mood-word">機械から出てこない。</span></p>
-              <p className="muted" style={{ marginTop: '1.2rem' }}>人間の思考や行動は、もうほとんどAIに置き換わりはじめている。でも「なんか面白そう」と自分から動き出すことと、「本当にそう？」と自分を疑うことだけは、まだ残っているらしい。――けれど、それは<strong style={{ color: 'var(--ink)' }}>本当に、最後まで人間のものなんやろうか？</strong></p>
+              <p className="big mincho">「好奇心」と<br />「疑うこと」は、<br />今のところ<span className="mood-word">機械はできない。</span></p>
+              <p className="muted" style={{ marginTop: '1.2rem' }}>人間の思考や行動は、AIに置き換わりはじめている。でも「なんか面白そう」と自分から動き出すことと、「本当にそう？」と疑うことだけは、まだ残っているらしい。――けれど、それは<strong style={{ color: 'var(--ink)' }}>本当に、最後まで人間のものなんやろうか？</strong></p>
             </div>
             <p className="muted reveal d2" style={{ marginTop: '1.4rem' }}>ある参加者はこう言った――<span className="mood-word">「AIに心をつけちゃったら、もう終わりですよ」</span>。果たして、そうなのか。次回、<strong style={{ color: 'var(--ink)' }}>心のかたちを探しに行く。</strong></p>
           </section>
@@ -261,11 +466,28 @@ export default function SerialLpContent() {
               <span className="eyebrow mono reveal">6回の旅</span>
               <p className="lead reveal d1">毎回、ピースが1つずつ表に出る。<br />追いかけるほど、<span className="mood-word">1枚の地図が組み上がっていく。</span></p>
               <p className="jlabel mono reveal d2" style={{ marginTop: '.8rem' }}>↓ スクロールで、地図に灯がともる</p>
+
+              <div className="sl-piece-board reveal d3" aria-hidden="true">
+                <p className="sl-piece-board-counter mono">
+                  PIECE <span className="sl-piece-count">1</span> / 6
+                </p>
+                <div className="sl-piece-grid">
+                  <PieceFlipCard n={1} initiallyFlipped />
+                  <PieceFlipCard n={2} />
+                  <PieceFlipCard n={3} />
+                  <PieceFlipCard n={4} />
+                  <PieceFlipCard n={5} />
+                  <PieceFlipCard n={6} />
+                </div>
+              </div>
             </section>
 
             <section className="sess-sec" data-mood="#3aa0d6" data-node="1">
               <div className="sess reveal">
-                <div className="no mincho">01</div>
+                <div className="no-wrap">
+                  <div className="no mincho">01</div>
+                  <PieceThumb n={1} />
+                </div>
                 <div className="body"><h3>境界線 <span className="flag done mono">DONE</span></h3>
                   <p className="piece mono">PIECE ─ 知能の地図と、置き換えの線引き</p>
                   <p>「どこまでAIに任せていい？」自分の手で線を引く。気づけば、もうほとんど置き換わっていた。残ったのは、たった2つ。</p>
@@ -275,7 +497,10 @@ export default function SerialLpContent() {
 
             <section className="sess-sec" data-mood="#c0398b" data-node="2">
               <div className="sess reveal">
-                <div className="no mincho">02</div>
+                <div className="no-wrap">
+                  <div className="no mincho">02</div>
+                  <PieceThumb n={2} />
+                </div>
                 <div className="body"><h3>心 <span className="flag mono">7/24（金）</span></h3>
                   <p className="piece mono">PIECE ─ 感情に名前をつける＝解像度を上げる</p>
                   <p>「&quot;なんかいや&quot;を、どこまで言葉にできる？」AIは感情を分類できる。でも、内側から感じてはいるんやろうか。</p>
@@ -285,7 +510,10 @@ export default function SerialLpContent() {
 
             <section className="sess-sec is-soon" data-mood="#d98324" data-node="3">
               <div className="sess reveal">
-                <div className="no mincho">03</div>
+                <div className="no-wrap">
+                  <div className="no mincho">03</div>
+                  <PieceThumb n={3} dim />
+                </div>
                 <div className="body"><h3>からだ <span className="flag mono">COMING SOON</span></h3>
                   <p className="piece mono">PIECE ─ 言葉にできない&quot;コツ&quot;＝渡しにくい知</p>
                   <p>「自転車の乗り方を、言葉だけで教えられる？」体が覚えていることは、データに渡せるのか。教室で、体を動かす異色回。</p>
@@ -295,7 +523,10 @@ export default function SerialLpContent() {
 
             <section className="sess-sec is-soon" data-mood="#7a4fb5" data-node="4">
               <div className="sess reveal">
-                <div className="no mincho">04</div>
+                <div className="no-wrap">
+                  <div className="no mincho">04</div>
+                  <PieceThumb n={4} dim />
+                </div>
                 <div className="body"><h3>自分 <span className="flag mono">COMING SOON</span></h3>
                   <p className="piece mono">PIECE ─ 視点は選べる／変えたくない核＝舵</p>
                   <p>「学校の自分と、家の自分。どっちが本物？」AIもキャラを演じ分ける。分人とAIのペルソナは、何が違うんやろう。</p>
@@ -305,7 +536,10 @@ export default function SerialLpContent() {
 
             <section className="sess-sec is-soon" data-mood="#2e8b6e" data-node="5">
               <div className="sess reveal">
-                <div className="no mincho">05</div>
+                <div className="no-wrap">
+                  <div className="no mincho">05</div>
+                  <PieceThumb n={5} dim />
+                </div>
                 <div className="body"><h3>情報 <span className="flag mono">COMING SOON</span></h3>
                   <p className="piece mono">PIECE ─ 同じ事実も、伝え方で像が変わる</p>
                   <p>同じニュース、2つの見出し。「どっちを信じる？」AIは&quot;それっぽい&quot;を量産できる。正しさの番人は、誰なんやろう。</p>
@@ -315,7 +549,10 @@ export default function SerialLpContent() {
 
             <section className="sess-sec is-soon" data-mood="#c8932b" data-node="6">
               <div className="sess reveal">
-                <div className="no mincho">06</div>
+                <div className="no-wrap">
+                  <div className="no mincho">06</div>
+                  <PieceThumb n={6} dim />
+                </div>
                 <div className="body"><h3>編集 ― そして、地図が完成する <span className="flag mono">COMING SOON</span></h3>
                   <p className="piece mono">PIECE ─ 全部を貫いていた動力＝好奇心の正体</p>
                   <p>5回分の&quot;自分の言葉&quot;を素材に、「どう生きるか」を一人ひとり編む。最後に、あの謎の答えが明かされる。</p>
@@ -326,14 +563,14 @@ export default function SerialLpContent() {
 
           {/* 7. 読者への問い */}
           <section id="reader" data-mood="#c8932b">
-            <span className="eyebrow mono reveal">あなたも、登場人物。</span>
-            <p className="big mincho reveal d1" style={{ fontSize: 'clamp(1.5rem,5cqi,2.4rem)' }}>第1回の声を聞いて、<br /><span className="mood-word">あなたはどう思った？</span></p>
+            <span className="eyebrow mono reveal">あなたの声も、お聞かせください。</span>
+            <p className="big mincho reveal d1" style={{ fontSize: 'clamp(1.5rem,5cqi,2.4rem)' }}>第1回を読んで、<br /><span className="mood-word">あなたはどう思いました？</span></p>
             <div className="card reveal d2" style={{ marginTop: '1.8rem' }}>
               <p className="muted" style={{ marginTop: 0 }}>参加者たちは、AIを「企画崩壊の原因」と呼び、「ほぼ何でもできる」と言い、「便利すぎるから注意がいる」と語った。</p>
               <p className="lead" style={{ marginTop: '1.2rem' }}>あなたにとって、AIやロボットは<span className="mood-word">どんな存在</span>ですか？</p>
-              <p className="muted" style={{ marginTop: '.7rem' }}>ひとことだけ、教えてください。あなたの声は、<strong style={{ color: 'var(--ink)' }}>次の教室に届けます。</strong>記名は不要、一問だけ。</p>
+              <p className="muted" style={{ marginTop: '.7rem' }}>ひとことだけ、教えてください。あなたの声を、<strong style={{ color: 'var(--ink)' }}>次に届けます。</strong>記名は不要、一問だけ。</p>
               <div className="ctas">
-                <a className="btn" href="#" data-cta="form-reader">答える ↗</a>
+                <a className="btn" href="https://forms.gle/RfiWdxCw4pavL6a46" data-cta="form-reader" target="_blank" rel="noopener noreferrer">答える ↗</a>
               </div>
             </div>
           </section>
@@ -350,7 +587,7 @@ export default function SerialLpContent() {
                 <li><span className="k">テーマ</span><span className="v">心のかたちを探しにいく<small>感情って「良い・悪い」で割れるもの？ AIは感情を分類できる。でも&quot;感じて&quot;はいるのか。</small></span></li>
               </ul>
               <div className="ctas">
-                <a className="btn" href="#" data-cta="form-apply">第2回に申し込む ↗</a>
+                <a className="btn" href="https://forms.gle/mf1JEXEZsALiK5kL6" data-cta="form-apply" target="_blank" rel="noopener noreferrer">第2回に申し込む ↗</a>
               </div>
               <p className="muted" style={{ fontSize: '.86rem' }}>第1回に参加していなくても大丈夫です。各回それぞれで完結する問いを扱います。</p>
             </div>
@@ -361,9 +598,17 @@ export default function SerialLpContent() {
             <span className="eyebrow mono reveal">6週間後</span>
             <h2 className="mincho reveal d1">1枚の地図が、<br /><span className="mood-word">完成する。</span></h2>
             <p className="muted reveal d2">その地図に、あなたの線も引かれている。</p>
+            <div className="sl-piece-recap reveal d2" aria-hidden="true">
+              <PieceThumb n={1} />
+              <PieceThumb n={2} />
+              <PieceThumb n={3} dim />
+              <PieceThumb n={4} dim />
+              <PieceThumb n={5} dim />
+              <PieceThumb n={6} dim />
+            </div>
             <div className="ctas reveal d3" style={{ marginTop: '1.8rem' }}>
-              <a className="btn" href="#" data-cta="form-apply">第2回に申し込む ↗</a>
-              <a className="btn ghost" href="#" data-cta="form-reader">読者の問いに答える</a>
+              <a className="btn" href="https://forms.gle/mf1JEXEZsALiK5kL6" data-cta="form-apply" target="_blank" rel="noopener noreferrer">第2回に申し込む ↗</a>
+              <a className="btn ghost" href="https://forms.gle/RfiWdxCw4pavL6a46" data-cta="form-reader" target="_blank" rel="noopener noreferrer">読者の問いに答える</a>
             </div>
           </section>
 
@@ -395,7 +640,7 @@ export default function SerialLpContent() {
           font-family: "Zen Kaku Gothic New", sans-serif;
           font-weight: 400;
           line-height: 1.85;
-          overflow-x: hidden;
+          overflow-x: clip;
           -webkit-font-smoothing: antialiased;
           transition: background var(--trans);
         }
@@ -483,14 +728,41 @@ export default function SerialLpContent() {
         .sl-page .reveal.d1 { transition-delay: .12s } .sl-page .reveal.d2 { transition-delay: .24s }
         .sl-page .reveal.d3 { transition-delay: .36s } .sl-page .reveal.d4 { transition-delay: .48s }
 
-        /* hero */
-        .sl-page #hero { position: relative; min-height: 100vh; justify-content: flex-end; padding-bottom: 16vh; }
-        .sl-page #hero h1 { font-size: clamp(2.2rem,7cqi,4.6rem); font-weight: 800; line-height: 1.28; letter-spacing: .01em;
-          text-wrap: balance; }
-        .sl-page #hero h1 .q { color: var(--mood-text); transition: color var(--trans); }
-        .sl-page #hero .sub { margin-top: 1.6rem; color: var(--dim); font-size: clamp(.85rem,2.4cqi,1rem); }
+        /* ===== 導入ステージ（HERO／前提／これは、なに？の3枚を1画面でその場切り替え） ===== */
+        .sl-page .sl-intro { position: relative; height: 300vh; }
+        .sl-page .sl-intro-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+        .sl-page .sl-particles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+        .sl-page .sl-horizon {
+          position: absolute; left: 50%; bottom: -15%; width: 220%; height: 75%;
+          transform: translateX(-50%) perspective(500px) rotateX(64deg);
+          background-image:
+            linear-gradient(color-mix(in srgb, var(--mood) 50%, transparent) 1px, transparent 1px),
+            linear-gradient(90deg, color-mix(in srgb, var(--mood) 50%, transparent) 1px, transparent 1px);
+          background-size: 46px 46px;
+          opacity: 0;
+          transition: opacity .8s ease, background-image var(--trans);
+          -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 82%);
+                  mask-image: linear-gradient(to top, #000 0%, transparent 82%);
+          z-index: 0;
+          pointer-events: none;
+        }
+        .sl-page .sl-intro.in-view .sl-horizon { opacity: .55; }
+        .sl-page .sl-intro-counter {
+          position: absolute; top: 3vh; right: 7cqi; z-index: 2;
+          font-size: .72rem; color: var(--mood-text); letter-spacing: .12em;
+        }
+        .sl-page .sl-frame {
+          position: absolute; inset: 0; z-index: 2;
+          display: flex; flex-direction: column; justify-content: center;
+          padding: 14vh 7cqi; max-width: 860px; margin: 0 auto;
+          opacity: 0; pointer-events: none;
+        }
+        .sl-page .sl-frame.is-active { pointer-events: auto; }
+        .sl-page .sl-frame[data-frame="1"] h1 { font-size: clamp(2.2rem,7cqi,4.6rem); font-weight: 800; line-height: 1.28; letter-spacing: .01em; text-wrap: balance; }
+        .sl-page .sl-frame[data-frame="1"] h1 .q { color: var(--mood-text); transition: color var(--trans); }
+        .sl-page .sl-frame[data-frame="1"] .sub { margin-top: 1.6rem; color: var(--dim); font-size: clamp(.85rem,2.4cqi,1rem); }
         .sl-page .scrollhint { position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
-          color: var(--dim); font-size: .72rem; text-align: center; transition: opacity .4s ease; }
+          color: var(--dim); font-size: .72rem; text-align: center; transition: opacity .4s ease; z-index: 2; }
         .sl-page .scrollhint .hint-mouse { display: none; }
         @media (hover: hover) and (pointer: fine) {
           .sl-page .scrollhint .hint-touch { display: none; }
@@ -531,18 +803,14 @@ export default function SerialLpContent() {
           color: var(--ink); background: color-mix(in srgb, var(--mood) 9%, transparent);
           transition: border var(--trans), background var(--trans); }
 
-        /* menti screenshot placeholder */
-        .sl-page .shot { margin-top: 1.8rem; border: 1px dashed color-mix(in srgb, var(--mood) 50%, transparent);
-          border-radius: 16px; aspect-ratio: 16/9; width: 100%; overflow: hidden;
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .55rem; text-align: center;
-          background: color-mix(in srgb, var(--mood) 5%, transparent); color: var(--dim);
+        /* menti screenshot */
+        .sl-page .shot { position: relative; margin-top: 1.8rem; border-radius: 16px; aspect-ratio: 16/9; width: 100%; overflow: hidden;
+          border: 1px solid color-mix(in srgb, var(--mood) 45%, transparent);
+          background: color-mix(in srgb, var(--mood) 5%, transparent);
           transition: border var(--trans), background var(--trans); }
-        .sl-page .shot:has(img) { border-style: solid; }
-        .sl-page .shot figcaption { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
-        .sl-page .shot .ico { font-size: 1.6rem; opacity: .55; letter-spacing: 0; }
-        .sl-page .shot .lbl { font-size: .72rem; letter-spacing: .12em; }
-        .sl-page .shot .hint { font-size: .72rem; letter-spacing: .06em; opacity: .55; }
-        .sl-page .shot img { width: 100%; height: 100%; object-fit: cover; }
+        .sl-page .shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: .6rem .9rem .5rem;
+          background: linear-gradient(to top, color-mix(in srgb, var(--bg) 85%, transparent), transparent); }
+        .sl-page .shot .lbl { font-size: .72rem; letter-spacing: .1em; color: var(--ink); }
 
         /* archive links */
         .sl-page .archive { margin-top: clamp(3rem,8cqi,4.4rem); border-top: 1px solid color-mix(in srgb, var(--mood) 28%, transparent);
@@ -550,11 +818,34 @@ export default function SerialLpContent() {
         .sl-page .archive .lbl { font-size: .72rem; color: var(--mood-text); letter-spacing: .08em; margin-bottom: 1.2rem; transition: color var(--trans); }
         .sl-page .archive .note { color: var(--dim); font-size: .8rem; margin-top: 1.2rem; }
 
+        /* ===== ピース盤（表裏フリップ） ===== */
+        .sl-page .sl-piece-board { margin-top: 2.2rem; }
+        .sl-page .sl-piece-board-counter { color: var(--mood-text); font-size: .72rem; letter-spacing: .1em; margin-bottom: .9rem; }
+        .sl-page .sl-piece-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; max-width: 360px; }
+        .sl-page .sl-piece-flip { aspect-ratio: 16/9; perspective: 800px; }
+        .sl-page .sl-piece-flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+          transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+        .sl-page .sl-piece-flip.flipped .sl-piece-flip-inner { transform: rotateY(180deg); }
+        .sl-page .sl-piece-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 8px; overflow: hidden; }
+        .sl-page .sl-piece-front { background: color-mix(in srgb, var(--mood) 10%, transparent);
+          border: 1px dashed color-mix(in srgb, var(--mood) 45%, transparent);
+          display: flex; align-items: center; justify-content: center; color: var(--dim);
+          font-family: "Space Mono", monospace; font-size: 1.1rem; }
+        .sl-page .sl-piece-back { transform: rotateY(180deg); border: 1px solid color-mix(in srgb, var(--mood) 45%, transparent); }
+
+        /* ピースサムネ（各回カード／フィナーレの回収） */
+        .sl-page .sl-piece-thumb { position: relative; width: 3.4rem; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden;
+          flex-shrink: 0; border: 1px solid color-mix(in srgb, var(--mood) 40%, transparent); }
+        .sl-page .sl-piece-thumb.is-dim img { filter: grayscale(1) brightness(.6); }
+        .sl-page .sl-piece-recap { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.6rem; }
+        .sl-page .sl-piece-recap .sl-piece-thumb { width: 4.2rem; }
+
         /* journey cards */
         .sl-page .sess { display: flex; gap: clamp(1rem,4cqi,2rem); align-items: flex-start; transition: transform .3s ease; }
         .sl-page .sess:hover { transform: translateX(4px); }
+        .sl-page .no-wrap { display: flex; flex-direction: column; align-items: center; gap: .6rem; flex-shrink: 0; }
         .sl-page .sess .no { font-size: clamp(2.4rem,9cqi,4.4rem); font-weight: 700; line-height: 1; color: var(--mood-text);
-          transition: color var(--trans); flex-shrink: 0; opacity: .85; }
+          transition: color var(--trans); opacity: .85; }
         .sl-page .sess .body h3 { font-size: clamp(1.3rem,4.4cqi,2rem); font-weight: 700; margin-bottom: .5rem;
           display: flex; align-items: center; flex-wrap: wrap; gap: .7rem; }
         .sl-page .sess .body .piece { color: var(--mood-text); font-size: .82rem; margin-bottom: .8rem; transition: color var(--trans); }
@@ -603,6 +894,11 @@ export default function SerialLpContent() {
           .sl-page .scrollhint .arr::after { animation: none }
           .sl-page .node.lit .pulse { animation: none }
           .sl-page .reveal.in .flag.done { animation: none }
+          .sl-page .sl-intro { height: auto; }
+          .sl-page .sl-intro-stage { position: static; height: auto; }
+          .sl-page .sl-frame { position: static; opacity: 1 !important; transform: none !important; margin-bottom: 4rem; }
+          .sl-page .sl-particles, .sl-page .sl-horizon, .sl-page .sl-intro-counter { display: none; }
+          .sl-page .sl-piece-flip-inner { transition: none; }
         }
       `}</style>
     </div>
