@@ -57,7 +57,7 @@ export const courses: Course[] = [
     price: '¥7,700〜',
     priceFrom: 7700,
     mode: 'online',
-    link: '/jibun-craft',
+    link: '/career',
     ageGroup: '中学生・高校生向け',
     accentRgb: '224 158 22',
     icon: 'compass',

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import type { CSSProperties } from 'react';
 import { SectionTitle } from '@/components/craft/SectionTitle';
@@ -208,6 +209,11 @@ export default function YononakaPage(){
           年齢も立場も関係なく、お子さんが自分の意見を堂々と話せる、オンラインの対話の広場です。<br />
           お金や時間など身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合います。<br />
           ちがう意見を聞く中で、世界の見え方が少しずつ広がっていきます。
+        </p>
+
+        <p className="cd-hero-badges">
+          <Link href="/career" className="craft-label">キャリアコースの学び</Link>
+          <span className="craft-label">どのコースの方も参加できます</span>
         </p>
 
         {/* 漂う手描きアイコン */}

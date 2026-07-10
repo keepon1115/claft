@@ -2,16 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
-import {
-  ArrowDownDoodle,
-  CrossDoodle,
-  SparkleDoodle,
-  SquiggleDoodle
-} from './craft/HandDrawn';
+import { ArrowDownDoodle, Underline } from './craft/HandDrawn';
 import { CtaPair } from './CtaPair';
-
-const doodle = (style: Record<string, string | number>) => style as CSSProperties;
 
 const YOUTUBE_ID = 'awHyerZPBU4';
 
@@ -20,60 +12,28 @@ export function Hero() {
 
   return (
     <section className="hp-hero">
-      {/* 机に散らばる道具（装飾） */}
-      <div aria-hidden="true">
-        <SparkleDoodle
-          className="hp-doodle craft-float"
-          style={doodle({ top: '7%', left: '6%', color: 'var(--brand)', opacity: 0.6, '--rot': '-8deg' })}
-          width={30}
-        />
-        <CrossDoodle
-          className="hp-doodle craft-float craft-float--slow"
-          style={doodle({ top: '12%', right: '7%', color: 'var(--pink)', opacity: 0.5, '--rot': '14deg' })}
-          width={20}
-        />
-        <SquiggleDoodle
-          className="hp-doodle craft-float craft-float--slow"
-          style={doodle({ bottom: '24%', left: '3%', color: 'var(--green)', opacity: 0.5, '--rot': '-12deg' })}
-          width={62}
-        />
-        <SparkleDoodle
-          className="hp-doodle craft-float"
-          style={doodle({ bottom: '14%', right: '6%', color: 'var(--cream)', opacity: 0.9, '--rot': '20deg', animationDelay: '1.2s' })}
-          width={24}
-        />
-        {/* 端に貼られた紙きれ */}
-        <span className="hp-scrap" style={{ top: '30%', left: '-18px', transform: 'rotate(-10deg)' }}>
-          <span className="craft-tape craft-tape--green" />
-        </span>
-        <span className="hp-scrap" style={{ top: '56%', right: '-20px', transform: 'rotate(8deg)' }}>
-          <span className="craft-tape craft-tape--pink" />
-        </span>
-      </div>
-
       <div className="hp-hero-inner">
-        {/* ① 保護者への宛名タグ＋既存の荷札タグ（紙が2枚重なる） */}
-        <p className="hp-hero-eyebrow hp-hero-eyebrow--parent craft-label">
-          勉強だけが、ものさしじゃない。
-        </p>
-        <p className="hp-hero-eyebrow craft-label">自分のキャリア</p>
+        {/* ① キッカー：地に直接書く小さな前置き */}
+        <p className="hp-hero-kicker">テストには、出ないけれど。</p>
 
-        {/* ② タイトル：切り抜いた紙片をテープで貼り込む */}
+        {/* ② タイトル：前フリ（小）→オチ（特大・赤鉛筆の下線） */}
         <h1 className="hp-hero-title">
-          <span className="hp-hero-line hp-hero-line--1">
-            <span className="craft-tape craft-tape--tl craft-tape--cream" aria-hidden="true" />
-            "自分で"
-          </span>
-          <span className="hp-hero-line hp-hero-line--2">
-            <span className="craft-tape craft-tape--tr craft-tape--pink" aria-hidden="true" />
-            つくろ！
+          <span className="hp-hero-title-sub">テストに出ないことほど、</span>
+          <span className="hp-hero-title-main">
+            人生に出る。
+            <Underline variant={2} className="hp-hero-title-underline craft-draw craft-draw--auto" />
           </span>
         </h1>
 
-        {/* ③ 動画：スクラップブックに貼ったポラロイド（クリックで再生） */}
+        {/* ③ 受けの一文：違和感の肯定 → CLAFTの自己紹介 */}
+        <p className="hp-hero-answer">
+          勉強や部活だけが、子どもの選択肢なのだろうか？<br />
+          「好き」を入り口に、キャリアまでつなげるのが<br />
+          「CLAFT」のスクールです。
+        </p>
+
+        {/* ④ 動画：ポラロイド（回転なし・クリックで再生） */}
         <div className="hp-hero-photo craft-photo">
-          <span className="craft-tape craft-tape--tl" aria-hidden="true" />
-          <span className="craft-tape craft-tape--tr craft-tape--cream" aria-hidden="true" />
           <div className="hp-hero-screen">
             {playing ? (
               <iframe
@@ -110,31 +70,31 @@ export function Hero() {
           </div>
         </div>
 
-        {/* ④ リード文 */}
+        {/* ⑤ リード文：読者（保護者）への問いかけ */}
         <p className="hp-hero-copy">
           探究×対話×実践で、<br />
           どんな状況でも生き抜く自信をつけ、<br />
-          自分のキャリアを自分で切り拓くスクール
+          自分のキャリアを自分で切り拓く！
         </p>
 
-        {/* ⑤ 信頼チップ */}
+        {/* ⑥ 信頼チップ */}
         <div className="hp-hero-chips" aria-label="CLAFTの特徴">
           <span className="craft-paper hp-hero-chip">1ヶ月無料体験</span>
           <span className="craft-paper hp-hero-chip">月額¥7,700〜</span>
           <span className="craft-paper hp-hero-chip">オンライン／八尾教室</span>
         </div>
 
-        {/* ⑥ CTA：LINE｜体験 の並列2択 */}
+        {/* ⑦ CTA：LINE｜体験 の並列2択 */}
         <div className="hp-hero-cta">
           <CtaPair location="hero" />
         </div>
 
-        {/* ⑦ 「CLAFTという希望」はテキストリンクへ降格 */}
+        {/* ⑧ 「CLAFTという希望」はテキストリンクへ降格 */}
         <p className="hp-hero-hope-link">
           <Link href="/claft-hope">なぜCLAFTをつくったのか → 「CLAFT」という希望</Link>
         </p>
 
-        {/* ⑧ スクロール誘導 */}
+        {/* ⑨ スクロール誘導 */}
         <div className="hp-hero-scroll" aria-hidden="true">
           <ArrowDownDoodle className="craft-draw craft-draw--auto" width={26} />
           <span>scroll</span>

@@ -4,9 +4,11 @@ import type { CSSProperties } from 'react';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
 import { Students } from '@/components/Students';
+import { SectionTitle } from '@/components/craft/SectionTitle';
 import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 import { courses } from '@/lib/courses';
+import { programs } from '@/lib/programs';
 
 // コースカードコンポーネント（紙片＋テープ＋値札）
 const CourseCard = ({
@@ -168,6 +170,58 @@ export function CoursesClient() {
               delay={c.delay}
             />
           ))}
+        </div>
+      </Section>
+
+      {/* ========================================
+          コース×学びマトリクス
+          ======================================== */}
+      <Section>
+        <div className="hp-section-head" style={{ marginBottom: '20px' }}>
+          <SectionTitle variant={3} lineColor="var(--brand)">
+            コースと学びの関係
+          </SectionTitle>
+          <p className="lead hp-section-lead">
+            キャリアコースは4つの学びがぜんぶ入り。Yononaka・ミライクラフトは、
+            どのコースからでも参加できます。
+          </p>
+        </div>
+
+        <div className="hp-glance-card craft-paper craft-tilt reveal" style={{ '--rot': '-0.3deg' } as CSSProperties}>
+          <span className="craft-tape" aria-hidden="true" />
+          <div style={{ overflowX: 'auto' }}>
+            <table className="hp-glance-table cs-matrix-table">
+              <thead>
+                <tr>
+                  <th scope="col">学び</th>
+                  <th scope="col">キャリアコース</th>
+                  <th scope="col">マイクラSDGs</th>
+                  <th scope="col">英会話×STEAM</th>
+                  <th scope="col">Hello Kiwi英会話</th>
+                </tr>
+              </thead>
+              <tbody>
+                {programs.map((program) => (
+                  <tr key={program.id}>
+                    <td>{program.title}</td>
+                    <td className="cs-matrix-cell cs-matrix-cell--yes">◎</td>
+                    <td className="cs-matrix-cell">{program.openToAll ? '○' : '－'}</td>
+                    <td className="cs-matrix-cell">{program.openToAll ? '○' : '－'}</td>
+                    <td className="cs-matrix-cell">{program.openToAll ? '○' : '－'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="cd-tip" style={{ marginTop: '14px' }}>
+            ◎＝カリキュラムに含む　○＝どのコースでも参加OK
+          </p>
+        </div>
+
+        <div className="hp-glance-foot reveal">
+          <Link href="/career" className="craft-sticker craft-sticker--ghost">
+            キャリアコースを詳しく見る
+          </Link>
         </div>
       </Section>
 

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export function Footer() {
   return (
     <footer className="c-footer">
@@ -13,8 +15,16 @@ export function Footer() {
           <span className="sep">/</span>
           <a href="https://www.youtube.com/@CLAFT-keepon" target="_blank" rel="noopener">YouTube</a>
         </nav>
-        
-        <p className="copy">© CLAFT</p>
+
+        <nav className="f-links">
+          <Link href="/company">運営会社</Link>
+          <span className="sep">/</span>
+          <Link href="/privacy">プライバシーポリシー</Link>
+          <span className="sep">/</span>
+          <Link href="/tokushoho">特定商取引法に基づく表記</Link>
+        </nav>
+
+        <p className="copy">© CLAFT（運営：キープオン株式会社）</p>
       </div>
     </footer>
   );

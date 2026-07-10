@@ -247,6 +247,11 @@ export default function FuturecraftPage() {
           作品発表会、イベント企画、商品制作などに挑戦。自分の好きや得意を活かしながら、仲間と試行錯誤し、「仕事」を実感する学びです。
         </p>
 
+        <p className="cd-hero-badges">
+          <Link href="/career" className="craft-label">キャリアコースの学び</Link>
+          <span className="craft-label">どのコースの方も参加できます</span>
+        </p>
+
         {/* 漂う手描きアイコン */}
         <div className="cd-float-row" aria-hidden="true">
           <span className="craft-float" style={doodle({ color: 'var(--cream)', '--rot': '-6deg' })}>

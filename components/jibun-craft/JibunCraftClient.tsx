@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import type { CSSProperties, ReactNode } from 'react';
 import { FlowApply } from '@/components/FlowApply';
@@ -154,6 +155,10 @@ export function JibunCraftClient() {
           「何をしたいか？どうありたいか？」という将来の姿を描き、
           <br />
           それに向けた目標を設定し、PBLを進めていきます。
+        </p>
+
+        <p className="cd-hero-badges">
+          <Link href="/career" className="craft-label">キャリアコースの学び</Link>
         </p>
 
         {/* 漂う手描きアイコン */}

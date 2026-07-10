@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Nav } from './Nav';
+import { trackEvent } from '@/lib/analytics';
 
 export function Header(){
   const [open, setOpen] = useState(false);
@@ -29,11 +30,15 @@ export function Header(){
             />
           </Link>
 
-          {/* 右側のCTA */}
+          {/* 右側のCTA：文言どおり体験申込フォームへ（LINEは追従CTA側が担う） */}
           <div className="cta-row" style={{ marginLeft: 'auto' }}>
-            <a className="btn btn-primary btn-cta" href="https://lin.ee/wcsFK9A" target="_blank" rel="noopener">
+            <Link
+              className="btn btn-primary btn-cta"
+              href="/contact?type=taiken"
+              onClick={() => trackEvent('cta_taiken_click', { location: 'header' })}
+            >
               無料体験実施中
-            </a>
+            </Link>
           </div>
         </div>
 

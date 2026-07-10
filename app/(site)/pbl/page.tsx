@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import type { CSSProperties } from 'react';
 import { SectionTitle } from '@/components/craft/SectionTitle';
@@ -165,6 +166,10 @@ export default function PBLPage() {
 
         <p className="cd-hero-lead">
           自分の好きや疑問を起点にテーマを決め、新たなモノを創ったり、解決策を考え、最後は動画やスライドで発表をする学びです。
+        </p>
+
+        <p className="cd-hero-badges">
+          <Link href="/career" className="craft-label">キャリアコースの学び</Link>
         </p>
 
         {/* メンバーのストーリーリンク（貼り込んだ案内カード） */}

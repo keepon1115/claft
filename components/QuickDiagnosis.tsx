@@ -56,9 +56,7 @@ export function QuickDiagnosis() {
       <div className="container">
         <div className="hp-section-head">
           <SectionTitle variant={2} lineColor="var(--brand)">
-            10秒でわかる、
-            <br />
-            お子さまにぴったりのコース診断
+            まずはコース診断を。
           </SectionTitle>
         </div>
 

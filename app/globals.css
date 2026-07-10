@@ -542,34 +542,6 @@
 }
 
 /* =========================================
-   FAB (Mobile Only)
-   ========================================= */
-.fab {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 60;
-  display: block;
-}
-
-.fab a {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #06c755;
-  color: #fff;
-  padding: 14px 16px;
-  border-radius: 999px;
-  box-shadow: var(--shadow);
-  font-weight: 700;
-}
-
-.fab img {
-  width: 24px;
-  height: 24px;
-}
-
-/* =========================================
    LEFT NAVIGATION (PC Sidebar)
    ========================================= */
 .l-nav {
@@ -1008,8 +980,7 @@
   }
 
   /* Hide Mobile Elements（フッターはPCでも表示するため除外） */
-  .c-header,
-  .fab {
+  .c-header {
     display: none !important;
   }
 
@@ -1670,23 +1641,26 @@
   margin: 18px auto 0;
 }
 
-/* ---------- Hero ---------- */
-.hp-hero {
-  position: relative;
-  padding: 56px 20px 72px;
-  background-image: var(--tex-dots);
-  background-size: 24px 24px;
-  background-position: center top;
+.hp-programs-note {
+  max-width: 460px;
+  margin: 10px auto 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-500);
 }
 
-.hp-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 28% 16%, rgb(var(--cream-rgb) / 0.16) 0%, transparent 52%),
-    radial-gradient(ellipse at 74% 82%, rgb(var(--brand-rgb) / 0.12) 0%, transparent 52%);
-  pointer-events: none;
+/* ---------- Hero（案B：ノートのページ） ---------- */
+.hp-hero {
+  position: relative;
+  padding: 64px 20px 72px;
+  /* 大学ノートの薄い横罫。線色はブランドの10%で、文字と喧嘩しない薄さを最優先 */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 35px,
+    rgb(var(--brand-rgb) / 0.10) 35px,
+    rgb(var(--brand-rgb) / 0.10) 36px
+  );
 }
 
 .hp-hero-inner {
@@ -1700,57 +1674,67 @@
   z-index: 1;
 }
 
-.hp-doodle {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hp-hero-eyebrow {
-  margin-bottom: 30px;
-  font-size: var(--text-base);
+/* インクで書いた小さな前置き */
+.hp-hero-kicker {
+  margin-bottom: 14px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.08em;
+  color: var(--ink-500);
 }
 
 .hp-hero-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 0 38px;
-  font-size: clamp(2.3rem, 13.5cqi, 3.3rem);
-  line-height: 1.15;
+  margin: 0 0 24px;
+  line-height: 1.2;
 }
 
-/* 切り抜いた紙片に1行ずつ──スクラップブックの貼り込み */
-.hp-hero-line {
+/* 前フリ（小）：黒インク */
+.hp-hero-title-sub {
+  font-size: clamp(1.3rem, 6.4cqi, 1.75rem);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+}
+
+/* オチ（特大）：ブランド色。影・縁取りは一切つけない */
+.hp-hero-title-main {
   position: relative;
-  display: inline-block;
-  padding: 0.1em 0.42em 0.18em;
-  background-color: #fff;
-  background-image: var(--tex-grain);
-  border-radius: var(--radius-paper);
-  border: 1px solid var(--paper-edge);
-  box-shadow: var(--shadow-paper);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6px;
+  font-size: clamp(2.5rem, 13.5cqi, 3.4rem);
   font-weight: var(--font-black);
-}
-
-.hp-hero-line--1 {
-  transform: rotate(-2.4deg);
-  color: var(--ink-900);
-  text-shadow: 0.05em 0.065em 0 rgb(var(--brand-rgb) / 0.30);
-  z-index: 1;
-}
-
-.hp-hero-line--2 {
-  transform: rotate(1.8deg);
-  margin-top: 4px;
   color: var(--brand-deep);
-  text-shadow: 0.05em 0.065em 0 rgb(var(--cream-rgb) / 0.85);
+}
+
+/* 赤鉛筆の下線（唯一の装飾） */
+.hp-hero-title-underline {
+  width: 92%;
+  margin-top: 4px;
+  color: var(--pink);
+}
+
+.hp-hero-answer {
+  width: 100%;
+  margin: 0 0 34px;
+  padding: 0 12px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+  font-weight: var(--font-medium);
+}
+
+.hp-hero-answer strong {
+  color: var(--brand-deep);
+  font-weight: var(--font-black);
 }
 
 .hp-hero-photo {
   width: 100%;
   margin-bottom: 36px;
-  transform: rotate(-1.1deg);
 }
 
 .hp-hero-screen {
@@ -1794,25 +1778,6 @@
 }
 
 /* 端に貼られた紙きれ */
-.hp-scrap {
-  position: absolute;
-  width: 58px;
-  height: 46px;
-  background-color: var(--paper-warm);
-  background-image: var(--tex-grain);
-  border: 1px solid var(--paper-edge);
-  border-radius: 2px 5px 3px 6px;
-  box-shadow: var(--shadow-paper);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hp-scrap .craft-tape {
-  width: 52px;
-  height: 18px;
-  top: -8px;
-}
-
 /* ---------- Programs (CLAFTの学び) ---------- */
 .hp-programs {
   background-image: var(--tex-dots);
@@ -1886,6 +1851,10 @@
 
 .hp-programs-cta {
   margin-top: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
   text-align: center;
 }
 
@@ -2213,16 +2182,7 @@
   text-align: left;
 }
 
-/* ---------- Hero 追加：保護者向け宛名ラベル・信頼チップ・動画クリック再生 ---------- */
-.hp-hero-eyebrow--parent {
-  margin-bottom: 10px;
-  max-width: 300px;
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  text-align: center;
-  transform: rotate(-2.2deg);
-}
-
+/* ---------- Hero 追加：信頼チップ・動画クリック再生 ---------- */
 .hp-hero-chips {
   display: flex;
   flex-wrap: wrap;
@@ -2581,6 +2541,26 @@
   font-weight: var(--font-bold);
   border-radius: 999px;
   white-space: nowrap;
+}
+
+/* コース×学びマトリクス（hp-glance-table の列固有スタイルを上書き） */
+.cs-matrix-table.hp-glance-table tbody td:nth-child(2),
+.cs-matrix-table.hp-glance-table tbody td:last-child {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--ink-700);
+  white-space: normal;
+}
+
+.cs-matrix-cell {
+  text-align: center;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--ink-500);
+}
+
+.cs-matrix-cell--yes {
+  color: var(--brand-deep);
 }
 
 .hp-glance-foot {
@@ -4418,6 +4398,24 @@
   text-align: center;
 }
 
+.cd-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px 0 0;
+}
+
+.cd-hero-badges a.craft-label {
+  text-decoration: none;
+}
+
+.cd-hero-badge-inline {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: var(--text-xs);
+}
+
 /* 漂う手描きアイコンの行 */
 .cd-float-row {
   display: flex;
@@ -5201,16 +5199,12 @@
   }
 }
 
-/* ===== 予約CTA（サイト全体常駐 / CVゴール導線：LINE｜体験の並列2択） ===== */
+/* ===== 予約CTA（サイト全体常駐 / CVゴール導線：LINE相談の1択） ===== */
 .reserve-cta-group {
   position: fixed;
   right: 16px;
   bottom: 16px;
   z-index: 1200;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
 }
 .reserve-cta {
   display: inline-flex;
@@ -5218,29 +5212,20 @@
   gap: 8px;
   padding: 12px 18px;
   border-radius: 999px;
-  background: var(--brand);
+  background: #06c755;
   color: #fff;
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(var(--brand-rgb) / 0.4);
+  box-shadow: 0 8px 24px rgba(6, 199, 85, 0.4);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 .reserve-cta:hover {
-  background: var(--brand-deep);
+  background: #05b34c;
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(var(--brand-rgb) / 0.5);
+  box-shadow: 0 12px 28px rgba(6, 199, 85, 0.5);
 }
 .reserve-cta:active {
   transform: translateY(0);
-}
-.reserve-cta--line {
-  padding: 8px 14px;
-  font-size: 13px;
-  background: #06c755;
-  box-shadow: 0 6px 18px rgba(6, 199, 85, 0.35);
-}
-.reserve-cta--line:hover {
-  background: #05b34c;
 }
 .reserve-cta-label {
   font-size: 15px;
@@ -5257,12 +5242,6 @@
   }
   .reserve-cta-label {
     font-size: 14px;
-  }
-  .reserve-cta--line {
-    padding: 7px 12px;
-  }
-  .reserve-cta--line .reserve-cta-label {
-    font-size: 13px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

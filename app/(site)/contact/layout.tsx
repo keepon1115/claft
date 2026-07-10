@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: '無料体験・個別相談のご予約',
   description:
-    'CLAFTの無料体験・個別相談はこちらから。八尾の対面教室と全国どこからでも学べるオンラインの両方に対応。小5〜中3のお子さま向けに、探究×対話×実践の学びを1ヶ月間無料で体験できます。',
+    'CLAFTの無料体験・個別相談はこちらから。八尾の対面教室と全国どこからでも学べるオンラインの両方に対応。小3〜中3のお子さま向けに、探究×対話×実践の学びを1ヶ月間無料で体験できます。',
   alternates: { canonical: '/contact' },
 };
 
