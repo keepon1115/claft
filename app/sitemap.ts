@@ -15,6 +15,7 @@ const STATIC_PATHS = [
   '/blog',
   '/news',
   '/monthly',
+  '/monthly/1st-anniversary',
   '/student-story',
   '/claft-hope',
   '/pbl',

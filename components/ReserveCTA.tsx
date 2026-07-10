@@ -6,7 +6,7 @@ import { trackEvent } from '@/lib/analytics';
 
 // サイト全体に常駐する予約CTA（CVゴール=LINE相談・無料体験予約の並列2択）。
 // /contact 自体や管理画面では出さない（重複・邪魔を回避）。
-const HIDE_ON = ['/contact', '/admin', '/author'];
+const HIDE_ON = ['/contact', '/admin', '/author', '/sogo-senbatsu'];
 
 export function ReserveCTA() {
   const pathname = usePathname() || '';

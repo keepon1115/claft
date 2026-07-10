@@ -80,6 +80,84 @@ export default function MonthlyIndexPage() {
       {/* バックナンバー一覧 */}
       <Section className="scroll-animate">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <Link href="/monthly/1st-anniversary" style={{ textDecoration: 'none' }}>
+            <article
+              className="issue-card"
+              style={{
+                background: '#fff',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.07)',
+                border: '1.5px solid rgba(0,0,0,0.06)',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                cursor: 'pointer',
+              }}
+            >
+              <div
+                style={{
+                  background: 'linear-gradient(135deg, #e0f4f3, #fff)',
+                  padding: '20px 20px 16px',
+                  position: 'relative',
+                }}
+              >
+                <div aria-hidden="true" style={{ display: 'flex', height: '4px', margin: '-20px -20px 12px' }}>
+                  <span style={{ flex: 1, background: 'rgba(79,191,214,0.5)' }} />
+                  <span style={{ flex: 1, background: 'rgba(245,166,35,0.5)' }} />
+                  <span style={{ flex: 1, background: 'rgba(155,135,245,0.5)' }} />
+                  <span style={{ flex: 1, background: 'rgba(88,195,162,0.5)' }} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      padding: '2px 10px',
+                      background: '#34c6be',
+                      color: '#fff',
+                      borderRadius: '50px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                    }}
+                  >
+                    特別号
+                  </span>
+                  <span style={{ fontSize: '13px', color: 'var(--ink-600)', fontWeight: 700 }}>1周年記念</span>
+                </div>
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: '18px',
+                    fontWeight: 900,
+                    color: 'var(--ink-900)',
+                    fontFamily: 'var(--font-zen), sans-serif',
+                  }}
+                >
+                  CLAFT、1歳になりました。
+                </h2>
+              </div>
+              <div style={{ padding: '16px 20px' }}>
+                <p style={{ margin: '0 0 14px', fontSize: '13px', color: 'var(--ink-700)', lineHeight: 1.7 }}>
+                  40分の振り返り動画を、まるごと1本の読み物に。
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      padding: '8px 16px',
+                      background: 'rgba(52,198,190,0.1)',
+                      color: '#2a9d96',
+                      borderRadius: '50px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                    }}
+                  >
+                    読む →
+                  </span>
+                </div>
+              </div>
+            </article>
+          </Link>
+
           {sorted.map((issue) => {
             const theme = seasonThemes[issue.season];
             return (

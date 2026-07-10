@@ -62,13 +62,15 @@ export function SiteGrid({ children }: { children: React.ReactNode }){
       {/* Footer（モバイル・PC共通。机の端のクラフト紙帯） */}
       <Footer />
 
-      {/* FAB (Mobile Only) */}
-      <div className="fab xl:hidden fixed right-4 bottom-4 z-50">
-        <a href="https://lin.ee/wcsFK9A" target="_blank" rel="noopener" className="inline-flex items-center gap-2.5 bg-[#06c755] text-white px-4 py-3.5 rounded-full font-bold shadow-lg">
-          <img src="/assets/images/common/line_icon_white.svg" width="24" height="24" alt="" />
-          <span>LINEで相談</span>
-        </a>
-      </div>
+      {/* FAB (Mobile Only)。/sogo-senbatsu は独自の2扉CTAを持つため重複表示しない */}
+      {!pathname?.startsWith('/sogo-senbatsu') && (
+        <div className="fab xl:hidden fixed right-4 bottom-4 z-50">
+          <a href="https://lin.ee/wcsFK9A" target="_blank" rel="noopener" className="inline-flex items-center gap-2.5 bg-[#06c755] text-white px-4 py-3.5 rounded-full font-bold shadow-lg">
+            <img src="/assets/images/common/line_icon_white.svg" width="24" height="24" alt="" />
+            <span>LINEで相談</span>
+          </a>
+        </div>
+      )}
     </>
   );
 }

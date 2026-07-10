@@ -5649,3 +5649,498 @@
   margin-bottom: 16px;
   color: var(--ink-900);
 }
+
+/* =========================================
+   sg-: sogo-senbatsu LP（総合型選抜コース・非公開）
+   夕方の声。--accent-rgb はページ側で '224 158 22' を注入。
+   ========================================= */
+.sg-page {
+  padding: 48px 0 72px;
+}
+
+.sg-section {
+  padding: 56px 0 0;
+}
+
+.sg-section-head {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* ---------- S1 Hero ---------- */
+.sg-hero {
+  position: relative;
+  padding-top: 32px;
+  text-align: center;
+}
+
+.sg-hero-lamp {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgb(var(--cream-rgb) / 0.35) 0%, transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sg-hero-title {
+  position: relative;
+  margin: 0 0 20px;
+  font-size: var(--text-5xl);
+  font-weight: var(--font-black);
+  line-height: var(--leading-snug);
+  color: var(--ink-900);
+}
+
+.sg-highlight {
+  position: relative;
+  background-image: linear-gradient(
+    transparent 58%,
+    rgb(var(--accent-rgb) / 0.4) 58%,
+    rgb(var(--accent-rgb) / 0.4) 94%,
+    transparent 94%
+  );
+  padding: 0 0.08em;
+}
+
+.sg-hero-lead {
+  position: relative;
+  max-width: 380px;
+  margin: 0 auto 32px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+/* ---------- 2扉CTA（SogoCtaDoors） ---------- */
+.sg-cta-doors {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.sg-cta-door {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 340px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-weight: var(--font-bold);
+  font-size: var(--text-base);
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.sg-cta-door:hover {
+  transform: translateY(-3px);
+}
+
+.sg-cta-door--fill {
+  background: rgb(var(--accent-rgb));
+  color: #fff;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-sticker);
+}
+
+.sg-cta-door--line {
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  color: var(--ink-800);
+  box-shadow: inset 0 0 0 2px rgb(var(--accent-rgb) / 0.55), var(--shadow-paper);
+}
+
+/* ---------- S2 3つのルール ---------- */
+.sg-rules-eyebrow {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.sg-rules-paper {
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 32px 28px;
+}
+
+.sg-rule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.sg-rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-snug);
+  color: var(--ink-900);
+}
+
+.sg-rule-num {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb) / 0.18);
+  color: rgb(var(--accent-rgb));
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+}
+
+/* ---------- S3 8回の旅の地図 ---------- */
+.sg-journey-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sg-journey-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.sg-journey-marker {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb) / 0.16);
+  color: rgb(var(--accent-rgb));
+  font-size: 12px;
+  font-weight: var(--font-black);
+}
+
+.sg-journey-item:not(:last-child) .sg-journey-marker::after {
+  content: '';
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  height: calc(100% + 14px - 38px);
+  border-left: 2px dashed rgb(var(--accent-rgb) / 0.35);
+  transform: translateX(-50%);
+}
+
+.sg-journey-item .sg-acc {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- 汎用アコーディオン（S3・S6共通、details/summary・JS不要） ---------- */
+.sg-acc {
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border-radius: var(--radius-paper);
+  border: 1px solid var(--paper-edge);
+  box-shadow: var(--shadow-paper);
+  overflow: hidden;
+}
+
+.sg-acc summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.sg-acc summary::-webkit-details-marker {
+  display: none;
+}
+
+.sg-acc-title {
+  flex: 1;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+  line-height: var(--leading-snug);
+}
+
+.sg-acc-pill {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb) / 0.14);
+  color: rgb(var(--accent-rgb));
+  transition: transform 0.3s ease;
+}
+
+.sg-acc[open] .sg-acc-pill {
+  transform: rotate(180deg);
+}
+
+.sg-acc-body {
+  margin: 0;
+  padding: 0 16px 16px;
+  border-top: 2px dashed rgba(92, 77, 42, 0.18);
+  padding-top: 12px;
+}
+
+.sg-acc-body p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+/* ---------- S4 世界の教室から ---------- */
+.sg-world-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sg-world-card {
+  padding: 26px 22px 22px;
+}
+
+.sg-world-tag {
+  display: block;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+
+.sg-world-card p {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.sg-world-close {
+  max-width: 380px;
+  margin: 28px auto 0;
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-600);
+}
+
+/* ---------- 保護者ゾーン（S5〜S8）：長文段落は Noto Sans JP ---------- */
+.sg-parents p {
+  font-family: var(--font-noto);
+}
+
+.sg-parents-divider {
+  margin: 0 0 32px;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--ink-500);
+  border-top: 1px dashed var(--paper-edge);
+  padding-top: 20px;
+}
+
+.sg-elements {
+  margin-bottom: 32px;
+}
+
+.sg-elements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  counter-reset: sg-elements;
+}
+
+.sg-elements-list li {
+  position: relative;
+  padding: 12px 16px 12px 44px;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  border-radius: 3px 8px 4px 9px / 8px 3px 9px 4px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+}
+
+.sg-elements-list li::before {
+  counter-increment: sg-elements;
+  content: counter(sg-elements);
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb) / 0.2);
+  color: rgb(var(--accent-rgb));
+  font-size: 11px;
+  font-weight: var(--font-black);
+}
+
+.sg-elements p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.sg-questions {
+  margin-bottom: 32px;
+}
+
+.sg-questions-lead {
+  margin: 0 0 12px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+}
+
+.sg-questions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.sg-questions-list li {
+  transform: rotate(-1deg);
+}
+
+.sg-questions-list li:nth-child(2n) {
+  transform: rotate(1deg);
+}
+
+.sg-questions p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.sg-note {
+  padding: 22px 20px;
+}
+
+.sg-note p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 34px;
+  color: var(--ink-700);
+}
+
+/* ---------- S6 FAQ ---------- */
+.sg-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sg-faq-q {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb));
+  color: #fff;
+  font-size: 12px;
+  font-weight: var(--font-black);
+}
+
+/* ---------- S7 伴走者 ---------- */
+.sg-guide-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sg-photo-ph {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  border: 1px dashed var(--paper-edge);
+  border-radius: var(--radius-paper);
+  color: var(--ink-500);
+  font-size: var(--text-sm);
+}
+
+.sg-guide-body p {
+  margin: 0 0 14px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.sg-guide-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- S8 料金・形態・CTA ---------- */
+.sg-price {
+  max-width: 380px;
+  margin: 0 auto 32px;
+  padding: 28px 24px;
+}
+
+.sg-price-list {
+  margin: 0 0 14px;
+  padding: 0 0 0 1.2em;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+  line-height: var(--leading-relaxed);
+}
+
+.sg-price-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-500);
+}
+
+.sg-close-question {
+  max-width: 380px;
+  margin: 0 auto 28px;
+  text-align: center;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-snug);
+  color: var(--ink-900);
+}
+
+.sg-anchor {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: rgb(var(--brand-rgb));
+  letter-spacing: 0.04em;
+}
