@@ -5,7 +5,7 @@
 // 1. https://www.notion.so/my-integrations で内部インテグレーションを作成 → Secret を控える
 // 2. 「CLAFT Blog（SEO/GEO記事）」DBの ••• → 接続 → そのインテグレーションを追加（共有）
 // 3. env に NOTION_TOKEN（Secret）と NOTION_BLOG_DB_ID（DBのID）を設定
-//    DB ID = e629305a-8b33-4cd7-931a-637edf5737d1
+//    DB ID = 15060399-0a02-82c0-8cfe-81507416b075
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_BLOG_DB_ID = process.env.NOTION_BLOG_DB_ID;

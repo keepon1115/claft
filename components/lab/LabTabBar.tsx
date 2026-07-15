@@ -4,6 +4,18 @@ import Link from 'next/link';
 export function LabTabBar() {
   return (
     <nav className="lab-tabbar" aria-label="主要アクション">
+      <a
+        href="https://lin.ee/OUvutfN"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="lab-line-fab"
+        aria-label="LINEで問合せ（外部リンク・新しいタブで開く）"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3C6.75 3 2.5 6.55 2.5 10.9c0 3.9 3.36 7.17 7.9 7.8.3.06.7.2.8.46.1.24.06.62.03.87l-.13 1c-.04.3-.24 1.16 1.02.63 1.26-.53 6.8-4 9.27-6.85 1.7-1.87 2.51-3.77 2.51-5.91C23.9 6.55 19.65 3 14.4 3z" />
+        </svg>
+        <span>LINE問合せ<br />はこちら</span>
+      </a>
       <Link href="/lab/reserve" className="lab-cta primary" data-tour="reserve">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="4" width="18" height="18" rx="2" />

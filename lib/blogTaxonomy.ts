@@ -41,6 +41,12 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
     description:
       '塾以外の選択肢、オンラインスクールの選び方、探究型の習い事の見極め方。小5〜中3の保護者向けに、子どもの「考える力」が伸びる環境の選び方を解説します。',
   },
+  {
+    name: 'キャリア',
+    slug: 'career',
+    description:
+      'キャリアコンサルタントの視点で、キャリア理論や進路選択の考え方をわかりやすく解説。「やりたいことが変わってもいい」「迷いは悪いことじゃない」——子どもと保護者がキャリアを考えるヒントをお届けします。',
+  },
 ];
 
 export const getCategoryBySlug = (slug: string) =>
