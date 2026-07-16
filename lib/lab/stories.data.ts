@@ -49,7 +49,7 @@ export const stories: StoryCategory[] = [
     emoji: '🌻',
     ring: 'alt',
     visibleUntil: '2026-08-31',
-    updatedAt: '2026-07-03',
+    updatedAt: '2026-07-08',
     hpUrl: '/lab/summer-lab',
     ctaLabel: '夏休み特別ページを見る →',
     cards: [
@@ -68,11 +68,11 @@ export const stories: StoryCategory[] = [
     label: '募集\nイベント',
     emoji: '📣',
     ring: 'default',
-    updatedAt: '2026-07-03',
+    updatedAt: '2026-07-16',
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
-      { id: 'event-1', emoji: '🧭', theme: 'navy', title:'秋のスクールフェスタのイベントを企画しよう！', text: '5月から募集していたアイデア、たくさん集まりました！それをみなさんからの投票で、決めていこうと思います！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/3875755668404419bc2fa8eda354db12/event-0625.png' },
+      { id: 'event-1', emoji: '🧭', theme: 'navy', title:'', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/5e6045e2c8b3498f9b309da56901137e/event-0715.png' },
       { id: 'event-2', emoji: '🎪', theme: 'orange', title: 'URC(国際ロボット競技会)', text: 'アーテック主催の国際競技会、今年は10回大会です', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d61b53eeba6b4fc19d5e6c2327c3553f/event-0704.jpg' },
       { id: 'event-3', emoji: '🗓️', theme: 'green', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
@@ -82,12 +82,12 @@ export const stories: StoryCategory[] = [
     label: '今週の\nフォト',
     emoji: '📸',
     ring: 'default',
-    updatedAt: '2026-07-08',
+    updatedAt: '2026-07-16',
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
-      { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '今月のゲームは“ピンポンバネとばし！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/18003e75b79e4b699fa6a7f12bfad5db/photo-0711-1.png' },
-      { id: 'photo-2', emoji: '📸', theme: 'navy', title: '', text: '英語を使ったゲームで盛り上がりました♪', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/a5eb8d098757467a9abd3bbdee8d259e/photo-0711-2.png' },
+      { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/b26a3a2c68e14ffcb7b016644873710c/photo-0711-1%20(1).png' },
+      { id: 'photo-2', emoji: '📸', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/f3935fc0bdf04aefb02369152893d9ef/photo-0718.png' },
     ],
   },
   {
@@ -119,11 +119,11 @@ export const stories: StoryCategory[] = [
     label: 'インタ\nビュー',
     emoji: '💼',
     ring: 'navy',
-    updatedAt: '2026-07-03',
+    updatedAt: '2026-07-16',
     hpUrl: 'https://note.com/yononaka_career/n/n15fceefc4948?magazine_key=m7efb45600c66',
     ctaLabel: 'お仕事インタビューを読む →',
     cards: [
-      { id: 'career-1', emoji: '🍰', theme: 'orange', title: '', text: '今回は「お金」に関するお仕事。島根県の銀行で働いているKさんにお話を伺いました。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/c334fdfd92c24017b1f5a9f089adcb83/career-0701.jpg'  },
+      { id: 'career-1', emoji: '🍰', theme: 'orange', title: '', text: '今回は「食」に関するお仕事。「農家さんと売り場をつなぐ」会社で働いているHさんにお話を伺いました。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/1d411a9f2ba24fd1bd5d723e3e809d2f/career-0701.png'  },
     ],
   },
   {
