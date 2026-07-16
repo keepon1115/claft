@@ -330,10 +330,10 @@
   color: var(--orange-deep);
 }
 
-/* お知らせ（カレンダー）カード：バナーは横長16:9 */
+/* お知らせ（カレンダー）カード：バナー比率は/newsと統一（900:340） */
 .lab-news-thumb {
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 900 / 340;
 }
 .lab-news-info {
   margin-top: 8px;

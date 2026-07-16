@@ -14,10 +14,10 @@ function metaFor(cat: string | undefined) {
   return { theme: 'navy' as const, emoji: '📌' };
 }
 
-// microCMSのCDN画像なら 16:9 にトリミング・軽量化（クエリ無しのみ付与）。
+// microCMSのCDN画像なら /news と同じ比率にトリミング・軽量化（クエリ無しのみ付与）。
 function optimizedBanner(url: string): string {
   if (url.includes('microcms-assets.io') && !url.includes('?')) {
-    return `${url}?fm=webp&fit=crop&w=1280&h=720&q=80`;
+    return `${url}?fm=webp&fit=crop&w=900&h=340&q=80`;
   }
   return url;
 }
