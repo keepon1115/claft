@@ -38,6 +38,7 @@ export const navItems: NavItem[] = [
     children: [
       { label: '授業レポ', href: '/yononaka/jugyo-repo' },
       { label: 'AIロボット社会', href: '/yononaka/ai-robot' },
+      { label: 'AIロボット社会 ハイライト', href: 'https://claft.keeponlearning.fun/yononaka/ai-robot/serial-lp', external: true },
       { label: '教室オーナーの方へ', href: '/yononaka/kyoshitsu' }
     ]
   },
