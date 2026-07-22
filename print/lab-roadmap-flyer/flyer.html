@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>「ラボの歩き方」A4チラシ（表裏2枚）</title>
+<style>
+@font-face { font-family:'Noto Sans JP'; font-weight:400; font-display:swap; src:url('assets/fonts/noto-400.woff2') format('woff2'); }
+@font-face { font-family:'Noto Sans JP'; font-weight:500; font-display:swap; src:url('assets/fonts/noto-500.woff2') format('woff2'); }
+@font-face { font-family:'Noto Sans JP'; font-weight:700; font-display:swap; src:url('assets/fonts/noto-700.woff2') format('woff2'); }
+@font-face { font-family:'Noto Sans JP'; font-weight:900; font-display:swap; src:url('assets/fonts/noto-900.woff2') format('woff2'); }
+@font-face { font-family:'Zen Maru Gothic'; font-weight:400; font-display:swap; src:url('assets/fonts/zen-400.woff2') format('woff2'); }
+@font-face { font-family:'Zen Maru Gothic'; font-weight:500; font-display:swap; src:url('assets/fonts/zen-500.woff2') format('woff2'); }
+@font-face { font-family:'Zen Maru Gothic'; font-weight:700; font-display:swap; src:url('assets/fonts/zen-700.woff2') format('woff2'); }
+@font-face { font-family:'Zen Maru Gothic'; font-weight:900; font-display:swap; src:url('assets/fonts/zen-900.woff2') format('woff2'); }
+
+:root {
+  --paper: #fbf4ec;
+  --ink-base: #3a332e;
+  --bleed: 3mm;
+  --safe: 10mm;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #888;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--ink-base);
+}
+
+@page { size: 216mm 303mm; margin: 0; }
+
+.sheet {
+  position: relative;
+  width: 216mm;
+  height: 303mm;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--paper);
+  page-break-after: always;
+  break-after: page;
+}
+.sheet:last-child { page-break-after: auto; break-after: auto; }
+
+.safe {
+  position: absolute;
+  left: calc(var(--bleed) + var(--safe));
+  right: calc(var(--bleed) + var(--safe));
+  top: calc(var(--bleed) + var(--safe));
+  bottom: calc(var(--bleed) + var(--safe));
+}
+
+.folio {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #a89c8d;
+}
+
+/* ---------- 面1: 表紙 ---------- */
+
+.hero { display: flex; flex-direction: column; }
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid rgba(216,90,72,.28);
+  color: #9a4a16;
+  font-weight: 900;
+  font-size: 12pt;
+  letter-spacing: .14em;
+}
+
+.hero-title {
+  margin: 22px 0 8px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 900;
+  font-size: 68pt;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.hero-title span { display: block; color: #ef8a3c; }
+
+.mini-map {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+.mini-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 7px 8px;
+  border-radius: 999px;
+  background: var(--soft);
+  border: 1.5px dashed var(--accent);
+}
+.mini-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  font-size: 9pt;
+}
+.mini-tag { font-weight: 700; font-size: 10.5pt; color: var(--ink); }
+
+.hero-lead {
+  margin-top: 30px;
+  max-width: 30em;
+  font-size: 13pt;
+  font-weight: 700;
+  line-height: 2;
+  color: #5d544c;
+}
+
+.hero-walker-wrap { margin-top: 42px; display: flex; align-items: center; gap: 14px; }
+.hero-walker-figure {
+  display: inline-block;
+  width: 64px; height: 100px;
+  filter: drop-shadow(0 6px 10px rgba(58,51,46,.16));
+  transform: rotate(-3deg);
+}
+.hero-walker-figure .walker-svg { width: 100%; height: 100%; }
+.hero-walker-arrow { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; font-size: 20pt; color: #d8ac8f; }
+.hero-walker-target.mini-badge { width: 32px; height: 32px; font-size: 13pt; background: #d85a4a; }
+
+.hero-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 24px;
+}
+
+.qr-block { display: flex; align-items: center; gap: 14px; }
+.qr { width: 26mm; height: 26mm; background: #fff; padding: 2mm; border-radius: 4px; border: 1px solid #e3d9c8; }
+.qr svg { width: 100%; height: 100%; }
+.qr-caption { margin: 0; font-size: 8.5pt; font-weight: 700; line-height: 1.5; color: #7a7066; }
+.qr-url { font-weight: 500; word-break: break-all; }
+
+/* ---------- 面2・面3: 駅ページ ---------- */
+
+.sheet .trail {
+  position: absolute;
+  left: 12mm;
+  top: var(--bleed);
+  bottom: var(--bleed);
+  width: 3px;
+  border-radius: 3px;
+  background-image: var(--trail-gradient);
+  opacity: .9;
+  transform: rotate(0.6deg);
+}
+.sheet .trail::before,
+.sheet .trail::after {
+  content: '';
+  position: absolute;
+  left: -6.5px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 3px solid var(--paper);
+  background: currentColor;
+}
+
+.stations-page { display: flex; flex-direction: column; gap: 7mm; padding-left: 8mm; }
+
+.station {
+  position: relative;
+  padding: 6mm 8mm 6mm;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  transform: rotate(var(--rotate, 0deg));
+}
+
+.station-head { display: flex; align-items: center; gap: 8px; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px 4px 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  font-size: 9.5pt;
+}
+.badge .star-svg { width: 10px; height: 10px; fill: #fff; opacity: .9; }
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--ink);
+  font-weight: 900;
+  font-size: 8.5pt;
+  letter-spacing: .03em;
+}
+
+.station-title {
+  margin: 6px 0 7px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 900;
+  font-size: 12.5pt;
+  line-height: 1.32;
+  color: #2c2620;
+}
+
+.dialogue { display: flex; flex-direction: column; gap: 5px; }
+
+.bubble { display: flex; align-items: flex-start; gap: 6px; }
+.bubble.bubble-teacher { flex-direction: row-reverse; text-align: right; }
+
+.avatar { flex: none; width: 22px; height: 22px; }
+.avatar-svg { display: block; width: 100%; height: 100%; }
+
+.bubble p {
+  margin: 0;
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 8.6pt;
+  font-weight: 500;
+  line-height: 1.45;
+  background: #fff;
+  border: 1.3px solid var(--accent);
+}
+.bubble-child p { background: var(--soft); border-color: transparent; }
+.bubble p b {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 7.2pt;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.note {
+  margin: 6px 0 0;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.65);
+  border: 1px dashed var(--accent);
+  font-size: 7.8pt;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.walker-mini {
+  position: absolute;
+  right: 6mm;
+  bottom: 5mm;
+  width: 13px;
+  height: 20px;
+  opacity: .9;
+  transform: rotate(-4deg);
+}
+.walker-mini .walker-svg { width: 100%; height: 100%; }
+
+.parent-note {
+  align-self: flex-end;
+  width: 80%;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: -4mm;
+  margin-right: 4mm;
+  padding: 6px 10px 6px 8px;
+  background: #fffaf0;
+  border: 1px solid #e8ddc8;
+  box-shadow: 0 3px 8px rgba(58,51,46,.1);
+  transform: rotate(var(--rotate, -1.5deg));
+}
+.parent-note .tape {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 28px;
+  height: 12px;
+  margin-left: -14px;
+  background: rgba(239,138,60,.35);
+  transform: rotate(-2deg);
+}
+.parent-note .avatar { width: 20px; height: 20px; }
+.parent-note p { margin: 0; font-size: 7.8pt; font-weight: 500; line-height: 1.4; color: #5d544c; }
+.parent-note p b { display: block; font-size: 6.8pt; font-weight: 900; color: var(--accent); margin-bottom: 1px; }
+
+.continue {
+  align-self: flex-end;
+  margin-top: 2mm;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 900;
+  font-size: 16pt;
+  color: #c9bda8;
+}
+
+/* 面3: 4駅を2x2グリッドで配置（1列だと縦が入り切らないため） */
+
+.stations-grid-page { display: flex; flex-direction: column; }
+
+.stations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10mm 6mm;
+  padding-left: 4mm;
+}
+
+.stations-grid-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6mm 0 0 4mm;
+}
+.stations-grid-foot .folio { position: static; }
+
+.station.station-grid-item {
+  padding: 5mm 6mm 5mm;
+  display: flex;
+  flex-direction: column;
+}
+.station-grid-item .station-title { font-size: 10.5pt; margin: 5px 0 6px; line-height: 1.3; }
+.station-grid-item .badge { font-size: 8pt; padding: 3px 8px 3px 6px; }
+.station-grid-item .badge .star-svg { width: 8px; height: 8px; }
+.station-grid-item .tag { font-size: 7.4pt; padding: 3px 7px; }
+.station-grid-item .dialogue { gap: 4px; }
+.station-grid-item .bubble p { font-size: 7.6pt; padding: 5px 8px; line-height: 1.4; border-radius: 10px; }
+.station-grid-item .bubble p b { font-size: 6.6pt; }
+.station-grid-item .avatar { width: 18px; height: 18px; }
+.station-grid-item .note { font-size: 7pt; padding: 4px 7px; margin-top: 5px; }
+.station-grid-item .walker-mini { width: 11px; height: 17px; right: 5mm; bottom: 4mm; }
+
+.parent-note-inline {
+  position: relative;
+  margin-top: 6px;
+  padding: 5px 8px 5px 7px;
+  border-radius: 8px;
+  background: #fffaf0;
+  border: 1px solid #e8ddc8;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.parent-note-inline .tape {
+  position: absolute;
+  top: -5px;
+  left: 16px;
+  width: 22px;
+  height: 10px;
+  background: rgba(239,138,60,.35);
+  transform: rotate(-3deg);
+}
+.parent-note-inline .avatar { width: 16px; height: 16px; }
+.parent-note-inline p { margin: 0; font-size: 6.8pt; line-height: 1.35; color: #5d544c; }
+.parent-note-inline p b { display: block; font-size: 6.2pt; font-weight: 900; color: var(--accent); margin-bottom: 1px; }
+
+/* ---------- 面4: 円環＋実務情報 ---------- */
+
+.loop-page { display: flex; flex-direction: column; }
+
+.loop-top { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 14mm; }
+
+.loop-ring {
+  width: 46mm; height: 46mm;
+  border-radius: 50%;
+  background: var(--ring-gradient);
+  display: flex; align-items: center; justify-content: center;
+  padding: 6mm;
+}
+.loop-ring-core {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+}
+.loop-ring-core .star-svg { width: 30px; height: 30px; fill: #ef8a3c; }
+
+.loop-title {
+  margin: 12mm 0 6mm;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 900;
+  font-size: 28pt;
+  color: #2c2620;
+}
+
+.loop-body {
+  max-width: 32em;
+  margin: 0 0 6mm;
+  font-size: 11.5pt;
+  font-weight: 700;
+  line-height: 1.9;
+  color: #5d544c;
+}
+
+.loop-echo {
+  max-width: 30em;
+  margin: 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fdf1df;
+  border: 1.5px solid #ef8a3c;
+  font-size: 10pt;
+  font-weight: 700;
+  color: #9a4a16;
+}
+
+.practical {
+  margin-top: auto;
+  padding: 12mm 0 0;
+  border-top: 2px dashed #e3d9c8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14mm;
+}
+
+.practical-note {
+  margin: 0 0 6px;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #2c2620;
+}
+.practical-placeholder {
+  margin: 0;
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #b5a68f;
+  padding: 6px 10px;
+  border: 1.5px dashed #cbbfa8;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.cta-block { flex: none; display: flex; align-items: center; gap: 12px; }
+.cta-caption { margin: 0; max-width: 28mm; font-size: 9pt; font-weight: 900; line-height: 1.4; color: #2c2620; }
+
+@media print {
+  html, body { background: none; }
+}
+
+/* デバッグ用: flyer.html#page-cover のようにURLフラグメントを付けると、
+   その面だけを単体表示できる（検証スクリーンショット用。印刷時は無関係）。 */
+body:has(.sheet:target) .sheet:not(:target) { display: none; }
+</style>
+</head>
+<body>
+
+<section class="sheet" id="page-cover">
+  <div class="safe hero">
+    <span class="eyebrow">KEEP ON LABO</span>
+    <h1 class="hero-title">ラボの<span>歩き方</span></h1>
+    
+  <div class="mini-map" aria-label="7つの駅の予告マップ">
+    <span class="mini-stamp" style="--accent:#d85a4a;--soft:#fde3dc;--ink:#8d3428;">
+        <span class="mini-badge">①</span><span class="mini-tag">ワクワク</span>
+      </span><span class="mini-stamp" style="--accent:#ef8a3c;--soft:#fde8d3;--ink:#9a4a16;">
+        <span class="mini-badge">②</span><span class="mini-tag">チャレンジ</span>
+      </span><span class="mini-stamp" style="--accent:#d9a928;--soft:#fff1bf;--ink:#7f620c;">
+        <span class="mini-badge">③</span><span class="mini-tag">ひろげる</span>
+      </span><span class="mini-stamp" style="--accent:#74ab3d;--soft:#e4f0d5;--ink:#426c20;">
+        <span class="mini-badge">④</span><span class="mini-tag">たいわ</span>
+      </span><span class="mini-stamp" style="--accent:#1d9e75;--soft:#d7ede4;--ink:#0f6e56;">
+        <span class="mini-badge">⑤</span><span class="mini-tag">いどむ</span>
+      </span><span class="mini-stamp" style="--accent:#3d7fc2;--soft:#dfeafb;--ink:#224f83;">
+        <span class="mini-badge">⑥</span><span class="mini-tag">つなげる</span>
+      </span><span class="mini-stamp" style="--accent:#8b62c8;--soft:#eadff8;--ink:#5b3c8d;">
+        <span class="mini-badge">⑦</span><span class="mini-tag">つくる</span>
+      </span>
+  </div>
+    <p class="hero-lead">好きを入口に、自分の言葉で伝え、社会や未来のキャリアへ広げていく。</p>
+    <div class="hero-walker-wrap" aria-hidden="true">
+      <span class="hero-walker-figure" style="--accent:#d85a4a;--tunic:#f07861;--pants:#9b4037;--ink:#8d3428;"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+      <span class="hero-walker-arrow">→</span>
+      <span class="mini-badge hero-walker-target">①</span>
+    </div>
+    <div class="hero-foot">
+      <div class="qr-block">
+        <div class="qr" id="qr-web" data-qr-url="https://claft.keeponlearning.fun/lab/roadmap"></div>
+        <p class="qr-caption">KEEP ON LABO<br /><span class="qr-url">https://claft.keeponlearning.fun/lab/roadmap</span></p>
+      </div>
+      <div class="folio">1 / 2　―　表</div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="page-front-half">
+  <div class="trail" style="--trail-gradient: linear-gradient(to bottom, #d85a4a 0%, #ef8a3c 50%, #d9a928 100%);"></div>
+  <div class="safe stations-page">
+    
+  <article class="station" style="--accent:#d85a4a;--soft:#fde3dc;--ink:#8d3428;--bg:#fbf1ed;--tunic:#f07861;--pants:#9b4037;--rotate:-0.6deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>①</span></span>
+      <span class="tag">ワクワク</span>
+    </div>
+    <h3 class="station-title">好きなものを、好きなだけ！</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>ぼく、ロボットを動かしたい！だからロボットプログラミングをやってみる！……あ、でも、となりの子がやってるマイクラも楽しそうやなぁ…</p>
+      </div>
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>お、気になる？ ほな、ちょっと隣のぞいてみよか！ウチはロボットもマイクラも、英会話も工作も、好きなものを好きなだけ選んでええんやで</p>
+      </div></div>
+    <p class="note">“ワクワク”から始まるオーダーメイド学習。1コマ60分・定員5名・いつでも入会OK。</p>
+    
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+    
+  <div class="parent-note" style="--accent:#d85a4a;--rotate:1.2deg;">
+    <span class="tape" aria-hidden="true"></span>
+    <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+    <p><b>保護者さん</b>家では落ち着きのない子が、あんなに集中して作っている姿、初めて見たかも…！</p>
+  </div>
+    
+  <article class="station" style="--accent:#ef8a3c;--soft:#fde8d3;--ink:#9a4a16;--bg:#fbf1e5;--tunic:#f4a55c;--pants:#ad5d21;--rotate:0.5deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>②</span></span>
+      <span class="tag">チャレンジ</span>
+    </div>
+    <h3 class="station-title">ドキドキがワクワクに変わる！「発表」へのチャレンジ</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>やってみたいけど、上手に発表できるかな……。みんなの前で失敗したらカッコ悪いし、ちょっと緊張するなぁ</p>
+      </div>
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>うん緊張するよな。でもテーマは何でもエエんやで。ペットのことでも、今集めてるカードのことでも。自分で「これ伝えたい！」って考えて紹介できたら、それだけで100点満点。</p>
+      </div></div>
+    
+    
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+    
+  <div class="parent-note" style="--accent:#ef8a3c;--rotate:-1.4deg;">
+    <span class="tape" aria-hidden="true"></span>
+    <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+    <p><b>保護者さん</b>「うちの子、こんなこと考えて作ってたんだ！」って本当に驚きました。</p>
+  </div>
+    
+  <article class="station" style="--accent:#d9a928;--soft:#fff1bf;--ink:#7f620c;--bg:#fbf5df;--tunic:#f1c94f;--pants:#96751d;--rotate:-0.4deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>③</span></span>
+      <span class="tag">ひろげる</span>
+    </div>
+    <h3 class="station-title">イベントに参加！そして、自分でイベントを作っちゃう！？</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>うーん、最近なんかちょっと退屈やなぁ。おもしろいことないかなぁ…</p>
+      </div>
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>それなら、いっぺんウチのイベントに遊びにおいでや！スタッフが作った謎解きゲームもあれば、みんなで企画した「ガチの紙飛行機大会」なんかもあるで。</p>
+      </div></div>
+    
+    
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+    
+  <div class="parent-note" style="--accent:#d9a928;--rotate:1.1deg;">
+    <span class="tape" aria-hidden="true"></span>
+    <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+    <p><b>保護者さん</b>年上の子が、年下の子に優しくルールを教えてあげていて……こういう温かい場所だったんですね。</p>
+  </div>
+    <div class="continue" aria-hidden="true">→</div>
+    <div class="folio">1 / 2　―　裏</div>
+  </div>
+</section>
+
+<section class="sheet" id="page-back-half">
+  <div class="trail" style="--trail-gradient: linear-gradient(to bottom, #74ab3d 0%, #1d9e75 33%, #3d7fc2 67%, #8b62c8 100%);"></div>
+  <div class="safe stations-grid-page">
+    <div class="stations-grid">
+      
+  <article class="station station-grid-item" style="--accent:#74ab3d;--soft:#e4f0d5;--ink:#426c20;--bg:#eef4e7;--tunic:#92bf5a;--pants:#527f2a;--rotate:-0.5deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>④</span></span>
+      <span class="tag">たいわ</span>
+    </div>
+    <h3 class="station-title">オンラインで世界とつながる！「正解のない問い」で自分を知る</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>みんな、なんでそんなこと言ったんやろ？ ぼくの考えとは、ぜんぜん違っててびっくりした…</p>
+      </div>
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>お、ええ気づきやん！ウチの「Yononaka」や「海外の子たちとの交流」は、答えのない問いをみんなでトコトン話し合う時間なんや。</p>
+      </div></div>
+    
+    
+    <div class="parent-note-inline">
+      <span class="tape" aria-hidden="true"></span>
+      <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+      <p><b>保護者さん</b>住んでいる地域も年齢もバラバラな「老若男女」がフラットに混ざり合って学び合えるのは、まさにオンラインならでは。</p>
+    </div>
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+      
+  <article class="station station-grid-item" style="--accent:#1d9e75;--soft:#d7ede4;--ink:#0f6e56;--bg:#e8f2ed;--tunic:#38b890;--pants:#126f58;--rotate:0.4deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>⑤</span></span>
+      <span class="tag">いどむ</span>
+    </div>
+    <h3 class="station-title">答えのない世界へ！「社会の課題」というコンテストに挑む</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>このコンテスト、テーマが「こまっている人を助ける」なんや。自分が作った作品でも、挑戦できるかなぁ…？</p>
+      </div>
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>めっちゃええやん、やってみよ！結果がどうあれ、「この困りごと、どうやったら解決できるやろ？」って自分の頭で考えた時点で、もう大きな一歩なんや。</p>
+      </div></div>
+    
+    
+    <div class="parent-note-inline">
+      <span class="tape" aria-hidden="true"></span>
+      <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+      <p><b>保護者さん</b>子どもの「好きなこと」が、いつのまにか「社会の課題」とつながっている…これって、まさにこれからの時代を生き抜く力そのものですね。</p>
+    </div>
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+      
+  <article class="station station-grid-item" style="--accent:#3d7fc2;--soft:#dfeafb;--ink:#224f83;--bg:#edf2f8;--tunic:#5d98d4;--pants:#25598f;--rotate:-0.4deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>⑥</span></span>
+      <span class="tag">つなげる</span>
+    </div>
+    <h3 class="station-title">自分の「好き」を社会に広げる「お仕事マップ」</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>将来の夢って言われても、自分が何の仕事に向いているのか、よくわからないなぁ…</p>
+      </div>
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>そらそうや〜分からへんよ！世の中にはまだ見ぬ仕事がいっぱいあるし、仕事もイベントみたいに自分で作ることができるんやで！自分の「好き」はもう仕事に繋がってるんやで！</p>
+      </div></div>
+    
+    
+    <div class="parent-note-inline">
+      <span class="tape" aria-hidden="true"></span>
+      <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+      <p><b>保護者さん</b>自分の強みを自覚した子は強いですね。「将来こんなことやってみたい！」と目を輝かせて話す姿に、未来が明るくなりました！</p>
+    </div>
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+      
+  <article class="station station-grid-item" style="--accent:#8b62c8;--soft:#eadff8;--ink:#5b3c8d;--bg:#f3edf8;--tunic:#a57ed8;--pants:#62429c;--rotate:0.5deg;">
+    <div class="station-head">
+      <span class="badge"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg><span>⑦</span></span>
+      <span class="tag">つくる</span>
+    </div>
+    <h3 class="station-title">「CLAFT」で自分だけのキャリアを創る</h3>
+    <div class="dialogue">
+      <div class="bubble bubble-teacher">
+        <span class="avatar avatar-teacher"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="var(--accent)" />
+      <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+      <path d="M11 20c1-8 6-12 11-12s10 4 11 12c-4-4-18-4-22 0Z" fill="#4d3b33" />
+      <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+      <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M14.5 22h5M24.5 22h5M19.5 22h5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".82" />
+      <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--ink)" opacity=".38" />
+    </svg></span>
+        <p><b>ラボ</b>ここまでの歩み全部が、ウチの目指す「CLAFT（クラフト）」なんや。好きなことを形にして（Creative）、それを人に伝える（Communication）。そこで返ってきた周りの反応が、また次のワクワクのタネになる。このサイクルをぐるぐる回していくんやで</p>
+      </div>
+      <div class="bubble bubble-child">
+        <span class="avatar avatar-child"><svg viewBox="0 0 44 44" class="avatar-svg">
+    <circle cx="22" cy="22" r="21" fill="var(--soft)" />
+    <circle cx="22" cy="21" r="12.5" fill="#ffe0c2" />
+    <path d="M11.5 19c.6-7.8 5.4-11.5 10.7-11.5 5.1 0 9.8 3.7 10.3 11.5-4.2-3.8-16.6-3.8-21 0Z" fill="#6b4c3b" />
+    <path d="M22 5 12 14h20Z" fill="var(--accent)" />
+    <rect x="10" y="13.2" width="24" height="3" rx="1.5" fill="var(--ink)" opacity=".85" />
+    <circle cx="17" cy="22" r="1.8" fill="#2f2a26" />
+    <circle cx="27" cy="22" r="1.8" fill="#2f2a26" />
+    <path d="M18 27q4 3 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+    <path d="M12 38c2.5-6 17.5-6 20 0" fill="var(--accent)" opacity=".42" />
+  </svg></span>
+        <p><b>わたし</b>あれ？ ぐるっと回って、また一番最初の「好きなことを好きなだけ」の場所に戻ってきた！でも不思議やな、前よりも自分の「好き」や「やりたいこと」が、すっごくハッキリわかってる気がする！</p>
+      </div></div>
+    
+    
+    <div class="parent-note-inline">
+      <span class="tape" aria-hidden="true"></span>
+      <span class="avatar avatar-parent"><svg viewBox="0 0 44 44" class="avatar-svg">
+      <circle cx="22" cy="22" r="21" fill="#e3dccf" />
+      <circle cx="22" cy="20.5" r="12.5" fill="#ffe0c2" />
+      <path d="M10.5 19c.7-7 5.8-11.5 11.6-11.5S33 12 33.5 19c-3-2.5-5.8-3.8-11.5-3.8S13.5 16.5 10.5 19Z" fill="#73513f" />
+      <circle cx="17" cy="22" r="1.7" fill="#2f2a26" />
+      <circle cx="27" cy="22" r="1.7" fill="#2f2a26" />
+      <path d="M18 27q4 2.7 8 0" fill="none" stroke="#2f2a26" stroke-width="1.6" stroke-linecap="round" />
+      <ellipse cx="13.8" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <ellipse cx="30.2" cy="25" rx="2.1" ry="1.2" fill="#f3b7a7" opacity=".55" />
+      <path d="M12 38c2.8-6 17.2-6 20 0" fill="#8d8174" opacity=".45" />
+    </svg></span>
+      <p><b>保護者さん</b>この子はただの習い事をしているんじゃなくて、「自分だけの学び方」を自分で見つけていっているんですね。</p>
+    </div>
+    <span class="walker-mini"><svg viewBox="0 0 36 56" class="walker-svg">
+    <ellipse cx="18" cy="54" rx="9" ry="2.5" fill="rgba(58,51,46,.12)" />
+    <rect x="10.5" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <rect x="19.7" y="38" width="5.8" height="9" rx="2.8" fill="var(--pants)" />
+    <ellipse cx="13.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <ellipse cx="22.5" cy="47" rx="4" ry="2.5" fill="#5e554f" />
+    <rect x="8" y="28" width="20" height="14" rx="6" fill="var(--tunic)" />
+    <rect x="3" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <rect x="27.5" y="30" width="5.5" height="4" rx="2" fill="#ffe0c2" />
+    <circle cx="18" cy="18" r="11.5" fill="#ffe0c2" />
+    <path d="M7 16 Q7 7 18 7 Q29 7 29 16" fill="#6b4c3b" />
+    <polygon points="18,1 7,12 29,12" fill="var(--accent)" />
+    <rect x="5" y="11" width="26" height="3.5" rx="1.5" fill="var(--ink)" opacity=".86" />
+    <circle cx="13" cy="19" r="2" fill="#3a332e" />
+    <circle cx="23" cy="19" r="2" fill="#3a332e" />
+    <circle cx="14" cy="18" r=".8" fill="#fff" />
+    <circle cx="24" cy="18" r=".8" fill="#fff" />
+    <path d="M14 23 Q18 26 22 23" fill="none" stroke="#3a332e" stroke-width="1" stroke-linecap="round" />
+    <ellipse cx="10" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+    <ellipse cx="26" cy="22" rx="2.5" ry="1.5" fill="#f5c4b3" opacity=".5" />
+  </svg></span>
+  </article>
+    </div>
+    <div class="stations-grid-foot">
+      <div class="continue" aria-hidden="true">→</div>
+      <div class="folio">2 / 2　―　表</div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="page-loop">
+  <div class="safe loop-page">
+    <div class="loop-top">
+      <div class="loop-ring" style="--ring-gradient: conic-gradient(#d85a4a 0%, #ef8a3c 14%, #d9a928 29%, #74ab3d 43%, #1d9e75 57%, #3d7fc2 71%, #8b62c8 86%, #d85a4a 100%);" aria-hidden="true"><span class="loop-ring-core"><svg viewBox="0 0 24 24" class="star-svg" aria-hidden="true">
+    <path d="M12 1.5c.6 3.6 1.4 6 2.7 7.3 1.3 1.3 3.7 2.1 7.3 2.7-3.6.6-6 1.4-7.3 2.7-1.3 1.3-2.1 3.7-2.7 7.3-.6-3.6-1.4-6-2.7-7.3C7.9 12.9 5.5 12.1 1.9 11.5c3.6-.6 6-1.4 7.3-2.7C10.5 7.5 11.3 5.1 12 1.5Z" />
+  </svg></span></div>
+      <h2 class="loop-title">また、ここから。</h2>
+      <p class="loop-body">ぐるっと一周して、最初の「好き」に戻ってきました。でも今度は、前より一段深く、自分のワクワクが見えているはずです。</p>
+      <p class="loop-echo">「つくる、伝える、反応をもらう。また好きが育つ。」その循環が、ラボの歩き方です。</p>
+    </div>
+    <div class="practical">
+      <p class="practical-note">“ワクワク”から始まるオーダーメイド学習。1コマ60分・定員5名・いつでも入会OK。</p>
+      <p class="practical-placeholder">教室名・住所・料金など【要確認】</p>
+      <div class="cta-block">
+        <div class="qr" id="qr-cta" data-qr-url="https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087"></div>
+        <p class="cta-caption">受講申し込みをする</p>
+      </div>
+    </div>
+    <div class="folio">2 / 2　―　裏</div>
+  </div>
+</section>
+<script src="assets/lib/qrcode.js"></script>
+<script>
+  function renderQr(el) {
+    var url = el.getAttribute('data-qr-url');
+    var qr = qrcode(0, 'M');
+    qr.addData(url);
+    qr.make();
+    el.innerHTML = qr.createSvgTag({ scalable: true });
+  }
+  document.querySelectorAll('[data-qr-url]').forEach(renderQr);
+</script>
+</body>
+</html>

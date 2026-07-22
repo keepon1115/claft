@@ -3897,6 +3897,16 @@
   color: var(--ink-800);
 }
 
+.nd-tt-name {
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.nd-tt-theme {
+  font-size: var(--text-sm);
+  color: var(--ink-600);
+}
+
 .nd-tt-row--break .nd-tt-time,
 .nd-tt-row--break .nd-tt-label {
   color: var(--ink-500);
@@ -3940,6 +3950,70 @@
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
   color: var(--ink-700);
+}
+
+/* ---------- 単独ページ（タイムスケジュール）---------- */
+.nd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border: 1px solid var(--paper-edge);
+  border-radius: 999px;
+  box-shadow: var(--shadow-paper);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-700);
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.nd-back:hover {
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-paper-lift);
+}
+
+.nd-exhibits {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nd-exhibit {
+  padding: 22px;
+}
+
+.nd-exhibit-head {
+  margin-bottom: 14px;
+}
+
+.nd-exhibit-title {
+  margin: 0 0 4px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.nd-exhibit-theme {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-600);
+}
+
+.nd-exhibit-video {
+  margin-top: 4px;
+}
+
+.nd-exhibit-pending {
+  margin: 0;
+  padding: 18px;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--ink-500);
+  background: rgba(92, 77, 42, 0.06);
+  border-radius: 12px;
 }
 
 /* ---------- 過去の発表会 ---------- */

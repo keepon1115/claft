@@ -31,7 +31,12 @@
       "PowerShell(python \"C:\\\\Users\\\\skawa\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\claft-shots.py\")",
       "PowerShell($cands = @\\('py', 'python3', 'python.exe'\\); foreach \\($c in $cands\\) { try { $v = & $c --version 2>$null; if \\($v\\) { Write-Output \"$c => $v\" } } catch {} }; try { $n = & node --version; Write-Output \"node => $n\" } catch {}; if \\(Test-Path node_modules\\\\playwright\\) { Write-Output \"playwright\\(node\\) installed\" } else { Write-Output \"no node playwright in project\" })",
       "PowerShell(New-Item *)",
-      "PowerShell(Get-ChildItem *)"
+      "PowerShell(Get-ChildItem *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/futurecraft/Presentation)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/futurecraft/Presentation2607)",
+      "Bash(cat /tmp/dev.log | tail -n 100)",
+      "Read(//tmp/**)"
     ],
     "additionalDirectories": [
       "c:\\dev\\claft-HP\\app\\(site)\\yononaka"

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { SectionTitle } from "@/components/craft/SectionTitle";
 import {
   Underline,
@@ -14,7 +15,6 @@ import { DoodleIcon, type DoodleIconName } from "@/components/craft/DoodleIcon";
    - 2026.7.26(日) 単独開催 @ アーテック5F フリースペース
 ============================================================ */
 
-const FORM_URL = "https://forms.gle/x1rpfm8RBBWCZvSq5";
 const IMG = "/assets/images/journal/2026-06";
 
 // 浮遊フキダシ → 紙片チップ
@@ -168,16 +168,6 @@ const voices: { tag: string; text: string; accentRgb: string; rot: string }[] = 
   },
 ];
 
-// 当日のスケジュール
-const schedule: { time: string; label: string; tag: "staff" | "main" | "break" | "other" }[] = [
-  { time: "10:00 – 10:30", label: "つきのイベント（つきのさんのなんでも発表会）", tag: "staff" },
-  { time: "10:30 – 12:00", label: "なんでも発表会（10分 × 9人）", tag: "main" },
-  { time: "12:00 – 13:00", label: "昼休み", tag: "break" },
-  { time: "13:00 – 15:30", label: "なんでも発表会（10分 × 9人）", tag: "main" },
-  { time: "15:30 – 16:00", label: "PLAY CLAFT 意見交換会", tag: "other" },
-  { time: "16:00 – 16:30", label: "あおいイベント（あおいさんのなんでも発表会）", tag: "staff" },
-];
-
 // 過去の発表会
 const pastEvents: { date: string; label: string; url: string }[] = [
   { date: "2025.07", label: "2025年 夏", url: "https://www.keeponlearning.fun/nandemo2025summer" },
@@ -185,12 +175,12 @@ const pastEvents: { date: string; label: string; url: string }[] = [
   { date: "2024.07", label: "2024年 夏　※録画あり", url: "https://www.keeponlearning.fun/nandemo2024" },
 ];
 
-function ApplyButton() {
+function ScheduleButton() {
   return (
-    <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
-      発表を申し込む
+    <Link href="/futurecraft/Presentation2607" className="craft-sticker">
+      タイムスケジュールを見る
       <ArrowRightDoodle width={24} />
-    </a>
+    </Link>
   );
 }
 
@@ -265,7 +255,7 @@ export default function NandemoClient() {
           </div>
 
           <div className="nd-cta reveal">
-            <ApplyButton />
+            <ScheduleButton />
             <p className="nd-cta-note">観覧は申込不要・出入り自由。当日ぜひ会場へ。</p>
           </div>
 
@@ -662,90 +652,6 @@ export default function NandemoClient() {
         </div>
       </section>
 
-      {/* ========== 開催概要 ========== */}
-      <section className="nd-section">
-        <div className="container">
-          <div className="nd-section-head">
-            <SectionTitle eyebrow="INFORMATION ・ 開催概要" variant={3} lineColor="var(--cream)">
-              当日のスケジュール。
-            </SectionTitle>
-          </div>
-
-          <div className="nd-facts">
-            <div
-              className="nd-fact craft-paper craft-tilt reveal"
-              style={{ "--rot": "-0.5deg", "--accent-rgb": "224 158 22" } as CSSProperties}
-            >
-              <span className="craft-tape craft-tape--cream craft-tape--tl" aria-hidden="true" />
-              <span className="nd-fact-label">DATE</span>
-              <p className="nd-fact-main">2026年7月26日（日）</p>
-              <p className="nd-fact-sub">10:00 – 16:30</p>
-            </div>
-            <div
-              className="nd-fact craft-paper craft-tilt reveal"
-              style={{ "--rot": "0.5deg", "--accent-rgb": "var(--brand-rgb)", transitionDelay: "80ms" } as CSSProperties}
-            >
-              <span className="craft-tape craft-tape--tr" aria-hidden="true" />
-              <span className="nd-fact-label">PLACE</span>
-              <p className="nd-fact-main">アーテック5F フリースペース</p>
-              <p className="nd-fact-sub">いつものスクールの場所です</p>
-            </div>
-          </div>
-
-          <div
-            className="nd-timetable craft-paper reveal"
-            style={{ "--rot": "0deg" } as CSSProperties}
-          >
-            {schedule.map((s) => (
-              <div key={`${s.time}-${s.label}`} className={`nd-tt-row${s.tag === "break" ? " nd-tt-row--break" : ""}`}>
-                <span className="nd-tt-time">{s.time}</span>
-                <span className="nd-tt-label">
-                  {s.label}
-                  {s.tag === "other" && (
-                    <span className="nd-tag" style={{ "--accent-rgb": "var(--brand-rgb)" } as CSSProperties}>
-                      その他イベント
-                    </span>
-                  )}
-                  {s.tag === "staff" && (
-                    <span className="nd-tag" style={{ "--accent-rgb": "var(--violet-rgb)" } as CSSProperties}>
-                      スタッフのイベント
-                    </span>
-                  )}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="nd-tt-note reveal">※ 時間配分は仮です。人数・内容により前後する場合があります。</p>
-
-          <div className="nd-sides">
-            <div
-              className="nd-side craft-paper craft-tilt reveal"
-              style={{ "--rot": "-0.5deg" } as CSSProperties}
-            >
-              <span className="nd-tag" style={{ "--accent-rgb": "var(--brand-rgb)" } as CSSProperties}>
-                その他イベント
-              </span>
-              <h3 className="nd-side-title">PLAY CLAFT 意見交換会</h3>
-              <p className="nd-side-body">
-                秋のスクールフェスタで行うイベントを、みんなで企画・相談する時間です。アイデアを持ち寄って一緒に深めます。
-              </p>
-            </div>
-            <div
-              className="nd-side craft-paper craft-tilt reveal"
-              style={{ "--rot": "0.5deg", transitionDelay: "80ms" } as CSSProperties}
-            >
-              <span className="nd-tag" style={{ "--accent-rgb": "var(--violet-rgb)" } as CSSProperties}>
-                スタッフのイベント
-              </span>
-              <h3 className="nd-side-title">つきの・あおいさんのイベント</h3>
-              <p className="nd-side-body">
-                スタッフによる“なんでも発表会”。子どもたちと一緒に、大人も自分の「好き」を発表します。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ========== 過去の発表会 ========== */}
       <section className="nd-section">
         <div className="container">
@@ -807,7 +713,7 @@ export default function NandemoClient() {
               発表も、観覧も大歓迎。一緒に盛り上がりましょう！
             </p>
             <div className="nd-cta">
-              <ApplyButton />
+              <ScheduleButton />
               <p className="nd-cta-note">観覧は申込不要・出入り自由。お気軽にお越しください。</p>
             </div>
           </div>
