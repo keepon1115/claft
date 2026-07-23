@@ -770,6 +770,87 @@ export default function YononakaKyoshitsuPage() {
         </div>
       </Section>
 
+      {/* ===== 3.6 ナナメの関係をつくるために ===== */}
+      <Section className="scroll-animate">
+        <SectionHeading color="#9b87f5">ナナメの関係をつくるために</SectionHeading>
+
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '24px',
+            padding: '28px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            border: '2px dashed rgba(0,0,0,0.08)',
+          }}
+        >
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '20px' }}
+          >
+            学校でもない、家庭でもない、会社でもない場所。Yononakaの源流である「よのなか科」提唱者の
+            <a
+              href="https://www.yononaka.net/"
+              target="_blank"
+              rel="noopener"
+              style={{ color: '#34c6be', textDecoration: 'underline', fontWeight: 'var(--font-bold)' }}
+            >
+              藤原和博さん
+            </a>
+            がおっしゃる「ナナメの関係」が築かれる場づくりを、私は目指しています。
+          </p>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '20px' }}
+          >
+            縦は、親子であり、上司と部下であり、先生と生徒です。横は、同級生や同僚です。そのどちらでもないナナメの線は、主要なコミュニティの外側にしか引けません。
+          </p>
+
+          <figure
+            style={{
+              margin: '0 0 20px 0',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+            }}
+          >
+            <img
+              src="/assets/yononaka/naname.png"
+              alt="タテ・ヨコ・ナナメの関係を表す図"
+              style={{ width: '100%', display: 'block' }}
+            />
+          </figure>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '20px' }}
+          >
+            そして、5年やってわかったことがあります。人は、ただ集まっただけでは斜めにつながらない。名前と肩書きを交換して終わる集まりを、私はいくつも見てきました。
+          </p>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '20px' }}
+          >
+            必要なのは、問いです。正解がなく、誰でも入っていける、身近な問い。「なんかいいってなに？」「お金持ちってどんな特徴？」などの問いがひとつ場に置かれた瞬間、年齢も職業も肩書きも関係なく、全員が同じ目線で話ができる。
+          </p>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '20px' }}
+          >
+            だから私は、Yononakaを教育プログラムであると同時に、コミュニティの対話を促進する仕組みとも思っています。
+          </p>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)' }}
+          >
+            習い事教室、地域の集まり、オンラインコミュニティ——学校でも会社でもない、サードプレイスにこそ、この装置は効くはずだと思っています。
+          </p>
+        </div>
+      </Section>
+
       {/* ===== 4. 単純に集まるのと何が違う？ ===== */}
       <Section className="scroll-animate">
         <SectionHeading color="#ffd66b">単純に集まるのと何が違う？</SectionHeading>
@@ -1314,6 +1395,93 @@ export default function YononakaKyoshitsuPage() {
             </div>
             <p className="heading-sm" style={{ color: '#9b87f5', fontSize: '22px', flexShrink: 0, marginLeft: '12px' }}>+¥10,000</p>
           </div>
+        </div>
+      </Section>
+
+      {/* ===== 9.5 ぜひ見に来てください！ ===== */}
+      <Section className="scroll-animate">
+        <SectionHeading color="#34c6be">ぜひ見に来てください！</SectionHeading>
+
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '24px',
+            padding: '28px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            border: '2px dashed rgba(0,0,0,0.08)',
+          }}
+        >
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '20px' }}
+          >
+            Yononakaは、毎月オンラインで開いています。まずは、見に来てください。参加でも、視聴だけでも大歓迎です。
+          </p>
+
+          <a
+            href="https://lin.ee/wcsFK9A"
+            target="_blank"
+            rel="noopener"
+            className="cta-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '14px 28px',
+              background: '#06c755',
+              color: '#fff',
+              borderRadius: '50px',
+              fontWeight: 'var(--font-bold)',
+              fontSize: '16px',
+              textDecoration: 'none',
+              boxShadow: '0 6px 20px rgba(6,199,85,0.3)',
+              marginBottom: '24px',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+            </svg>
+            LINEはこちら
+          </a>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)', marginBottom: '14px' }}
+          >
+            そのうえで、
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+            {['自分のコミュニティで一度やってみたい', 'オリジナルのテーマをつくってほしい'].map((text, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px',
+                  padding: '12px 16px',
+                  background: 'rgba(52,198,190,0.06)',
+                  borderRadius: '12px',
+                  border: '2px solid rgba(52,198,190,0.15)',
+                }}
+              >
+                <span style={{ color: '#34c6be', fontSize: '16px', flexShrink: 0, lineHeight: 1.5, fontWeight: 'var(--font-bold)' }}>
+                  ✓
+                </span>
+                <p className="body-base" style={{ lineHeight: 'var(--leading-relaxed)', color: 'var(--ink-700)' }}>
+                  {text}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p
+            className="body-base"
+            style={{ lineHeight: 'var(--leading-loose)', color: 'var(--ink-700)' }}
+          >
+            どれも歓迎です。ワークの設計から当日のファシリテーションまで、必要なところだけでも、まるごとでも、お手伝いします。
+          </p>
         </div>
       </Section>
 
