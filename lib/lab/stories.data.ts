@@ -98,7 +98,7 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://x.gd/JfGSk',
     ctaLabel: 'これまでの発表会の様子はこちら →',
     cards: [
-      { id: 'happyokai-1', emoji: '🎤', theme: 'navy', title: '', text: '普段のスクールでの活動や、今トコトン没頭していること、大好きなこと、ユニークなアイデアなど──。ジャンルに縛られず、自分の「好き」をなんでも自由に表現しあう場です！「上手くできるかな…」なんて気にしなくて大丈夫。大切なのは、みんなの「これが好き！」「これを作った！」という熱い想いです。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d67c8564800b4d899774e62ce745b60d/%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC.png'  },
+      { id: 'happyokai-1', emoji: '🎤', theme: 'navy', title: '', text: '普段のスクールでの活動や、今トコトン没頭していること、大好きなこと、ユニークなアイデアなど──。ジャンルに縛られず、自分の「好き」をなんでも自由に表現しあう場です！「上手くできるかな…」なんて気にしなくて大丈夫。大切なのは、みんなの「これが好き！」「これを作った！」という熱い想いです。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/eb2a420c610a4d7fb7a6f530cf3368d2/happyoukai-0619-2.png'  },
       { id: 'happyokai-2', emoji: '🌟', theme: 'orange', title: '', text: '大盛り上がりで過去イチの発表会になりました！アーカイブでご覧ください！' },
     ],
   },
