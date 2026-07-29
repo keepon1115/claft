@@ -1,9 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 
-const QUICK_CHIPS = ['すごい！', 'まねしたい', 'もっと見たい'];
+/**
+ * 定型チップ＝「書き出し」。押すと本文の冒頭に入り、続きを自分の言葉で書いてもらう。
+ * 末尾のコメントは「何を引き出すためのチップか」の記録（画面には表示しない）。
+ */
+const QUICK_CHIPS: { label: string; starter: string }[] = [
+  { label: 'かたち', starter: 'かたちを見て、' }, // デザイン・色・造形
+  { label: 'うごき', starter: 'うごきを見て、' }, // 機構・動作
+  { label: 'プログラム', starter: 'プログラムについて、' }, // 制御・ロジック
+  { label: 'アイデア', starter: 'そのアイデアは、' }, // 発想・着眼点
+  { label: '質問', starter: 'ひとつ聞きたいんだけど、' }, // 質問
+];
 
 /**
  * コメント送信専用のミニフォーム。
@@ -16,9 +26,22 @@ export default function CommentSection({ workId }: { workId: string }) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function addChip(chip: string) {
-    setBody((prev) => (prev ? `${prev} ${chip}` : chip));
+  /** 書き出しを本文の冒頭に入れる。既に別の書き出しが入っていれば差し替える */
+  function applyStarter(starter: string) {
+    const current = body.trimStart();
+    const existing = QUICK_CHIPS.find((c) => current.startsWith(c.starter));
+    const rest = existing ? current.slice(existing.starter.length) : current;
+    const next = starter + rest;
+    setBody(next);
+    // 書き出しの直後にカーソルを置き、そのまま続きを書けるようにする
+    requestAnimationFrame(() => {
+      const el = textareaRef.current;
+      if (!el) return;
+      el.focus();
+      el.setSelectionRange(starter.length, starter.length);
+    });
   }
 
   async function submit(e: React.FormEvent) {
@@ -69,17 +92,18 @@ export default function CommentSection({ workId }: { workId: string }) {
       <div className="flex flex-wrap gap-1.5">
         {QUICK_CHIPS.map((chip) => (
           <button
-            key={chip}
+            key={chip.label}
             type="button"
-            onClick={() => addChip(chip)}
+            onClick={() => applyStarter(chip.starter)}
             className="font-handwritten rounded-full border border-[#1F1810]/25 bg-[#FFF8EC] px-3 py-1 text-xs text-[#1F1810]/70 hover:border-[#2E7D7D] hover:text-[#2E7D7D]"
           >
-            {chip}
+            {chip.label}
           </button>
         ))}
       </div>
 
       <textarea
+        ref={textareaRef}
         value={body}
         onChange={(e) => setBody(e.target.value)}
         maxLength={500}

@@ -33,6 +33,7 @@ const STATIC_PATHS = [
   '/futurecraft/Exhibition',
   '/futurecraft/Exhibition-game',
   '/futurecraft/Presentation',
+  '/futurecraft/RobotPresentation',
   '/yononaka',
   '/yononaka/jugyo-repo',
   '/yononaka/ai-robot',

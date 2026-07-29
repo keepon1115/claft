@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verify:phase1": "node scripts/verify-phase1.mjs"
+    "verify:phase1": "node scripts/verify-phase1.mjs",
+    "import:robot-works": "node scripts/import-robot-works.mjs",
+    "export:robot-comments": "node scripts/export-robot-comments.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",

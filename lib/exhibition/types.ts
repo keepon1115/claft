@@ -26,6 +26,8 @@ export interface Work {
   title: string;
   author_nickname: string;
   genre: string | null;
+  /** コース分けが必要な展示会（ロボット発表会など）でのみ使用。他は null */
+  course: string | null;
   thumbnail_url: string | null;
   youtube_url: string | null;
   author_intro: string | null;

@@ -7,6 +7,16 @@ function requireEnv(name: string): string {
 }
 
 /**
+ * Next.js の Data Cache は、ページ側で dynamic = 'force-dynamic' を指定していても
+ * supabase-js 内部の fetch までは自動で no-store にならず、ディスクキャッシュ
+ * （.next/cache/fetch-cache）に古いレスポンスが残り続けることがある。
+ * ここで明示的に no-store を指定し、常に最新のDB状態を取得する。
+ */
+function noStoreFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  return fetch(input, { ...init, cache: 'no-store' });
+}
+
+/**
  * anon キーのサーバー用クライアント。
  * RLS が適用されるため「公開済み・approved のものしか見えない」ことが保証される。
  * 公開ページのデータ取得はすべてこちらを使う。
@@ -15,7 +25,7 @@ export function getAnonClient(): SupabaseClient {
   return createClient(
     requireEnv('NEXT_PUBLIC_SUPABASE_URL'),
     requireEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
-    { auth: { persistSession: false, autoRefreshToken: false } },
+    { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: noStoreFetch } },
   );
 }
 
@@ -30,6 +40,6 @@ export function getServiceClient(): SupabaseClient {
   return createClient(
     requireEnv('NEXT_PUBLIC_SUPABASE_URL'),
     requireEnv('SUPABASE_SERVICE_ROLE_KEY'),
-    { auth: { persistSession: false, autoRefreshToken: false } },
+    { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: noStoreFetch } },
   );
 }
