@@ -139,7 +139,7 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
             }}
           >
             <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.7, color: 'var(--ink-700)' }}>
-              📚 {feature.bookNote}
+              {feature.noteIcon ?? '📚'} {feature.bookNote}
             </p>
           </div>
         )}
