@@ -49,7 +49,7 @@ export const stories: StoryCategory[] = [
     emoji: '🌻',
     ring: 'alt',
     visibleUntil: '2026-08-31',
-    updatedAt: '2026-07-08',
+    updatedAt: '2026-08-19',
     hpUrl: '/lab/summer-lab',
     ctaLabel: '夏休み特別ページを見る →',
     cards: [
@@ -68,7 +68,7 @@ export const stories: StoryCategory[] = [
     label: '募集\nイベント',
     emoji: '📣',
     ring: 'default',
-    updatedAt: '2026-08-06',
+    updatedAt: '2026-08-19',
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
@@ -82,11 +82,12 @@ export const stories: StoryCategory[] = [
     label: '今週の\nフォト',
     emoji: '📸',
     ring: 'default',
-    updatedAt: '2026-08-06',
+    updatedAt: '2026-08-19',
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
       { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/fc11a0dc6d8e4db1b3789d8f1bcf4ca3/photo-0801%20(1).png' },
+      { id: 'photo-2', emoji: '🎋', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/caf9db60e5d94a5ea1222f401d5b7f16/Original%20robot.png' },
     ],
   },
   {
@@ -107,11 +108,11 @@ export const stories: StoryCategory[] = [
     label: 'Yononaka',
     emoji: '🗣️',
     ring: 'navy',
-    updatedAt: '2026-07-29',
-    hpUrl: 'https://forms.gle/F8yybf7eV7AKytcw5',
+    updatedAt: '2026-08-19',
+    hpUrl: 'https://forms.gle/caGq2a3Y3PjeiL227',
     ctaLabel: 'Yononakaに参加してみる →',
     cards: [
-      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: '「AIロボット社会、僕たちはどう生きるか」シリーズ。小学生でも参加可能です！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/65c849b58f5146589863c9924b6c475e/yononaka-0729.png'   },
+      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: '「うちのまち、なんもないなぁ」と思っているその場所が、誰かにとっては憧れの場所かもしれない —— そんな問いを、コミュニケーションを通して一緒に探っていきます。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/97ee03f274b547aa9c597818b877635d/yononaka-0819.png'   },
     ],
   },
   {
@@ -119,11 +120,11 @@ export const stories: StoryCategory[] = [
     label: 'インタ\nビュー',
     emoji: '💼',
     ring: 'navy',
-    updatedAt: '2026-07-16',
-    hpUrl: 'https://note.com/yononaka_career/n/n15fceefc4948?magazine_key=m7efb45600c66',
+    updatedAt: '2026-08-19',
+    hpUrl: 'https://note.com/yononaka_career/n/n436c7431ddd0',
     ctaLabel: 'お仕事インタビューを読む →',
     cards: [
-      { id: 'career-1', emoji: '🍰', theme: 'orange', title: '', text: '今回は「食」に関するお仕事。「農家さんと売り場をつなぐ」会社で働いているHさんにお話を伺いました。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/1d411a9f2ba24fd1bd5d723e3e809d2f/career-0701.png'  },
+      { id: 'career-1', emoji: '🍰', theme: 'orange', title: '', text: '世の中には私たちの知らない仕事や深い世界がたくさんあります。一人の大人の生き方に迫ったこの記事が、キャリアや自分らしい生き方を見つめ直すきっかけになれば幸いです。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/78a89155d36241e5b48d5a7a593bea5c/career-0819.png'  },
     ],
   },
   {
