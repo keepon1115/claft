@@ -6273,3 +6273,937 @@ html {
   color: rgb(var(--brand-rgb));
   letter-spacing: 0.04em;
 }
+
+/* =========================================
+   mj-: 無人島サバイバル 記録LP（/mujinto）
+   docs/MUJINTO_LP_SPEC.md 参照。ローカル色変数は .mj-page に閉じる（:root には足さない）。
+   ========================================= */
+.mj-page {
+  --mj-note-y: rgb(var(--cream-rgb));
+  --mj-note-g: rgb(var(--green-rgb) / .38);
+  --mj-note-o: color-mix(in srgb, rgb(var(--cream-rgb)) 55%, rgb(var(--pink-rgb)) 45%);
+  padding-bottom: 72px;
+}
+
+.mj-section {
+  padding-block: 56px 0;
+}
+
+.mj-section-head {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* E の前後だけ余白を広げる（前＝mj-notes自身のtop、後＝次に続くmj-cityのtop） */
+.mj-notes,
+.mj-city {
+  padding-top: 72px;
+}
+
+/* ---------- A ヒーロー ---------- */
+.mj-hero {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-height: 78svh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+}
+
+.mj-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.mj-hero-media img {
+  object-fit: cover;
+}
+
+.mj-hero-media-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  color: var(--ink-500);
+  font-size: var(--text-sm);
+}
+
+.mj-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--ink-900-rgb) / 0) 0%,
+    rgb(var(--ink-900-rgb) / 0.15) 30%,
+    rgb(var(--ink-900-rgb) / 0.86) 100%
+  );
+}
+
+.mj-hero-body {
+  position: relative;
+  z-index: 2;
+  padding-block: 24px 28px;
+  color: #fff;
+}
+
+.mj-hero-label {
+  margin-bottom: 14px;
+}
+
+.mj-hero-title {
+  margin: 0 0 8px;
+  font-size: var(--text-5xl);
+  font-weight: var(--font-black);
+  line-height: var(--leading-tight);
+  color: #fff;
+}
+
+.mj-hero-sub {
+  margin: 0 0 20px;
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.mj-tally {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.mj-tally-ticks {
+  flex-shrink: 0;
+}
+
+.mj-tally-text {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: #fff;
+}
+
+.mj-hero-note {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------- B これは何か ---------- */
+.mj-what-title {
+  margin: 0 0 20px;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.mj-what-body {
+  padding-left: 16px;
+  border-left: 3px solid rgb(var(--accent-rgb) / 0.5);
+}
+
+.mj-what-body p {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-800);
+}
+
+.mj-fact-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.mj-what-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--paper-warm);
+}
+
+.mj-what-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.mj-fact-chip {
+  font-size: var(--text-xs);
+}
+
+/* ---------- C 5日間の地図 ---------- */
+.mj-map-lead {
+  margin: 0 0 28px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.mj-map-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.mj-step {
+  margin-left: calc((var(--i, 1) - 1) * 12px);
+}
+
+.mj-step-inner {
+  position: relative;
+  padding: 18px 20px;
+}
+
+.mj-step-day {
+  margin: 0 0 2px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.06em;
+  color: rgb(var(--accent-rgb));
+}
+
+.mj-step-inner--future .mj-step-day {
+  color: var(--ink-500);
+}
+
+.mj-step-title {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.mj-step-inner--future .mj-step-title {
+  color: var(--ink-500);
+}
+
+.mj-step-detail {
+  margin: 8px 0 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.mj-step-cta {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: rgb(var(--accent-rgb));
+  text-decoration: none;
+}
+
+.mj-badge-plan {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgb(var(--ink-500-rgb) / 0.12);
+  color: var(--ink-500);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+}
+
+/* ---------- D 1日目の記録（時系列の日誌） ---------- */
+.mj-log {
+  position: relative;
+  padding-left: 28px;
+}
+
+.mj-log + .mj-log {
+  margin-top: 36px;
+}
+
+.mj-log::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 9px;
+  border-left: 2px dashed rgb(var(--accent-rgb) / 0.4);
+}
+
+.mj-log-num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb));
+  color: #fff;
+  font-size: 10px;
+  font-weight: var(--font-black);
+}
+
+.mj-log-title {
+  margin: 0 0 10px;
+  font-size: var(--text-xl);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.mj-log-block p {
+  margin: 0 0 14px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-800);
+}
+
+.mj-log-block p:last-child {
+  margin-bottom: 0;
+}
+
+/* 漂着物タグ（荷札風：上辺に穴） */
+.mj-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 16px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.mj-tag {
+  position: relative;
+  display: inline-block;
+  padding: 10px 12px 8px;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px 4px 3px 3px / 6px 6px 3px 3px;
+  box-shadow: var(--shadow-paper);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+  transform: rotate(var(--rot, 0deg));
+}
+
+.mj-tag::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--desk);
+  box-shadow: inset 0 1px 1.5px rgba(0, 0, 0, 0.25);
+}
+
+/* D-2 問いの入れ替え */
+.mj-question-flip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 20px 0 24px;
+  padding: 20px;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  border-radius: var(--radius-paper);
+  border: 1px solid var(--paper-edge);
+}
+
+.mj-question-old-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.mj-question-label {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--ink-500);
+}
+
+.mj-question-strike {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--ink-500);
+}
+
+.mj-question-arrow {
+  color: rgb(var(--accent-rgb));
+}
+
+.mj-question-new {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+/* D-3 島の掟（立て札） */
+.mj-board-lead {
+  margin: 0 0 16px;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+}
+
+.mj-board {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.mj-board-note {
+  margin: 0;
+  padding: 18px 20px;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border: 1px solid var(--paper-edge);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-paper), 0 14px 10px -8px rgb(var(--ink-900-rgb) / 0.18);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-snug);
+  color: var(--ink-900);
+}
+
+/* D-4 循環ステップ */
+.mj-cycle {
+  position: relative;
+  margin: 20px 0 24px;
+  padding-left: 36px;
+}
+
+.mj-cycle-return {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 100%;
+}
+
+.mj-cycle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mj-cycle-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background-color: var(--paper-warm);
+  background-image: var(--tex-grain);
+  border-radius: 4px 8px 5px 9px / 8px 4px 9px 5px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+}
+
+.mj-cycle-num {
+  flex-shrink: 0;
+  color: rgb(var(--accent-rgb));
+  font-weight: var(--font-black);
+}
+
+/* D-5 寝床 */
+.mj-step-phase {
+  margin: 20px 0;
+}
+
+.mj-step-phase-label {
+  margin: 0 0 10px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  letter-spacing: 0.04em;
+  color: var(--ink-800);
+}
+
+.mj-material-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.mj-material-chip {
+  font-size: var(--text-xs);
+}
+
+.mj-shelters-block {
+  margin-top: 24px;
+}
+
+.mj-shelters-label {
+  margin: 0 0 10px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: var(--ink-800);
+}
+
+/* D-4/D-5内で複数のスライド・写真が連続するとき用の縦積み間隔（他セクションと同じサイズで並べる） */
+.mj-log-block figure + figure {
+  margin-top: 16px;
+}
+
+/* D-6 飲み水 */
+.mj-vessel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.mj-vessel-diagram {
+  width: 100px;
+  height: auto;
+}
+
+.mj-vessel-note {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-500);
+}
+
+.mj-filter-table {
+  width: 100%;
+  margin: 0 0 24px;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.mj-filter-table th,
+.mj-filter-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--paper-edge);
+  text-align: left;
+  color: var(--ink-800);
+}
+
+.mj-filter-table th {
+  background-color: var(--paper-warm);
+  font-weight: var(--font-bold);
+}
+
+/* ---------- E 子どもたちのことば ---------- */
+.mj-notes-lead {
+  margin: 0 0 8px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-800);
+}
+
+.mj-notes-count {
+  margin: 0 0 16px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-700);
+}
+
+.mj-notes-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-xs);
+  color: var(--ink-700);
+}
+
+.mj-notes-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mj-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.mj-legend-dot--y {
+  background: var(--mj-note-y);
+}
+
+.mj-legend-dot--g {
+  background: var(--mj-note-g);
+}
+
+.mj-legend-dot--o {
+  background: var(--mj-note-o);
+}
+
+.mj-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.mj-filter-chip {
+  padding: 8px 14px;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border: 1px solid var(--paper-edge);
+  border-radius: 999px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--ink-700);
+  cursor: pointer;
+}
+
+.mj-filter-chip[aria-pressed='true'] {
+  background-color: rgb(var(--accent-rgb) / 0.16);
+  background-image: none;
+  color: rgb(var(--accent-rgb));
+  border-color: rgb(var(--accent-rgb) / 0.4);
+}
+
+.mj-notewall {
+  column-count: 2;
+  column-gap: .6rem;
+}
+
+@container main (min-width: 440px) {
+  .mj-notewall {
+    column-count: 3;
+  }
+}
+
+.mj-note {
+  position: relative;
+  break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: .6rem;
+  padding: 16px 14px 20px;
+  background-color: var(--mj-note-y);
+  border-radius: 2px;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(var(--rot, 0deg));
+}
+
+.mj-note[hidden] {
+  display: none;
+}
+
+.mj-note:nth-child(3n) {
+  --rot: -0.8deg;
+}
+
+.mj-note:nth-child(3n + 1) {
+  --rot: 0.6deg;
+}
+
+.mj-note:nth-child(3n + 2) {
+  --rot: -0.5deg;
+}
+
+.mj-note::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 14px 14px;
+  border-color: transparent transparent rgb(var(--ink-900-rgb) / 0.12) transparent;
+}
+
+.mj-note p {
+  margin: 0 0 10px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-900);
+}
+
+.mj-note-cat {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--ink-700);
+}
+
+.mj-note--y {
+  background-color: var(--mj-note-y);
+}
+
+.mj-note--g {
+  background-color: var(--mj-note-g);
+}
+
+.mj-note--o {
+  background-color: var(--mj-note-o);
+}
+
+/* ---------- F まちとの接続 ---------- */
+.mj-city-lead {
+  margin: 0 0 24px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-800);
+}
+
+.mj-city-card {
+  padding: 24px 20px;
+  margin-bottom: 16px;
+}
+
+.mj-city-card:last-child {
+  margin-bottom: 0;
+}
+
+.mj-city-card h3 {
+  margin: 0 0 10px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.mj-city-card > p {
+  margin: 0 0 14px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.mj-city-terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.mj-city-card figure + figure {
+  margin-top: 12px;
+}
+
+.mj-quiz {
+  margin-top: 14px;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border-radius: var(--radius-paper);
+  border: 1px solid var(--paper-edge);
+  overflow: hidden;
+}
+
+.mj-quiz summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  list-style: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+}
+
+.mj-quiz summary::-webkit-details-marker {
+  display: none;
+}
+
+.mj-quiz-pill {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb) / 0.14);
+  color: rgb(var(--accent-rgb));
+  transition: transform 0.3s ease;
+}
+
+.mj-quiz[open] .mj-quiz-pill {
+  transform: rotate(180deg);
+}
+
+.mj-quiz-body {
+  margin: 0;
+  padding: 0 16px 16px;
+  border-top: 2px dashed rgb(var(--ink-900-rgb) / 0.18);
+  padding-top: 12px;
+}
+
+.mj-quiz-body p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-800);
+  font-weight: var(--font-bold);
+}
+
+/* ---------- G 2日目へ ---------- */
+.mj-next-title {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.mj-next-card {
+  max-width: 300px;
+  margin: 0 auto 24px;
+  padding: 22px 20px;
+  text-align: center;
+}
+
+.mj-next-card-title {
+  margin: 0 0 6px;
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  color: var(--ink-500);
+}
+
+.mj-next-card-sub {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-500);
+}
+
+.mj-next-note {
+  position: relative;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 16px 14px 20px;
+  background-color: var(--mj-note-o);
+  border-radius: 2px;
+  box-shadow: var(--shadow-paper);
+}
+
+.mj-next-note::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 14px 14px;
+  border-color: transparent transparent rgb(var(--ink-900-rgb) / 0.12) transparent;
+}
+
+.mj-next-note p {
+  margin: 0 0 10px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-900);
+}
+
+.mj-next-note .mj-note-cat {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--ink-700);
+}
+
+/* ---------- H 参加申込 ---------- */
+.mj-first {
+  margin: 0 0 28px;
+  padding: 18px 20px;
+  background: rgb(var(--accent-rgb) / 0.14);
+  border-radius: var(--radius-paper);
+  text-align: center;
+}
+
+.mj-first-main {
+  margin: 0 0 4px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+}
+
+.mj-first-sub {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-700);
+}
+
+.mj-cta-list {
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mj-cta-row {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--paper-edge);
+  font-size: var(--text-sm);
+}
+
+.mj-cta-row:first-child {
+  border-top: 1px dashed var(--paper-edge);
+}
+
+.mj-cta-row dt {
+  flex-shrink: 0;
+  width: 64px;
+  font-weight: var(--font-bold);
+  color: var(--ink-500);
+}
+
+.mj-cta-row dd {
+  margin: 0;
+  color: var(--ink-800);
+  line-height: var(--leading-relaxed);
+}
+
+.mj-cta-btn {
+  display: flex;
+  width: 100%;
+  min-height: 56px;
+}
+
+/* ---------- I 主催 ---------- */
+.mj-host-line {
+  margin: 0 0 6px;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--ink-700);
+}
+
+.mj-host-note {
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--ink-500);
+}
+
+/* prefers-reduced-motion: 既存ブロック（5333行付近）は変更禁止のため、
+   mj- 層専用の打ち消しをここに自前で書く。付箋・タグの回転とスタッガーを止める。 */
+@media (prefers-reduced-motion: reduce) {
+  .mj-note,
+  .mj-tag,
+  .mj-board-note {
+    transform: none !important;
+  }
+
+  .mj-note {
+    transition-delay: 0s !important;
+  }
+}

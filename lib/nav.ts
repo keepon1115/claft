@@ -52,7 +52,8 @@ export const navItems: NavItem[] = [
       { label: 'なんでも展示会', href: '/futurecraft/Exhibition' },
       { label: 'ゲーム展示会', href: '/futurecraft/Exhibition-game' },
       { label: 'なんでも発表会', href: '/futurecraft/Presentation' },
-      { label: 'ロボット発表会', href: '/futurecraft/RobotPresentation' }
+      { label: 'ロボット発表会', href: '/futurecraft/RobotPresentation' },
+      { label: '無人島サバイバル', href: '/mujinto' }
     ]
   },
   { 

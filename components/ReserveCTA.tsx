@@ -6,7 +6,7 @@ import { LineIcon } from './craft/LineIcon';
 
 // サイト全体に常駐する予約CTA（CVゴール=LINE相談。1択に統一。体験申込はページ内のCtaPair側で担う）。
 // /contact 自体や管理画面では出さない（重複・邪魔を回避）。
-const HIDE_ON = ['/contact', '/admin', '/author', '/sogo-senbatsu'];
+const HIDE_ON = ['/contact', '/admin', '/author', '/sogo-senbatsu', '/mujinto'];
 
 export function ReserveCTA() {
   const pathname = usePathname() || '';

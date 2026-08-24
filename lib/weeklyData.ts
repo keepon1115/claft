@@ -10,6 +10,7 @@ export interface WeeklyIssue {
 }
 
 export const weeklyIssues: WeeklyIssue[] = [
+  { id: 'w-155', date: '2026-08-21', title: 'Weekly KEEPON 第155号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon8-21' },
   { id: 'w-154', date: '2026-08-14', title: 'Weekly KEEPON 第154号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon8-14' },
   { id: 'w-153', date: '2026-08-07', title: 'Weekly KEEPON 第153号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon8-7' },
   { id: 'w-152', date: '2026-07-31', title: 'Weekly KEEPON 第152号', canvaUrl: 'https://keepon.my.canva.site/weekly-keepon7-31' },

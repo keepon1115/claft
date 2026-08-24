@@ -38,6 +38,7 @@ const STATIC_PATHS = [
   '/yononaka/jugyo-repo',
   '/yononaka/ai-robot',
   '/yononaka/kyoshitsu',
+  '/mujinto',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
