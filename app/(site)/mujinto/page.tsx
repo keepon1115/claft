@@ -43,8 +43,9 @@ const IMG: Record<string, string | undefined> = {
   shelterTeam2: undefined, // D-5 当日写真（未入稿）
   filterSlide: '/assets/mujinto/filterSlide.jpeg', // D-6 スライド
   waterQuizSlide: '/assets/mujinto/water-quiz-slide1.jpg', // F 飲み水
+  shikanPhoto: '/assets/mujinto/shikan.jpg', // F 家（1枚目）
   woodFrameSlide: '/assets/mujinto/woodFrameSlide.jpg', // F 家
-  woodFramePhoto: '/assets/mujinto/woodFramePhoto.jpg', // F 家（追加分）
+  woodFramePhoto: '/assets/mujinto/woodFramePhoto.jpg', // F 家
 };
 
 // JSON-LD（Article + BreadcrumbList）は見送り：(site)グループの本文に置いた <script> は
@@ -287,6 +288,8 @@ export default function MujintoPage() {
                 <p className="mj-step-phase-label">STEP2｜紙管で建てる</p>
                 <div className="mj-material-chips">
                   <span className="craft-label mj-material-chip">紙管10本</span>
+                  <span className="craft-label mj-material-chip">梱包用ロープ</span>
+                  <span className="craft-label mj-material-chip">のこぎり</span>
                 </div>
                 <div className="mj-material-chips">
                   <span className="craft-label mj-material-chip">巻き結び</span>
@@ -471,6 +474,13 @@ export default function MujintoPage() {
               <span className="craft-label">梁</span>
               <span className="craft-label">筋交い</span>
             </div>
+            <MjFigure
+              src={IMG.shikanPhoto}
+              need="紙管の説明と、紙管を使った建築物の写真"
+              alt="紙管（しかん）の説明と、紙管を使った建築物の写真"
+              width={960}
+              height={640}
+            />
             <MjFigure
               src={IMG.woodFrameSlide}
               need="スライド「木造軸組工法(柱・梁・筋交い)」"
