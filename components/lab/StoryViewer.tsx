@@ -79,8 +79,23 @@ export function StoryViewer({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* 背景写真（microCMSで設定された場合のみ。下に暗いスクリムを敷いて文字を読みやすく） */}
-      {card.imageUrl && (
+      {/* 背景（動画があれば動画を優先。無ければ写真。下に暗いスクリムを敷いて文字を読みやすく） */}
+      {card.videoUrl ? (
+        <>
+          <video
+            className="lab-sv-bg"
+            key={`${card.id}-bg`}
+            src={card.videoUrl}
+            poster={card.imageUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+          <div className="lab-sv-scrim" />
+        </>
+      ) : card.imageUrl && (
         <>
           <img className="lab-sv-bg" key={`${card.id}-bg`} src={card.imageUrl} alt="" />
           <div className="lab-sv-scrim" />
@@ -108,7 +123,7 @@ export function StoryViewer({
 
       {/* カード本体（index をkeyにして切替時にふわっと出す） */}
       <div className="lab-sv-body" key={card.id}>
-        {!card.imageUrl && (
+        {!card.imageUrl && !card.videoUrl && (
           <span className="lab-sv-emoji" aria-hidden="true">{card.emoji}</span>
         )}
         <div className="lab-sv-text">

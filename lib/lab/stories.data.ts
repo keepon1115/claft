@@ -18,6 +18,9 @@ export type StoryCard = {
   theme: 'navy' | 'orange' | 'green';
   /** 全画面の背景写真。あれば絵文字の代わりに敷く */
   imageUrl?: string;
+  /** 全画面の背景動画（5秒程度推奨・mp4）。指定時はimageUrlより優先して再生される。
+   * 置き場所は public/videos/lab-stories/ 配下。パスは /videos/lab-stories/ファイル名.mp4 */
+  videoUrl?: string;
 };
 
 export type StoryCategory = {
@@ -40,29 +43,9 @@ export type StoryCategory = {
   cards: StoryCard[];
 };
 
-// 表示順は配列のとおり：① 夏休み特別 → ② 募集イベント → ③ 今週のフォト → ④ 発表会 → ⑤ Yononaka → ⑥ インタビュー → ⑦ スクール生紹介。
-// 「夏休み特別」は visibleUntil を過ぎると getStories() のフィルタで自動的に消える（lib/lab/content.ts 参照）。
+// 表示順は配列のとおり：① 募集イベント → ② 今週のフォト → ③ 発表会 → ④ Yononaka → ⑤ インタビュー → ⑥ スクール生紹介。
+// カテゴリに visibleUntil を設定すると、その日付（JST）を過ぎた時点で getStories() のフィルタで自動的に消える（lib/lab/content.ts 参照）。
 export const stories: StoryCategory[] = [
-  {
-    slug: 'summer',
-    label: '夏休み\n特別',
-    emoji: '🌻',
-    ring: 'alt',
-    visibleUntil: '2026-08-31',
-    updatedAt: '2026-08-19',
-    hpUrl: '/lab/summer-lab',
-    ctaLabel: '夏休み特別ページを見る →',
-    cards: [
-      {
-        id: 'summer-1',
-        emoji: '🌻',
-        theme: 'orange',
-        title: '夏休みだけ！サマプロ・ラボ',
-        text: '',
-        imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/e3c27814199e4b5588c911121e68e1d7/special.png',
-      },
-    ],
-  },
   {
     slug: 'event',
     label: '募集\nイベント',
@@ -72,7 +55,6 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
-      { id: 'event-1', emoji: '🧭', theme: 'navy', title:'', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d02ed777a1b2472c89488ca5357c3076/event-8%E6%9C%8820%E6%97%A5.png' },
       { id: 'event-2', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/28db5447dca0445fba7f1005bd16d818/%E3%83%A9%E3%83%9C%20%E3%82%A2%E3%83%97%E3%83%AA%20%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AA%E3%83%BC%E3%82%BA.png' },
       { id: 'event-3', emoji: '🗓️', theme: 'green', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
@@ -82,12 +64,12 @@ export const stories: StoryCategory[] = [
     label: '今週の\nフォト',
     emoji: '📸',
     ring: 'default',
-    updatedAt: '2026-08-19',
+    updatedAt: '2026-08-26',
     hpUrl: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
     ctaLabel: '受講予約はこちら →',
     cards: [
+      { id: 'photo-0826', emoji: '🎥', theme: 'green', title: '', text: '', videoUrl: '/videos/lab-stories/photo-0826.mp4' },
       { id: 'photo-1', emoji: '🎋', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/fc11a0dc6d8e4db1b3789d8f1bcf4ca3/photo-0801%20(1).png' },
-      { id: 'photo-2', emoji: '🎋', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/caf9db60e5d94a5ea1222f401d5b7f16/Original%20robot.png' },
     ],
   },
   {
