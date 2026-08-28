@@ -55,6 +55,7 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
+      { id: 'event-1', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/04a6f0094b134d38884dffae69b452fb/niji.png' },
       { id: 'event-2', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/28db5447dca0445fba7f1005bd16d818/%E3%83%A9%E3%83%9C%20%E3%82%A2%E3%83%97%E3%83%AA%20%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AA%E3%83%BC%E3%82%BA.png' },
       { id: 'event-3', emoji: '🗓️', theme: 'green', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
