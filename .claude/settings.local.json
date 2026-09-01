@@ -36,7 +36,11 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/futurecraft/Presentation)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/futurecraft/Presentation2607)",
       "Bash(cat /tmp/dev.log | tail -n 100)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(node scripts/_tmp-filter-robot-works.mjs scripts/robot-works-template.csv scripts/_import-robot-works-2026-09.csv)",
+      "Bash(curl -sS -o /dev/null -w \"http_status=%{http_code}\\\\n\" --max-time 15 https://vfxvcmympnugluqfqgks.supabase.co/rest/v1/)",
+      "Bash(curl -sS -o /dev/null -w \"google http_status=%{http_code}\\\\n\" --max-time 10 https://www.google.com)",
+      "Bash(nslookup vfxvcmympnugluqfqgks.supabase.co)"
     ],
     "additionalDirectories": [
       "c:\\dev\\claft-HP\\app\\(site)\\yononaka"

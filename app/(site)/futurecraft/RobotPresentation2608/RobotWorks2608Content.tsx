@@ -34,13 +34,14 @@ const COURSES: { id: string; label: string; lineColor: string; variant: 1 | 2 | 
   { id: "expert", label: "エキスパート", lineColor: "var(--pink)", variant: 3 },
 ];
 
-// 応募フォームの3問を、既存の Work スキーマの空きカラムに割り当てて保存している。
-// （author_intro＝何をどんなふうに改造したか / story_devised＝仕組みやアピールポイント /
-//   story_learned＝感想や良くしたいポイント。story_made / story_struggled は不使用）
+// 応募フォームの4問を、既存の Work スキーマの空きカラムに割り当てて保存している。
+// （author_intro＝なんでこのロボットを選びましたか？ / story_devised＝作るときに工夫したところ /
+//   story_struggled＝こだわりポイント / story_learned＝感想など。story_made は不使用）
 const STORY_BLOCKS: { key: keyof Work; label: string }[] = [
-  { key: "author_intro", label: "何をどんなふうに改造したか" },
-  { key: "story_devised", label: "仕組みやアピールポイント" },
-  { key: "story_learned", label: "感想や良くしたいポイント" },
+  { key: "author_intro", label: "なんでこのロボットを選びましたか？" },
+  { key: "story_devised", label: "作るときに工夫したところ" },
+  { key: "story_struggled", label: "こだわりポイント" },
+  { key: "story_learned", label: "感想など" },
 ];
 
 function WorkStory({ work }: { work: Work }) {
@@ -142,10 +143,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
     >
       <div className="nd-exhibit-head">
         <h3 className="nd-exhibit-title">{work.title}</h3>
-        <p className="nd-exhibit-theme">
-          つくった人: {work.author_nickname}
-          {work.genre ? ` ・ ${work.genre}` : ""}
-        </p>
+        {work.genre && <p className="nd-exhibit-theme">{work.genre}</p>}
       </div>
 
       {work.youtube_url ? (

@@ -7,7 +7,8 @@
  *
  * CSVの列見出し（1行目・日本語のまま）:
  *   コース, 作品名, ニックネーム, 動画URL,
- *   何をどんなふうに改造したか, 仕組みやアピールポイント, 感想や良くしたいポイント
+ *   なんでこのロボット(テーマ)を選びましたか？, 作るときに工夫したところ,
+ *   こだわりポイント, 感想など
  *   （見出しの順番は自由。余分な列があっても無視される）
  *
  * 動作:
@@ -106,12 +107,19 @@ const HEADER_MAP = {
   '作品名': 'title',
   'ニックネーム': 'author_nickname',
   '動画URL': 'youtube_url',
-  '何をどんなふうに改造したか': 'author_intro',
-  '仕組みやアピールポイント': 'story_devised',
-  '感想や良くしたいポイント': 'story_learned',
+  'なんでこのロボット(テーマ)を選びましたか？': 'author_intro',
+  '作るときに工夫したところ': 'story_devised',
+  'こだわりポイント': 'story_struggled',
+  '感想など': 'story_learned',
 };
 const REQUIRED = ['course', 'title', 'author_nickname'];
 const KNOWN_COURSES = new Set(['キッズ', 'エジソン', 'エキスパート']);
+// テンプレートの表記ゆれ → ページ側（RobotWorks2608Content.tsx の COURSES）が想定する3値に正規化
+const COURSE_ALIASES = {
+  '自考力キッズ': 'キッズ',
+  'エジソンクラス': 'エジソン',
+  'エキスパート＆スタッフ': 'エキスパート',
+};
 
 // YouTube URLからIDを取り出す（lib/exhibition/youtube.ts と同等。スクリプト単体実行のためここに複製）
 function extractYouTubeId(u) {
@@ -175,6 +183,10 @@ for (let r = 1; r < rawRows.length; r++) {
     continue;
   }
 
+  if (rec.course && COURSE_ALIASES[rec.course]) {
+    rec.course = COURSE_ALIASES[rec.course];
+  }
+
   if (!KNOWN_COURSES.has(rec.course)) {
     warnings.push(`${r + 1}行目: コース「${rec.course}」は想定外の値です（キッズ／エジソン／エキスパート以外→ページでは「その他」に表示）`);
   }
@@ -196,6 +208,7 @@ for (let r = 1; r < rawRows.length; r++) {
     youtube_url: youtubeUrl,
     author_intro: rec.author_intro || null,
     story_devised: rec.story_devised || null,
+    story_struggled: rec.story_struggled || null,
     story_learned: rec.story_learned || null,
   };
 

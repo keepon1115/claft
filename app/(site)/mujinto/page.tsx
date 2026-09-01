@@ -40,7 +40,7 @@ const IMG: Record<string, string | undefined> = {
   ropeworkSlide2: '/assets/mujinto/ropeworkSlide2.jpeg', // D-5 STEP2
   ropeworkSlide3: '/assets/mujinto/ropeworkSlide3.jpeg', // D-5 STEP2
   shelterTeam1: '/assets/mujinto/shelterTeam1.jpeg', // D-5 当日写真
-  shelterTeam2: undefined, // D-5 当日写真（未入稿）
+  shelterTeam2: '/assets/mujinto/shelterTeam2.jpg', // D-5 当日写真
   filterSlide: '/assets/mujinto/filterSlide.jpeg', // D-6 スライド
   waterQuizSlide: '/assets/mujinto/water-quiz-slide1.jpg', // F 飲み水
   shikanPhoto: '/assets/mujinto/shikan.jpg', // F 家（1枚目）

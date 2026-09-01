@@ -236,3 +236,31 @@ language sql stable security definer set search_path = public as $$
   group by reaction_type_id;
 $$;
 grant execute on function reaction_counts(uuid) to anon;
+
+-- =========================================================
+-- 10. コメントCSVエクスポート用ビュー（作品名を紐づけ）
+--   Supabase Studio の Table Editor で comments_with_work を開いて
+--   CSVエクスポートすれば、作品名(work_title)つきで一覧できる
+--   （生の comments テーブルは work_id しか持たないため）。
+--   security_invoker=true にして、将来anon/authenticatedに
+--   grantが緩んでもRLS（承認済みコメントのみ）が効くようにする。
+--   デフォルトでは grant しない＝anon/authenticated には非公開。
+-- =========================================================
+create or replace view comments_with_work
+with (security_invoker = true) as
+select
+  c.id,
+  c.work_id,
+  w.title           as work_title,
+  w.course          as work_course,
+  w.author_nickname as work_author_nickname,
+  c.comment_type,
+  c.body,
+  c.viewer_nickname,
+  c.status,
+  c.created_at,
+  c.reviewed_at
+from comments c
+join works w on w.id = c.work_id;
+
+revoke all on comments_with_work from public, anon, authenticated;
