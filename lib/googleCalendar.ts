@@ -19,6 +19,7 @@
 //   申込: （フォームURL）
 //   カテゴリ: （検定/発表会/Yononaka/ワークショップ/展示会 等）
 //   配信: （告知したWeekly/MonthlyのURL）
+//   ボタン文言: （申込ボタンの表示文言。省略時は「申し込む」）
 
 export interface CalendarEvent {
   id: string;
@@ -34,6 +35,7 @@ export interface CalendarEvent {
   category?: string;    // 説明欄「カテゴリ:」
   broadcastUrl?: string; // 説明欄「配信:」
   imageUrl?: string;    // 説明欄「画像:」（公開URL／microCMS推奨）
+  applyButtonLabel?: string; // 説明欄「ボタン文言:」（省略時は「申し込む」）
   rawDescription?: string;
 }
 
@@ -57,7 +59,14 @@ function stripHtml(html: string): string {
 
 type ParsedFields = Pick<
   CalendarEvent,
-  'audience' | 'location' | 'time' | 'applyUrl' | 'category' | 'broadcastUrl' | 'imageUrl'
+  | 'audience'
+  | 'location'
+  | 'time'
+  | 'applyUrl'
+  | 'category'
+  | 'broadcastUrl'
+  | 'imageUrl'
+  | 'applyButtonLabel'
 >;
 
 function parseDescription(description: string | undefined): ParsedFields {
@@ -76,6 +85,7 @@ function parseDescription(description: string | undefined): ParsedFields {
     else if (/^申込[：:]/.test(t)) result.applyUrl = t.replace(/^申込[：:]\s*/, '');
     else if (/^カテゴリ[：:]/.test(t)) result.category = t.replace(/^カテゴリ[：:]\s*/, '');
     else if (/^配信[：:]/.test(t)) result.broadcastUrl = t.replace(/^配信[：:]\s*/, '');
+    else if (/^ボタン文言[：:]/.test(t)) result.applyButtonLabel = t.replace(/^ボタン文言[：:]\s*/, '');
     else if (/^画像[：:]/.test(t)) {
       const url = t.replace(/^画像[：:]\s*/, '');
       // 公開URL（http/https）のみ許可。それ以外は無視（安全側）。

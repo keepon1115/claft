@@ -229,7 +229,7 @@ export default function EventCard({ event }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="apply-btn"
-                aria-label={`${event.title}に申し込む（外部リンク）`}
+                aria-label={`${event.title}に${event.applyButtonLabel ?? '申し込む'}（外部リンク）`}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -243,7 +243,7 @@ export default function EventCard({ event }: Props) {
                   textDecoration: 'none',
                 }}
               >
-                申し込む
+                {event.applyButtonLabel ?? '申し込む'}
                 <ExternalLinkIcon size={11} />
               </a>
             </div>
