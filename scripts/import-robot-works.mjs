@@ -230,6 +230,19 @@ for (let r = 1; r < rawRows.length; r++) {
     }
     updated++;
   } else {
+    // 同じ作品名が別のニックネーム表記で既にDBにある場合、別作品として二重登録している可能性が高い
+    // （全角スペース／中点／半角スペースなどの表記ゆれで一致判定からすり抜けるケース）
+    const { data: sameTitle } = await supabase
+      .from('works')
+      .select('author_nickname')
+      .eq('exhibition_id', exhibition.id)
+      .eq('title', rec.title);
+    if (sameTitle && sameTitle.length > 0) {
+      warnings.push(
+        `${r + 1}行目: 「${rec.title}」は既にDBにありますが、ニックネームの表記が違うため別作品として追加します（DB内: 「${sameTitle.map((s) => s.author_nickname).join('」「')}」／今回: 「${rec.author_nickname}」）。表記ゆれなら手動でどちらかを削除してください。`,
+      );
+    }
+
     const { error } = await supabase.from('works').insert(payload);
     if (error) {
       skipped++;
