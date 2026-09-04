@@ -21,6 +21,10 @@ export type StoryCard = {
   /** 全画面の背景動画（5秒程度推奨・mp4）。指定時はimageUrlより優先して再生される。
    * 置き場所は public/videos/lab-stories/ 配下。パスは /videos/lab-stories/ファイル名.mp4 */
   videoUrl?: string;
+  /** このカード専用のCTAボタン遷移先。指定時はカテゴリ共通のhpUrlより優先してこのカードに表示 */
+  linkUrl?: string;
+  /** このカード専用のCTAボタン文言。linkUrl指定時のみ有効（省略時は「詳細を見る →」） */
+  linkLabel?: string;
 };
 
 export type StoryCategory = {
@@ -95,7 +99,8 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://forms.gle/caGq2a3Y3PjeiL227',
     ctaLabel: 'Yononakaに参加してみる →',
     cards: [
-      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: '家族といるときの自分と、友達といるときの自分。大勢の前での自分と、ひとりの部屋で過ごす自分。どれもたしかに"自分"なのに、どこか違う顔をしている気がする——自分ってほんとに1人なのでしょうか？', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/2b7f3a6b31a24122be48f68006d4e8d8/yononaka-0902.png'   },
+      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: '月1回以上オンライン開催のYononaka、初参加大歓迎です！こちらの動画で授業の様子をご覧ください！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/e0897f069da446f98c469838a9150248/yononaka-0902.png', linkUrl: 'https://youtu.be/-YyaE1WQ87Y?si=jXHVPbrBPtpoIMJO', linkLabel: '動画はこちら →'   },
+      { id: 'yononaka-2', emoji: '💭', theme: 'green', title: '', text: '家族といるときの自分と、友達といるときの自分。大勢の前での自分と、ひとりの部屋で過ごす自分。どれもたしかに"自分"なのに、どこか違う顔をしている気がする——自分ってほんとに1人なのでしょうか？', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/2b7f3a6b31a24122be48f68006d4e8d8/yononaka-0902.png', linkUrl: 'https://forms.gle/DwwqjkVJVkCseR3g7', linkLabel: '申込はこちら →'   },
     ],
   },
   {

@@ -132,7 +132,22 @@ export function StoryViewer({
           </span>
           <h2>{card.title}</h2>
           <p>{card.text}</p>
-          {isLast && (
+          {card.linkUrl ? (
+            isInternalHref(card.linkUrl) ? (
+              <Link className="s-cta" href={card.linkUrl}>
+                {card.linkLabel ?? '詳細を見る →'}
+              </Link>
+            ) : (
+              <a
+                className="s-cta"
+                href={card.linkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {card.linkLabel ?? '詳細を見る →'}
+              </a>
+            )
+          ) : isLast && (
             isInternalHref(category.hpUrl) ? (
               <Link className="s-cta" href={category.hpUrl}>
                 {category.ctaLabel ?? '詳細ページを見る →'}
