@@ -59,10 +59,11 @@ export const stories: StoryCategory[] = [
     hpUrl: 'https://claft-hp.vercel.app/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
-      { id: 'event-1', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/606216841b5b4504bc6bb9ec0fcf166f/Event-0902.png' },
-      { id: 'event-2', emoji: '🎪', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/8e23790ed5f4498eba69bf9e22c6c627/Event-0902%20(1).png' },
-      { id: 'event-3', emoji: '🎪', theme: 'green', title: '', text: '参加申し込みは終了しましたが、見学はOKです！雰囲気だけでも覗きに来てみてください！☺', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/215156ccc0894354bc36801d22aca81a/happyoukai-0902%20(1).png' },
-      { id: 'event-4', emoji: '🗓️', theme: 'orange', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
+      { id: 'event-1', emoji: '🎪', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/4d5f714dc35e45b4a545cab9672536dc/game.png' },
+      { id: 'event-2', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/606216841b5b4504bc6bb9ec0fcf166f/Event-0902.png' },
+      { id: 'event-3', emoji: '🎪', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/8e23790ed5f4498eba69bf9e22c6c627/Event-0902%20(1).png' },
+      { id: 'event-4', emoji: '🎪', theme: 'green', title: '', text: '参加申し込みは終了しましたが、見学はOKです！雰囲気だけでも覗きに来てみてください！☺', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/215156ccc0894354bc36801d22aca81a/happyoukai-0902%20(1).png' },
+      { id: 'event-5', emoji: '🗓️', theme: 'orange', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
   },
   {

@@ -10,7 +10,7 @@ import { DAYS, ISLAND_RULES, SURVEY_ANSWERS, NOTE_LABELS } from '@/lib/mujintoDa
 const TITLE = '無人島サバイバル｜1日目の記録';
 const DESCRIPTION =
   'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目に子どもたちがつくったものと、ふりかえりに書いた言葉をそのまま記録しています。小学3年生以上・参加費無料・単発参加OK。';
-const FORM_URL = 'https://forms.gle/g5UvGQcwkVB5Tt9t9';
+const FORM_URL = 'https://forms.gle/sXew1Xg2n4NANUgb9';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -153,6 +153,13 @@ export default function MujintoPage() {
                     <p className="mj-step-day">{d.day}日目</p>
                     <p className="mj-step-title">{d.title}</p>
                     <span className="mj-badge-plan">予定</span>
+                    {d.day === 2 && (
+                      <div className="mj-step-apply-btn">
+                        <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
+                          2日目に申し込む
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -502,9 +509,11 @@ export default function MujintoPage() {
       {/* ========== G｜2日目へ ========== */}
       <section className="mj-section mj-next">
         <div className="container">
-          <h2 className="mj-next-title craft-misprint">2日目は、9/12㈯の予定です！</h2>
+          <h2 className="mj-next-title craft-misprint">2日目は、10/3㈯の予定です！</h2>
           <div className="mj-next-card craft-paper craft-paper--warm reveal">
-            <p className="mj-next-card-sub">日程・内容は後日おしらせします</p>
+            <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
+              2日目に申し込む
+            </a>
           </div>
         </div>
       </section>

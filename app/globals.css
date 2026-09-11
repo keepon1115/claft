@@ -6518,6 +6518,15 @@ html {
   font-weight: var(--font-bold);
 }
 
+.mj-step-apply-btn {
+  margin-top: 14px;
+}
+
+.mj-step-apply-btn .craft-sticker {
+  padding: 10px 22px;
+  font-size: var(--text-sm);
+}
+
 /* ---------- D 1日目の記録（時系列の日誌） ---------- */
 .mj-log {
   position: relative;
@@ -7083,6 +7092,10 @@ html {
   margin: 0;
   font-size: var(--text-xs);
   color: var(--ink-500);
+}
+
+.mj-next-card .craft-sticker {
+  margin-top: 4px;
 }
 
 .mj-next-note {
