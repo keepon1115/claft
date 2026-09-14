@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import type { CSSProperties } from 'react';
+import { Fragment, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { SectionTitle } from '@/components/craft/SectionTitle';
-import { Underline, ArrowDownDoodle, ArrowRightDoodle, CrossDoodle } from '@/components/craft/HandDrawn';
+import { ArrowDownDoodle, ArrowRightDoodle, CrossDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 
 export const metadata: Metadata = {
@@ -73,7 +73,7 @@ export default function EnglishSteamPage() {
       <section className="es-hero">
         <div className="container">
           <p className="es-hero-eyebrow reveal">
-            <span className="craft-label">GLOBAL CITIZEN PROGRAM</span>
+            <span className="craft-label">個別カリキュラム</span>
           </p>
 
           <h1 className="es-hero-title craft-misprint reveal">
@@ -83,7 +83,6 @@ export default function EnglishSteamPage() {
             </span>
             <span className="es-hero-x-sr">×</span>
             STEAM
-            <span className="es-hero-title-sub">個別カリキュラム</span>
           </h1>
 
           <p className="es-hero-tagline reveal">
@@ -104,54 +103,12 @@ export default function EnglishSteamPage() {
           </div>
 
           <p className="es-hero-note reveal">
-            内容は<strong>お子さまの興味に合わせてカスタマイズ可能</strong>な、
-            <strong>1on1の個別カリキュラム</strong>です。
+            「プログラミングと英語」
+            <br />
+            この2つの次世代スキルを別々に学ぶのではなく、<strong>“掛け合わせる”</strong>
+            <br />
+            自分の考えを、国も地域も立場も異なる人たちに伝えられる人、これからの時代求められます！
           </p>
-        </div>
-      </section>
-
-      {/* ========== 「今」の強みを「未来」の武器へ ========== */}
-      <section className="es-section">
-        <div className="container">
-          <div className="es-section-head">
-            <SectionTitle eyebrow="STRENGTH" variant={1} lineColor="var(--cream)">
-              「今」の強みを「未来」の武器へ
-            </SectionTitle>
-          </div>
-
-          <div className="es-now-flow">
-            <div
-              className="es-card craft-paper craft-tilt reveal"
-              style={{ '--rot': '-0.8deg', '--accent-rgb': 'var(--green-rgb)' } as CSSProperties}
-            >
-              <span className="craft-tape craft-tape--green" aria-hidden="true" />
-              <h3 className="es-card-title">お子さまの現在</h3>
-              <div className="es-now-photos" aria-hidden="true">
-                <img src={`${IMG}/now-classroom.png`} alt="" width={460} height={442} style={{ '--rot': '-2deg' } as CSSProperties} />
-                <img src={`${IMG}/now-laptop.png`} alt="" width={456} height={400} style={{ '--rot': '1.6deg' } as CSSProperties} />
-              </div>
-              <ul className="es-list">
-                <li>既に英語が堪能であり、発音・文法・語彙といった「語学スキル」の基礎は完成している</li>
-                <li>STEAM（ものづくり・科学・技術）への極めて強い知的好奇心がある</li>
-              </ul>
-            </div>
-
-            <div className="es-flow-arrow reveal" aria-hidden="true">
-              <ArrowDownDoodle width={36} className="craft-draw" />
-            </div>
-
-            <div
-              className="es-card craft-paper craft-paper--warm craft-tilt reveal"
-              style={{ '--rot': '0.7deg', '--accent-rgb': '224 158 22' } as CSSProperties}
-            >
-              <span className="craft-tape craft-tape--cream" aria-hidden="true" />
-              <h3 className="es-card-title">これからの挑戦</h3>
-              <ul className="es-list">
-                <li>英語を使って、STEAMや社会のことを学ぶことで、英語を「学ぶ対象」から「学ぶ道具」へと昇華させる</li>
-                <li>社会課題をテーマに、自分なりの解決策を考え、英語で堂々とプレゼンできるようになる</li>
-              </ul>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -159,7 +116,7 @@ export default function EnglishSteamPage() {
       <section className="es-section">
         <div className="container">
           <div className="es-section-head">
-            <SectionTitle eyebrow="WHY" variant={2} lineColor="var(--brand)">
+            <SectionTitle variant={2} lineColor="var(--brand)">
               これからの時代、差がつくのは ─
             </SectionTitle>
           </div>
@@ -197,14 +154,16 @@ export default function EnglishSteamPage() {
               社会課題をテーマに、自分なりの解決策を考え、英語で堂々とプレゼンする姿に圧倒されました。
               また、急な質問にも、自分たちで考え意見を共有する姿にも驚きました。
             </p>
+            <a
+              href="https://claft.keeponlearning.fun/asia-steam-camp"
+              target="_blank"
+              rel="noopener"
+              className="craft-sticker craft-sticker--ghost es-camp-link"
+            >
+              STEAMキャンプについて見る
+              <ArrowRightDoodle width={22} />
+            </a>
           </div>
-
-          <p className="es-what-close reveal">
-            <strong>
-              お子さまも、その姿を目指せる ── そう確信しています。
-              <Underline variant={3} className="es-close-line craft-draw" />
-            </strong>
-          </p>
         </div>
       </section>
 
@@ -212,7 +171,7 @@ export default function EnglishSteamPage() {
       <section className="es-section">
         <div className="container">
           <div className="es-section-head">
-            <SectionTitle eyebrow="CURRICULUM" variant={3} lineColor="var(--pink)">
+            <SectionTitle variant={3} lineColor="var(--pink)">
               「英語ができる子」の、その先へ
             </SectionTitle>
             <p className="lead es-section-lead">
@@ -287,7 +246,17 @@ export default function EnglishSteamPage() {
             </article>
           </div>
 
-          <p className="es-note reveal">※ 英会話はチケット制のため、追加受講も可能です。</p>
+          <div className="es-example-note craft-tilt reveal" style={{ '--rot': '-0.4deg' } as CSSProperties}>
+            <span className="es-example-note-icon" aria-hidden="true">
+              <DoodleIcon name="pencil" size={20} />
+            </span>
+            <p>
+              上の流れは、<strong>ある1ヶ月の進め方の一例</strong>です。
+              1on1の個別カリキュラムなので、回数・テーマ・ペースはお子さまに合わせて組み立てます。
+              <br />
+              （英会話はチケット制のため、追加受講も可能です）
+            </p>
+          </div>
         </div>
       </section>
 
@@ -295,30 +264,40 @@ export default function EnglishSteamPage() {
       <section className="es-section">
         <div className="container">
           <div className="es-section-head">
-            <SectionTitle eyebrow="STEAM" variant={1} lineColor="var(--green)">
+            <SectionTitle variant={1} lineColor="var(--green)">
               STEAMは、覚える学びではなく「気づく学び」
             </SectionTitle>
           </div>
 
           <div className="es-steps">
             {steps.map((step, i) => (
-              <div
-                key={step.title}
-                className="es-step craft-paper craft-tilt craft-lift reveal"
-                style={
-                  {
-                    '--rot': step.rot,
-                    '--accent-rgb': step.accentRgb,
-                    transitionDelay: `${i * 90}ms`,
-                  } as CSSProperties
-                }
-              >
-                <span className="es-step-icon" aria-hidden="true">
-                  <DoodleIcon name={step.icon} size={34} />
-                </span>
-                <h3 className="es-step-title">{step.title}</h3>
-                <p className="es-step-body">{step.body}</p>
-              </div>
+              <Fragment key={step.title}>
+                <div
+                  className="es-step craft-paper craft-tilt craft-lift reveal"
+                  style={
+                    {
+                      '--rot': step.rot,
+                      '--accent-rgb': step.accentRgb,
+                      transitionDelay: `${i * 90}ms`,
+                    } as CSSProperties
+                  }
+                >
+                  <span className="es-step-no" aria-hidden="true">
+                    STEP {i + 1}
+                  </span>
+                  <span className="es-step-icon" aria-hidden="true">
+                    <DoodleIcon name={step.icon} size={30} />
+                  </span>
+                  <h3 className="es-step-title">{step.title}</h3>
+                  <p className="es-step-body">{step.body}</p>
+                </div>
+
+                {i < steps.length - 1 && (
+                  <div className="es-flow-arrow reveal" aria-hidden="true">
+                    <ArrowDownDoodle width={30} className="craft-draw" />
+                  </div>
+                )}
+              </Fragment>
             ))}
           </div>
 
@@ -373,7 +352,7 @@ export default function EnglishSteamPage() {
       <section className="es-section">
         <div className="container">
           <div className="es-section-head">
-            <SectionTitle eyebrow="OUTPUT" variant={2} lineColor="var(--violet)">
+            <SectionTitle variant={2} lineColor="var(--violet)">
               「発表する場」で定期的にアウトプット
             </SectionTitle>
             <p className="lead es-section-lead">
@@ -407,12 +386,12 @@ export default function EnglishSteamPage() {
         </div>
       </section>
 
-      {/* ========== 2年後の姿 ========== */}
+      {/* ========== 2,3年後の姿 ========== */}
       <section className="es-section">
         <div className="container">
           <div className="es-section-head">
-            <SectionTitle eyebrow="2 YEARS LATER" variant={3} lineColor="var(--cream)">
-              2年後の姿
+            <SectionTitle variant={3} lineColor="var(--cream)">
+             2,3年後の姿
             </SectionTitle>
           </div>
 
@@ -464,7 +443,7 @@ export default function EnglishSteamPage() {
       <section className="es-section es-section--last">
         <div className="container">
           <div className="es-section-head">
-            <SectionTitle eyebrow="PRICE" variant={1} lineColor="var(--brand)">
+            <SectionTitle variant={1} lineColor="var(--brand)">
               料金
             </SectionTitle>
           </div>
@@ -483,6 +462,15 @@ export default function EnglishSteamPage() {
                 <dt>教材費</dt>
                 <dd>¥13,000（別途）</dd>
               </dl>
+              <a
+                href="https://www.keeponlearning.fun/edison-academy"
+                target="_blank"
+                rel="noopener"
+                className="craft-sticker craft-sticker--ghost es-price-link"
+              >
+                エジソンアカデミーの詳細
+                <ArrowRightDoodle width={20} />
+              </a>
             </div>
 
             <div
@@ -499,6 +487,70 @@ export default function EnglishSteamPage() {
                 <dd>通学 または オンライン</dd>
               </dl>
             </div>
+          </div>
+
+          <div className="es-example-note craft-tilt reveal" style={{ '--rot': '0.5deg' } as CSSProperties}>
+            <span className="es-example-note-icon" aria-hidden="true">
+              <DoodleIcon name="pencil" size={20} />
+            </span>
+            <p>
+              上の料金は、<strong>「エジソンコース 月2回 ＋ 英会話 月2回」で組んだ場合の一例</strong>です。
+              受講の回数や組み合わせによって変わりますので、ご希望をお聞きしたうえでご案内します。
+            </p>
+          </div>
+
+          <div
+            className="es-subsidy craft-paper craft-paper--warm craft-tilt reveal"
+            style={{ '--rot': '-0.6deg', '--accent-rgb': 'var(--green-rgb)' } as CSSProperties}
+          >
+            <span className="craft-tape craft-tape--green" aria-hidden="true" />
+
+            <p className="es-subsidy-badge">おトクに通える！</p>
+            <h3 className="es-subsidy-title">
+              <DoodleIcon name="coin" size={26} />
+              塾代助成で<span className="craft-highlight">安くなる！</span>
+            </h3>
+
+            <p className="es-subsidy-target">
+              大阪市在住の小学5年生〜中学3年生が対象です。
+              平野区から通われている受講生も多くいらっしゃいます。
+            </p>
+
+            <div className="es-subsidy-about">
+              <h4 className="es-subsidy-about-title">
+                <DoodleIcon name="bulb" size={18} />
+                塾代助成事業とは
+              </h4>
+              <p>
+                子育て世帯の経済的負担を軽減し、こどもたちの学力や学習意欲、個性や才能を伸ばす機会を提供するための大阪市の制度です。
+              </p>
+              <p>
+                市内在住の小学5・6年生〜中学生を対象に、学習塾や家庭教師、文化・スポーツ教室などの学校外教育にかかる費用を、月額1万円を上限に助成します。
+              </p>
+            </div>
+
+            <div className="es-subsidy-course">
+              <p className="es-subsidy-course-name">エジソンコース</p>
+              <dl className="es-price-meta">
+                <dt>月謝（目安）</dt>
+                <dd>11,000円</dd>
+              </dl>
+              <ul className="es-check-list">
+                <li>助成適用後は"月1,000円"に！</li>
+              </ul>
+            </div>
+
+            <p className="es-subsidy-note">詳しい適用条件は、お問い合わせ・体験時にご案内します。</p>
+
+            <a
+              href="https://www.keeponlearning.fun/jukudaijosei"
+              target="_blank"
+              rel="noopener"
+              className="craft-sticker craft-sticker--ghost es-subsidy-link"
+            >
+              塾代助成について詳しく
+              <ArrowRightDoodle width={20} />
+            </a>
           </div>
 
           <div className="es-cta reveal">
