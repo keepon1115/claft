@@ -39,30 +39,33 @@ const steps: { icon: DoodleIconName; title: string; body: string; accentRgb: str
 ];
 
 // アウトプットの機会
-const outputs: { no: string; title: string; body: string; accentRgb: string }[] = [
+const outputs: { no: string; title: string; body: string; accentRgb: string; href?: string }[] = [
   {
     no: '01',
     title: 'キープオンのロボット発表会',
     body: '月4回テーマに沿ってオリジナルロボットを制作して発表。慣れた環境で経験を積み、フィードバックをもとに改善を繰り返します。',
     accentRgb: '224 158 22',
+    href: 'https://claft.keeponlearning.fun/futurecraft/RobotPresentation',
   },
   {
     no: '02',
     title: '国際ロボット競技会URCへの参加',
     body: 'アジア中心に、アーテックロボで学ぶ世界中の子どもたちが、オリジナルロボットとプログラミング技術を競い合う国際大会です。',
     accentRgb: 'var(--green-rgb)',
+    href: 'https://www.urc21.org/',
   },
   {
     no: '03',
-    title: 'URC過去動画の視聴と分析',
-    body: '近年は海外勢が強く、キープオンの世界大会出場は2019年が最後。他国の同年代のプレゼン動画を視聴・分析し、大会にチャレンジできます。',
-    accentRgb: 'var(--brand-rgb)',
+    title: 'STEAMキャンプ',
+    body: '2026年2月にオンラインでSTEAMキャンプを実施。5月には、交流したマレーシア・バングラデシュの子どもたちへ、キープオンのロボット発表会の動画を送り、交流を深めていきます。',
+    accentRgb: 'var(--violet-rgb)',
+    href: 'https://claft.keeponlearning.fun/asia-steam-camp',
   },
   {
     no: '04',
-    title: 'その他（STEAMキャンプなど）',
-    body: '2026年2月にオンラインでSTEAMキャンプを実施。5月には、交流したマレーシア・バングラデシュの子どもたちへ、キープオンのロボット発表会の動画を送り、交流を深めていきます。',
-    accentRgb: 'var(--violet-rgb)',
+    title: 'その他（URC過去動画の視聴と分析）',
+    body: '近年は海外勢が強く、キープオンの世界大会出場は2019年が最後。他国の同年代のプレゼン動画を視聴・分析し、大会にチャレンジできます。',
+    accentRgb: 'var(--brand-rgb)',
   },
 ];
 
@@ -203,7 +206,7 @@ export default function EnglishSteamPage() {
               <span className="craft-tape craft-tape--pink" aria-hidden="true" />
               <header className="es-week-head">
                 <span className="es-week-no">WEEK 1・3</span>
-                <span className="es-week-staff">エジソンコース：日本人スタッフ</span>
+                <span className="es-week-staff">エジソンコース（ロボットプログラミング）：日本人スタッフ</span>
               </header>
               <h3 className="es-week-title">ロボットプログラミング</h3>
               <p className="es-week-sub">仲間たちがいる場で、ロボットプログラミングを学ぶ。</p>
@@ -332,8 +335,8 @@ export default function EnglishSteamPage() {
               <ul className="es-check-list">
                 <li>算数（タイミング・数値）</li>
                 <li>理科（電気・回路）</li>
-                <li>工学（設計・組立）</li>
-                <li>図工・芸術（色・デザイン）</li>
+                <li>技術（設計・組立）</li>
+                <li>美術（色・デザイン）</li>
                 <li>英語（世界共通の語彙で発信）</li>
               </ul>
               <p className="es-steam-letters" aria-label="STEAMはScience、Technology、Engineering、Art、Mathematicsの頭文字">
@@ -379,6 +382,17 @@ export default function EnglishSteamPage() {
                 <div>
                   <h3 className="es-output-title">{item.title}</h3>
                   <p className="es-output-body">{item.body}</p>
+                  {item.href && (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener"
+                      className="craft-sticker craft-sticker--ghost es-output-link"
+                    >
+                      詳しくはこちら
+                      <ArrowRightDoodle width={18} />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -453,7 +467,7 @@ export default function EnglishSteamPage() {
               className="es-price craft-paper reveal"
               style={{ '--rot': '-0.5deg', '--accent-rgb': '224 158 22' } as CSSProperties}
             >
-              <span className="es-price-name">エジソンコース</span>
+              <span className="es-price-name">エジソンコース（ロボットプログラミング）</span>
               <p className="es-price-amount">
                 ¥11,000<small>（税込）</small>
               </p>
@@ -530,7 +544,7 @@ export default function EnglishSteamPage() {
             </div>
 
             <div className="es-subsidy-course">
-              <p className="es-subsidy-course-name">エジソンコース</p>
+              <p className="es-subsidy-course-name">エジソンコース（ロボットプログラミング）</p>
               <dl className="es-price-meta">
                 <dt>月謝（目安）</dt>
                 <dd>11,000円</dd>

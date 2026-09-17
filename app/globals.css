@@ -3237,6 +3237,12 @@ html {
   color: var(--ink-700);
 }
 
+.es-output-link {
+  display: flex;
+  width: fit-content;
+  margin-top: 14px;
+}
+
 /* ---------- 2,3年後の姿 ---------- */
 .es-future-before {
   max-width: 340px;
