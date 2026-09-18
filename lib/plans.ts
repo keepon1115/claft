@@ -18,8 +18,8 @@ export type PlanOption = {
 export type Plan = {
   id: PlanId;
   tabLabel: string;
+  /** 通学先／受講エリアの表示（例：大阪府八尾市／全国どこからでも） */
   label: string;
-  note: string;
   price: string;
   priceUnit: string;
   /** lib/programs.ts の id。ぜんぶ込みで受けられる「4つの学び」 */
@@ -46,8 +46,7 @@ export const plans: Plan[] = [
   {
     id: 'onsite',
     tabLabel: '通学',
-    label: 'ぜんぶ、通う。',
-    note: '八尾教室',
+    label: '大阪府八尾市',
     price: '¥7,700',
     priceUnit: '/ 月',
     includes: ['yononaka', 'futurecraft', 'pbl', 'jibun-craft'],
@@ -56,8 +55,7 @@ export const plans: Plan[] = [
   {
     id: 'online',
     tabLabel: 'オンライン',
-    label: 'ぜんぶ、オンライン。',
-    note: '全国どこからでも',
+    label: '全国どこからでも',
     price: '¥2,200',
     priceUnit: '/ 月',
     includes: ['yononaka', 'futurecraft'],

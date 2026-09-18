@@ -11,6 +11,8 @@ export type Program = {
   id: ProgramId;
   title: string;
   label: string;
+  /** カード上部、アイコン横に添える一言（説明文の要約） */
+  catch: string;
   description: string;
   icon: DoodleIconName;
   accentRgb: string;
@@ -26,6 +28,7 @@ export const programs: Program[] = [
     id: 'pbl',
     title: 'PBL(課題解決型学習)',
     label: '探究',
+    catch: '好きや疑問を、探究する。',
     description:
       '自分の好きや疑問を起点にテーマを決め、新たなモノを創ったり、解決策を考え、最後は動画やスライドで発表をする学びです。',
     icon: 'search',
@@ -39,6 +42,7 @@ export const programs: Program[] = [
     id: 'yononaka',
     title: 'Yononaka(対話ワーク)',
     label: '対話',
+    catch: '正解のない問いを、みんなで話す。',
     description:
       'お金や時間など、身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合う学びです。考えを言葉にしてみる。ちがう意見を聞いてみる。その往復の中で、世界の見え方が少しずつ広がっていきます。',
     icon: 'talk',
@@ -52,6 +56,7 @@ export const programs: Program[] = [
     id: 'futurecraft',
     title: 'ミライクラフト',
     label: '実践',
+    catch: '仲間と挑戦し、仕事を実感する。',
     description:
       '作品発表会、イベント企画、商品制作などに挑戦。自分の好きや得意を活かしながら、仲間と試行錯誤し、「仕事」を実感する学びです。',
     icon: 'bolt',
@@ -66,6 +71,7 @@ export const programs: Program[] = [
     id: 'jibun-craft',
     title: 'ジブンクラフト',
     label: '自己理解',
+    catch: '自分の強みを、見える化する。',
     description:
       '探究・対話・実践を通して見えてきた「自分の強み(非認知能力)」を可視化します。キャリア面談を通して「自分は何をしたいか？どうありたいか？」を深堀りし、目標を定めて、ひとつひとつキャリアを自分の手でクラフト(創造)していきます。',
     icon: 'sparkle',

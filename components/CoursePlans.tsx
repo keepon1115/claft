@@ -3,8 +3,8 @@
 import { useState, type CSSProperties, type KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { SectionTitle } from './craft/SectionTitle';
-import { Underline, ArrowRightDoodle, PlusDoodle } from './craft/HandDrawn';
-import { DoodleIcon, type DoodleIconName } from './craft/DoodleIcon';
+import { ArrowRightDoodle, PlusDoodle } from './craft/HandDrawn';
+import { ProgramCard } from './craft/ProgramCard';
 import { CtaPair } from './CtaPair';
 import { programs } from '@/lib/programs';
 import { plans, type PlanId } from '@/lib/plans';
@@ -32,9 +32,9 @@ export function CoursePlans() {
       <div className="container">
         <div className="hp-section-head">
           <SectionTitle variant={2} lineColor="var(--brand)">
-            コースと、料金のこと
+            コース/料金
           </SectionTitle>
-          <p className="lead hp-section-lead">通う？オンライン？ どちらも1ヶ月無料体験から。</p>
+          <p className="lead hp-section-lead">通学もオンラインも、1ヶ月無料体験から。</p>
         </div>
 
         <div className="hp-plans-tabs" role="tablist" aria-label="通学・オンラインの切替" onKeyDown={handleTabKeyDown}>
@@ -70,32 +70,15 @@ export function CoursePlans() {
                 <strong>{plan.price}</strong>
                 <span>{plan.priceUnit}</span>
               </p>
-              <p className="hp-plans-frame-note">{plan.note}</p>
             </div>
 
             <div className="hp-plans-grid">
               {includedPrograms.map((program, i) => (
-                <Link
+                <ProgramCard
                   key={program.id}
-                  href={program.link}
-                  className="hp-program-card hp-plans-card craft-paper craft-tilt craft-lift"
-                  style={
-                    {
-                      '--rot': i % 2 === 0 ? '-0.6deg' : '0.6deg',
-                      '--accent-rgb': program.accentRgb,
-                      '--tape-rgb': program.accentRgb,
-                    } as CSSProperties
-                  }
-                >
-                  <span className="craft-tape" aria-hidden="true" />
-                  <span className="hp-program-label">{program.label}</span>
-                  <span className="hp-program-icon" aria-hidden="true">
-                    <DoodleIcon name={program.icon as DoodleIconName} size={30} />
-                  </span>
-                  <h3 className="hp-program-title hp-plans-card-title">{program.title}</h3>
-                  <Underline variant={program.underline} className="hp-program-line craft-draw" />
-                  <p className="hp-program-desc hp-plans-card-desc">{program.description}</p>
-                </Link>
+                  program={program}
+                  rotate={i % 2 === 0 ? '-0.6deg' : '0.6deg'}
+                />
               ))}
             </div>
           </div>

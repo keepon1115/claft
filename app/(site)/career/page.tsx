@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { SectionTitle } from '@/components/craft/SectionTitle';
 import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
+import { ProgramCard } from '@/components/craft/ProgramCard';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 import { CtaPair } from '@/components/CtaPair';
 import { FlowApply } from '@/components/FlowApply';
@@ -160,33 +161,15 @@ export default function CareerPage() {
 
         <div className="hp-programs-grid">
           {programs.map((program, i) => (
-            <Link
+            <ProgramCard
               key={program.id}
-              href={program.link}
-              className="hp-program-card craft-paper craft-tilt craft-lift reveal"
-              style={
-                {
-                  '--rot': program.rotate,
-                  '--accent-rgb': program.accentRgb,
-                  '--tape-rgb': program.accentRgb,
-                  transitionDelay: `${i * 90}ms`,
-                } as CSSProperties
+              program={program}
+              rotate={program.rotate}
+              delay={i * 90}
+              extra={
+                program.openToAll && <span className="craft-label cd-hero-badge-inline">全コース参加OK</span>
               }
-            >
-              <span className="craft-tape" aria-hidden="true" />
-              <span className="hp-program-label">{program.label}</span>
-
-              <span className="hp-program-icon" aria-hidden="true">
-                <DoodleIcon name={program.icon} size={36} />
-              </span>
-
-              <h3 className="hp-program-title">{program.title}</h3>
-              <Underline variant={program.underline} className="hp-program-line craft-draw" />
-
-              <p className="hp-program-desc">{program.description}</p>
-
-              {program.openToAll && <span className="craft-label cd-hero-badge-inline">全コース参加OK</span>}
-            </Link>
+            />
           ))}
         </div>
       </Section>
