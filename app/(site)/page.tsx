@@ -1,9 +1,6 @@
 import { Hero } from '@/components/Hero';
-import { QuickDiagnosis } from '@/components/QuickDiagnosis';
-import { ParentVoices } from '@/components/ParentVoices';
-import { ProgramsScrapbook } from '@/components/ProgramsScrapbook';
+import { CoursePlans } from '@/components/CoursePlans';
 import { Philosophy } from '@/components/Philosophy';
-import { CoursePriceGlance } from '@/components/CoursePriceGlance';
 import { FlowApply } from '@/components/FlowApply';
 import { FAQ } from '@/components/FAQ';
 import { Students } from '@/components/Students';
@@ -20,11 +17,8 @@ export default function SiteHome(){
       <OpeningAnimation />
 
       <Hero />
-      <QuickDiagnosis />
-      <ParentVoices />
-      <ProgramsScrapbook />
+      <CoursePlans />
       <Philosophy />
-      <CoursePriceGlance />
       <FlowApply />
       {/* FAQPage 構造化データはトップでのみ出力（複数ページ重複を回避） */}
       <FAQ jsonLd />

@@ -1,4 +1,4 @@
-// 「4つの学び」の単一ソース。TOP（ProgramsScrapbook）・/career・各学びページの
+// 「4つの学び」の単一ソース。TOP・/courses（CoursePlans）・/career・各学びページの
 // 所属バッジが、すべてここを参照する。
 // PBL・ジブンクラフトはキャリアコース限定。Yononaka・ミライクラフトはどのコースの
 // 生徒でも参加できる（openToAll）。

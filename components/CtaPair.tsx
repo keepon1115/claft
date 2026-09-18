@@ -11,10 +11,13 @@ type Props = {
   compact?: boolean;
   /** LINE登録でできることの補足ブロックを表示するか */
   withLineNote?: boolean;
+  /** LINEボタンの下に「CLAFTという希望」ボタンを縦並びで出すか */
+  withHope?: boolean;
 };
 
-// サイト全体共通の CV 導線：LINE相談｜無料体験申込 の並列2択。
-export function CtaPair({ location, compact = false, withLineNote = false }: Props) {
+// サイト全体共通の CV 導線：LINE相談を主導線に、必要な場所では「CLAFTという希望」への
+// テキストリンクをその下に縦並びで添える。
+export function CtaPair({ location, compact = false, withLineNote = false, withHope = false }: Props) {
   return (
     <div className={`cta-pair ${compact ? 'cta-pair--compact' : ''}`}>
       <div className="cta-pair-btn">
@@ -30,6 +33,16 @@ export function CtaPair({ location, compact = false, withLineNote = false }: Pro
         </a>
         <p className="cta-pair-note">まずは、聞くだけでも。</p>
       </div>
+
+      {withHope && (
+        <Link
+          href="/claft-hope"
+          className="craft-sticker craft-sticker--ghost cta-pair-hope"
+          onClick={() => trackEvent('cta_hope_click', { location })}
+        >
+          「CLAFT」という希望 ― なぜCLAFTをつくったのか
+        </Link>
+      )}
 
       {withLineNote && (
         <p className="cd-tip cta-pair-linenote">

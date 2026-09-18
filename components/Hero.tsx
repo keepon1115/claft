@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { ArrowDownDoodle, Underline } from './craft/HandDrawn';
+import { Underline } from './craft/HandDrawn';
 import { CtaPair } from './CtaPair';
 
 const YOUTUBE_ID = 'awHyerZPBU4';
@@ -13,26 +12,23 @@ export function Hero() {
   return (
     <section className="hp-hero">
       <div className="hp-hero-inner">
-        {/* ① キッカー：地に直接書く小さな前置き */}
-        <p className="hp-hero-kicker">テストには、出ないけれど。</p>
-
-        {/* ② タイトル：前フリ（小）→オチ（特大・赤鉛筆の下線） */}
+        {/* ① タイトル：前フリ（小）→オチ（特大・赤鉛筆の下線） */}
         <h1 className="hp-hero-title">
-          <span className="hp-hero-title-sub">テストに出ないことほど、</span>
+          <span className="hp-hero-title-sub">正解を拾うより、</span>
           <span className="hp-hero-title-main">
-            人生に出る。
+            心が夢中になる方へ。
             <Underline variant={2} className="hp-hero-title-underline craft-draw craft-draw--auto" />
           </span>
         </h1>
 
-        {/* ③ 受けの一文：違和感の肯定 → CLAFTの自己紹介 */}
+        {/* ② 受けの一文：違和感の肯定 → CLAFTの自己紹介 */}
         <p className="hp-hero-answer">
-          勉強や部活だけが、子どもの選択肢なのだろうか？<br />
-          「好き」を入り口に、キャリアまでつなげるのが<br />
-          「CLAFT」のスクールです。
+          価値観が多様化した今、<br />
+          勉強や部活だけが道じゃない。<br />
+          まだ知らない自分に、出会いに行こう。
         </p>
 
-        {/* ④ 動画：ポラロイド（回転なし・クリックで再生） */}
+        {/* ③ 動画：ポラロイド（回転なし・クリックで再生） */}
         <div className="hp-hero-photo craft-photo">
           <div className="hp-hero-screen">
             {playing ? (
@@ -70,34 +66,23 @@ export function Hero() {
           </div>
         </div>
 
-        {/* ⑤ リード文：読者（保護者）への問いかけ */}
+        {/* ④ リード文：読者（保護者）への問いかけ */}
         <p className="hp-hero-copy">
           探究×対話×実践で、<br />
           どんな状況でも生き抜く自信をつけ、<br />
-          自分のキャリアを自分で切り拓く！
+          自分でキャリアを切り拓くスクール。
         </p>
 
-        {/* ⑥ 信頼チップ */}
+        {/* ⑤ 信頼チップ */}
         <div className="hp-hero-chips" aria-label="CLAFTの特徴">
           <span className="craft-paper hp-hero-chip">1ヶ月無料体験</span>
-          <span className="craft-paper hp-hero-chip">月額¥7,700〜</span>
+          <span className="craft-paper hp-hero-chip">月額¥2,200〜</span>
           <span className="craft-paper hp-hero-chip">オンライン／八尾教室</span>
         </div>
 
-        {/* ⑦ CTA：LINE｜体験 の並列2択 */}
+        {/* ⑥ CTA：LINE相談を主導線に、「CLAFTという希望」をその下に縦並び */}
         <div className="hp-hero-cta">
-          <CtaPair location="hero" />
-        </div>
-
-        {/* ⑧ 「CLAFTという希望」はテキストリンクへ降格 */}
-        <p className="hp-hero-hope-link">
-          <Link href="/claft-hope">なぜCLAFTをつくったのか → 「CLAFT」という希望</Link>
-        </p>
-
-        {/* ⑨ スクロール誘導 */}
-        <div className="hp-hero-scroll" aria-hidden="true">
-          <ArrowDownDoodle className="craft-draw craft-draw--auto" width={26} />
-          <span>scroll</span>
+          <CtaPair location="hero" withHope />
         </div>
       </div>
     </section>

@@ -123,6 +123,16 @@ export function CrossDoodle({ className = '', style, width = 20 }: DrawnProps) {
   );
 }
 
+/** 手描きの「＋」（オプション追加の目印） */
+export function PlusDoodle({ className = '', style, width = 22 }: DrawnProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} style={style} width={width} aria-hidden="true">
+      <path d="M12 3.4 C 12.3 8.6, 12.1 14.4, 11.8 20.6" pathLength={1} stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      <path d="M3.4 12 C 8.6 11.7, 14.4 11.9, 20.6 12.2" pathLength={1} stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 /** なみなみ線 */
 export function SquiggleDoodle({ className = '', style, width = 70 }: DrawnProps) {
   return (

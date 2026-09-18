@@ -66,9 +66,9 @@ export const navItems: NavItem[] = [
     alwaysOpen: true,
     children: [
       { label: 'キャリアコース', href: '/career' },
-      { label: 'マイクラSDGs', href: '/minecraft' },
-      { label: '英会話×STEAM', href: '/english-steam' },
-      { label: '英会話（Hello Kiwi英会話）', href: 'https://www.hellokiwieikaiwa.com/', external: true },
+      { label: '英会話コース', href: '/english-steam' },
+      { label: 'マイクラコース', href: '/minecraft' },
+      { label: 'ロボットコース', href: '/robot' },
     ]
   },
   {
