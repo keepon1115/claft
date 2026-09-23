@@ -3,7 +3,6 @@
    トークンは globals.css の :root と名前が衝突するため（--green,
    --paper, --card）、すべて .lab-app 配下にスコープする。
    ============================================================ */
-
 .lab-app {
   /* デザイントークン（KEEPON_LAB_SPEC.md） */
   --navy: #213a5a;
@@ -17,14 +16,12 @@
   --card: #fbf6ec;
   --ink: #2b2b2b;
   --line: #cdbf9f;
-
   font-family: var(--font-zen), 'Zen Maru Gothic', var(--font-noto),
     'Noto Sans JP', sans-serif;
   color: var(--ink);
   /* クラフト紙＋微細グレイン */
   background-color: var(--paper);
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/></svg>");
-
   height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
@@ -33,26 +30,22 @@
   overflow: hidden;
   position: relative;
 }
-
 /* デスクトップではHPの机の上に置かれた端末のように見せる */
 @media (min-width: 520px) {
   .lab-app {
     box-shadow: 0 0 0 1px #0002, 0 24px 60px -20px #0005;
   }
 }
-
 /* キーボードフォーカスを必ず見せる（受け入れ条件） */
 .lab-app :focus-visible {
   outline: 3px solid var(--orange);
   outline-offset: 2px;
   border-radius: 4px;
 }
-
 .lab-app a {
   color: inherit;
   text-decoration: none;
 }
-
 /* ====== ヘッダー（全画面共通） ====== */
 .lab-header {
   background: var(--navy);
@@ -127,7 +120,6 @@
   55% { transform: scale(1.25); }
   100% { transform: scale(1); }
 }
-
 /* ====== ストーリーズ（横スクロール） ====== */
 .lab-stories {
   display: flex;
@@ -223,7 +215,6 @@
   text-align: center;
   line-height: 1.2;
 }
-
 /* ====== フィード（縦スクロール） ====== */
 .lab-feed {
   flex: 1;
@@ -329,7 +320,6 @@
   font-weight: 700;
   color: var(--orange-deep);
 }
-
 /* お知らせ（カレンダー）カード：バナー比率は/newsと統一（900:340） */
 .lab-news-thumb {
   height: auto;
@@ -395,6 +385,70 @@
   flex-shrink: 0;
   color: var(--orange);
 }
+/* 紹介割キャンペーン固定カード：カード全体が1つのLINEリンク。左＝正方形の告知画像／右＝文言そのものを兼ねた緑ボタン */
+.lab-campaign {
+  display: flex;
+  align-items: stretch;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  box-shadow: 2px 3px 0 #d8cba8; /* .lab-post と同じ紙のドロップシャドウ */
+  animation: lab-post-in 0.38s cubic-bezier(0.2, 1, 0.3, 1) both;
+  transition: transform 0.15s;
+}
+.lab-campaign:active { transform: scale(0.985); }
+.lab-campaign-img {
+  flex: 1.7 1 0;
+  min-width: 0;
+  width: auto;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+.lab-campaign-body {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.lab-campaign-btn {
+  width: 100%;
+  background: #06c755;
+  border-radius: 14px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 0 #05a648;
+}
+.lab-campaign-btn,
+.lab-campaign-btn-text {
+  color: #fff;
+}
+.lab-campaign-btn-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  letter-spacing: 0;
+}
+.lab-campaign-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+  flex-shrink: 0;
+}
+@media (max-width: 359px) {
+  .lab-campaign-img { flex: 1.25 1 0; }
+  .lab-campaign-btn-text { font-size: 12px; }
+}
+
 .lab-feed-empty {
   margin: 10px 4px;
   padding: 22px 16px;
