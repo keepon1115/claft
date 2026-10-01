@@ -106,6 +106,45 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
           {feature.lead}
         </p>
 
+        {/* リード後のボタン */}
+        {feature.leadLink && (
+          <div style={{ margin: '0 0 20px' }}>
+            (
+            <a
+              href={feature.leadLink.href}
+              target={feature.leadLink.external ? '_blank' : undefined}
+              rel={feature.leadLink.external ? 'noopener noreferrer' : undefined}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '10px 20px',
+                background: accentColor,
+                color: '#fff',
+                borderRadius: '50px',
+                fontSize: '14px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: `0 4px 12px ${accentColor}40`,
+              }}
+            >
+              {feature.leadLink.label}
+              <span aria-hidden="true">{feature.leadLink.external ? '↗' : '→'}</span>
+            </a>
+          )
+          </div>
+        )}
+
+        {/* リード続き（小見出し付き） */}
+        {feature.leadSections?.map((sec, i) => (
+          <div key={i} style={{ marginBottom: '16px' }}>
+            <h3 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700, color: 'var(--ink-900)', lineHeight: 1.4, borderLeft: `4px solid ${accentColor}`, paddingLeft: '10px' }}>
+              {sec.heading}
+            </h3>
+            <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.8, color: 'var(--ink-700)' }}>{sec.body}</p>
+          </div>
+        ))}
+
         {/* 掛け合い吹き出し */}
         {feature.dialogues && feature.dialogues.length > 0 && (
           <div
@@ -141,6 +180,40 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
             <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.7, color: 'var(--ink-700)' }}>
               {feature.noteIcon ?? '📚'} {feature.bookNote}
             </p>
+          </div>
+        )}
+
+        {/* 付箋に続く画像とボタン */}
+        {feature.bookNote && feature.noteImage && (
+          <div style={{ marginBottom: '16px' }}>
+            <ImagePlaceholder width={640} height={360} src={feature.noteImage.src} alt={feature.noteImage.alt || ''} caption={feature.noteImage.caption} />
+          </div>
+        )}
+        {feature.bookNote && feature.noteLink && (
+          <div style={{ margin: '0 0 16px' }}>
+            (
+            <a
+              href={feature.noteLink.href}
+              target={feature.noteLink.external ? '_blank' : undefined}
+              rel={feature.noteLink.external ? 'noopener noreferrer' : undefined}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '10px 20px',
+                background: accentColor,
+                color: '#fff',
+                borderRadius: '50px',
+                fontSize: '14px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: `0 4px 12px ${accentColor}40`,
+              }}
+            >
+              {feature.noteLink.label}
+              <span aria-hidden="true">{feature.noteLink.external ? '↗' : '→'}</span>
+            </a>
+          )
           </div>
         )}
 
