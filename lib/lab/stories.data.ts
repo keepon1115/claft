@@ -96,11 +96,11 @@ export const stories: StoryCategory[] = [
     label: 'Yononaka',
     emoji: '🗣️',
     ring: 'navy',
-    updatedAt: '2026-09-16',
+    updatedAt: '2026-10-07',
     hpUrl: 'https://forms.gle/rBvf3rboXTZpe6UM6',
     ctaLabel: 'Yononakaに参加してみる →',
     cards: [
-      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: '月1回以上オンライン開催のYononaka、初参加大歓迎です！こちらの動画で授業の様子をご覧ください！', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/e0897f069da446f98c469838a9150248/yononaka-0902.png', linkUrl: 'https://youtu.be/-YyaE1WQ87Y?si=jXHVPbrBPtpoIMJO', linkLabel: '動画はこちら →'   },
+      { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: 'Yononakaとは、世の中の身近なことをテーマに、正解がひとつでないお題へ 「自分はこう思う！」を参加者同士で共有しながら、理解を深めるアクティブラーニングです。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/e0897f069da446f98c469838a9150248/yononaka-0902.png', linkUrl: 'https://claft.keeponlearning.fun/lab/yononaka', linkLabel: '今週のお題はこちら →'   },
       { id: 'yononaka-2', emoji: '💭', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/263a4beaf97541d5b5e265012ea10e85/yono-0916.png', linkUrl: 'https://forms.gle/rBvf3rboXTZpe6UM6', linkLabel: '申込はこちら →'   },
       { id: 'yononaka-2', emoji: '💭', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/ec1854f17a3c434eb9265a8d69c2a278/yono-0916%20(2).png', linkUrl: 'https://forms.gle/rBvf3rboXTZpe6UM6', linkLabel: '申込はこちら →'   },
     ],

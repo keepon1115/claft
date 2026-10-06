@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { StoryViewer } from '@/components/lab/StoryViewer';
 import { getStories } from '@/lib/lab/content';
@@ -29,5 +30,10 @@ export default async function StoryPage({ params }: { params: { category: string
   // 最後のカードを送ったら次カテゴリへ。最終カテゴリならトップへ戻る。
   const nextSlug = idx < stories.length - 1 ? stories[idx + 1].slug : null;
 
-  return <StoryViewer category={stories[idx]} nextSlug={nextSlug} />;
+  // StoryViewer は ?card=N を読む（useSearchParams）ため Suspense で包む。
+  return (
+    <Suspense fallback={null}>
+      <StoryViewer category={stories[idx]} nextSlug={nextSlug} />
+    </Suspense>
+  );
 }

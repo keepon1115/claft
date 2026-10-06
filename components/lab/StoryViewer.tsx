@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import type { StoryCategory } from '@/lib/lab/content';
 
@@ -22,9 +22,15 @@ export function StoryViewer({
   nextSlug: string | null;
 }) {
   const router = useRouter();
-  const [index, setIndex] = useState(0);
-  const touchStartX = useRef<number | null>(null);
   const cards = category.cards;
+  // ?card=N（1始まり）で開始カードを指定できる。範囲外は末尾に丸める。
+  const startCard = Number(useSearchParams().get('card'));
+  const [index, setIndex] = useState(() =>
+    Number.isInteger(startCard) && startCard >= 1
+      ? Math.min(startCard, cards.length) - 1
+      : 0,
+  );
+  const touchStartX = useRef<number | null>(null);
   const isLast = index === cards.length - 1;
   const card = cards[index];
 
