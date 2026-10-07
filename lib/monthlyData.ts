@@ -654,7 +654,7 @@ export const issues: Issue[] = [
         noteIcon: '📷',
         bookNote: '9月のフォトコンテストのテーマは「いきもの」。かわいい犬の写真、旅行先のマーライオン、ユニバでのキャラクターなど、夏休みの思い出もあわせてたくさん届きました。スタッフからは、青森で見つけた「ファットハウス」と「ファットカー」の写真も。家や車は生き物ではないけれど、「太らせる」は生き物にしか使わない、というひねったアプローチも大歓迎です。',
         noteImage: { src: '/assets/images/journal/2026-10/lastmonth-photocon.jpg', alt: '9月のフォトコンテスト応募作品' },
-        noteLink: { label: 'その他写真はこちら', href: 'http://localhost:3002/monthly/2026-10', external: true },
+        noteLink: { label: 'その他写真はこちら', href: 'https://canva.link/cvgur1ouv8s5nho', external: true },
       },
       {
         id: 'news',
