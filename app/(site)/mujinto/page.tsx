@@ -5,12 +5,12 @@ import { SectionTitle } from '@/components/craft/SectionTitle';
 import { ArrowDownDoodle } from '@/components/craft/HandDrawn';
 import { MjFigure } from '@/components/mujinto/MjFigure';
 import { MjNoteWall } from '@/components/mujinto/MjNoteWall';
-import { DAYS, ISLAND_RULES, SURVEY_ANSWERS, NOTE_LABELS } from '@/lib/mujintoData';
+import { DAYS, ISLAND_RULES, SURVEY_ANSWERS, NOTE_LABELS, NOTES_DAY2_ORDERED } from '@/lib/mujintoData';
 
-const TITLE = '無人島サバイバル｜1日目の記録';
+const TITLE = '無人島サバイバル｜1日目・2日目の記録';
 const DESCRIPTION =
-  'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目に子どもたちがつくったものと、ふりかえりに書いた言葉をそのまま記録しています。小学3年生以上・参加費無料・単発参加OK。';
-const FORM_URL = 'https://forms.gle/sXew1Xg2n4NANUgb9';
+  'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目・2日目に子どもたちがつくったものと、ふりかえりに書いた言葉をそのまま記録しています。小学3年生以上・参加費無料・単発参加OK。';
+const FORM_URL = 'https://forms.gle/bVBadEuGBwAebmCE6'; // 3日目の申込フォーム（1〜2日目は sXew1Xg2n4NANUgb9）
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/mujinto' },
   openGraph: {
     title: TITLE,
-    description: 'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目の記録をそのまま掲載しています。',
+    description: 'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目・2日目の記録をそのまま掲載しています。',
     type: 'article',
     images: [{ url: '/assets/mujinto/ogp.jpg', width: 1200, height: 630, alt: '紙管で寝床を組む子どもたち' }],
   },
@@ -46,6 +46,24 @@ const IMG: Record<string, string | undefined> = {
   shikanPhoto: '/assets/mujinto/shikan.jpg', // F 家（1枚目）
   woodFrameSlide: '/assets/mujinto/woodFrameSlide.jpg', // F 家
   woodFramePhoto: '/assets/mujinto/woodFramePhoto.jpg', // F 家
+  // ---- 2日目 ----
+  d2PocketSlide: '/assets/mujinto/d2-pocket-slide.jpg', // D2-02 スライド p28
+  d2BatteryMaterialsSlide: '/assets/mujinto/d2-battery-materials-slide.jpg', // D2-02 スライド p30
+  d2BatteryConnectSlide: '/assets/mujinto/d2-battery-connect-slide.jpg', // D2-02 スライド p38
+  d2BatteryHands: '/assets/mujinto/d2-battery-hands.jpeg', // D2-02 当日写真（みんなで作業）
+  d2LedLit: '/assets/mujinto/d2-led-lit.jpg', // D2-02 当日写真
+  d2BatteryHowSlide: '/assets/mujinto/d2-battery-how-slide.jpg', // D2-02 スライド p45
+  d2BatterySummarySlide: '/assets/mujinto/d2-battery-summary-slide.jpg', // D2-02 スライド p46
+  d2WisdomSlide: '/assets/mujinto/d2-wisdom-slide.jpg', // D2-03 スライド p50
+  d2FallenTreeSlide: '/assets/mujinto/d2-fallen-tree-slide.jpg', // D2-03 スライド p49
+  d2Mission1Slide: '/assets/mujinto/d2-mission1-slide.jpg', // D2-03 スライド p51
+  d2Mission1: '/assets/mujinto/d2-mission1.jpeg', // D2-03 当日写真
+  d2Mission2Slide: '/assets/mujinto/d2-mission2-slide.jpg', // D2-03 スライド p55
+  d2Mission2: '/assets/mujinto/d2-mission2.jpg', // D2-03 当日写真
+  d2Furikaeri: '/assets/mujinto/furikaeri.jpg', // E2 当日写真
+  d2LeverSlide: '/assets/mujinto/d2-lever-slide.jpg', // F2 スライド p59
+  d2PulleySlide: '/assets/mujinto/d2-pulley-slide.jpg', // F2 スライド p60
+  d2NextSlide: '/assets/mujinto/d2-next-slide.jpg', // G スライド p63
 };
 
 // JSON-LD（Article + BreadcrumbList）は見送り：(site)グループの本文に置いた <script> は
@@ -85,15 +103,15 @@ export default function MujintoPage() {
           <div className="mj-tally">
             <svg className="mj-tally-ticks" width="90" height="30" viewBox="0 0 90 30" aria-hidden="true" fill="none">
               <line x1="6" y1="4" x2="6" y2="26" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
-              <line x1="26" y1="6" x2="26" y2="26" stroke="rgba(255,255,255,0.45)" strokeWidth="3" strokeLinecap="round" />
+              <line x1="26" y1="4" x2="26" y2="26" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
               <line x1="46" y1="6" x2="46" y2="26" stroke="rgba(255,255,255,0.45)" strokeWidth="3" strokeLinecap="round" />
               <line x1="66" y1="6" x2="66" y2="26" stroke="rgba(255,255,255,0.45)" strokeWidth="3" strokeLinecap="round" />
               <line x1="86" y1="6" x2="86" y2="26" stroke="rgba(255,255,255,0.45)" strokeWidth="3" strokeLinecap="round" />
             </svg>
-            <span className="mj-tally-text">1日目、終了。残り4日。</span>
+            <span className="mj-tally-text">2日目、終了。残り3日。</span>
           </div>
 
-          <p className="mj-hero-note">これは、1日目に島で起きたことの記録です。</p>
+          <p className="mj-hero-note">これは、1日目・2日目に島で起きたことの記録です。</p>
         </div>
       </section>
 
@@ -133,7 +151,7 @@ export default function MujintoPage() {
             <SectionTitle variant={1} lineColor="rgb(var(--accent-rgb))">つくる理由が、5日間で変わっていく</SectionTitle>
           </div>
           <p className="mj-map-lead">
-            1日目はまず、"初日どう生きるか？"を考え、つくりました。日が進むごとに、つくる理由が変わっていく予定です。(2日目以降は未定です)
+            1日目はまず、"初日どう生きるか？"を考え、つくりました。2日目は、あかりをつくり、道をふさぐ木をどかしました。日が進むごとに、つくる理由が変わっていく予定です。(3日目以降は未定です)
           </p>
 
           <div className="mj-map-steps">
@@ -146,17 +164,17 @@ export default function MujintoPage() {
                     <p className="mj-step-title">{d.title}</p>
                     <p className="mj-step-detail">つくったもの：{d.makes}</p>
                     <p className="mj-step-detail">{d.question}</p>
-                    <a href="#day1" className="mj-step-cta">記録を見る ↓</a>
+                    <a href={`#day${d.day}`} className="mj-step-cta">記録を見る ↓</a>
                   </div>
                 ) : (
                   <div className="mj-step-inner mj-step-inner--future craft-paper craft-paper--warm">
                     <p className="mj-step-day">{d.day}日目</p>
                     <p className="mj-step-title">{d.title}</p>
                     <span className="mj-badge-plan">予定</span>
-                    {d.day === 2 && (
+                    {d.day === 3 && (
                       <div className="mj-step-apply-btn">
                         <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
-                          2日目に申し込む
+                          3日目に申し込む
                         </a>
                       </div>
                     )}
@@ -506,13 +524,287 @@ export default function MujintoPage() {
         </div>
       </section>
 
-      {/* ========== G｜2日目へ ========== */}
+      {/* ========== D2｜2日目に、こんなことが起きた ========== */}
+      <section className="mj-section mj-day2" id="day2">
+        <div className="container">
+          <div className="mj-section-head">
+            <SectionTitle variant={2} lineColor="rgb(var(--accent-rgb))">2日目に、こんなことが起きた</SectionTitle>
+          </div>
+
+          {/* D2-01 */}
+          <div className="mj-log">
+            <span className="mj-log-num" aria-hidden="true">01</span>
+            <div className="mj-log-block reveal">
+              <h3 className="mj-log-title">新しい漂着者と、1日目のおさらい</h3>
+              <p>
+                2日目の島には9人(2チーム)。そのうち2人(Sくん・Rくん)は、この日に新しく流れ着いた"漂着者"です。自己紹介では「無人島にいって、暇になったら何して遊ぶ？(電気は使えません)」を聞きました。
+              </p>
+              <p>
+                つぎに、1日目のおさらい。たき火・工作台 → 家づくり(わりばしで試作 → 実物) → 飲み水づくりをふりかえり、1日目の結び方をもう一度やってみたり、アーテックさん制作のろ過の解説動画を見たりしました。
+              </p>
+            </div>
+          </div>
+
+          {/* D2-02 */}
+          <div className="mj-log">
+            <span className="mj-log-num" aria-hidden="true">02</span>
+            <div className="mj-log-block reveal">
+              <h3 className="mj-log-title">つくったもの① — あかり</h3>
+              <p>
+                つくった家で過ごせたけど、おなかが痛くなってきた…。トイレにいきたいけど、真っ暗だ。明かりが欲しい！
+              </p>
+              <MjFigure
+                src={IMG.d2PocketSlide}
+                need="当日スライド「ポケットにあるものは・・」(1円玉と10円玉)"
+                alt="「ポケットにあるものは・・」と書かれ、1円玉と10円玉が並んだスライド"
+                width={1280}
+                height={720}
+              />
+              <p>
+                ポケットの中にあったのは、1円玉と10円玉。これを使って、あかりをつくるワークです。
+              </p>
+              <div className="mj-material-chips">
+                <span className="craft-label mj-material-chip">1円玉</span>
+                <span className="craft-label mj-material-chip">10円玉</span>
+                <span className="craft-label mj-material-chip">キッチンペーパー</span>
+                <span className="craft-label mj-material-chip">塩</span>
+                <span className="craft-label mj-material-chip">水</span>
+                <span className="craft-label mj-material-chip">LED</span>
+              </div>
+
+              <div className="mj-step-phase">
+                <p className="mj-step-phase-label">STEP1｜1セットでためす</p>
+                <MjFigure
+                  src={IMG.d2BatteryMaterialsSlide}
+                  need="スライド「用意するもの」(1円玉・10円玉・キッチンペーパー・塩・水)"
+                  alt="1円玉・10円玉・キッチンペーパー・塩・水を並べた「用意するもの」のスライド"
+                  width={1280}
+                  height={720}
+                />
+                <p>
+                  塩水にひたしたキッチンペーパーを、1円玉と10円玉ではさみます。LEDの赤い線を10円玉に、黒い線を1円玉につないで…光らない。1セットだけでは、電気が足りませんでした。
+                </p>
+              </div>
+
+              <div className="mj-step-phase">
+                <p className="mj-step-phase-label">STEP2｜何セットもつなげる</p>
+                <p>
+                  何セットも重ねて、1人で足りなければとなりの子ともつなげてみます。6セットで光らせたコンビが多いなか、3セットで光らせた子も。くふうを聞くと「キッチンペーパーにしっかり塩水をつけて、強く押しつける」とのことでした。
+                </p>
+                <MjFigure
+                  src={IMG.d2BatteryConnectSlide}
+                  need="スライド「1人じゃ難しいかも…？横の子と一緒につなげてみよう！」"
+                  alt="何セットも重ねた硬貨の電池をLEDにつなぐ図のスライド"
+                  width={1280}
+                  height={720}
+                />
+                <MjFigure
+                  src={IMG.d2BatteryHands}
+                  need="当日写真：テーブルで電池をつくっている様子"
+                  alt="紙皿の上で硬貨とキッチンペーパーを重ねて電池をつくる子どもたち"
+                  width={4032}
+                  height={3024}
+                />
+                <MjFigure
+                  src={IMG.d2LedLit}
+                  need="当日写真：LEDが光った瞬間"
+                  alt="重ねた硬貨の電池につないだLEDが赤く光っている手元"
+                  width={1216}
+                  height={892}
+                />
+              </div>
+
+              <div className="mj-step-phase">
+                <p className="mj-step-phase-label">しくみ｜どうしてLEDがひかるの？</p>
+                <p>
+                  最初に電池をつくったのは、アレッサンドロ・ボルタ。今回の電池も、ボルタ電池と同じしくみです。1円玉(アルミ)が塩水にとけるときに出た電気が、LEDに流れます。
+                </p>
+                <MjFigure
+                  src={IMG.d2BatteryHowSlide}
+                  need="スライド「今回の電池」(10円玉・1円玉・塩水のしくみ図)"
+                  alt="10円玉(銅)と1円玉(アルミ)と塩水で電気が流れるしくみの図"
+                  width={1280}
+                  height={720}
+                />
+                <MjFigure
+                  src={IMG.d2BatterySummarySlide}
+                  need="スライド「まとめ」(おかねで電池ができる／たくさんつなぐとひかる／アルミがとけて電気が流れる)"
+                  alt="「身近なものでも、あかりはつくれる！」と3つのまとめが書かれたスライド"
+                  width={1280}
+                  height={720}
+                />
+              </div>
+
+              <p>
+                明かりを灯してトイレに行くことができて、スッキリした。
+              </p>
+            </div>
+          </div>
+
+          {/* D2-03 */}
+          <div className="mj-log">
+            <span className="mj-log-num" aria-hidden="true">03</span>
+            <div className="mj-log-block reveal">
+              <h3 className="mj-log-title">つくったもの② — 道</h3>
+              <p>
+                そうだ！今日は冒険にでかけよう！ ところが、たおれた木が道をふさいでいる。下でつっかえている木と、上に乗っかっている木。どうやってどかす？
+              </p>
+              <MjFigure
+                src={IMG.d2FallenTreeSlide}
+                need="当日スライド「たおれた き が みちを ふさいでいる！」"
+                alt="たおれた木が道をふさいでいるドット絵のスライド"
+                width={1280}
+                height={720}
+              />
+              <p>
+                島のおじいさんいわく「力ではなく『頭』で勝負してみるんじゃ」。使っていいのは、ロープと木の枝だけです。
+              </p>
+              <MjFigure
+                src={IMG.d2WisdomSlide}
+                need="当日スライド「力ではなく『頭』で勝負してみるんじゃ。」"
+                alt="島のおじいさんが「力ではなく『頭』で勝負してみるんじゃ。」と話すドット絵のスライド"
+                width={1280}
+                height={720}
+              />
+              <div className="mj-material-chips">
+                <span className="craft-label mj-material-chip">ロープ</span>
+                <span className="craft-label mj-material-chip">木の枝(紙管のバトン)</span>
+              </div>
+
+              <div className="mj-step-phase">
+                <p className="mj-step-phase-label">ミッション①｜ラクに動かす(倒木の役＝机)</p>
+                <MjFigure
+                  src={IMG.d2Mission1Slide}
+                  need="スライド「考え試してみよう① そのままひっぱると重い、、ラクに動かす方法を考えよう！」"
+                  alt="「そのままひっぱると重い、ラクに動かす方法を考えよう！」のスライド"
+                  width={1280}
+                  height={720}
+                />
+                <MjFigure
+                  src={IMG.d2Mission1}
+                  need="当日写真：ミッション①でロープを引いている様子"
+                  alt="紙管のバトンにロープを結んで引っぱる方法を試す子どもたち"
+                  width={4032}
+                  height={3024}
+                />
+              </div>
+
+              <div className="mj-step-phase">
+                <p className="mj-step-phase-label">ミッション②｜ラクに持ち上げる(倒木の役＝2リットルの水)</p>
+                <MjFigure
+                  src={IMG.d2Mission2Slide}
+                  need="スライド「考え試してみよう② そのまま持ち上げると重い、、ラクにできる方法を考えよう！」"
+                  alt="「そのまま持ち上げると重い、ラクにできる方法を考えよう！」のスライド"
+                  width={1280}
+                  height={720}
+                />
+                <MjFigure
+                  src={IMG.d2Mission2}
+                  need="当日写真：ミッション②で持ち上げている様子"
+                  alt="2本の紙管にロープをかけて、水の入った袋を持ち上げようとする子どもたち"
+                  width={4032}
+                  height={2268}
+                />
+              </div>
+
+              <p>
+                どちらも、グループで試したことを最後に発表しました。木の枝2本を滑車のように使って持ち上げようとしたり、ロープを何重にも巻いたり、チームごとにちがうくふうが見られました。
+              </p>
+              <p>
+                最後の解説で紹介したのは、木の枝2本でつくる「手動ウインチ」。そこにたどり着いたチームはいませんでしたが、説明を聞くと「うわあ、その方法があったか！」と、みんなすごく納得していました。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== E2｜2日目のふりかえり ========== */}
+      <section className="mj-section mj-notes">
+        <div className="container">
+          <div className="mj-section-head">
+            <SectionTitle variant={3} lineColor="rgb(var(--accent-rgb))">道がひらけたので、ふりかえり</SectionTitle>
+          </div>
+          <p className="mj-notes-lead">2日目も最後に、3色の付箋にふりかえりを書きました。</p>
+
+          <div className="mj-notes-photo">
+            <MjFigure
+              src={IMG.d2Furikaeri}
+              need="当日写真：付箋にふりかえりを書いている様子"
+              alt="2つのテーブルで、付箋にふりかえりを書く子どもたち"
+              width={1920}
+              height={1080}
+            />
+          </div>
+
+          <ul className="mj-notes-legend">
+            <li><span className="mj-legend-dot mj-legend-dot--y" aria-hidden="true" />黄＝{NOTE_LABELS.yellow}</li>
+            <li><span className="mj-legend-dot mj-legend-dot--g" aria-hidden="true" />緑＝{NOTE_LABELS.green}</li>
+            <li><span className="mj-legend-dot mj-legend-dot--o" aria-hidden="true" />オレンジ＝{NOTE_LABELS.orange}</li>
+          </ul>
+
+          <MjNoteWall notes={NOTES_DAY2_ORDERED} />
+        </div>
+      </section>
+
+      {/* ========== F2｜2日目：島でやったことは、まちのどこにある？ ========== */}
+      <section className="mj-section mj-city">
+        <div className="container">
+          <div className="mj-section-head">
+            <SectionTitle variant={1} lineColor="rgb(var(--accent-rgb))">島でやったことは、まちのどこにある？</SectionTitle>
+          </div>
+          <p className="mj-city-lead">2日目の最後も、島の外の話をしました。木をどかしたしくみは、まちの道具や乗り物にも使われています。</p>
+
+          <div className="mj-city-card craft-paper craft-paper--white reveal">
+            <h3>てこ</h3>
+            <p>
+              力をかける「力点」、支える「支点」、力が伝わる「作用点」。くぎぬき・せんぬき・はさみ・トングも、てこのしくみで小さな力を大きな力に変えています。
+            </p>
+            <div className="mj-city-terms">
+              <span className="craft-label">力点</span>
+              <span className="craft-label">支点</span>
+              <span className="craft-label">作用点</span>
+            </div>
+            <MjFigure
+              src={IMG.d2LeverSlide}
+              need="スライド「力点・支点・作用点」(くぎぬき・せんぬき・はさみ等)"
+              alt="くぎぬき・せんぬき・はさみなど、身近な道具の力点・支点・作用点を示したスライド"
+              width={1280}
+              height={720}
+            />
+          </div>
+
+          <div className="mj-city-card craft-paper craft-paper--white reveal">
+            <h3>かっしゃ(滑車)</h3>
+            <p>
+              ロープとプーリー(滑車)を組み合わせると、重さを何本ものロープで分けて支えられます。ロープ6本で支えれば、重さの1/6の力で持ち上げられる。クレーン車やエレベーターも、このしくみです。
+            </p>
+            <MjFigure
+              src={IMG.d2PulleySlide}
+              need="スライド「ロープとプーリーで重たい物を持ち上げるしくみ」(クレーン車・エレベーター)"
+              alt="ロープとプーリーで重い物を持ち上げるしくみと、クレーン車・エレベーターでの使われ方を示したスライド"
+              width={1280}
+              height={720}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ========== G｜3日目へ ========== */}
       <section className="mj-section mj-next">
         <div className="container">
-          <h2 className="mj-next-title craft-misprint">2日目は、10/3㈯の予定です！</h2>
+          <div className="mj-next-media">
+            <MjFigure
+              src={IMG.d2NextSlide}
+              need="当日スライド「道は開かれた！次は何が起きるだろう・・」"
+              alt="トンネルの出口に向かって歩く人と「道は開かれた！次は何が起きるだろう・・」の文字"
+              width={1280}
+              height={720}
+            />
+          </div>
+          <h2 className="mj-next-title craft-misprint">3日目は、11月某日の予定です！</h2>
           <div className="mj-next-card craft-paper craft-paper--warm reveal">
             <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
-              2日目に申し込む
+              3日目に申し込む
             </a>
           </div>
         </div>

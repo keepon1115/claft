@@ -79,20 +79,61 @@ export const NOTES: { color: NoteColor; text: string }[] = [
   { color: 'orange', text: '家をつくることがすきだから、がんじょうにしました。' },
 ];
 
+/** 2日目のふりかえり付箋（原文ママ・全25件＝黄8／緑9／オレンジ8） */
+export const NOTES_DAY2: { color: NoteColor; text: string }[] = [
+  // 黄：きづいたこと（8件）
+  { color: 'yellow', text: '何重に回してかんたんにもちあがることをはじめてしりました。' },
+  { color: 'yellow', text: '十円玉と一円玉で、でんきがつくのがおもしろかった' },
+  { color: 'yellow', text: '無人島に経験ある人はこんなに苦労するねんなぁ' },
+  { color: 'yellow', text: '一人の力でてこを利用すれば、けっこう重さのある物でももちあげられる事に気づいた！' },
+  { color: 'yellow', text: 'てこのげんりっていうのがわかった。重い物をもちあげてすごいと思った。' },
+  { color: 'yellow', text: '一人の力でも、2リットルぐらいのものを持てないということが分かりました。' },
+  { color: 'yellow', text: 'かっしゃはいろいろなところで活用されていることが分かった。' },
+  {
+    color: 'yellow',
+    text: '机を引くときに2本を使って引っ張れるということ。そして水を持ち上げる時に、ひもだけでも上げられるときづいた',
+  },
+  // 緑：ぎもんにおもったこと（9件）
+  { color: 'green', text: 'なぜ10円玉3まいと1円玉3まいだけでは、できるときとできないときがあるのか気になった。' },
+  { color: 'green', text: 'ほかにどんなくみあわせで電気がつくのかな。' },
+  { color: 'green', text: 'なぜ1円玉と10円玉だけで電気がつくのか、ぎもんに思いました。' },
+  { color: 'green', text: 'どうやってこんな難しいやり方を覚えたのだろう' },
+  { color: 'green', text: 'どうやって電気とか、重いものを持ち上げる仕組みを見つけたのか、疑問におもった。' },
+  { color: 'green', text: '1円と10円と塩水をつけたキッチンペーパーで明かりをつけることができたこと' },
+  { color: 'green', text: 'なんでこんな仕組みを思いつけたのだろう' },
+  { color: 'green', text: '1円と10円と水にぬらしたキッチンペーパーをはさんで電気がつくのか' },
+  { color: 'green', text: 'なんでLEDがつかなかったのか？テコは力点に人を増やせば、もっと軽い力で荷物を上げられるのか？' },
+  // オレンジ：くふうしたこと（8件）
+  { color: 'orange', text: '何重も何重もまいて軽くしたこと。' },
+  { color: 'orange', text: 'ロープのつかいかた。' },
+  { color: 'orange', text: '昔の人は色々な工夫をしているんだなぁ' },
+  {
+    color: 'orange',
+    text: 'みんなで支点をささえて力をつたえやすくした！LEDは10円と1円のワンセットじゃつかなかったから、みんなのをあわせて3セットつかったら、きれいについた！',
+  },
+  {
+    color: 'orange',
+    text: '机を引くときと水を持ち上げるときに、どうやったらできるのかを、ロープを使って動かす方法を工夫しました。',
+  },
+  { color: 'orange', text: '食塩水をつけただけで、明かりがつくことがわかった' },
+  { color: 'orange', text: 'とにかくいっぱいロープをまいた' },
+  { color: 'orange', text: 'つくえを引くときくふうしました' },
+];
+
 export const ISLAND_RULES = [
   'この島に正解はありません',
   '見本はあるが手本ではありません',
   'わからんかったらカンニングOK',
 ] as const;
 
-/** 2〜5日目は makes / question を型に載せない＝誤表示を構造で防ぐ */
+/** 未開催日（3〜5日目）は makes / question を型に載せない＝誤表示を構造で防ぐ */
 export type Day =
-  | { day: 1; title: string; done: true; makes: string; question: string }
-  | { day: 2 | 3 | 4 | 5; title: string; done: false };
+  | { day: 1 | 2; title: string; done: true; makes: string; question: string }
+  | { day: 3 | 4 | 5; title: string; done: false };
 
 export const DAYS: Day[] = [
   { day: 1, title: 'いきのびる', done: true, makes: '寝床／火／飲み水', question: '何があれば、この島で生きていける？' },
-  { day: 2, title: '？？', done: false },
+  { day: 2, title: 'ひらく', done: true, makes: 'あかり／道', question: '力ではなく、頭で道をひらける？' },
   { day: 3, title: '？？', done: false },
   { day: 4, title: '？？', done: false },
   { day: 5, title: 'かえる', done: false },
@@ -103,7 +144,9 @@ export const DAYS: Day[] = [
  * 色ごとに固めると3つの塊に見えて密度が落ちるため、また Math.random() は
  * SSR/CSRで結果がずれてhydration mismatchになるため、決定的な並びにする。
  */
-function interleaveByColor(notes: { color: NoteColor; text: string }[]) {
+export type Note = { color: NoteColor; text: string };
+
+function interleaveByColor(notes: Note[]) {
   const order: NoteColor[] = ['yellow', 'green', 'orange'];
   const buckets = order.map((c) => notes.filter((n) => n.color === c));
   const result: typeof notes = [];
@@ -118,3 +161,4 @@ function interleaveByColor(notes: { color: NoteColor; text: string }[]) {
 }
 
 export const NOTES_ORDERED = interleaveByColor(NOTES);
+export const NOTES_DAY2_ORDERED = interleaveByColor(NOTES_DAY2);

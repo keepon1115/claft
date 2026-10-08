@@ -7139,3 +7139,11 @@ html {
     transition-delay: 0s !important;
   }
 }
+/* ---------- 無人島 2日目（mj- 層の追記） ---------- */
+.mj-notes-photo {
+  margin: 0 0 24px;
+}
+
+.mj-next-media {
+  margin: 0 0 24px;
+}
