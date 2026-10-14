@@ -8,7 +8,7 @@ export function LabYononakaBanner() {
     <Link className="lab-yn-banner" href="/lab/yononaka">
       <span className="lab-yn-banner-icon" aria-hidden="true">💡</span>
       <span className="lab-yn-banner-text">
-        <b>Yononaka｜今週のお題、ひとこと答えてみませんか？</b>
+        <b>Yononaka｜今週も一言答えませんか？</b>
         <span>{latest ? `${latest.no} ${latest.title}` : 'ひとこと答えてみませんか'}</span>
       </span>
       <span className="lab-yn-banner-arrow" aria-hidden="true">→</span>

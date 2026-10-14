@@ -109,7 +109,6 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
         {/* リード後のボタン */}
         {feature.leadLink && (
           <div style={{ margin: '0 0 20px' }}>
-            (
             <a
               href={feature.leadLink.href}
               target={feature.leadLink.external ? '_blank' : undefined}
@@ -131,7 +130,6 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
               {feature.leadLink.label}
               <span aria-hidden="true">{feature.leadLink.external ? '↗' : '→'}</span>
             </a>
-          )
           </div>
         )}
 
@@ -191,7 +189,6 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
         )}
         {feature.bookNote && feature.noteLink && (
           <div style={{ margin: '0 0 16px' }}>
-            (
             <a
               href={feature.noteLink.href}
               target={feature.noteLink.external ? '_blank' : undefined}
@@ -213,7 +210,6 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
               {feature.noteLink.label}
               <span aria-hidden="true">{feature.noteLink.external ? '↗' : '→'}</span>
             </a>
-          )
           </div>
         )}
 

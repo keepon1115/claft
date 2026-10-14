@@ -13,12 +13,21 @@ export interface Dialogue {
 }
 
 export interface Announcement {
+  /** ページ内リンク用のアンカーID（任意） */
+  anchorId?: string;
   title: string;
   date: string;
   audience: string;
   body: string;
   image?: { src?: string; alt?: string };
   link?: { label: string; href: string; external: boolean };
+  /** ボタンの下に付ける振り返り（前月の様子など）。付箋＋画像＋ボタン */
+  recap?: {
+    icon?: string;
+    text: string;
+    image?: { src: string; alt?: string };
+    link?: { label: string; href: string; external: boolean };
+  };
 }
 
 export interface Feature {
@@ -651,10 +660,6 @@ export const issues: Issue[] = [
             text: '僕ら大人は英語がちゃんと話せないとって思いがちですけど、子供たちは言葉が完璧じゃなくてもしっかり楽しんでて、見習うところやなと感じました',
           },
         ],
-        noteIcon: '📷',
-        bookNote: '9月のフォトコンテストのテーマは「いきもの」。かわいい犬の写真、旅行先のマーライオン、ユニバでのキャラクターなど、夏休みの思い出もあわせてたくさん届きました。スタッフからは、青森で見つけた「ファットハウス」と「ファットカー」の写真も。家や車は生き物ではないけれど、「太らせる」は生き物にしか使わない、というひねったアプローチも大歓迎です。',
-        noteImage: { src: '/assets/images/journal/2026-10/lastmonth-photocon.jpg', alt: '9月のフォトコンテスト応募作品' },
-        noteLink: { label: 'その他写真はこちら', href: 'https://canva.link/cvgur1ouv8s5nho', external: true },
       },
       {
         id: 'news',
@@ -705,6 +710,7 @@ export const issues: Issue[] = [
             link: { label: 'なんでも展示会に参加する', href: 'https://forms.gle/5jHvttWBuh5CBmx16', external: true },
           },
           {
+            anchorId: 'photocon',
             title: '10月のフォトコンテスト「秋やん」',
             date: '10月(LINEで受付中)',
             audience: 'スクール生・保護者 どなたでも',
@@ -713,6 +719,12 @@ export const issues: Issue[] = [
               src: '/assets/images/journal/2026-10/info-photocon.jpg',
             },
             link: { label: 'LINEで写真を送る', href: 'https://lin.ee/wcsFK9A', external: true },
+            recap: {
+              icon: '📷',
+              text: '9月のフォトコンテストのテーマは「いきもの」。かわいい犬の写真、旅行先のマーライオン、ユニバでのキャラクターなど、夏休みの思い出もあわせてたくさん届きました。スタッフからは、青森で見つけた「ファットハウス」と「ファットカー」の写真も。家や車は生き物ではないけれど、「太らせる」は生き物にしか使わない、というひねったアプローチも大歓迎です。',
+              image: { src: '/assets/images/journal/2026-10/lastmonth-photocon.jpg', alt: '9月のフォトコンテスト応募作品' },
+              link: { label: 'その他写真はこちら', href: 'https://canva.link/cvgur1ouv8s5nho', external: true },
+            },
           },
           {
             title: 'Yononaka「そのニュース誰が作った？」（情報リテラシーシリーズ第1回）',

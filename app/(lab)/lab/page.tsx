@@ -3,6 +3,7 @@ import { StoryRail } from '@/components/lab/StoryRail';
 import { LabNewsCard } from '@/components/lab/LabNewsCard';
 import { LabBlogBanner } from '@/components/lab/LabBlogBanner';
 import { LabYononakaBanner } from '@/components/lab/LabYononakaBanner';
+import { LabPhotoconBanner } from '@/components/lab/LabPhotoconBanner';
 import { LabCampaignCard } from '@/components/lab/LabCampaignCard';
 import { LabTabBar } from '@/components/lab/LabTabBar';
 import { LabTutorial } from '@/components/lab/LabTutorial';
@@ -30,6 +31,7 @@ export default async function LabTopPage() {
         <h2 className="lab-feed-h" data-tour="feed">お知らせ・活動報告</h2>
         <LabBlogBanner />
         <LabYononakaBanner />
+        <LabPhotoconBanner />
         <LabCampaignCard />
         {keeponEvents.length > 0 ? (
           keeponEvents.map((event, i) => <LabNewsCard key={event.id} event={event} index={i} />)

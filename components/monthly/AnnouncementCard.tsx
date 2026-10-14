@@ -8,11 +8,13 @@ interface Props {
 }
 
 export default function AnnouncementCard({ announcement, accentColor = '#34c6be' }: Props) {
-  const { title, date, audience, body, image, link } = announcement;
+  const { anchorId, title, date, audience, body, image, link, recap } = announcement;
 
   return (
     <article
+      id={anchorId}
       style={{
+        scrollMarginTop: '16px',
         background: '#fff',
         borderRadius: '16px',
         overflow: 'hidden',
@@ -127,6 +129,54 @@ export default function AnnouncementCard({ announcement, accentColor = '#34c6be'
               <span aria-hidden="true">→</span>
             </Link>
           )
+        )}
+
+        {/* 振り返り（前月の様子など） */}
+        {recap && (
+          <div style={{ marginTop: '20px' }}>
+            <div
+              style={{
+                background: '#fffde7',
+                border: '1.5px dashed #f5a623',
+                borderRadius: '8px',
+                padding: '14px 16px',
+                marginBottom: '16px',
+                boxShadow: '2px 3px 8px rgba(0,0,0,0.08)',
+              }}
+            >
+              <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.7, color: 'var(--ink-700)' }}>
+                {recap.icon ?? '📷'} {recap.text}
+              </p>
+            </div>
+            {recap.image && (
+              <div style={{ marginBottom: '16px' }}>
+                <ImagePlaceholder width={640} height={360} src={recap.image.src} alt={recap.image.alt || ''} />
+              </div>
+            )}
+            {recap.link && (
+              <a
+                href={recap.link.href}
+                target={recap.link.external ? '_blank' : undefined}
+                rel={recap.link.external ? 'noopener noreferrer' : undefined}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '10px 20px',
+                  background: accentColor,
+                  color: '#fff',
+                  borderRadius: '50px',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  boxShadow: `0 4px 12px ${accentColor}40`,
+                }}
+              >
+                {recap.link.label}
+                <span aria-hidden="true">{recap.link.external ? '↗' : '→'}</span>
+              </a>
+            )}
+          </div>
         )}
       </div>
     </article>

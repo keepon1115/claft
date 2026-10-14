@@ -35,6 +35,8 @@ export const EXTERNAL_LINKS = {
   reserveEvent: 'https://claft-hp.vercel.app/news',
   /** 教育・キャリアブログ（CLAFT HP・別タブ） */
   blog: 'https://claft.keeponlearning.fun/blog',
+  /** 今月のフォトコンテスト（KEEPON JOURNAL 該当カード・別タブ） */
+  photocon: 'https://claft.keeponlearning.fun/monthly/2026-10#photocon',
 } as const;
 
 /** ストーリーの円に「New」バッジを出す期間（日数）。StoryRail 側で updatedAt と比較する。 */
