@@ -8,6 +8,7 @@ export type ChokottoTopic = {
 };
 
 export const CHOKOTTO_TOPICS: ChokottoTopic[] = [
+  { no: 'Yo131', title: '飲食店に行ったとき、「こんなロボットがあったら最高なのに！」って思うものは何ですか？（例）注文した料理をとどけてくれるロボット', formUrl: 'https://forms.gle/Nr6kADAqocy8BGg18' },
   { no: 'Yo130', title: 'ある日、外国から転校生が来ることになりました！', formUrl: 'https://forms.gle/k14WN63dLqHV1AQv7' },
   { no: 'Yo129', title: 'こんな授業おもろかった！', formUrl: 'https://forms.gle/HR18GFkBqcdHh14Z6' },
   { no: 'Yo128', title: '今の気分を教えて！', formUrl: 'https://forms.gle/ViGdxLJeSYzfa7dc6' },
