@@ -65,12 +65,21 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   const { work, tally } = item;
   // 作品リンク（ゲーム・アプリ等）は works.story_made に入っている（scripts/import-nandemo-works.mjs が保存）。
   // 作者の名前（author_nickname）は非公開のため、ここでは表示しない。
+  // 説明文は author_intro、ボタン文言は story_devised（空なら「作品はこちら」）に入っている。
   const workLink = work.story_made;
+  const description = work.author_intro;
+  const buttonLabel = work.story_devised || "作品はこちら";
   return (
     <div className="rp-work reveal" style={{ transitionDelay: `${index * 70}ms` } as CSSProperties}>
       <div className="nd-exhibit-head">
         <h3 className="nd-exhibit-title">{work.title}</h3>
       </div>
+
+      {description && (
+        <p className="rp-story-body" style={{ marginBottom: 14 }}>
+          {description}
+        </p>
+      )}
 
       {work.youtube_url && (
         <div className="nd-exhibit-video">
@@ -81,7 +90,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
       {workLink && (
         <div className="nd-cta" style={{ marginTop: 16 }}>
           <a href={workLink} target="_blank" rel="noopener noreferrer" className="craft-sticker">
-            作品はこちら
+            {buttonLabel}
             <ArrowRightDoodle width={24} />
           </a>
         </div>

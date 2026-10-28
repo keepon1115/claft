@@ -7,10 +7,11 @@
  *   npm run import:nandemo-works -- ./works.csv nandemo-2027-03 --dry-run   ← 展示会slugを指定（省略時 nandemo-2026-11）
  *
  * CSVの列見出し（1行目・日本語のまま）:
- *   作品名, 名前, 動画URL, 作品リンク, 削除
+ *   作品名, 名前, 動画URL, 作品リンク, 説明文, ボタン文言, 削除
  *   （見出しの順番は自由。余分な列があっても無視される。「ニックネーム」も「名前」として読む）
  *   - 名前はページに表示しない（同じ作品かの判定用。DBでは works.author_nickname）
  *   - 動画URL・作品リンクはどちらか一方でOK（両方空はエラー）
+ *   - 説明文（任意）は works.author_intro、ボタン文言（任意・空なら「作品はこちら」）は works.story_devised に保存する。
  *   - 作品リンクは works.story_made に保存する（この展示会では未使用の列を流用。
  *     ページ側 ExhibitionWorks2611Content.tsx が「作品はこちら」ボタンとして読む）
  *   - 削除列に「削除」と書いた行は、その作品をDBから消す（コメント・リアクションも一緒に消える）
@@ -116,6 +117,8 @@ const HEADER_MAP = {
   'ニックネーム': 'author_nickname',
   '動画URL': 'youtube_url',
   '作品リンク': 'work_link',
+  '説明文': 'description',
+  'ボタン文言': 'button_label',
   '削除': 'remove',
 };
 const REQUIRED = ['title', 'author_nickname'];
@@ -205,6 +208,8 @@ for (let r = 1; r < rawRows.length; r++) {
     author_nickname: rec.author_nickname,
     youtube_url: rec.youtube_url || null,
     story_made: rec.work_link || null,
+    author_intro: rec.description || null,
+    story_devised: rec.button_label || null,
   });
 }
 
@@ -240,7 +245,7 @@ const show = (v) => (v ? v : '（なし）');
 for (const e of entries) {
   const { data: existing, error: selError } = await supabase
     .from('works')
-    .select('id, youtube_url, story_made')
+    .select('id, youtube_url, story_made, author_intro, story_devised')
     .eq('exhibition_id', exhibition.id)
     .eq('title', e.title)
     .eq('author_nickname', e.author_nickname)
@@ -270,12 +275,23 @@ for (const e of entries) {
     continue;
   }
 
-  const fields = { youtube_url: e.youtube_url, story_made: e.story_made };
+  const fields = {
+    youtube_url: e.youtube_url,
+    story_made: e.story_made,
+    author_intro: e.author_intro,
+    story_devised: e.story_devised,
+  };
 
   if (existing) {
     const changes = [];
     if ((existing.youtube_url ?? null) !== fields.youtube_url) {
       changes.push(`動画: ${show(existing.youtube_url)} → ${show(fields.youtube_url)}`);
+    }
+    if ((existing.author_intro ?? null) !== fields.author_intro) {
+      changes.push(`説明文: ${show(existing.author_intro)} → ${show(fields.author_intro)}`);
+    }
+    if ((existing.story_devised ?? null) !== fields.story_devised) {
+      changes.push(`ボタン文言: ${show(existing.story_devised)} → ${show(fields.story_devised)}`);
     }
     if ((existing.story_made ?? null) !== fields.story_made) {
       changes.push(`作品リンク: ${show(existing.story_made)} → ${show(fields.story_made)}`);
@@ -316,7 +332,7 @@ for (const e of entries) {
         continue;
       }
     }
-    added.push(`「${e.title}」（${e.author_nickname}）  動画: ${show(fields.youtube_url)} ／ 作品リンク: ${show(fields.story_made)}`);
+    added.push(`「${e.title}」（${e.author_nickname}）  動画: ${show(fields.youtube_url)} ／ 作品リンク: ${show(fields.story_made)} ／ 説明文: ${show(fields.author_intro)} ／ ボタン文言: ${show(fields.story_devised)}`);
   }
 }
 
