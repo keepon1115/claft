@@ -4,7 +4,7 @@ import NandemoTenjikaiContent from './NandemoTenjikaiContent';
 export const metadata: Metadata = {
   title: 'なんでも展示会 | CLAFT',
   description:
-    '自分の好きなモノ、得意なこと、自由研究、おもしろい遊び、旅行の思い出 ── なんでも自由に伝えられる展示会。発表が苦手でも、つくったものを送るだけで参加OK。「好き」をひらく第一歩を、ここから。',
+    '自分の好きなモノ、得意なこと、自由研究、おもしろい遊び、旅行の思い出 ── なんでも自由に伝えられる展示会。年2回（3月・11月）開催。発表が苦手でも、つくったものを送るだけで参加OK。',
   openGraph: {
     title: 'なんでも展示会 | CLAFT',
     description:

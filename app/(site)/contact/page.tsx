@@ -560,7 +560,7 @@ export default function ContactPage() {
                       </p>
                     )}
                     <button
-                      className="w-full md:w-auto inline-flex items-center justify-center gap-3 py-4 px-8 rounded-full font-bold border-0 shadow-lg bg-gradient-to-r from-brand to-[#2da89e] text-white cursor-pointer text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                      className="w-full @lg:w-auto inline-flex items-center justify-center gap-3 py-4 px-8 rounded-full font-bold border-0 shadow-lg bg-gradient-to-r from-brand to-[#2da89e] text-white cursor-pointer text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                       type="submit"
                       disabled={status === 'sending'}
                       style={{ fontFamily: zenMaru.style.fontFamily }}

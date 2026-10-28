@@ -38,7 +38,8 @@ const config: Config = {
       }
     }
   },
-  plugins: []
+  // @container 系（@sm: @md: など）で、PCの480px中央カラム内でも「カラム幅」基準の分岐ができる
+  plugins: [require('@tailwindcss/container-queries')]
 };
 
 export default config;

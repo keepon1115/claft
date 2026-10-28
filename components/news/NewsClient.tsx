@@ -88,7 +88,7 @@ export default function NewsClient({ events, fetchError }: Props) {
           </span>
           <h1
             style={{
-              fontSize: 'clamp(22px, 6vw, 28px)',
+              fontSize: 'clamp(22px, 6cqi, 28px)',
               fontWeight: 900,
               color: 'var(--ink-900)',
               fontFamily: 'var(--font-zen), sans-serif',
@@ -108,7 +108,7 @@ export default function NewsClient({ events, fetchError }: Props) {
       <Section>
         <h2
           style={{
-            fontSize: 'clamp(16px, 4.5vw, 20px)',
+            fontSize: 'clamp(16px, 4.5cqi, 20px)',
             fontWeight: 900,
             color: 'var(--ink-900)',
             fontFamily: 'var(--font-zen), sans-serif',
@@ -224,7 +224,7 @@ export default function NewsClient({ events, fetchError }: Props) {
       <Section>
         <h2
           style={{
-            fontSize: 'clamp(16px, 4.5vw, 20px)',
+            fontSize: 'clamp(16px, 4.5cqi, 20px)',
             fontWeight: 900,
             color: 'var(--ink-900)',
             fontFamily: 'var(--font-zen), sans-serif',

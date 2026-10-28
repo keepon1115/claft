@@ -62,7 +62,7 @@ export default function JournalCover({ issue }: Props) {
           style={{
             margin: 0,
             fontFamily: 'var(--font-zen), sans-serif',
-            fontSize: 'clamp(28px, 8vw, 38px)',
+            fontSize: 'clamp(28px, 8cqi, 38px)',
             fontWeight: 900,
             color: 'var(--ink-900)',
             letterSpacing: '0.04em',

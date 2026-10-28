@@ -5,9 +5,10 @@ import { SparkleDoodle } from '@/components/craft/HandDrawn';
 type FutureVisionProps = {
   visionText: string;
   subText?: string;
+  goalThisYear?: string;
 };
 
-export function FutureVision({ visionText, subText }: FutureVisionProps) {
+export function FutureVision({ visionText, subText, goalThisYear }: FutureVisionProps) {
   return (
     <section className="py-8 px-4 reveal">
       <div className="craft-paper craft-paper--warm craft-tilt p-6" style={{ '--rot': '0.6deg' } as CSSProperties}>
@@ -28,9 +29,18 @@ export function FutureVision({ visionText, subText }: FutureVisionProps) {
 
         {/* サブテキスト */}
         {subText && (
-          <p className="body-sm text-[var(--ink-600)] mt-4 mb-0" style={{ lineHeight: 'var(--leading-loose)' }}>
+          <p className="body-sm text-[var(--ink-600)] mt-4 mb-0" style={{ whiteSpace: 'pre-line', lineHeight: 'var(--leading-loose)' }}>
             {subText}
           </p>
+        )}
+
+        {goalThisYear && (
+          <div className="mt-5 pt-4" style={{ borderTop: '2px dotted rgb(var(--pink-rgb) / 0.5)' }}>
+            <p className="text-[var(--text-sm)] font-bold text-[var(--pink)] mb-1">今年の目標</p>
+            <p className="body-base text-[var(--ink-800)] m-0" style={{ whiteSpace: 'pre-line', lineHeight: 'var(--leading-loose)' }}>
+              {goalThisYear}
+            </p>
+          </div>
         )}
 
         {/* 装飾の手描ききらきら */}

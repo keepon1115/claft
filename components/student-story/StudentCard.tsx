@@ -8,11 +8,12 @@ type StudentCardProps = {
   grade: string;
   avatarEmoji: string;
   shortIntro: string;
+  interestTags?: string[];
   /** 一覧での貼り込み角度を散らす */
   index?: number;
 };
 
-export function StudentCard({ slug, name, grade, avatarEmoji, shortIntro, index = 0 }: StudentCardProps) {
+export function StudentCard({ slug, name, grade, avatarEmoji, shortIntro, interestTags = [], index = 0 }: StudentCardProps) {
   return (
     <div
       className="craft-paper craft-tilt craft-lift reveal p-6"
@@ -39,6 +40,14 @@ export function StudentCard({ slug, name, grade, avatarEmoji, shortIntro, index 
       <p className="body-base text-[var(--ink-700)] mb-5" style={{ lineHeight: 'var(--leading-loose)' }}>
         {shortIntro}
       </p>
+
+      {interestTags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-5">
+          {interestTags.map((tag) => (
+            <span key={tag} className="ss-tag">{tag}</span>
+          ))}
+        </div>
+      )}
 
       {/* 「ストーリーを見る」ボタン */}
       <Link href={`/student-story/${slug}`} className="craft-sticker" style={{ padding: '10px 22px', fontSize: 'var(--text-sm)' }}>

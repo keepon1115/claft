@@ -50,6 +50,20 @@
   - 根本対応が必要な場合はコンテナクエリ（`@container` / cqi 単位）を使う。
     サイトの craft デザイントークン（craft-* クラス）は cqi ベースで、vw の clamp は禁止
     （既存規約。docs/ や globals.css の craft トークン定義を参照）。
+- **2026-10 追記（PC中央カラム480pxの総点検）**:
+  - PC(1280px〜)の `.site-main` は480px固定の「1枚の紙」。ここに `sm:`/`md:` を書くと、
+    幅はスマホなのに「PC用」の見た目（`flex-row` 横並び・ボタン文字の3行折れ・縦長カード）が当たる。
+    globals.css の PC LAYOUT GUARD は `grid-cols` と特大文字しか潰さないので `flex-row` は漏れる。
+  - **中央カラム内の分岐は `@lg:` など Tailwind の container query（`@tailwindcss/container-queries`導入済）**
+    を使う。480pxでは窮屈な横並びは分岐自体を外して常に縦積みにするのが最も安全。
+  - `vw` の clamp は書かない。`cqi`（または `--text-*` トークン）に置換する。
+  - 日本語見出し（`.heading-*`）は `word-break: auto-phrase; text-wrap: balance` で語中改行を防止済。
+    `.craft-sticker` は `white-space: nowrap`。
+  - 例外（触らない）: SiteGrid の `xl:hidden`（サイドバー切替は画面幅が正）、画像の `sizes` 属性。
+  - 対応済み: なんでも展示会 LP（/futurecraft/Exhibition）は2026-10にロボット発表会と同じ `nd-*` ＋ craft 部品へ載せ替え。
+    左右レールのポラロイド・`sm:` 分岐を廃止し、列数は `auto-fit minmax()` のみで決める（PCの480px中央でもスマホと同じ見た目）。
+  - 未対応: Exhibition-game・author・keepon-lab・roadmap・ai-robot は
+    個性ページとして据え置き。PCで実物確認し、崩れた箇所のみ最小修正すること。
 
 ### パターン3: 100svh・%座標ベースの縦位置が端末で暴れる
 

@@ -41,7 +41,7 @@ export function Download(){
               ご不明な点やご質問はLINEからお問合せくださいませ。30分程度の個別面談も可能です。
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col @lg:flex-row gap-4">
               <a 
                 className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full font-bold bg-white border-2 border-cream text-ink-900 hover:bg-cream/10 transition-all shadow-md"
                 href="/assets/siryo.pdf" 

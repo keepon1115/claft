@@ -385,6 +385,41 @@
   flex-shrink: 0;
   color: var(--orange);
 }
+/* フィード最下部の固定導線（口コミ・アプリ改善）：紙カード調で控えめに */
+.lab-footer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 6px 0 15px;
+}
+.lab-footer-action {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 2px 3px 0 #d8cba8;
+  transition: transform 0.12s;
+}
+.lab-footer-action:active { transform: scale(0.985); }
+.lab-footer-action-icon { font-size: 24px; line-height: 1; flex-shrink: 0; }
+.lab-footer-action-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lab-footer-action-text b { font-size: 14px; font-weight: 700; }
+.lab-footer-action-text span { font-size: 11.5px; color: #8a7d64; line-height: 1.4; }
+.lab-footer-action-arrow {
+  font-size: 17px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: var(--orange);
+}
 /* 紹介割キャンペーン固定カード：カード全体が1つのLINEリンク。左＝正方形の告知画像／右＝文言そのものを兼ねた緑ボタン */
 .lab-campaign {
   display: flex;

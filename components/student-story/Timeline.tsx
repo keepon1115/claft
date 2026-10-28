@@ -3,6 +3,7 @@ import { SectionTitle } from '@/components/craft/SectionTitle';
 
 export type TimelineEvent = {
   date: string;
+  category?: string;
   title: string;
   description?: string;
   isCurrent?: boolean;
@@ -69,6 +70,7 @@ export function Timeline({ events }: TimelineProps) {
                   style={{ color: event.isCurrent ? 'var(--brand-deep)' : 'var(--ink-500)' }}
                 >
                   {event.date}
+                  {event.category && <span className="ss-tag ml-2">{event.category}</span>}
                   {event.isCurrent && <span className="ss-now">NOW</span>}
                 </span>
 

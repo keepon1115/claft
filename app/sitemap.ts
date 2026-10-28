@@ -31,6 +31,7 @@ const STATIC_PATHS = [
   '/asia-steam-camp',
   '/futurecraft',
   '/futurecraft/Exhibition',
+  '/futurecraft/Exhibition2611',
   '/futurecraft/Exhibition-game',
   '/futurecraft/Presentation',
   '/futurecraft/RobotPresentation',

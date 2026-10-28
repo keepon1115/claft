@@ -2,6 +2,8 @@ import { StudentDetailContent } from '@/components/student-story';
 import { getStudentBySlug, getAllStudentSlugs } from '@/lib/studentData';
 import { notFound } from 'next/navigation';
 
+export const dynamicParams = false;
+
 type PageProps = {
   params: Promise<{ slug: string }>;
 };

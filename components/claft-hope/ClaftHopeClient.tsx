@@ -1132,11 +1132,11 @@ function FounderSection() {
             className={shipporiMincho.className}
             style={{ margin: '0 0 22px', fontSize: 'var(--text-base)', lineHeight: 'var(--leading-loose)', color: 'var(--ink-800)' }}
           >
-            {founder.futureVision.text}
-            {founder.futureVision.subText && (
+            {founder.futureVision?.text}
+            {founder.futureVision?.subText && (
               <>
                 <br />
-                {founder.futureVision.subText}
+                {founder.futureVision?.subText}
               </>
             )}
           </p>

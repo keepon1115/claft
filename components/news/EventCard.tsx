@@ -169,7 +169,7 @@ export default function EventCard({ event }: Props) {
           {/* タイトル */}
           <h3
             style={{
-              fontSize: 'clamp(14px, 3.5vw, 16px)',
+              fontSize: 'clamp(14px, 3.5cqi, 16px)',
               fontWeight: 800,
               color: 'var(--ink-900)',
               margin: '0 0 4px',

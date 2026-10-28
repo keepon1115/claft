@@ -28,14 +28,14 @@ export function NavigatorAbout() {
     <section
       ref={sectionRef}
       style={{
-        padding: 'clamp(60px, 10vw, 100px) 0',
+        padding: 'clamp(60px, 10cqi, 100px) 0',
         background: '#fbfefe',
         position: 'relative'
       }}
     >
       <div style={{ width: 'min(800px, 92%)', marginInline: 'auto' }}>
         {/* タイトル */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: 'clamp(40px, 6vw, 60px)' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 'clamp(40px, 6cqi, 60px)' }}>
           <h2 className="heading-lg"
             style={{
               marginBottom: '16px'
@@ -54,7 +54,7 @@ export function NavigatorAbout() {
           style={{
             background: '#fff',
             borderRadius: '28px',
-            padding: 'clamp(32px, 6vw, 60px)',
+            padding: 'clamp(32px, 6cqi, 60px)',
             boxShadow: `
               0 8px 16px rgba(0, 0, 0, 0.06),
               0 20px 40px rgba(0, 0, 0, 0.04),
@@ -85,7 +85,7 @@ export function NavigatorAbout() {
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr',
-              gap: 'clamp(30px, 5vw, 40px)',
+              gap: 'clamp(30px, 5cqi, 40px)',
               position: 'relative',
               zIndex: 1
             }}
@@ -189,7 +189,7 @@ export function NavigatorAbout() {
                   background: 'linear-gradient(135deg, rgba(52, 198, 190, 0.08), rgba(255, 214, 107, 0.08))',
                   border: '2px solid rgba(52, 198, 190, 0.3)',
                   borderRadius: '16px',
-                  padding: 'clamp(20px, 4vw, 28px)',
+                  padding: 'clamp(20px, 4cqi, 28px)',
                   marginBottom: '28px',
                   position: 'relative'
                 }}

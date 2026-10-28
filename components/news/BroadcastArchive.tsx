@@ -57,7 +57,7 @@ export default function BroadcastArchive() {
           </span>
           <h3
             style={{
-              fontSize: 'clamp(14px, 3.8vw, 17px)',
+              fontSize: 'clamp(14px, 3.8cqi, 17px)',
               fontWeight: 800,
               color: 'var(--ink-900)',
               fontFamily: 'var(--font-zen), sans-serif',
@@ -194,7 +194,7 @@ export default function BroadcastArchive() {
           </span>
           <h3
             style={{
-              fontSize: 'clamp(14px, 3.8vw, 17px)',
+              fontSize: 'clamp(14px, 3.8cqi, 17px)',
               fontWeight: 800,
               color: 'var(--ink-900)',
               fontFamily: 'var(--font-zen), sans-serif',

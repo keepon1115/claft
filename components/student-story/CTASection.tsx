@@ -34,7 +34,7 @@ export function CTASection({
         </p>
 
         {/* CTAボタン */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col gap-3">
           <Link href="/contact" className="craft-sticker">
             無料体験に申し込む
             <ArrowRightDoodle width={20} />

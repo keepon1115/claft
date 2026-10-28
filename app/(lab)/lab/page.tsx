@@ -5,6 +5,7 @@ import { LabBlogBanner } from '@/components/lab/LabBlogBanner';
 import { LabYononakaBanner } from '@/components/lab/LabYononakaBanner';
 import { LabPhotoconBanner } from '@/components/lab/LabPhotoconBanner';
 import { LabCampaignCard } from '@/components/lab/LabCampaignCard';
+import { LabFooterActions } from '@/components/lab/LabFooterActions';
 import { LabTabBar } from '@/components/lab/LabTabBar';
 import { LabTutorial } from '@/components/lab/LabTutorial';
 import { getStories } from '@/lib/lab/content';
@@ -42,6 +43,7 @@ export default async function LabTopPage() {
               : 'いまは予定されているお知らせはありません。新しい予定が入るとここに表示されます。'}
           </p>
         )}
+        <LabFooterActions />
       </main>
       <LabTabBar />
       <LabTutorial />

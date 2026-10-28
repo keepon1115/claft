@@ -37,6 +37,10 @@ export const EXTERNAL_LINKS = {
   blog: 'https://claft.keeponlearning.fun/blog',
   /** 今月のフォトコンテスト（KEEPON JOURNAL 該当カード・別タブ） */
   photocon: 'https://claft.keeponlearning.fun/monthly/2026-10#photocon',
+  /** Google口コミ投稿画面（別タブ） */
+  googleReview: 'https://g.page/r/Ce6ZwKqE6aIVEAE/review',
+  /** アプリ改善・ご意見フォーム（Googleフォーム・別タブ） */
+  appFeedback: 'https://forms.gle/QpHxbHuvRPrHEJh58',
 } as const;
 
 /** ストーリーの円に「New」バッジを出す期間（日数）。StoryRail 側で updatedAt と比較する。 */

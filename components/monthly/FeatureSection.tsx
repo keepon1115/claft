@@ -50,7 +50,7 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
         <h2
           style={{
             margin: 0,
-            fontSize: 'clamp(18px, 4.5vw, 22px)',
+            fontSize: 'clamp(18px, 4.5cqi, 22px)',
             fontWeight: 700,
             color: 'var(--ink-900)',
             lineHeight: 1.35,

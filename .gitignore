@@ -7,3 +7,6 @@ out
 
 # MCP設定（Personal Access Token を含むためコミットしない）
 .mcp.json
+
+# メンバーストーリー管理シート（非公開メモを含む）
+*.xlsx
