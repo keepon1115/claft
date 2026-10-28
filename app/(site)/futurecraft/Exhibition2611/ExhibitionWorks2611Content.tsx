@@ -63,42 +63,29 @@ function PageHeader({ live }: { live: boolean }) {
 
 function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   const { work, tally } = item;
-  const images = work.work_images ?? [];
+  // 作品リンク（ゲーム・アプリ等）は works.story_made に入っている（scripts/import-nandemo-works.mjs が保存）。
+  // 作者の名前（author_nickname）は非公開のため、ここでは表示しない。
+  const workLink = work.story_made;
   return (
     <div className="rp-work reveal" style={{ transitionDelay: `${index * 70}ms` } as CSSProperties}>
       <div className="nd-exhibit-head">
         <h3 className="nd-exhibit-title">{work.title}</h3>
-        <p className="nd-exhibit-theme">{work.author_nickname}</p>
       </div>
 
-      {work.youtube_url ? (
+      {work.youtube_url && (
         <div className="nd-exhibit-video">
           <LiteYouTube url={work.youtube_url} title={work.title} />
         </div>
-      ) : work.thumbnail_url ? (
-        <div className="nd-exhibit-video">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={work.thumbnail_url}
-            alt={work.title}
-            style={{ width: "100%", height: "auto", borderRadius: 20 }}
-            loading="lazy"
-          />
-        </div>
-      ) : null}
+      )}
 
-      {images.length > 0 &&
-        images.map((img) => (
-          <div key={img.id} className="nd-exhibit-video" style={{ marginTop: 12 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={img.url}
-              alt={work.title}
-              style={{ width: "100%", height: "auto", borderRadius: 20 }}
-              loading="lazy"
-            />
-          </div>
-        ))}
+      {workLink && (
+        <div className="nd-cta" style={{ marginTop: 16 }}>
+          <a href={workLink} target="_blank" rel="noopener noreferrer" className="craft-sticker">
+            作品はこちら
+            <ArrowRightDoodle width={24} />
+          </a>
+        </div>
+      )}
 
       {tally.length > 0 && (
         <div style={{ marginTop: 14 }}>

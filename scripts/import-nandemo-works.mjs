@@ -2,18 +2,25 @@
  * なんでも展示会：作品CSV一括取り込みスクリプト
  *
  * 使い方:
- *   npm run import:nandemo-works -- ./works.csv
- *   npm run import:nandemo-works -- ./works.csv nandemo-2027-03   ← 展示会slugを明示指定（省略時 nandemo-2026-11）
+ *   npm run import:nandemo-works -- ./works.csv --dry-run     ← DBは書き換えず、差分一覧だけ表示
+ *   npm run import:nandemo-works -- ./works.csv               ← 実際に反映
+ *   npm run import:nandemo-works -- ./works.csv nandemo-2027-03 --dry-run   ← 展示会slugを指定（省略時 nandemo-2026-11）
  *
- * CSVの列見出し（1行目・日本語のまま。テンプレート: scripts/nandemo-works-template.csv）:
- *   作品名, ニックネーム, 動画URL, 写真URL
- *   （見出しの順番は自由。余分な列があっても無視される。動画URL・写真URLはどちらか一方でOK）
+ * CSVの列見出し（1行目・日本語のまま）:
+ *   作品名, 名前, 動画URL, 作品リンク, 削除
+ *   （見出しの順番は自由。余分な列があっても無視される。「ニックネーム」も「名前」として読む）
+ *   - 名前はページに表示しない（同じ作品かの判定用。DBでは works.author_nickname）
+ *   - 動画URL・作品リンクはどちらか一方でOK（両方空はエラー）
+ *   - 作品リンクは works.story_made に保存する（この展示会では未使用の列を流用。
+ *     ページ側 ExhibitionWorks2611Content.tsx が「作品はこちら」ボタンとして読む）
+ *   - 削除列に「削除」と書いた行は、その作品をDBから消す（コメント・リアクションも一緒に消える）
  *
  * 動作:
- *   - 文字コードは UTF-8 / Shift_JIS（Excelの「CSV UTF-8」「CSV(コンマ区切り)」どちらの保存でもOK）を自動判定
- *   - 同じ展示会内で (作品名, ニックネーム) が一致する行は「更新」、一致しなければ「新規追加」
- *     → 作品を消して作り直さないので、コメントや作者専用URLが失われない
- *   - 一覧ページ上は提出順（取り込み順）に並ぶ
+ *   - 文字コードは UTF-8 / Shift_JIS を自動判定
+ *   - 同じ展示会内で (作品名, 名前) が一致する行は「更新（変化なしならスキップ）」、一致しなければ「新規追加」
+ *   - CSVに無い作品には触らない
+ *   - 入力チェックでNGが1つでもあれば、何も書き込まずに終了する
+ *   - 一覧ページ上は提出順（登録順）に並ぶ
  */
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'node:fs';
@@ -36,10 +43,13 @@ if (!url || !serviceKey) {
   process.exit(1);
 }
 
-const csvPath = process.argv[2];
-const slug = process.argv[3] || 'nandemo-2026-11';
+const args = process.argv.slice(2);
+const dryRun = args.includes('--dry-run');
+const positional = args.filter((a) => !a.startsWith('--'));
+const csvPath = positional[0];
+const slug = positional[1] || 'nandemo-2026-11';
 if (!csvPath) {
-  console.error('使い方: npm run import:nandemo-works -- ./works.csv [展示会slug]');
+  console.error('使い方: npm run import:nandemo-works -- ./works.csv [展示会slug] [--dry-run]');
   process.exit(1);
 }
 
@@ -99,12 +109,14 @@ function parseCsv(text) {
   return rows.filter((r) => r.some((c) => c.trim() !== ''));
 }
 
-// CSV見出し（日本語） → DBカラム名
+// CSV見出し（日本語） → 内部キー
 const HEADER_MAP = {
   '作品名': 'title',
+  '名前': 'author_nickname',
   'ニックネーム': 'author_nickname',
   '動画URL': 'youtube_url',
-  '写真URL': 'thumbnail_url',
+  '作品リンク': 'work_link',
+  '削除': 'remove',
 };
 const REQUIRED = ['title', 'author_nickname'];
 
@@ -135,11 +147,74 @@ if (rawRows.length < 2) {
 const headerRow = rawRows[0].map((h) => h.trim());
 const fieldKeys = headerRow.map((h) => HEADER_MAP[h] ?? null);
 if (!fieldKeys.includes('title') || !fieldKeys.includes('author_nickname')) {
-  console.error('NG: 見出し行に「作品名」「ニックネーム」が見つかりません。テンプレートの見出しと一致しているか確認してください。');
+  console.error('NG: 見出し行に「作品名」「名前」が見つかりません。シートの見出しと一致しているか確認してください。');
   console.error('  読み取った見出し:', headerRow.join(' / '));
   process.exit(1);
 }
 
+// ---- 1. 入力チェック（NGがあれば何も書き込まず終了） ----
+const entries = [];
+const errors = [];
+const seen = new Map();
+for (let r = 1; r < rawRows.length; r++) {
+  const rec = {};
+  fieldKeys.forEach((key, i) => {
+    if (key) rec[key] = (rawRows[r][i] ?? '').trim();
+  });
+  const line = `${r + 1}行目`;
+  const label = rec.title ? `「${rec.title}」` : '';
+
+  const missing = REQUIRED.filter((k) => !rec[k]);
+  if (missing.length > 0) {
+    errors.push(`${line}: 必須項目が空です（${missing.map((k) => (k === 'title' ? '作品名' : '名前')).join('・')}）`);
+    continue;
+  }
+
+  const dupKey = `${rec.title}\u0000${rec.author_nickname}`;
+  if (seen.has(dupKey)) {
+    errors.push(`${line}: ${label}は ${seen.get(dupKey)} と作品名・名前が同じです（重複）`);
+    continue;
+  }
+  seen.set(dupKey, line);
+
+  const remove = rec.remove === '削除';
+  if (rec.remove && !remove) {
+    errors.push(`${line}: ${label}削除列は「削除」か空欄にしてください（入力値: ${rec.remove}）`);
+    continue;
+  }
+
+  if (!remove) {
+    if (!rec.youtube_url && !rec.work_link) {
+      errors.push(`${line}: ${label}動画URLも作品リンクも空です（どちらか1つは必要）`);
+      continue;
+    }
+    if (rec.youtube_url && !extractYouTubeId(rec.youtube_url)) {
+      errors.push(`${line}: ${label}動画URLを認識できません（${rec.youtube_url}）`);
+      continue;
+    }
+    if (rec.work_link && !/^https:\/\/\S+$/.test(rec.work_link)) {
+      errors.push(`${line}: ${label}作品リンクは https:// で始まるURLにしてください（${rec.work_link}）`);
+      continue;
+    }
+  }
+
+  entries.push({
+    line,
+    remove,
+    title: rec.title,
+    author_nickname: rec.author_nickname,
+    youtube_url: rec.youtube_url || null,
+    story_made: rec.work_link || null,
+  });
+}
+
+if (errors.length > 0) {
+  console.error('NG: 入力チェックで問題が見つかりました。何も書き込んでいません。');
+  errors.forEach((e) => console.error('  ' + e));
+  process.exit(1);
+}
+
+// ---- 2. 展示会を取得 ----
 const { data: exhibition, error: exError } = await supabase
   .from('exhibitions')
   .select('id, title')
@@ -149,92 +224,121 @@ if (exError || !exhibition) {
   console.error(`NG: 展示会 slug="${slug}" が見つかりません（先に /admin/exhibitions で作成してください）`, exError?.message ?? '');
   process.exit(1);
 }
-console.log(`展示会: ${exhibition.title} (${slug})`);
+console.log(`展示会: ${exhibition.title} (${slug})${dryRun ? '  ※お試し実行（DBは変更しません）' : ''}`);
 
-let inserted = 0;
-let updated = 0;
-let skipped = 0;
+// ---- 3. 差分を判定して反映 ----
+const added = [];
+const updated = [];
+const unchanged = [];
+const removed = [];
+const notFound = [];
+const failed = [];
 const warnings = [];
 
-for (let r = 1; r < rawRows.length; r++) {
-  const cells = rawRows[r];
-  const rec = {};
-  fieldKeys.forEach((key, i) => {
-    if (key) rec[key] = (cells[i] ?? '').trim();
-  });
+const show = (v) => (v ? v : '（なし）');
 
-  const missing = REQUIRED.filter((k) => !rec[k]);
-  if (missing.length > 0) {
-    skipped++;
-    warnings.push(`${r + 1}行目: 必須項目が空のためスキップ（${missing.join('・')}）`);
+for (const e of entries) {
+  const { data: existing, error: selError } = await supabase
+    .from('works')
+    .select('id, youtube_url, story_made')
+    .eq('exhibition_id', exhibition.id)
+    .eq('title', e.title)
+    .eq('author_nickname', e.author_nickname)
+    .maybeSingle();
+  if (selError) {
+    failed.push(`${e.line}: 「${e.title}」の検索に失敗しました（${selError.message}）`);
     continue;
   }
 
-  let youtubeUrl = null;
-  if (rec.youtube_url) {
-    if (extractYouTubeId(rec.youtube_url)) {
-      youtubeUrl = rec.youtube_url;
-    } else {
-      warnings.push(`${r + 1}行目: 動画URLを認識できません（${rec.youtube_url}）→ 動画なしで取り込みます`);
-    }
-  }
-
-  if (!youtubeUrl && !rec.thumbnail_url) {
-    warnings.push(`${r + 1}行目: 「${rec.title}」は動画URLも写真URLも空です（作品名とコメント欄だけが表示されます）`);
-  }
-
-  const payload = {
-    exhibition_id: exhibition.id,
-    title: rec.title,
-    author_nickname: rec.author_nickname,
-    youtube_url: youtubeUrl,
-    thumbnail_url: rec.thumbnail_url || null,
-  };
-
-  // 既存判定: 同展示会内で (作品名, ニックネーム) が一致する行があれば更新
-  const { data: existing } = await supabase
-    .from('works')
-    .select('id')
-    .eq('exhibition_id', exhibition.id)
-    .eq('title', rec.title)
-    .eq('author_nickname', rec.author_nickname)
-    .maybeSingle();
-
-  if (existing) {
-    const { error } = await supabase.from('works').update(payload).eq('id', existing.id);
-    if (error) {
-      skipped++;
-      warnings.push(`${r + 1}行目: 更新に失敗しました（${error.message}）`);
+  if (e.remove) {
+    if (!existing) {
+      notFound.push(`${e.line}: 「${e.title}」（${e.author_nickname}）は削除指定ですが、DBにありません`);
       continue;
     }
-    updated++;
+    const { count } = await supabase
+      .from('comments')
+      .select('id', { count: 'exact', head: true })
+      .eq('work_id', existing.id);
+    if (!dryRun) {
+      const { error } = await supabase.from('works').delete().eq('id', existing.id);
+      if (error) {
+        failed.push(`${e.line}: 「${e.title}」の削除に失敗しました（${error.message}）`);
+        continue;
+      }
+    }
+    removed.push(`「${e.title}」（${e.author_nickname}）／コメント${count ?? 0}件も一緒に消えます`);
+    continue;
+  }
+
+  const fields = { youtube_url: e.youtube_url, story_made: e.story_made };
+
+  if (existing) {
+    const changes = [];
+    if ((existing.youtube_url ?? null) !== fields.youtube_url) {
+      changes.push(`動画: ${show(existing.youtube_url)} → ${show(fields.youtube_url)}`);
+    }
+    if ((existing.story_made ?? null) !== fields.story_made) {
+      changes.push(`作品リンク: ${show(existing.story_made)} → ${show(fields.story_made)}`);
+    }
+    if (changes.length === 0) {
+      unchanged.push(`「${e.title}」（${e.author_nickname}）`);
+      continue;
+    }
+    if (!dryRun) {
+      const { error } = await supabase.from('works').update(fields).eq('id', existing.id);
+      if (error) {
+        failed.push(`${e.line}: 「${e.title}」の更新に失敗しました（${error.message}）`);
+        continue;
+      }
+    }
+    updated.push(`「${e.title}」（${e.author_nickname}）\n      ${changes.join('\n      ')}`);
   } else {
-    // 同じ作品名が別のニックネーム表記で既にDBにある場合、二重登録の可能性が高い（表記ゆれ）
+    // 同じ作品名が別の名前表記で既にDBにある場合、二重登録の可能性が高い（表記ゆれ）
     const { data: sameTitle } = await supabase
       .from('works')
       .select('author_nickname')
       .eq('exhibition_id', exhibition.id)
-      .eq('title', rec.title);
+      .eq('title', e.title);
     if (sameTitle && sameTitle.length > 0) {
       warnings.push(
-        `${r + 1}行目: 「${rec.title}」は既にDBにありますが、ニックネームの表記が違うため別作品として追加します（DB内: 「${sameTitle.map((s) => s.author_nickname).join('」「')}」／今回: 「${rec.author_nickname}」）。表記ゆれなら手動でどちらかを削除してください。`,
+        `${e.line}: 「${e.title}」は既にDBにありますが、名前の表記が違うため別作品として追加${dryRun ? 'します' : 'しました'}（DB内: 「${sameTitle.map((s) => s.author_nickname).join('」「')}」／今回: 「${e.author_nickname}」）。表記ゆれなら、どちらかを削除してください。`,
       );
     }
-
-    const { error } = await supabase.from('works').insert(payload);
-    if (error) {
-      skipped++;
-      warnings.push(`${r + 1}行目: 追加に失敗しました（${error.message}）`);
-      continue;
+    if (!dryRun) {
+      const { error } = await supabase.from('works').insert({
+        exhibition_id: exhibition.id,
+        title: e.title,
+        author_nickname: e.author_nickname,
+        ...fields,
+      });
+      if (error) {
+        failed.push(`${e.line}: 「${e.title}」の追加に失敗しました（${error.message}）`);
+        continue;
+      }
     }
-    inserted++;
+    added.push(`「${e.title}」（${e.author_nickname}）  動画: ${show(fields.youtube_url)} ／ 作品リンク: ${show(fields.story_made)}`);
   }
 }
 
+// ---- 4. 結果表示 ----
+const verb = dryRun ? '予定' : '完了';
 console.log('');
-console.log(`新規追加: ${inserted}件 / 更新: ${updated}件 / スキップ: ${skipped}件`);
-if (warnings.length > 0) {
+console.log(`追加${added.length}件 / 更新${updated.length}件 / 削除${removed.length}件 / 変化なし${unchanged.length}件（${verb}）`);
+const section = (title, list) => {
+  if (list.length === 0) return;
   console.log('');
-  console.log('--- 警告 ---');
-  warnings.forEach((w) => console.log('  ' + w));
+  console.log(`--- ${title} ---`);
+  list.forEach((l) => console.log('  ・' + l));
+};
+section('追加', added);
+section('更新', updated);
+section('削除', removed);
+section('変化なし', unchanged);
+section('削除指定だがDBに無い', notFound);
+section('警告', warnings);
+section('失敗', failed);
+if (dryRun) {
+  console.log('');
+  console.log('※お試し実行です。反映するには --dry-run を外して再実行してください。');
 }
+if (failed.length > 0) process.exit(1);

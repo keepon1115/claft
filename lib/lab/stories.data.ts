@@ -1,7 +1,7 @@
 // ============================================================
 // キープオンラボ — ストーリーデータ（単一の真実のソース）
 //
-// 週次更新はこのファイルの stories 配列を編集するだけ。
+// 週次更新は Googleスプレッドシート → AI反映（手順は docs/LAB_STORIES_SHEET_RULES.md）。直接編集してもよいが、その場合はシートも合わせる。
 // 形式は固定：ラベル / 絵文字 / リング色 / CTAリンク+文言 / カード（画像・タイトル・本文）。
 // 画像は HP・外部アセットの URL を参照する（リポジトリに画像は置かない）。
 // ============================================================
@@ -103,7 +103,7 @@ export const stories: StoryCategory[] = [
     ctaLabel: 'Yononakaに参加してみる →',
     cards: [
       { id: 'yononaka-1', emoji: '💭', theme: 'navy', title: '', text: 'Yononakaとは、世の中の身近なことをテーマに、正解がひとつでないお題へ 「自分はこう思う！」を参加者同士で共有しながら、理解を深めるアクティブラーニングです。', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/e0897f069da446f98c469838a9150248/yononaka-0902.png', linkUrl: 'https://claft.keeponlearning.fun/lab/yononaka', linkLabel: '今週のお題はこちら →'   },
-      { id: 'yononaka-2', emoji: '💭', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/8b5b0d7330134f30bda35040862783f1/yono-1028.png', linkUrl: 'https://forms.gle/rBvf3rboXTZpe6UM6', linkLabel: '申込はこちら →'   },
+      { id: 'yononaka-2', emoji: '💭', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/8b5b0d7330134f30bda35040862783f1/yono-1028.png', linkUrl: 'https://forms.gle/xUYBvkh51LKBeeC2A', linkLabel: '申込はこちら →'   },
     ],
   },
   {
