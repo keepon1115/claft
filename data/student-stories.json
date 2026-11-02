@@ -186,6 +186,7 @@
     "name": "けんしろう",
     "grade": "高校1年生",
     "avatarEmoji": "🎮",
+    "iconUrl": "https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/0614a3508c2a45f8a720a2f6a286455c/kenshiro.png",
     "shortIntro": "勉強にゲームの要素を加えれば楽しめるのではないか？と探究中",
     "likes": [
       "ゲーム",
@@ -194,6 +195,7 @@
       "会話"
     ],
     "character": "「共感・傾聴力」が高い、現代の聖徳太子",
+    "strengths": "頼りがいがある/急に発言を求められても自分の意見をいえる/笑顔が素敵",
     "motivationEnv": "目標の先に「自分へのご褒美」が設定されている環境",
     "futureVision": {
       "text": "英語で世界中の人々と対話する仕事をしたい",
