@@ -8,13 +8,13 @@ import stories from '@/data/student-stories.json';
 export type StoryEvent = { date: string; category?: string; title: string; description?: string; isCurrent?: boolean };
 export type LikesSnapshot = { date: string; likes: string };
 export type StudentStory = {
-  slug: string; name: string; grade: string; avatarEmoji: string; shortIntro: string;
+  slug: string; name: string; grade: string; avatarEmoji: string; iconUrl?: string; shortIntro: string;
   likes: string[]; character?: string; strengths?: string; motivationEnv?: string;
   futureVision?: { text: string; subText?: string };
   goalThisYear?: string;
   currentActions: { title: string; description: string; emoji: string; tags?: string[] }[];
   quote?: string; laterConnection?: string; visitorQuestion?: string;
-  exhibitVideoUrl?: string; updatedAt?: string;
+  workUrl?: string; exhibitVideoUrl?: string; updatedAt?: string;
   interestTags: string[];
   likesHistory: LikesSnapshot[];
   timeline: StoryEvent[];
@@ -27,6 +27,21 @@ export function formatYearMonth(d: string): string {
   const m = d.match(/^(\d{4})-(\d{1,2})$/);
   if (m) return `${m[1]}年${Number(m[2])}月`;
   return /^\d{4}$/.test(d) ? `${d}年` : d;
+}
+
+// タイムラインの日付を「2018年1月」に整え、最後にNOWを自動で足す
+export function buildTimelineEvents(student: StudentStory): StoryEvent[] {
+  const events = student.timeline.map((e) => ({ ...e, date: formatYearMonth(e.date) }));
+  const firstAction = student.currentActions[0];
+  if (student.updatedAt && firstAction) {
+    events.push({
+      date: formatYearMonth(student.updatedAt),
+      title: firstAction.title,
+      description: firstAction.description,
+      isCurrent: true,
+    });
+  }
+  return events;
 }
 
 const founder: StudentStory = {

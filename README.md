@@ -195,15 +195,11 @@ npm run verify:phase1  # Supabase Phase1 DB 検証
 
 ## メンバーのストーリー（/student-story）の更新手順
 
-指示書: [docs/STUDENT_STORY_ENGINEER_BRIEF.md](docs/STUDENT_STORY_ENGINEER_BRIEF.md)
+Googleスプレッドシートで編集し、AIに更新を頼む運用です。手順・列の説明・非公開ルールは [docs/MEMBER_STORIES_SHEET_RULES.md](docs/MEMBER_STORIES_SHEET_RULES.md) を参照してください。
 
-### Excelを更新してからHPに反映するまで
-1. 管理シート（`C:\dev\claft-private\student-story\メンバーストーリー_管理シート.xlsx`）を更新して保存する。Excel本体はリポジトリに入れない（`*.xlsx` は `.gitignore` 済み）。
-2. `npm run import:stories -- "C:\dev\claft-private\student-story\メンバーストーリー_管理シート.xlsx"` を実行する（引数なしなら環境変数 `STORIES_XLSX`）。
-3. コンソールに出る「非公開にした項目（【要確認】・hiddenFields）」と「下書きで出力しなかった人」を確認する。
-4. `data/student-stories.json` の差分を確認し、`npm run build` が通ったらコミット＆デプロイする。
-
-非公開のルール: status が「公開」以外の人／セルに【要確認】を含む項目／hiddenFields に書いた項目／timeline の public が○以外の行は出力されない。interviews は slug・date・likes3 以外を読まない。
+1. 公開用シートを編集する。
+2. AIがシートをCSVに書き出し、`npm run import:stories -- <CSVフォルダ> --dry-run` で差分を見せる。
+3. OKなら `--dry-run` を外して `data/student-stories.json` に反映し、コミット・プッシュする（Vercelでデプロイされて公開）。
 
 ### 列を足すとき
 1. `scripts/import-stories.ts` で読み取りを足す（`g('列名')`。【要確認】と hiddenFields の処理は自動で効く）。
@@ -211,4 +207,4 @@ npm run verify:phase1  # Supabase Phase1 DB 検証
 3. 表示するコンポーネントを足す（空ならセクションごと出さない）。
 4. 印刷ページに載せるなら `components/student-story/PrintSheet.tsx` も直す。
 
-印刷用: `/student-story/{slug}/print`（A4縦1枚）、`/student-story/print-all`（全員を1人1ページ）。
+印刷用: `/student-story/{slug}/print`（A4両面1枚）、`/student-story/print-all`（全員を1人2ページ）。

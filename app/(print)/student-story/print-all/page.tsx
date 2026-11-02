@@ -6,7 +6,7 @@ export const metadata = { title: 'ストーリー印刷用（全員） | CLAFT',
 export default function PrintAllPage() {
   return (
     <div className="pr-root">
-      <style>{printCss}</style>
+      <style dangerouslySetInnerHTML={{ __html: printCss }} />
       {memberStories.map((s) => (
         <PrintSheet key={s.slug} student={s} />
       ))}

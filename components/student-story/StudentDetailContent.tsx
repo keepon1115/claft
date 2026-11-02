@@ -14,7 +14,7 @@ import {
   ExhibitVideo,
   VisitorQuestion,
 } from '@/components/student-story';
-import { formatYearMonth, type StudentStory } from '@/lib/studentData';
+import { buildTimelineEvents, formatYearMonth, type StudentStory } from '@/lib/studentData';
 
 type StudentDetailContentProps = {
   student: StudentStory;
@@ -23,17 +23,7 @@ type StudentDetailContentProps = {
 export function StudentDetailContent({ student }: StudentDetailContentProps) {
   useReveal();
 
-  // タイムラインの日付を「2018年1月」に整え、最後にNOWを自動で足す
-  const events = student.timeline.map((e) => ({ ...e, date: formatYearMonth(e.date) }));
-  const firstAction = student.currentActions[0];
-  if (student.updatedAt && firstAction) {
-    events.push({
-      date: formatYearMonth(student.updatedAt),
-      title: firstAction.title,
-      description: firstAction.description,
-      isCurrent: true,
-    });
-  }
+  const events = buildTimelineEvents(student);
 
   return (
     <MobileContainer className="px-0">

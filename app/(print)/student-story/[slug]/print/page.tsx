@@ -18,7 +18,7 @@ export default async function PrintPage({ params }: PageProps) {
   if (!student) notFound();
   return (
     <div className="pr-root">
-      <style>{printCss}</style>
+      <style dangerouslySetInnerHTML={{ __html: printCss }} />
       <PrintSheet student={student} />
     </div>
   );
