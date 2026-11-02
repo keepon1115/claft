@@ -22,7 +22,7 @@
  *   - 同じ展示会内で (作品名, 名前) が一致する行は「更新（変化なしならスキップ）」、一致しなければ「新規追加」
  *   - CSVに無い作品には触らない
  *   - 入力チェックでNGが1つでもあれば、何も書き込まずに終了する
- *   - 一覧ページ上は提出順（登録順）に並ぶ
+ *   - 一覧ページの表示順 = シートの行の並び順（上の行ほど上に表示。行を入れ替えて再実行すれば順番も入れ替わる）
  */
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'node:fs';
@@ -214,6 +214,8 @@ for (let r = 1; r < rawRows.length; r++) {
   entries.push({
     line,
     remove,
+    // ページの表示順 = シートの行順。works に並び順の列が無いため、created_at をシートの行番号から決める（行ごとに1分ずつ）
+    createdAt: new Date(Date.UTC(2026, 0, 1) + r * 60_000).toISOString(),
     title: rec.title,
     author_nickname: rec.author_nickname,
     thumbnail_url: rec.image_url || null,
@@ -256,7 +258,7 @@ const show = (v) => (v ? v : '（なし）');
 for (const e of entries) {
   const { data: existing, error: selError } = await supabase
     .from('works')
-    .select('id, thumbnail_url, youtube_url, story_made, author_intro, story_devised')
+    .select('id, created_at, thumbnail_url, youtube_url, story_made, author_intro, story_devised')
     .eq('exhibition_id', exhibition.id)
     .eq('title', e.title)
     .eq('author_nickname', e.author_nickname)
@@ -287,6 +289,7 @@ for (const e of entries) {
   }
 
   const fields = {
+    created_at: e.createdAt,
     thumbnail_url: e.thumbnail_url,
     youtube_url: e.youtube_url,
     story_made: e.story_made,
@@ -296,6 +299,9 @@ for (const e of entries) {
 
   if (existing) {
     const changes = [];
+    if (new Date(existing.created_at).getTime() !== new Date(fields.created_at).getTime()) {
+      changes.push(`表示順: シートの ${e.line} に合わせる`);
+    }
     if ((existing.thumbnail_url ?? null) !== fields.thumbnail_url) {
       changes.push(`画像: ${show(existing.thumbnail_url)} → ${show(fields.thumbnail_url)}`);
     }
