@@ -63,7 +63,7 @@ function PageHeader({ live }: { live: boolean }) {
 
 function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   const { work, tally } = item;
-  // 作品リンク（ゲーム・アプリ等）は works.story_made に入っている（scripts/import-nandemo-works.mjs が保存）。
+  // 作品URL（ゲーム・アプリ等）は works.story_made に入っている（scripts/import-nandemo-works.mjs が保存）。
   // 作者の名前（author_nickname）は非公開のため、ここでは表示しない。
   // 説明文は author_intro、ボタン文言は story_devised（空なら「作品はこちら」）に入っている。
   const workLink = work.story_made;
@@ -79,6 +79,18 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
         <p className="rp-story-body" style={{ marginBottom: 14 }}>
           {description}
         </p>
+      )}
+
+      {work.thumbnail_url && (
+        <div className="nd-exhibit-video" style={{ marginBottom: work.youtube_url ? 14 : 0 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={work.thumbnail_url}
+            alt={work.title}
+            style={{ width: "100%", height: "auto", borderRadius: 20 }}
+            loading="lazy"
+          />
+        </div>
       )}
 
       {work.youtube_url && (
@@ -118,7 +130,10 @@ export default async function ExhibitionWorks2611Content() {
       const works = await fetchWorks(exhibition.id);
       const reactionTypes = await fetchReactionTypes(exhibition.id);
       const tallies = await Promise.all(works.map((w) => fetchReactionTally(w.id, reactionTypes)));
-      items = works.map((work, i) => ({ work, tally: tallies[i] }));
+      // 画像・動画・作品URLがすべて空の作品は、載せるものが無いので表示しない
+      items = works
+        .map((work, i) => ({ work, tally: tallies[i] }))
+        .filter(({ work }) => work.thumbnail_url || work.youtube_url || work.story_made);
     }
   } catch {
     items = [];

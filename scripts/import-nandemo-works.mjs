@@ -7,12 +7,13 @@
  *   npm run import:nandemo-works -- ./works.csv nandemo-2027-03 --dry-run   ← 展示会slugを指定（省略時 nandemo-2026-11）
  *
  * CSVの列見出し（1行目・日本語のまま）:
- *   作品名, 名前, 動画URL, 作品リンク, 説明文, ボタン文言, 削除
- *   （見出しの順番は自由。余分な列があっても無視される。「ニックネーム」も「名前」として読む）
+ *   作品名, 名前, 説明文, 画像URL, 動画URL, 作品URL, ボタン文言, 削除
+ *   （見出しの順番は自由。余分な列があっても無視される。「ニックネーム」も「名前」、「作品リンク」も「作品URL」として読む）
  *   - 名前はページに表示しない（同じ作品かの判定用。DBでは works.author_nickname）
- *   - 動画URL・作品リンクはどちらか一方でOK（両方空はエラー）
+ *   - 画像URL・動画URL・作品URLは、あるものだけ表示される。3つとも空の行はスキップ（エラーにはしない）
+ *   - 画像URLは works.thumbnail_url に保存する。
  *   - 説明文（任意）は works.author_intro、ボタン文言（任意・空なら「作品はこちら」）は works.story_devised に保存する。
- *   - 作品リンクは works.story_made に保存する（この展示会では未使用の列を流用。
+ *   - 作品URLは works.story_made に保存する（この展示会では未使用の列を流用。
  *     ページ側 ExhibitionWorks2611Content.tsx が「作品はこちら」ボタンとして読む）
  *   - 削除列に「削除」と書いた行は、その作品をDBから消す（コメント・リアクションも一緒に消える）
  *
@@ -116,7 +117,10 @@ const HEADER_MAP = {
   '名前': 'author_nickname',
   'ニックネーム': 'author_nickname',
   '動画URL': 'youtube_url',
+  '作品URL': 'work_link',
   '作品リンク': 'work_link',
+  '画像URL': 'image_url',
+  '画像 URL': 'image_url',
   '説明文': 'description',
   'ボタン文言': 'button_label',
   '削除': 'remove',
@@ -158,6 +162,7 @@ if (!fieldKeys.includes('title') || !fieldKeys.includes('author_nickname')) {
 // ---- 1. 入力チェック（NGがあれば何も書き込まず終了） ----
 const entries = [];
 const errors = [];
+const skippedRows = [];
 const seen = new Map();
 for (let r = 1; r < rawRows.length; r++) {
   const rec = {};
@@ -187,8 +192,9 @@ for (let r = 1; r < rawRows.length; r++) {
   }
 
   if (!remove) {
-    if (!rec.youtube_url && !rec.work_link) {
-      errors.push(`${line}: ${label}動画URLも作品リンクも空です（どちらか1つは必要）`);
+    // 画像・動画・作品URLがすべて空の行は、載せるものが無いのでスキップする（エラーにはしない）
+    if (!rec.image_url && !rec.youtube_url && !rec.work_link) {
+      skippedRows.push(`${line}: ${label}画像・動画・作品URLがすべて空のため、反映せずスキップします（DBにすでにある作品は、そのまま触りません）`);
       continue;
     }
     if (rec.youtube_url && !extractYouTubeId(rec.youtube_url)) {
@@ -196,7 +202,11 @@ for (let r = 1; r < rawRows.length; r++) {
       continue;
     }
     if (rec.work_link && !/^https:\/\/\S+$/.test(rec.work_link)) {
-      errors.push(`${line}: ${label}作品リンクは https:// で始まるURLにしてください（${rec.work_link}）`);
+      errors.push(`${line}: ${label}作品URLは https:// で始まるURLにしてください（${rec.work_link}）`);
+      continue;
+    }
+    if (rec.image_url && !/^https:\/\/\S+$/.test(rec.image_url)) {
+      errors.push(`${line}: ${label}画像URLは https:// で始まるURLにしてください（${rec.image_url}）`);
       continue;
     }
   }
@@ -206,6 +216,7 @@ for (let r = 1; r < rawRows.length; r++) {
     remove,
     title: rec.title,
     author_nickname: rec.author_nickname,
+    thumbnail_url: rec.image_url || null,
     youtube_url: rec.youtube_url || null,
     story_made: rec.work_link || null,
     author_intro: rec.description || null,
@@ -245,7 +256,7 @@ const show = (v) => (v ? v : '（なし）');
 for (const e of entries) {
   const { data: existing, error: selError } = await supabase
     .from('works')
-    .select('id, youtube_url, story_made, author_intro, story_devised')
+    .select('id, thumbnail_url, youtube_url, story_made, author_intro, story_devised')
     .eq('exhibition_id', exhibition.id)
     .eq('title', e.title)
     .eq('author_nickname', e.author_nickname)
@@ -276,6 +287,7 @@ for (const e of entries) {
   }
 
   const fields = {
+    thumbnail_url: e.thumbnail_url,
     youtube_url: e.youtube_url,
     story_made: e.story_made,
     author_intro: e.author_intro,
@@ -284,6 +296,9 @@ for (const e of entries) {
 
   if (existing) {
     const changes = [];
+    if ((existing.thumbnail_url ?? null) !== fields.thumbnail_url) {
+      changes.push(`画像: ${show(existing.thumbnail_url)} → ${show(fields.thumbnail_url)}`);
+    }
     if ((existing.youtube_url ?? null) !== fields.youtube_url) {
       changes.push(`動画: ${show(existing.youtube_url)} → ${show(fields.youtube_url)}`);
     }
@@ -294,7 +309,7 @@ for (const e of entries) {
       changes.push(`ボタン文言: ${show(existing.story_devised)} → ${show(fields.story_devised)}`);
     }
     if ((existing.story_made ?? null) !== fields.story_made) {
-      changes.push(`作品リンク: ${show(existing.story_made)} → ${show(fields.story_made)}`);
+      changes.push(`作品URL: ${show(existing.story_made)} → ${show(fields.story_made)}`);
     }
     if (changes.length === 0) {
       unchanged.push(`「${e.title}」（${e.author_nickname}）`);
@@ -332,7 +347,7 @@ for (const e of entries) {
         continue;
       }
     }
-    added.push(`「${e.title}」（${e.author_nickname}）  動画: ${show(fields.youtube_url)} ／ 作品リンク: ${show(fields.story_made)} ／ 説明文: ${show(fields.author_intro)} ／ ボタン文言: ${show(fields.story_devised)}`);
+    added.push(`「${e.title}」（${e.author_nickname}）  画像: ${show(fields.thumbnail_url)} ／ 動画: ${show(fields.youtube_url)} ／ 作品URL: ${show(fields.story_made)} ／ 説明文: ${show(fields.author_intro)} ／ ボタン文言: ${show(fields.story_devised)}`);
   }
 }
 
@@ -351,6 +366,7 @@ section('更新', updated);
 section('削除', removed);
 section('変化なし', unchanged);
 section('削除指定だがDBに無い', notFound);
+section('スキップ（載せるものが無い行）', skippedRows);
 section('警告', warnings);
 section('失敗', failed);
 if (dryRun) {
