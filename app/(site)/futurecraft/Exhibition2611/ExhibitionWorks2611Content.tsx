@@ -12,6 +12,7 @@ import {
   fetchWorks,
 } from "@/lib/exhibition/queries";
 import type { ReactionTally, Work } from "@/lib/exhibition/types";
+import WorkListToggle from "./WorkListToggle";
 
 /* ============================================================
    なんでも展示会 2026年11月 作品一覧ページ
@@ -70,7 +71,11 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   const description = work.author_intro;
   const buttonLabel = work.story_devised || "作品はこちら";
   return (
-    <div className="rp-work reveal" style={{ transitionDelay: `${index * 70}ms` } as CSSProperties}>
+    <div
+      id={`work-${index + 1}`}
+      className="rp-work nd-course-anchor reveal"
+      style={{ transitionDelay: `${index * 70}ms` } as CSSProperties}
+    >
       <div className="nd-exhibit-head">
         <h3 className="nd-exhibit-title">{work.title}</h3>
       </div>
@@ -148,6 +153,14 @@ export default async function ExhibitionWorks2611Content() {
       {live && (
         <section className="nd-section">
           <div className="container">
+            {/* 作品リスト（トグル）。2件以上のときだけ出す。各作品の id は WorkCard の work-{番号} */}
+            {items.length >= 2 && (
+              <div style={{ marginBottom: 32 }}>
+                <WorkListToggle
+                  works={items.map((item, i) => ({ id: `work-${i + 1}`, title: item.work.title }))}
+                />
+              </div>
+            )}
             <div className="rp-works">
               {items.map((item, i) => (
                 <WorkCard key={item.work.id} item={item} index={i} />

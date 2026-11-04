@@ -7341,3 +7341,146 @@ html {
   border-radius: 50%;
   background: rgb(var(--accent-rgb, var(--brand-rgb)));
 }
+
+/* ---------- 作品リスト（トグル）/ ジャンプ先ハイライト ---------- */
+.ex-worklist {
+  margin: 4px 0 8px;
+}
+
+.ex-worklist-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border: 1px solid rgb(var(--brand-rgb) / 0.45);
+  border-radius: 4px 8px 5px 9px / 8px 4px 9px 5px;
+  box-shadow: var(--shadow-paper);
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  color: var(--brand-deep);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transform: rotate(-0.4deg);
+}
+
+.ex-worklist-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ex-worklist-summary:focus-visible {
+  outline: 3px solid rgb(var(--brand-rgb) / 0.5);
+  outline-offset: 3px;
+}
+
+.ex-worklist-arrow {
+  margin-left: auto;
+  font-size: 12px;
+  transition: transform 0.25s ease;
+}
+
+.ex-worklist[open] .ex-worklist-arrow {
+  transform: rotate(180deg);
+}
+
+.ex-worklist-body {
+  margin: 10px 0 0;
+  padding: 6px 18px;
+  list-style: none;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px 8px 5px 9px / 8px 4px 9px 5px;
+  box-shadow: var(--shadow-paper);
+  animation: ex-worklist-open 0.25s ease-out;
+}
+
+.ex-worklist-body li + li {
+  border-top: 2px dashed rgba(92, 77, 42, 0.22);
+}
+
+.ex-worklist-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 0;
+  color: var(--ink-800);
+  text-decoration: none;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+}
+
+.ex-worklist-link:hover .ex-worklist-title {
+  color: var(--brand-deep);
+  text-decoration: underline;
+}
+
+.ex-worklist-no {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 46% 54% 48% 52% / 52% 48% 54% 46%;
+  background: var(--brand);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+}
+
+.ex-worklist-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes ex-worklist-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ジャンプ先の作品名を蛍光ペン風にハイライト */
+.rp-work.ex-hit .nd-exhibit-title {
+  width: fit-content;
+  background-image: linear-gradient(transparent 55%, rgb(var(--cream-rgb) / 0.75) 55%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: ex-hit 2.2s ease-out forwards;
+}
+
+@keyframes ex-hit {
+  0% {
+    background-size: 0% 100%;
+  }
+  25%,
+  75% {
+    background-size: 100% 100%;
+  }
+  100% {
+    background-size: 100% 100%;
+    background-image: linear-gradient(transparent 55%, rgb(var(--cream-rgb) / 0) 55%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ex-worklist-body {
+    animation: none;
+  }
+  .ex-worklist-arrow {
+    transition: none;
+  }
+  .rp-work.ex-hit .nd-exhibit-title {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
