@@ -2186,27 +2186,27 @@
 }
 .lab-yn-banner-arrow { font-size: 17px; font-weight: 700; flex-shrink: 0; color: #df7a00; }
 
-/* 今月のフォトコンテスト導線バナー（秋色：紅葉オレンジ＋栗色） */
-.lab-pc-banner {
+/* 秋のスクールフェスタ参加申し込みバナー（ピンク） */
+.lab-festa-banner {
   display: flex;
   align-items: center;
   gap: 11px;
-  background: linear-gradient(120deg, #ffe3c4, #f6b26b);
-  border: 1.5px solid #c8561e;
-  color: #4a1f0a;
+  background: linear-gradient(120deg, #fce7f3, #f9a8d4);
+  border: 1.5px solid #db2777;
+  color: #831843;
   border-radius: 16px;
   padding: 13px 14px;
   margin-bottom: 15px;
-  box-shadow: 2px 3px 0 #c8561e66;
+  box-shadow: 2px 3px 0 #db277766;
   transition: transform 0.12s;
   animation: lab-post-in 0.38s cubic-bezier(0.2, 1, 0.3, 1) both;
 }
-.lab-pc-banner:active { transform: scale(0.985); }
-.lab-pc-banner-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
-.lab-pc-banner-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.lab-pc-banner-text b { font-size: 14px; font-weight: 700; }
-.lab-pc-banner-text span { font-size: 11.5px; color: #7a3a14; line-height: 1.4; }
-.lab-pc-banner-arrow { font-size: 17px; font-weight: 700; flex-shrink: 0; color: #b33f0f; }
+.lab-festa-banner:active { transform: scale(0.985); }
+.lab-festa-banner-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
+.lab-festa-banner-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lab-festa-banner-text b { font-size: 14px; font-weight: 700; }
+.lab-festa-banner-text span { font-size: 11.5px; color: #9d174d; line-height: 1.4; }
+.lab-festa-banner-arrow { font-size: 17px; font-weight: 700; flex-shrink: 0; color: #be185d; }
 
 .yn-page {
   --yn-cream: #fffdf6;

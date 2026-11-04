@@ -35,8 +35,8 @@ export const EXTERNAL_LINKS = {
   reserveEvent: 'https://claft-hp.vercel.app/news',
   /** 教育・キャリアブログ（CLAFT HP・別タブ） */
   blog: 'https://claft.keeponlearning.fun/blog',
-  /** 今月のフォトコンテスト（KEEPON JOURNAL 該当カード・別タブ） */
-  photocon: 'https://claft.keeponlearning.fun/monthly/2026-10#photocon',
+  /** 秋のスクールフェスタ参加申し込み（Googleフォーム・別タブ） */
+  schoolFesta: 'https://forms.gle/6oY7gJT1XhenFQEz7',
   /** Google口コミ投稿画面（別タブ） */
   googleReview: 'https://g.page/r/Ce6ZwKqE6aIVEAE/review',
   /** アプリ改善・ご意見フォーム（Googleフォーム・別タブ） */
