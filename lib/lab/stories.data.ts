@@ -60,7 +60,6 @@ export const stories: StoryCategory[] = [
     ctaLabel: 'イベント一覧を見る →',
     cards: [
       { id: 'event-1028', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/7c1a71be96be4116848b0d4b0222c770/Event-1028.png' },
-      { id: 'event-1028-2', emoji: '🎪', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/a537b3744b274f7eac89dc15963dfcb7/Event-1028%20(2).png' },
       { id: 'event-5', emoji: '🗓️', theme: 'orange', title: '', text: '募集中のイベント一覧とカレンダーは、HPのお知らせページからどうぞ。' },
     ],
   },
