@@ -801,7 +801,7 @@ export default function MujintoPage() {
               height={720}
             />
           </div>
-          <h2 className="mj-next-title craft-misprint">3日目は、11月某日の予定です！</h2>
+          <h2 className="mj-next-title craft-misprint">3日目は、12/12（土）の予定です！</h2>
           <div className="mj-next-card craft-paper craft-paper--warm reveal">
             <a href={FORM_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
               3日目に申し込む
