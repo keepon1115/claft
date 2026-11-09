@@ -139,7 +139,30 @@ export default function FeatureSection({ feature, theme, accentOverrides }: Prop
             <h3 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700, color: 'var(--ink-900)', lineHeight: 1.4, borderLeft: `4px solid ${accentColor}`, paddingLeft: '10px' }}>
               {sec.heading}
             </h3>
+            {sec.image && (
+              <div style={{ marginBottom: '12px' }}>
+                <ImagePlaceholder
+                  width={1280}
+                  height={720}
+                  src={sec.image.src}
+                  alt={sec.image.alt}
+                  caption={sec.image.caption}
+                />
+              </div>
+            )}
             <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.8, color: 'var(--ink-700)' }}>{sec.body}</p>
+            {sec.link && (
+              <a
+                href={sec.link.href}
+                target={sec.link.external ? '_blank' : undefined}
+                rel={sec.link.external ? 'noopener noreferrer' : undefined}
+                className="inline-flex min-h-11 items-center py-2 underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+                style={{ color: 'var(--ink-700)', fontSize: '14px', fontWeight: 700 }}
+              >
+                {sec.link.label}
+                {sec.link.external && <span aria-hidden="true" style={{ marginLeft: '6px' }}>↗</span>}
+              </a>
+            )}
           </div>
         ))}
 

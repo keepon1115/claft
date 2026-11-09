@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description: 'キープオンが毎月配信する月刊WEBマガジン。イベント振り返り・ロボットニュース・お知らせを、スクラップブック風の読み物としてお届けします。',
 };
 
-const featureLabels = { recap: 'イベント振り返り', news: 'ロボットニュース', info: 'お知らせ' } as const;
 const featureIcons = { recap: '🏆', news: '🤖', info: '📢' } as const;
 
 export default function MonthlyIndexPage() {
@@ -247,7 +246,7 @@ export default function MonthlyIndexPage() {
                             {featureIcons[f.id]}
                           </span>
                           <span style={{ fontWeight: 700, color: featureColors[f.id], fontSize: '12px', minWidth: '90px' }}>
-                            {featureLabels[f.id]}
+                            {f.category}
                           </span>
                           <span style={{ color: 'var(--ink-700)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {f.title}
