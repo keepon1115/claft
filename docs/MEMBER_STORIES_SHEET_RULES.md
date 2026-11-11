@@ -64,4 +64,4 @@
 - slug は URL になるので、一度決めたら変えない。
 - 文言は1文字も変えない。誤字に気づいても直さず、オーナーに報告する。
 - 一覧の表示順は members の行の並び順。しょういちろう（CLAFT代表）はシートに入れず、`lib/studentData.ts` に手書きで持つ。
-- 印刷は `/student-story/{slug}/print`（1人）と `/student-story/print-all`（全員）。Chromeで A4・縦・両面（長辺とじ）・余白デフォルト・ヘッダーとフッターなし・背景のグラフィックあり。
+- 印刷は `/student-story/{slug}/print`（1人）と `/student-story/print-all`（全員）。Chromeで A5・縦・両面（長辺とじ）・余白「なし」または「デフォルト」（@pageで6mm指定済み）・ヘッダーとフッターなし・背景のグラフィックあり。
