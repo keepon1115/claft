@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <span className="font-bold text-[#1F1810]">なんでも展示会 管理</span>
           <nav className="flex flex-wrap gap-4 text-sm">
             <Link href="/admin" className="text-[#1F1810]/70 hover:text-[#E04E2C]">
-              承認キュー
+              コメント管理
             </Link>
             <Link href="/admin/exhibitions" className="text-[#1F1810]/70 hover:text-[#E04E2C]">
               展示会・作品
