@@ -163,6 +163,15 @@ if (!fieldKeys.includes('title') || !fieldKeys.includes('author_nickname')) {
 const entries = [];
 const errors = [];
 const skippedRows = [];
+// microCMS の画像URLに付いた加工指定（?w=160&fit=crop… など。管理画面のサムネイルからコピーすると付く）は
+// 画像を小さく縮めてぼやける原因になるので、外して原寸で表示する
+const imageUrlNotes = [];
+function stripMicrocmsImageParams(url, line) {
+  if (!url || !/^https:\/\/images\.microcms-assets\.io\//.test(url) || !url.includes('?')) return url;
+  const q = url.indexOf('?');
+  imageUrlNotes.push(`${line}: 画像URLの「${url.slice(q)}」は画像を縮める指定なので外して反映します`);
+  return url.slice(0, q);
+}
 const seen = new Map();
 for (let r = 1; r < rawRows.length; r++) {
   const rec = {};
@@ -218,7 +227,7 @@ for (let r = 1; r < rawRows.length; r++) {
     createdAt: new Date(Date.UTC(2026, 0, 1) + r * 60_000).toISOString(),
     title: rec.title,
     author_nickname: rec.author_nickname,
-    thumbnail_url: rec.image_url || null,
+    thumbnail_url: stripMicrocmsImageParams(rec.image_url, line) || null,
     youtube_url: rec.youtube_url || null,
     story_made: rec.work_link || null,
     author_intro: rec.description || null,
@@ -373,6 +382,7 @@ section('削除', removed);
 section('変化なし', unchanged);
 section('削除指定だがDBに無い', notFound);
 section('スキップ（載せるものが無い行）', skippedRows);
+section('画像URLの自動修正', imageUrlNotes);
 section('警告', warnings);
 section('失敗', failed);
 if (dryRun) {
