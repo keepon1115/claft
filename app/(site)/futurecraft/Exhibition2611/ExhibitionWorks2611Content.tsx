@@ -16,7 +16,7 @@ import WorkListToggle from "./WorkListToggle";
 
 /* ============================================================
    なんでも展示会 2026年11月 作品一覧ページ
-   - Supabase の exhibitions(slug: nandemo-2026-11) / works を取得して提出順（created_at 昇順）に表示
+   - Supabase の exhibitions(slug: nandemo-2026-11) / works を取得してページ表示ごとにランダム表示
    - ロボット発表会（RobotPresentation2608）と違い、コース分けはしない
    - 未接続・作品0件のときは「準備中」を表示
 ============================================================ */
@@ -72,7 +72,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   const buttonLabel = work.story_devised || "作品はこちら";
   return (
     <div
-      id={`work-${index + 1}`}
+      id={`work-${work.id}`}
       className="rp-work nd-course-anchor reveal"
       style={{ transitionDelay: `${index * 70}ms` } as CSSProperties}
     >
@@ -144,6 +144,13 @@ export default async function ExhibitionWorks2611Content() {
     items = [];
   }
 
+  // サーバーで一度だけシャッフルし、作品とリアクション集計を一緒に並べ替える。
+  // コメント送信などのクライアント側の操作では表示順を変えない。
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
   const live = items.length > 0;
 
   return (
@@ -153,11 +160,11 @@ export default async function ExhibitionWorks2611Content() {
       {live && (
         <section className="nd-section">
           <div className="container">
-            {/* 作品リスト（トグル）。2件以上のときだけ出す。各作品の id は WorkCard の work-{番号} */}
+            {/* 作品リストも本文と同じ表示順にし、移動先には作品固有の id を使う。 */}
             {items.length >= 2 && (
               <div style={{ marginBottom: 32 }}>
                 <WorkListToggle
-                  works={items.map((item, i) => ({ id: `work-${i + 1}`, title: item.work.title }))}
+                  works={items.map((item) => ({ id: `work-${item.work.id}`, title: item.work.title }))}
                 />
               </div>
             )}
