@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const issue = getIssue(params.issue);
   if (!issue) return {};
   return {
-    title: `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume} | CLAFT`,
+    title: `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume}`,
     description: issue.coverSubtitle ?? `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume}`,
   };
 }

@@ -6,7 +6,7 @@ import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 
 export const metadata = {
-  title: 'Yononaka（対話ワーク） | CLAFT',
+  title: 'Yononaka（対話ワーク）',
   description:
     'お金や時間など、身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合う学びです。'
 };

@@ -32,7 +32,7 @@ export const EXTERNAL_LINKS = {
   /** 受講予約（select-type・別タブ） */
   reserveLesson: 'https://select-type.com/rsv/?id=3spOTwJvnpQ&c_id=429087',
   /** イベント予約（CLAFT HP /news） */
-  reserveEvent: 'https://claft-hp.vercel.app/news',
+  reserveEvent: 'https://claft.keeponlearning.fun/news',
   /** 教育・キャリアブログ（CLAFT HP・別タブ） */
   blog: 'https://claft.keeponlearning.fun/blog',
   /** 秋のスクールフェスタ参加申し込み（Googleフォーム・別タブ） */

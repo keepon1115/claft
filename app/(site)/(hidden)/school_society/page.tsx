@@ -1,7 +1,7 @@
 import { MobileContainer, Section } from '@/components/MobileContainer';
 
 export const metadata = { 
-  title: '学校と社会をつなぐ | CLAFT',
+  title: '学校と社会をつなぐ',
   description: '学校と社会のギャップを可視化し、CLAFTの学びの考え方を紹介するページ。'
 };
 

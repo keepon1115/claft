@@ -6,6 +6,7 @@ import { ArrowDownDoodle } from '@/components/craft/HandDrawn';
 import { MjFigure } from '@/components/mujinto/MjFigure';
 import { MjNoteWall } from '@/components/mujinto/MjNoteWall';
 import { DAYS, ISLAND_RULES, SURVEY_ANSWERS, NOTE_LABELS, NOTES_DAY2_ORDERED } from '@/lib/mujintoData';
+import { defaultOpenGraph } from '@/lib/seo';
 
 const TITLE = '無人島サバイバル｜1日目・2日目の記録';
 const DESCRIPTION =
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: '/mujinto' },
   openGraph: {
+    ...defaultOpenGraph,
     title: TITLE,
     description: 'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目・2日目の記録をそのまま掲載しています。',
     type: 'article',

@@ -1,7 +1,7 @@
 import { PrintSheet, printCss } from '@/components/student-story/PrintSheet';
 import { memberStories } from '@/lib/studentData';
 
-export const metadata = { title: 'ストーリー印刷用（全員） | CLAFT', robots: { index: false, follow: false } };
+export const metadata = { title: 'ストーリー印刷用（全員）', robots: { index: false, follow: false } };
 
 export default function PrintAllPage() {
   return (

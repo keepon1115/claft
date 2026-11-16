@@ -6,7 +6,7 @@ import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 
 export const metadata = {
-  title: 'ミライクラフト（実践） | CLAFT',
+  title: 'ミライクラフト（実践）',
   description:
     '作品発表会、イベント企画、商品制作などに挑戦。自分の好きや得意を活かしながら、仲間と試行錯誤し、「仕事」を実感する学びです。'
 };

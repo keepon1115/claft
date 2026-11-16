@@ -6,7 +6,7 @@ import { ArrowDownDoodle, ArrowRightDoodle, CrossDoodle } from '@/components/cra
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 
 export const metadata: Metadata = {
-  title: '英会話×STEAMコース | CLAFT',
+  title: '英会話×STEAMコース',
   description:
     '英語×STEAMの1on1個別カリキュラム。「作る→英語で深める→発表する」を1ヶ月1サイクルで回し、世界中で自分の意見を伝えられる人を目指します。',
 };

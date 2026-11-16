@@ -7,7 +7,7 @@ import NewsClient from '@/components/news/NewsClient';
 export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: 'お知らせ・活動報告 | CLAFT',
+  title: 'お知らせ・活動報告',
   description:
     'CLAFTのイベント予定・申し込みと、KEEPON JOURNALおよびWeekly KEEPONの過去配信アーカイブ。申し込み忘れを防ぐためにぜひご活用ください。',
 };

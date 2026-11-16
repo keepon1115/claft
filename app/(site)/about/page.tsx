@@ -4,7 +4,7 @@ import { MobileContainer, Section } from '@/components/MobileContainer';
 import { Underline } from '@/components/craft/HandDrawn';
 
 export const metadata = {
-  title: '学校と社会をつなぐ × CLAFTとは？ | CLAFT',
+  title: '学校と社会をつなぐ × CLAFTとは？',
   description: '学校と社会のギャップを可視化し、CLAFTの学びの考え方を紹介する統合ページ。'
 };
 

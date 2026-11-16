@@ -1,6 +1,7 @@
 import { StudentDetailContent } from '@/components/student-story';
 import { getStudentBySlug, getAllStudentSlugs } from '@/lib/studentData';
 import { notFound } from 'next/navigation';
+import { defaultOpenGraph } from '@/lib/seo';
 
 export const dynamicParams = false;
 
@@ -35,12 +36,17 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!student) {
     return {
-      title: 'スクール生が見つかりません | CLAFT',
+      title: 'スクール生が見つかりません',
     };
   }
 
   return {
-    title: `${student.name}のストーリー | CLAFT`,
+    title: `${student.name}のストーリー`,
     description: student.shortIntro,
+    openGraph: {
+      ...defaultOpenGraph,
+      title: `${student.name}のストーリー`,
+      description: student.shortIntro,
+    },
   };
 }

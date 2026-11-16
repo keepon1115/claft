@@ -2,7 +2,7 @@ import { MobileContainer } from '@/components/MobileContainer';
 import { MinecraftClient } from './MinecraftClient';
 
 export const metadata = { 
-  title: 'マイクラSDGsコース | CLAFT',
+  title: 'マイクラSDGsコース',
   description: 'マイクラ×SDGs×プログラミングで、楽しみながら社会課題を自分ごと化。発想を形にし、論理思考と発信力を育むオンライン講座。'
 };
 

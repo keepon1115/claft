@@ -1,7 +1,7 @@
 import { MobileContainer, Section } from '@/components/MobileContainer';
 
 export const metadata = { 
-  title: 'ワークショップ | CLAFT',
+  title: 'ワークショップ',
   description: '体験ワークショップと出前授業のご案内。左サイドメニューから各セクションへ移動できます。'
 };
 

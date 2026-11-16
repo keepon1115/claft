@@ -29,7 +29,19 @@ export const ORG_AREA = '大阪府八尾市';
 export const absoluteUrl = (path = '/') =>
   `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 
-// ルートの既定メタデータ。各ページは title/description/alternates を上書きする。
+// OGP の既定値。ページが独自の openGraph を書くとルートの既定（画像・サイト名）が
+// まるごと置き換わるため、ページ側は { ...defaultOpenGraph, title, description } と広げて使う。
+// url: './' は Next が「そのページ自身のURL」に解決する。
+export const defaultOpenGraph: NonNullable<Metadata['openGraph']> = {
+  type: 'website',
+  siteName: SITE_NAME,
+  locale: SITE_LOCALE,
+  url: './',
+  images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630, alt: 'CLAFT' }],
+};
+
+// ルートの既定メタデータ。各ページは title/description を上書きする。
+// ※ ページ側の title に「| CLAFT」は書かない（template が付ける。二重表記になる）。
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -38,15 +50,12 @@ export const defaultMetadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  alternates: { canonical: '/' },
+  // './' は各ページ自身のパスに解決される（全ページが自分を canonical に指す）。
+  alternates: { canonical: './' },
   openGraph: {
-    type: 'website',
-    siteName: SITE_NAME,
-    locale: SITE_LOCALE,
-    url: SITE_URL,
+    ...defaultOpenGraph,
     title: 'CLAFT — 自分の手で創るキャリア',
     description: SITE_DESCRIPTION,
-    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630, alt: 'CLAFT' }],
   },
   twitter: {
     card: 'summary_large_image',

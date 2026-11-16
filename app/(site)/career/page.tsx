@@ -12,7 +12,7 @@ import { programs } from '@/lib/programs';
 import { absoluteUrl } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'キャリアコース | CLAFT',
+  title: 'キャリアコース',
   description:
     'PBL(課題解決型学習)・Yononaka(対話ワーク)・ミライクラフト・ジブンクラフトがぜんぶ入り。探究×対話×実践×自己理解で、自分のキャリアを自分でクラフトする中高生向けコース。',
   alternates: { canonical: '/career' },
