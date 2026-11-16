@@ -213,7 +213,7 @@ const STATIONS: Station[] = [
       },
     ],
     cta: 'Yononakaについて詳しく',
-    ctaHref: 'https://claft-hp.vercel.app/yononaka',
+    ctaHref: 'https://claft.keeponlearning.fun/yononaka',
   },
   {
     n: '⑤',
@@ -294,7 +294,7 @@ const STATIONS: Station[] = [
       },
     ],
     cta: 'CLAFTについて詳しく',
-    ctaHref: 'https://claft-hp.vercel.app',
+    ctaHref: 'https://claft.keeponlearning.fun',
   },
 ];
 

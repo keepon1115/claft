@@ -1,23 +1,23 @@
-'use client';
+import type { Metadata } from 'next';
+import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { StudentStoryIndex } from './StudentStoryIndex';
 
-import { Suspense } from 'react';
-import { MobileContainer, Section } from '@/components/MobileContainer';
-import { useReveal } from '@/lib/useReveal';
-import { HeroSection } from '@/components/student-story';
-import { StudentList } from '@/components/student-story/StudentList';
+const TITLE = 'メンバーのストーリー';
+const DESCRIPTION =
+  'CLAFTで学ぶスクール生が、どのように成長しているのかをご紹介します。ゲーム・ものづくり・ロボット・スポーツ・音楽など、一人ひとりの「好き」から始まる探究のストーリーです。';
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: { ...defaultOpenGraph, title: TITLE, description: DESCRIPTION },
+};
 
 export default function StudentStoryIndexPage() {
-  useReveal();
-
   return (
-    <MobileContainer className="px-0">
-      <HeroSection />
-
-      <Section className="px-4">
-        <Suspense>
-          <StudentList />
-        </Suspense>
-      </Section>
-    </MobileContainer>
+    <>
+      <BreadcrumbJsonLd trail={[['メンバーのストーリー', '/student-story']]} />
+      <StudentStoryIndex />
+    </>
   );
 }

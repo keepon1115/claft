@@ -6,6 +6,7 @@ import {
   Bungee,
 } from 'next/font/google'
 import GameExhibitionContent from './GameExhibitionContent'
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 // このページ専用の追加フォント。CSS変数で読み込み、他ページには影響しない。
 const pressStart = Press_Start_2P({
@@ -44,10 +45,13 @@ export const metadata: Metadata = {
 
 export default function GameExhibitionPage() {
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['ゲーム展示会', '/futurecraft/Exhibition-game']]} />
     <div
       className={`${pressStart.variable} ${dotGothic.variable} ${zenKakuGothic.variable} ${bungee.variable}`}
     >
       <GameExhibitionContent />
     </div>
+    </>
   )
 }

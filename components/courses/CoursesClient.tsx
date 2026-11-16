@@ -18,7 +18,8 @@ export function CoursesClient() {
 
       {/* トップページの入会までの流れ以降のセクション */}
       <FlowApply />
-      <FAQ />
+      {/* このページのよくある質問を FAQPage 構造化データとしても出力 */}
+      <FAQ jsonLd />
       <Students />
     </MobileContainer>
   );

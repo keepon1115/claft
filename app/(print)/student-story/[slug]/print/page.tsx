@@ -6,7 +6,7 @@ export const dynamicParams = false;
 
 type PageProps = { params: Promise<{ slug: string }> };
 
-export const metadata = { title: 'ストーリー印刷用 | CLAFT', robots: { index: false, follow: false } };
+export const metadata = { title: 'ストーリー印刷用', robots: { index: false, follow: false } };
 
 export async function generateStaticParams() {
   return memberStories.map((s) => ({ slug: s.slug }));

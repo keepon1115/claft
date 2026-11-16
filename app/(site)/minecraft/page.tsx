@@ -1,8 +1,9 @@
 import { MobileContainer } from '@/components/MobileContainer';
 import { MinecraftClient } from './MinecraftClient';
+import { ORG_REF } from '@/lib/seo';
 
 export const metadata = { 
-  title: 'マイクラSDGsコース | CLAFT',
+  title: 'マイクラSDGsコース',
   description: 'マイクラ×SDGs×プログラミングで、楽しみながら社会課題を自分ごと化。発想を形にし、論理思考と発信力を育むオンライン講座。'
 };
 
@@ -19,7 +20,7 @@ export default function MinecraftPage() {
             "@type": "EducationalOccupationalProgram",
             "name": "マイクラSDGsコース",
             "description": "マイクラ×SDGs×プログラミングで、楽しみながら社会課題を自分ごと化。",
-            "provider": { "@type": "Organization", "name": "CLAFT" },
+            "provider": ORG_REF,
             "offers": { "@type": "Offer", "price": "7700", "priceCurrency": "JPY" },
             "timeOfDay": "オンライン"
           })

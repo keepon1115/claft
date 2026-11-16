@@ -4,9 +4,10 @@ import type { CSSProperties } from 'react';
 import { SectionTitle } from '@/components/craft/SectionTitle';
 import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
+import { ORG_REF } from '@/lib/seo';
 
 export const metadata = {
-  title: 'PBL(課題解決型学習) | CLAFT',
+  title: 'PBL(課題解決型学習)',
   description:
     '自分の好きや疑問を起点にテーマを決め、新たなモノを創ったり、解決策を考え、最後は動画やスライドで発表をする学びです。'
 };
@@ -175,7 +176,7 @@ export default function PBLPage() {
         {/* メンバーのストーリーリンク（貼り込んだ案内カード） */}
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
           <a
-            href="https://claft-hp.vercel.app/student-story"
+            href="https://claft.keeponlearning.fun/student-story"
             className="craft-paper craft-tilt craft-lift"
             style={
               {
@@ -417,7 +418,7 @@ export default function PBLPage() {
             "@type": "Course",
             "name": "PBL(課題解決型学習)",
             "description": "自分の好きや疑問を起点にテーマを決め、新たなモノを創ったり、解決策を考え、最後は動画やスライドで発表をする学びです。",
-            "provider": { "@type": "Organization", "name": "CLAFT" }
+            "provider": ORG_REF
           })
         }}
       />

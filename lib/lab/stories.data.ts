@@ -56,7 +56,7 @@ export const stories: StoryCategory[] = [
     emoji: '📣',
     ring: 'default',
     updatedAt: '2026-11-11',
-    hpUrl: 'https://claft-hp.vercel.app/news',
+    hpUrl: 'https://claft.keeponlearning.fun/news',
     ctaLabel: 'イベント一覧を見る →',
     cards: [
       { id: 'event-1028', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/7c1a71be96be4116848b0d4b0222c770/Event-1028.png' },
@@ -123,7 +123,7 @@ export const stories: StoryCategory[] = [
     label: 'スクール\n生紹介',
     emoji: '🌱',
     ring: 'alt',
-    hpUrl: 'https://claft-hp.vercel.app/student-story',
+    hpUrl: 'https://claft.keeponlearning.fun/student-story',
     ctaLabel: 'CLAFT生のストーリーはこちら →',
     cards: [
       { id: 'students-1', emoji: '🌱', theme: 'green', title: 'CLAFT生の学びの様子', text: '自分だけの学びを深めているスクール生のストーリー。これからどんどん更新していくのでお楽しみに！' },

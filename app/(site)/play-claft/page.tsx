@@ -1,7 +1,7 @@
 import { PlayClaftClient } from '@/components/play-claft/PlayClaftClient';
 
 export const metadata = { 
-  title: 'PLAY CLAFT（スクールフェスタ計画） | CLAFT',
+  title: 'PLAY CLAFT（スクールフェスタ計画）',
   description: 'ミライクラフトのスクールフェスタ計画。遊ぶ人から遊びをつくる人へ。STEP1/STEP2/STEP3の流れとスケジュールを確認できます。'
 };
 

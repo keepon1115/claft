@@ -5,6 +5,7 @@ import { MobileContainer, Section } from '@/components/MobileContainer';
 import { getPublishedPosts } from '@/lib/notion';
 import { monthLabel, monthOf } from '@/lib/blogTaxonomy';
 import { BlogIndexClient } from '@/components/blog/BlogIndexClient';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const revalidate = 60; // ISR
 
@@ -33,6 +34,8 @@ export default async function BlogArchivePage({ params }: { params: { month: str
   if (!posts.some((p) => monthOf(p.publishedAt) === params.month)) notFound();
 
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['ブログ', '/blog'], [monthLabel(params.month), `/blog/archive/${params.month}`]]} />
     <MobileContainer>
       <Section>
         <header className="blog-index-head">
@@ -47,5 +50,6 @@ export default async function BlogArchivePage({ params }: { params: { month: str
         <BlogIndexClient posts={posts} activeMonth={params.month} />
       </Section>
     </MobileContainer>
+    </>
   );
 }

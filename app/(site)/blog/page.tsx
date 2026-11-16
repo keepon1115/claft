@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { getPublishedPosts } from '@/lib/notion';
 import { BlogIndexClient } from '@/components/blog/BlogIndexClient';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const revalidate = 60; // ISR: 60秒ごとに再生成
 
@@ -16,6 +17,8 @@ export default async function BlogIndex() {
   const posts = await getPublishedPosts();
 
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['ブログ', '/blog']]} />
     <MobileContainer>
       <Section>
         <header className="blog-index-head">
@@ -29,5 +32,6 @@ export default async function BlogIndex() {
         <BlogIndexClient posts={posts} />
       </Section>
     </MobileContainer>
+    </>
   );
 }

@@ -25,7 +25,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const exhibition = await fetchExhibitionBySlug(params.slug).catch(() => null);
   return {
-    title: exhibition ? `${exhibition.title} 作品一覧 | CLAFT` : '展示会 | CLAFT',
+    title: exhibition ? `${exhibition.title} 作品一覧` : '展示会',
     description:
       exhibition?.theme ??
       'なんでも展示会のオンラインギャラリー。作品を見て、顔文字で反応して、ひとことを届けよう。',

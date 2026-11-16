@@ -8,8 +8,14 @@ import { studentsData } from '@/lib/studentData';
 
 const FOUNDER_SLUG = 'shoichiro';
 
+// ?tag= を読む版。useSearchParams は Suspense 必須なので、ページ側は
+// fallback に <StudentListView tag="" />（全員表示）を置き、HTML にも一覧を出す。
 export function StudentList() {
   const tag = useSearchParams().get('tag') ?? '';
+  return <StudentListView tag={tag} />;
+}
+
+export function StudentListView({ tag }: { tag: string }) {
   const tags = Array.from(new Set(studentsData.flatMap((s) => s.interestTags)));
   const active = tags.includes(tag) ? tag : '';
 

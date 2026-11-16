@@ -6,6 +6,7 @@ import { ArrowDownDoodle } from '@/components/craft/HandDrawn';
 import { MjFigure } from '@/components/mujinto/MjFigure';
 import { MjNoteWall } from '@/components/mujinto/MjNoteWall';
 import { DAYS, ISLAND_RULES, SURVEY_ANSWERS, NOTE_LABELS, NOTES_DAY2_ORDERED } from '@/lib/mujintoData';
+import { defaultOpenGraph } from '@/lib/seo';
 
 const TITLE = '無人島サバイバル｜1日目・2日目の記録';
 const DESCRIPTION =
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: '/mujinto' },
   openGraph: {
+    ...defaultOpenGraph,
     title: TITLE,
     description: 'アーテック × キープオンの工作ワークショップ「無人島サバイバル」全5回。1日目・2日目の記録をそのまま掲載しています。',
     type: 'article',
@@ -66,11 +68,8 @@ const IMG: Record<string, string | undefined> = {
   d2NextSlide: '/assets/mujinto/d2-next-slide.jpg', // G スライド p63
 };
 
-// JSON-LD（Article + BreadcrumbList）は見送り：(site)グループの本文に置いた <script> は
-// クライアントコンポーネント SiteGrid を経由するため RSC へ退避され、ビルド後の静的HTMLに
-// <script type="application/ld+json"> として残らないことを実ビルドで確認した（app/layout.tsx
-// 42-46行のコメント・本設計書§3-6の既知の落とし穴のとおり）。root layoutへ移すとサイト全体に
-// 効いてしまうため、無理に移設せず諦める。
+// JSON-LD（Article + BreadcrumbList）は未設置。以前は SiteGrid 経由で静的HTMLに残らなかったが、
+// 2026-11 に解消済み（docs/SEO_GEO_STRATEGY.md）。必要になったら <JsonLd> をそのまま置ける。
 
 export default function MujintoPage() {
   return (

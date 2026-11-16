@@ -6,6 +6,7 @@ import JournalCover from '@/components/monthly/JournalCover';
 import JournalToc from '@/components/monthly/JournalToc';
 import FeatureSection from '@/components/monthly/FeatureSection';
 import ScrollAnimInit from '@/components/monthly/ScrollAnimInit';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 interface Props {
   params: { issue: string };
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const issue = getIssue(params.issue);
   if (!issue) return {};
   return {
-    title: `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume} | CLAFT`,
+    title: `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume}`,
     description: issue.coverSubtitle ?? `KEEPON JOURNAL ${issue.year}年${issue.month}月号 Vol.${issue.volume}`,
   };
 }
@@ -31,6 +32,8 @@ export default function IssuePage({ params }: Props) {
   const theme = seasonThemes[issue.season];
 
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['KEEPON JOURNAL', '/monthly'], [`${issue.year}年${issue.month}月号`, `/monthly/${issue.slug}`]]} />
     <MobileContainer>
       <ScrollAnimInit />
 
@@ -133,5 +136,6 @@ export default function IssuePage({ params }: Props) {
         </div>
       </Section>
     </MobileContainer>
+    </>
   );
 }

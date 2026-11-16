@@ -9,10 +9,12 @@ import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
 import { CtaPair } from '@/components/CtaPair';
 import { FlowApply } from '@/components/FlowApply';
 import { programs } from '@/lib/programs';
-import { absoluteUrl } from '@/lib/seo';
+import { absoluteUrl, ORG_REF } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { getCourse } from '@/lib/courses';
 
 export const metadata: Metadata = {
-  title: 'キャリアコース | CLAFT',
+  title: 'キャリアコース',
   description:
     'PBL(課題解決型学習)・Yononaka(対話ワーク)・ミライクラフト・ジブンクラフトがぜんぶ入り。探究×対話×実践×自己理解で、自分のキャリアを自分でクラフトする中高生向けコース。',
   alternates: { canonical: '/career' },
@@ -108,6 +110,8 @@ const doodle = (style: Record<string, string | number>) => style as CSSPropertie
 
 export default function CareerPage() {
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['コース・料金', '/courses'], ['キャリアコース', '/career']]} />
     <MobileContainer>
       {/* ===== 冒頭（ヒーロー）===== */}
       <Section className="cd-hero">
@@ -130,7 +134,7 @@ export default function CareerPage() {
 
         <div className="hp-hero-chips" aria-label="キャリアコースの特徴" style={{ marginTop: '22px' }}>
           <span className="craft-paper hp-hero-chip">中学生〜</span>
-          <span className="craft-paper hp-hero-chip">月額¥7,700〜</span>
+          <span className="craft-paper hp-hero-chip">月額¥4,400〜</span>
           <span className="craft-paper hp-hero-chip">オンライン</span>
         </div>
 
@@ -271,7 +275,7 @@ export default function CareerPage() {
             >
               初月無料
             </span>
-            <strong>月額7,700円（税込）</strong>
+            <strong>通学 月額7,700円／オンライン 月額4,400円（税込）</strong>
           </p>
           <p className="body-base text-ink-500 mb-0">※ 決済手続きはLINEからご案内いたします。</p>
         </div>
@@ -296,11 +300,18 @@ export default function CareerPage() {
             description:
               'PBL(課題解決型学習)・Yononaka(対話ワーク)・ミライクラフト・ジブンクラフトがぜんぶ入り。正解がひとつでない問題に対して、自分の意見を持ち、共有する学び。オンライン実施。',
             url: absoluteUrl('/career'),
-            provider: { '@type': 'Organization', name: 'CLAFT' },
-            offers: { '@type': 'Offer', price: '7700', priceCurrency: 'JPY' },
+            provider: ORG_REF,
+            // 通学 ¥7,700／オンライン ¥4,400（lib/courses.ts が単一ソース）
+            offers: {
+              '@type': 'AggregateOffer',
+              lowPrice: getCourse('claft-online').priceFrom,
+              highPrice: getCourse('claft-onsite').priceFrom,
+              priceCurrency: 'JPY',
+            },
           }),
         }}
       />
     </MobileContainer>
+    </>
   );
 }

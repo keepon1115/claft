@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import ImagePlaceholder from '@/components/monthly/ImagePlaceholder';
 import ScrollAnimInit from '@/components/monthly/ScrollAnimInit';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'CLAFT 1周年特別号「CLAFT、1歳になりました。」 | KEEPON JOURNAL',
@@ -256,6 +257,8 @@ function LoopDiagram() {
 
 export default function AnniversaryIssuePage() {
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['KEEPON JOURNAL', '/monthly'], ['1周年特別号', '/monthly/1st-anniversary']]} />
     <MobileContainer>
       <ScrollAnimInit />
 
@@ -971,5 +974,6 @@ export default function AnniversaryIssuePage() {
         </div>
       </Section>
     </MobileContainer>
+    </>
   );
 }

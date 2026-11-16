@@ -3,9 +3,10 @@ import Link from 'next/link';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { issues, seasonThemes, featureColors } from '@/lib/monthlyData';
 import ScrollAnimInit from '@/components/monthly/ScrollAnimInit';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'KEEPON JOURNAL | CLAFT',
+  title: 'KEEPON JOURNAL',
   description: 'キープオンが毎月配信する月刊WEBマガジン。イベント振り返り・ロボットニュース・お知らせを、スクラップブック風の読み物としてお届けします。',
 };
 
@@ -15,6 +16,8 @@ export default function MonthlyIndexPage() {
   const sorted = [...issues].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month));
 
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['KEEPON JOURNAL', '/monthly']]} />
     <MobileContainer>
       <ScrollAnimInit />
 
@@ -279,5 +282,6 @@ export default function MonthlyIndexPage() {
         </div>
       </Section>
     </MobileContainer>
+    </>
   );
 }
