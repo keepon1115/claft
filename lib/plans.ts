@@ -17,6 +17,8 @@ export type PlanOption = {
 
 export type Plan = {
   id: PlanId;
+  /** lib/courses.ts の id（料金の出どころ・ページ内アンカー #course-<id>） */
+  courseId: string;
   tabLabel: string;
   /** コース名（例：CLAFT通学） */
   name: string;
@@ -46,6 +48,7 @@ function plan(
   const course = getCourse(courseId);
   return {
     id,
+    courseId,
     name: course.title,
     price: formatYen(course.priceFrom),
     priceUnit: `/ ${course.priceUnit}`,

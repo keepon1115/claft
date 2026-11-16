@@ -12,6 +12,9 @@ import { plans, type PlanId } from '@/lib/plans';
 // トップ／コース・料金ページ共通：通学・オンライン・Yononaka を押して選ぶ料金セクション。
 // 「まずはコース診断を」「保護者のみなさんから」「料金早わかり」「CLAFTの学び」を
 // この1セクションに統合している。
+// オプションのアンカー（#course-<id>）を付けるパネル。全オプションを含む最初のプランに付け、id の重複を避ける。
+const optionAnchorOwner = plans[0].id;
+
 export function CoursePlans() {
   const [active, setActive] = useState<PlanId>('onsite');
   function handleTabKeyDown(e: KeyboardEvent<HTMLDivElement>) {
@@ -68,7 +71,12 @@ export function CoursePlans() {
               className="hp-plans-panel"
               hidden={!isActive}
             >
-              <div className={`hp-plans-frame craft-paper craft-tilt${reveal}`} style={{ '--rot': '-0.4deg' } as CSSProperties}>
+              {/* id は Course 構造化データの url（/courses#course-<id>）と対応 */}
+              <div
+                id={`course-${plan.courseId}`}
+                className={`hp-plans-frame craft-paper craft-tilt${reveal}`}
+                style={{ '--rot': '-0.4deg' } as CSSProperties}
+              >
                 <span className="craft-tape" aria-hidden="true" />
 
                 <div className="hp-plans-frame-head">
@@ -110,7 +118,7 @@ export function CoursePlans() {
                     <ul className="hp-plans-options-list">
                       {plan.options.map((opt) =>
                         opt.external ? (
-                          <li key={opt.id}>
+                          <li key={opt.id} id={optionAnchorOwner === plan.id ? `course-${opt.id}` : undefined}>
                             <a href={opt.href} target="_blank" rel="noopener" className="hp-plans-option">
                               <span>{opt.label}</span>
                               <span className="hp-plans-option-price">{opt.price}</span>
@@ -118,7 +126,7 @@ export function CoursePlans() {
                             </a>
                           </li>
                         ) : (
-                          <li key={opt.id}>
+                          <li key={opt.id} id={optionAnchorOwner === plan.id ? `course-${opt.id}` : undefined}>
                             <Link href={opt.href} className="hp-plans-option">
                               <span>{opt.label}</span>
                               <span className="hp-plans-option-price">{opt.price}</span>
