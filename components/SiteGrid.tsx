@@ -1,40 +1,25 @@
-"use client";
 import { Nav } from './Nav';
 import { RightRail } from './RightRail';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { ReserveCTA } from './ReserveCTA';
+import { RevealObserver } from './RevealObserver';
 
-export function SiteGrid({ children }: { children: React.ReactNode }){
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const isEmbed = searchParams.get('embed') === 'true';
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+// ?embed=true のとき <html data-embed> を付け、枠（ヘッダー/ナビ/フッター/CTA）を CSS で隠す。
+// useSearchParams を使うとページ全体がクライアント描画に落ち、本文と JSON-LD が
+// HTML に出なくなる（検索・AIクローラが読めない）ため、描画前に走るインラインスクリプトで判定する。
+const EMBED_SCRIPT =
+  "try{if(new URLSearchParams(location.search).get('embed')==='true')document.documentElement.setAttribute('data-embed','')}catch(e){}";
 
-    const elements = document.querySelectorAll('.reveal:not(.in)');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, [pathname]);
-  
-  if (isEmbed) {
-    return <>{children}</>;
-  }
-
+// サーバーコンポーネント。children（ページ本文）はサーバーで HTML に描画される。
+export function SiteGrid({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <script dangerouslySetInnerHTML={{ __html: EMBED_SCRIPT }} />
+      <RevealObserver />
+
       {/* Mobile Header (1280px未満で表示) */}
-      <div className="xl:hidden">
+      <div className="xl:hidden site-chrome">
         <Header />
       </div>
 
@@ -42,7 +27,7 @@ export function SiteGrid({ children }: { children: React.ReactNode }){
       <div className="site-grid">
 
         {/* Left Sidebar (PC Navigation) */}
-        <aside className="site-left">
+        <aside className="site-left site-chrome">
           <div className="site-left-scroll">
             <Nav />
           </div>
@@ -54,13 +39,20 @@ export function SiteGrid({ children }: { children: React.ReactNode }){
         </div>
 
         {/* Right Sidebar (Icons) */}
-        <aside className="site-right account-icons">
+        <aside className="site-right account-icons site-chrome">
           <RightRail />
         </aside>
       </div>
 
       {/* Footer（モバイル・PC共通。机の端のクラフト紙帯） */}
-      <Footer />
+      <div className="site-chrome">
+        <Footer />
+      </div>
+
+      {/* CVゴール（無料体験・個別相談の予約）への常駐CTA */}
+      <div className="site-chrome">
+        <ReserveCTA />
+      </div>
     </>
   );
 }

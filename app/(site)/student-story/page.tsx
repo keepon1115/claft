@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { MobileContainer, Section } from '@/components/MobileContainer';
 import { useReveal } from '@/lib/useReveal';
 import { HeroSection } from '@/components/student-story';
-import { StudentList } from '@/components/student-story/StudentList';
+import { StudentList, StudentListView } from '@/components/student-story/StudentList';
 
 export default function StudentStoryIndexPage() {
   useReveal();
@@ -14,7 +14,7 @@ export default function StudentStoryIndexPage() {
       <HeroSection />
 
       <Section className="px-4">
-        <Suspense>
+        <Suspense fallback={<StudentListView tag="" />}>
           <StudentList />
         </Suspense>
       </Section>

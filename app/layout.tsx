@@ -29,7 +29,7 @@ export const metadata = defaultMetadata;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={`${zenMaru.variable} ${notoSans.variable}`}>
+    <html lang="ja" suppressHydrationWarning className={`${zenMaru.variable} ${notoSans.variable}`}>
       <head>
         {/* Google Search Console 所有権確認。env を render 時に読み、確実に <head> に出力する。
             GOOGLE_SITE_VERIFICATION には「トークン文字列のみ」を入れる（<meta>タグ全体ではない）。 */}

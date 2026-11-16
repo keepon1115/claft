@@ -7484,3 +7484,20 @@ html {
     background-size: 100% 100%;
   }
 }
+
+/* =========================================
+   EMBED (?embed=true)
+   components/SiteGrid.tsx のインラインスクリプトが <html data-embed> を付ける。
+   枠（ヘッダー/ナビ/フッター/常駐CTA）を隠し、本文だけを素で出す。
+   ========================================= */
+html[data-embed] .site-chrome {
+  display: none !important;
+}
+html[data-embed] .site-grid,
+html[data-embed] .site-main {
+  display: contents !important;
+}
+html[data-embed] .site-main::before,
+html[data-embed] .site-main::after {
+  content: none !important;
+}
