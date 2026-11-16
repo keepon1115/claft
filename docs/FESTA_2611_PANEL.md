@@ -1,114 +1,99 @@
-# スクールフェスタ 2026.11.29 パネル展示「好きなことを探究する、その先に」
+# スクールフェスタ 2026.11.29 パネル展示「好きなことを探究する、その先に…」
 
 2026/11/16 確定分。保護者向け。子ども向けは、作品横のメンバーストーリー(A4)が担う。
+Web版は `/festa/2611` の「パネル展示」セクション。
 
 ## 方針
 
 - 語り手は「CLAFT」。代表個人(将一郎)の名前・一人称・個人の体験談は出さない。
-- ブログは考え方の出どころとして参考にするが、文章はパネル用に書き下ろす。ブログの文をそのまま載せない。
+- ブログは考え方の出どころとして参考にするが、文章は書き下ろす。ブログの文をそのまま載せない。
 - 表記は「探究」に統一。「特性」は使わず「その子らしさ」。
-- イラストはAI生成で印刷し、吹き出しや矢印を手描きで足す。
-- 各扉の下に「もっと読みたい方へ」として、関連記事のQRを小さく置く。
+- 紙はすべてA4横。段ボールに貼る。
 
-## 構成
+## 会場の並び
 
-机3つに、左から順に並べる。
+| 順 | もの | 枚数 | 中身 |
+|---|---|---|---|
+| A | スクール配信の4枚(起承転結) | A4横 4枚 | そのまま並べて展示。1枚目がタイトルの役 |
+| B | めくり扉 | フタ4枚＋中4枚 | フタ＝保護者の心の声。めくるとグラレコ1枚 |
+| C | 付箋コーナー | 見出し1枚 | 来場者が書いて貼る |
+| D | コースの地図＋QR | 1枚 | `/festa/2611` へ |
 
-| 順 | もの | 役割 |
-|---|---|---|
-| 0 | タイトルパネル | 立ち止まってもらう |
-| 1〜3 | めくり扉つきパネル 3枚 | フタに保護者の心の声、めくるとCLAFTの考えとイラスト |
-| 4 | 付箋コーナー | 来場者が書いて参加する。感想も集める |
-| 5 | コースの地図 1枚＋次の一歩のQR | 「うちの子は次にどこへ」を示す |
+### A. スクール配信の4枚
 
-## 0. タイトルパネル
+1. キービジュアル「好きなことを探究する、その先に…」
+2. ゲームが好きな子／野球のピッチングが好きな子(好きは学びの入口)
+3. 好きは入口のひとつ(出会いや経験で広がる)
+4. スクール生8人の、いま取り組んでいること
 
-**好きなことを探究する、その先に**
+※3枚目の左上に「スクールフェスタ(展示会)デザイン提案③(スライド2)」という制作メモが残っている。印刷前に消すかどうか確認。
 
-「好きなことばかりで大丈夫？」
-そう感じたことはありませんか。
-気になる扉を、めくってみてください。
+### B. めくり扉(4つ)
 
-## 1. 扉①
+段ボールの板に、上辺だけテープで留めたA4横のフタを付ける。フタの下に、同じA4横のグラレコを貼る。
+フタは大きな文字で問いを1文だけ。右下に小さく「めくってみてください」。
+関連記事のQRは、段ボールの余白に小さく貼る。
 
-**フタ**
+| 扉 | フタ(心の声) | 中のグラレコ | 関連記事 |
+|---|---|---|---|
+| 1 | 好きなことばかりで、大丈夫？ | 配信2枚目を再利用(ゲーム／野球) | /blog/suki-wa-manabi-no-iriguchi |
+| 2 | AIの時代に、何を身につけたらいい？ | 新規 | /blog/ai-jidai-kodomo-chikara-yononaka |
+| 3 | すぐ飽きて、続かないんです | 新規 | /blog/career-theory-bridges |
+| 4 | それ、将来なんの役に立つの？ | 新規 | /blog/career-theory-krumboltz |
 
-> 好きなことばかりで、大丈夫？
+## グラレコの台本(新規3枚)
 
-(小さく)めくってみてください →
+画風は配信2枚目にそろえる:白い紙、手描きのマーカー線、黄色やピンクのマーカー下線、角丸の枠、矢印でつなぐ流れ、子どものイラストと吹き出し。
 
-**めくると**
+### 扉2「AIの時代に、何を身につけたらいい？」
 
-### 好きは、学びの入口。
+- 大見出し:**「なんか面白そう」で、動き出す力。**
+- 流れ:
+  1. Yononakaで中高生に聞いてみた →「どこまでAIに任せたい？」
+  2. ものさし「AIに任せたい ←→ 自分でやりたい」
+     - 任せたい側:計算
+     - 自分でやりたい側:「面白そう！と思って始める」「本当にそう？と考える」
+  3. AIは「頼まれたこと」が得意 ／ 人は「やってみたい！」と言い出せる
+- 下の帯:**夢中になっている時間に、その力は育っている。**
 
-電車が好きな子は、路線図を見ながら町のつくりを知っていきます。
-ゲームが好きな子は、「どうやったら勝てる？」を何度も試しています。
+### 扉3「すぐ飽きて、続かないんです」
 
-机に向かっていなくても、頭はしっかり動いています。
+- 大見出し:**好きは、変わっていい。**
+- 流れ(橋を渡る3段階):
+  1. おわり:「ロボット、もうええかな…」
+  2. あいだ:何もしていないように見える時間(＝次の入口を探している途中)
+  3. はじまり:「ゲームつくってみたい！」
+- 橋の下に:前の「好き」で身につけたこと(組み立てる・試す・直す)は、次に持ちこされる
+- 下の帯:**飽きたように見えて、次の「好き」へ移っている途中かも。**
 
-「やってみたら、わかった！」
-この手応えを知っている子は、新しいことにも手を伸ばせます。
-CLAFTは、その最初の一歩を「好き」から始めています。
+### 扉4「それ、将来なんの役に立つの？」
 
-- イラスト:路線図を広げる子。そこから町・工場・学校へ、道がのびていく。
-- 手描きで足すもの:子どもの吹き出し「なんでやろ？」、広がりを示す矢印。
-- QR(もっと読みたい方へ):https://claft.keeponlearning.fun/blog/suki-wa-manabi-no-iriguchi
+- 大見出し:**意味は、やり続けた後からついてくる。**
+- 流れ:
+  1. ばらばらの点(絵・ロボット・ゲーム・虫・音楽)「今は、わからなくて大丈夫」
+  2. 転機の多くは、計画になかった偶然から生まれる(キャリアの研究より)
+  3. 偶然をつかむ人がやっていること →「気になったら近づく」「もう少し続けてみる」「やり方を変えてみる」
+  4. 点が1本の線でつながる
+- 下の帯:**好きを追いかけた点は、いつか線になる。**
+- 右下に小さく:となりのメンバーストーリーも見てね →
 
-## 2. 扉②
+## 画像生成プロンプト(新規3枚・A4横)
 
-**フタ**
+```
+Hand-drawn graphic recording style infographic on white paper, colorful marker pen lines, yellow and pink highlighter underlines, rounded hand-drawn frames connected by arrows, cute simple illustrations of Japanese elementary and junior high school children with speech bubbles, warm and friendly, landscape layout. Big handwritten title at the top: 「「なんか面白そう」で、動き出す力。」 Left block: children sitting in a circle talking, a speech bubble with the question 「どこまでAIに任せたい？」 and a small label 「Yononakaで中高生に聞いてみた」. Center block: a long horizontal ruler scale labeled 「AIに任せたい」 on the left end and 「自分でやりたい」 on the right end; near the left end a calculator icon with the label 「計算」; near the right end two cards 「面白そう！と思って始める」 and 「本当にそう？と考える」. Right block: a friendly small robot with the label 「AIは、頼まれたことが得意」 and an excited child raising a hand with the label 「人は「やってみたい！」と言い出せる」. Bottom banner with highlighter: 「夢中になっている時間に、その力は育っている。」 All Japanese text rendered clearly and correctly, no other text --ar 297:210
+```
 
-> AIの時代に、何を身につけたらいい？
+```
+Hand-drawn graphic recording style infographic on white paper, colorful marker pen lines, yellow and pink highlighter underlines, rounded hand-drawn frames connected by arrows, cute simple illustrations of a Japanese elementary school child with speech bubbles, warm and friendly, landscape layout. Big handwritten title at the top: 「好きは、変わっていい。」 Main picture: a hand-drawn bridge crossing from left to right in three stages. Left stage labeled 「① おわり」: a child putting down a small robot, speech bubble 「ロボット、もうええかな…」. Middle stage labeled 「② あいだ」: the same child lying on the bridge looking at the clouds, with the note 「何もしていないように見える時間」 and a small arrow note 「次の入口を探している途中」. Right stage labeled 「③ はじまり」: the same child at a laptop with sparkling eyes, speech bubble 「ゲームつくってみたい！」. Under the bridge, a flowing ribbon carrying three small tags 「組み立てる」「試す」「直す」 from left to right, with the caption 「前の「好き」で身につけたことは、次に持ちこされる」. Bottom banner with highlighter: 「飽きたように見えて、次の「好き」へ移っている途中かも。」 All Japanese text rendered clearly and correctly, no other text --ar 297:210
+```
 
-**めくると**
+```
+Hand-drawn graphic recording style infographic on white paper, colorful marker pen lines, yellow and pink highlighter underlines, rounded hand-drawn frames connected by arrows, cute simple illustrations of Japanese elementary school children with speech bubbles, warm and friendly, landscape layout. Big handwritten title at the top: 「意味は、やり続けた後からついてくる。」 Left block: scattered colorful dots, each with a tiny icon (a drawing, a small robot, a game controller, an insect, a music note), and a child with a speech bubble 「今は、わからなくて大丈夫」. Center block: a frame with the text 「転機の多くは、計画になかった偶然から生まれる」 and a small note 「キャリアの研究より」, followed by three small cards 「気になったら近づく」「もう少し続けてみる」「やり方を変えてみる」 under the heading 「偶然をつかむ人がやっていること」. Right block: the same dots now connected by one bright hand-drawn line forming a path, a child looking back at the path and smiling. Bottom banner with highlighter: 「好きを追いかけた点は、いつか線になる。」 Small note in the lower right corner: 「となりのメンバーストーリーも見てね →」 All Japanese text rendered clearly and correctly, no other text --ar 297:210
+```
 
-### 「なんか面白そう」で、動き出す力。
+生成後の確認:絵の中の日本語に誤字や余計な文字がないか。あれば Canva で文字だけ貼り直す。
 
-対話の授業Yononakaで、中高生に聞いてみました。
-「どこまでAIに任せたい？」
-
-計算は、AIにおまかせ。
-でも「面白そうと思って始めること」と
-「本当にそう？と考えること」は、
-自分でやりたい、という声が集まりました。
-
-AIは、頼まれたことを上手にこなします。
-「やってみたい」と言い出すのは、人のほうです。
-夢中になっている時間に、その力は育っています。
-
-- イラスト:「AIに任せたい ↔ 自分でやりたい」のものさし。左に計算機、右に目を輝かせて何かを始める子。
-- 手描きで足すもの:ものさしの目盛り、「ここは自分で！」の書き込み。
-- QR(もっと読みたい方へ):https://claft.keeponlearning.fun/blog/ai-jidai-kodomo-chikara-yononaka
-
-## 3. 扉③
-
-**フタ**
-
-> それ、将来なんの役に立つの？
-
-**めくると**
-
-### 意味は、やり続けた後からついてくる。
-
-今は、わからなくて大丈夫です。
-
-キャリアの研究では、仕事や生き方の転機の多くは、
-計画になかった偶然から生まれると言われています。
-
-その偶然をつかむのは、
-気になったら近づいてみる。
-うまくいかなくても、もう少し続けてみる。
-そんな、夢中な子がいつもやっていることです。
-
-好きを追いかけた点は、いつか線になります。
-
-→ となりの展示で、メンバーの「後からつながったこと」を読めます。
-
-- イラスト:散らばった色とりどりの点が、1本の線でつながっていく。点のひとつひとつは、絵・ロボット・ゲーム・虫かごなどの小さな「好き」。
-- 手描きで足すもの:線の先に「？」と「その先に…」。
-- QR(もっと読みたい方へ):https://claft.keeponlearning.fun/blog/career-theory-krumboltz
-
-## 4. 付箋コーナー
+## C. 付箋コーナー
 
 **あなたのお家では？**
 
@@ -121,16 +106,20 @@ AIは、頼まれたことを上手にこなします。
 - 用意するもの:付箋2色、ペン、貼る台紙(段ボール)。
 - スタッフが最初に3〜4枚貼っておく。
 
-## 5. コースの地図＋次の一歩
+## D. コースの地図＋次の一歩
 
 見出し:**好きなことを探究する場所は、ここにあります。**
 
-- コースの地図 1枚(入口 → CLAFT → Yononaka の道筋)。料金は地図には大きく載せず、QR先で見せる。
+- コースの地図 1枚(入口 → CLAFT → Yononaka の道筋)。料金は大きく載せず、QR先で見せる。
 - QR:https://claft.keeponlearning.fun/festa/2611
 - ひとこと:「気になったら、近くのスタッフに声をかけてください。」
 
-## 制作メモ
+## 印刷物のまとめ(すべてA4横)
 
-- 扉は段ボールの板に、上辺をテープで留めたフラップを付ける。フタは大きな文字1文だけ。
-- 寸法は机のサイズが決まってから確定する(未確認)。
-- 扉②の「声が集まりました」は、Yononakaでのアンケート結果(8項目・5段階)にもとづく。数値はパネルに出さない。
+| 種類 | 枚数 | 状態 |
+|---|---|---|
+| 配信の4枚 | 4 | 画像あり |
+| 扉のフタ | 4 | 文言確定。Canvaで文字組み |
+| 扉の中のグラレコ | 4 | 1枚は配信2枚目を再印刷、3枚は新規生成 |
+| 付箋コーナー見出し | 1 | 文言確定 |
+| コースの地図＋QR | 1 | 未着手 |

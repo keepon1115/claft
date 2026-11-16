@@ -7537,3 +7537,225 @@ html[data-embed] .site-main::before,
 html[data-embed] .site-main::after {
   content: none !important;
 }
+
+/* =========================================
+   スクールフェスタ 2611 (fs-*) — /festa/2611 専用
+   中央カラム480px基準。ビューポート分岐は使わない。
+   ========================================= */
+
+.fs-events {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  margin-top: 26px;
+}
+
+.fs-event {
+  position: relative;
+  padding: 30px 20px 22px;
+  border-top: 5px solid rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.fs-event-tagline {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.fs-event-name {
+  margin: 4px 0 12px;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  line-height: 1.35;
+  color: var(--ink-900);
+}
+
+.fs-event-lead,
+.fs-event-point {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.fs-event-sub {
+  display: inline-block;
+  margin: 22px 0 10px;
+  padding: 3px 12px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+  letter-spacing: 0.06em;
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+  background: rgb(var(--accent-rgb, var(--brand-rgb)) / 0.13);
+  border-radius: 999px;
+}
+
+.fs-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fs-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.fs-step-no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: #fff;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  border-radius: 50%;
+}
+
+.fs-step-title {
+  margin: 2px 0 2px;
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  line-height: 1.45;
+  color: var(--ink-900);
+}
+
+.fs-step-desc {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.fs-facts {
+  margin: 22px 0 0;
+  border-top: 1.5px dashed rgb(var(--accent-rgb, var(--brand-rgb)) / 0.4);
+}
+
+.fs-fact {
+  display: flex;
+  gap: 14px;
+  padding: 10px 2px;
+  border-bottom: 1.5px dashed rgb(var(--accent-rgb, var(--brand-rgb)) / 0.4);
+}
+
+.fs-fact dt {
+  flex: none;
+  width: 3.2em;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.fs-fact dd {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  line-height: 1.6;
+  color: var(--ink-900);
+}
+
+/* パネル展示：スライド4枚 */
+.fs-slides {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 26px;
+}
+
+.fs-slide {
+  margin: 0;
+  padding: 6px;
+}
+
+.fs-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+/* パネル展示：めくり扉 */
+.fs-doors {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.fs-door {
+  border: 2px solid rgb(var(--brand-rgb) / 0.3);
+  overflow: hidden;
+}
+
+.fs-door-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 16px;
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  line-height: 1.5;
+  color: var(--ink-900);
+  cursor: pointer;
+  list-style: none;
+}
+
+.fs-door-q::-webkit-details-marker {
+  display: none;
+}
+
+.fs-door-hint {
+  flex: none;
+  padding: 4px 12px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: #fff;
+  background: var(--brand);
+  border-radius: 999px;
+}
+
+.fs-door[open] .fs-door-hint {
+  display: none;
+}
+
+.fs-door-inner {
+  padding: 4px 16px 20px;
+  border-top: 1.5px dashed rgb(var(--brand-rgb) / 0.3);
+}
+
+.fs-door-a {
+  margin: 16px 0 10px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  line-height: 1.5;
+  color: var(--brand-deep);
+}
+
+.fs-door-body {
+  margin: 0 0 10px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.fs-door-more {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--brand-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
