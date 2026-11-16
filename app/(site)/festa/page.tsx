@@ -6,7 +6,7 @@ import FestaContent from "./FestaContent";
 // スクールフェスタ（年2回）の常設ページ。★URL /festa は会場パネルのQRに使うので変えないこと。
 const TITLE = "スクールフェスタ";
 const DESCRIPTION =
-  "半年に一回、スタッフとスクール生が一緒になって企画するCLAFT（キープオン）のスクールフェスタ。保護者や友達、地域の方々も含め、大勢でわいわい楽しむ一大イベントです。次回は2026年11月29日（日）開催。";
+  "スタッフとスクール生が一緒になって企画する、CLAFT（キープオン）のスクールフェスタ。保護者や友達、地域の方々も含め、わいわい楽しむスクールの一大行事です。年2回開催、次回は2026年11月29日（日）。";
 const OG_IMAGE = "/assets/festa/og.jpg";
 
 export const metadata: Metadata = {

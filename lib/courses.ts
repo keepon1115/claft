@@ -151,13 +151,18 @@ export const getCourse = (id: string): Course => {
 /** 7700 → "¥7,700" */
 export const formatYen = (n: number) => `¥${n.toLocaleString('en-US')}`;
 
+// /courses ページ内での各コースの位置（components/CoursePlans.tsx が同じ id を付ける）。
+// Google のコースリストは「全アイテムが同じページ内の固有URL」である必要があるため、
+// 詳細ページではなくこのアンカーを Course の url にする。
+export const courseAnchor = (id: string) => `/courses#course-${id}`;
+
 // 1コースを schema.org/Course に変換する。
 export function courseJsonLd(c: Course) {
   return {
     '@type': 'Course',
     name: c.title,
     description: c.description,
-    url: c.external ? c.link : absoluteUrl(c.link),
+    url: absoluteUrl(courseAnchor(c.id)),
     inLanguage: 'ja',
     provider: ORG_REF,
     ...(c.features ? { teaches: c.features } : {}),

@@ -50,6 +50,7 @@ export const navItems: NavItem[] = [
       { label: 'PLAY CLAFT', href: '/play-claft' },
       { label: 'STEAMキャンプ', href: '/asia-steam-camp' },
       { label: 'なんでも展示会', href: '/futurecraft/Exhibition' },
+      { label: 'スクールフェスタ', href: '/festa' },
       { label: 'ゲーム展示会', href: '/futurecraft/Exhibition-game' },
       { label: 'なんでも発表会', href: '/futurecraft/Presentation' },
       { label: 'ロボット発表会', href: '/futurecraft/RobotPresentation' },
