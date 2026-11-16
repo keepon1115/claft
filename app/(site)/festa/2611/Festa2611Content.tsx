@@ -12,7 +12,7 @@ import { FESTA_HERO_IMG } from "../FestaContent";
    - PC の中央480pxカラムでもスマホと同じ見た目になるよう、ビューポート分岐（sm:/lg:）は使わない
 ============================================================ */
 
-const APPLY_URL = "https://forms.gle/Wip8i69WwiVHGbXNA";
+const APPLY_URL = "https://forms.gle/6oY7gJT1XhenFQEz7";
 const EXHIBITION_HREF = "/futurecraft/Exhibition";
 const STORY_HREF = "/student-story";
 
