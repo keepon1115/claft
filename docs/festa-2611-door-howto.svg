@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1560" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+  <rect width="1200" height="1560" fill="#fbf6ec"/>
+  <text x="60" y="70" font-size="40" font-weight="900" fill="#3a2a1c">めくり扉パネルの作り方</text>
+  <text x="60" y="108" font-size="20" fill="#6b5a48">段ボール＋A4横の紙2枚で1セット。同じものを4セット作ります。</text>
+
+  <!-- ===== 1 材料 ===== -->
+  <circle cx="84" cy="176" r="24" fill="#8e2c3a"/><text x="84" y="185" font-size="26" font-weight="900" fill="#fff" text-anchor="middle">1</text>
+  <text x="122" y="186" font-size="28" font-weight="900" fill="#3a2a1c">切る（1セット分）</text>
+
+  <!-- 台紙 -->
+  <rect x="80" y="230" width="340" height="300" fill="#d2a66a" stroke="#8a6234" stroke-width="3"/>
+  <text x="250" y="375" font-size="24" font-weight="900" fill="#5a3d1a" text-anchor="middle">A 台紙</text>
+  <text x="250" y="405" font-size="18" fill="#5a3d1a" text-anchor="middle">段ボール</text>
+  <line x1="80" y1="552" x2="420" y2="552" stroke="#3a2a1c" stroke-width="2"/><line x1="80" y1="544" x2="80" y2="560" stroke="#3a2a1c" stroke-width="2"/><line x1="420" y1="544" x2="420" y2="560" stroke="#3a2a1c" stroke-width="2"/>
+  <text x="250" y="580" font-size="20" font-weight="700" fill="#3a2a1c" text-anchor="middle">よこ 34cm</text>
+  <line x1="444" y1="230" x2="444" y2="530" stroke="#3a2a1c" stroke-width="2"/><line x1="436" y1="230" x2="452" y2="230" stroke="#3a2a1c" stroke-width="2"/><line x1="436" y1="530" x2="452" y2="530" stroke="#3a2a1c" stroke-width="2"/>
+  <text x="456" y="386" font-size="20" font-weight="700" fill="#3a2a1c">たて 30cm</text>
+
+  <!-- フタ -->
+  <rect x="600" y="230" width="300" height="212" fill="#e0b97f" stroke="#8a6234" stroke-width="3"/>
+  <path d="M880 442 h40 a14 14 0 0 1 0 0 v-0 M900 400 h32 v42 h-32" fill="#e0b97f" stroke="#8a6234" stroke-width="3"/>
+  <text x="750" y="330" font-size="24" font-weight="900" fill="#5a3d1a" text-anchor="middle">B フタ</text>
+  <text x="750" y="360" font-size="18" fill="#5a3d1a" text-anchor="middle">段ボール（A4横と同じ大きさ）</text>
+  <text x="932" y="506" font-size="17" fill="#3a2a1c" text-anchor="end">↑ つまみ（3cm×4cm）を残して切る</text>
+  <text x="750" y="476" font-size="20" font-weight="700" fill="#3a2a1c" text-anchor="middle">よこ 29.7cm × たて 21cm</text>
+
+  <!-- スタンド -->
+  <polygon points="1010,230 1140,530 1010,530" fill="#d2a66a" stroke="#8a6234" stroke-width="3"/>
+  <text x="1050" y="470" font-size="20" font-weight="900" fill="#5a3d1a" text-anchor="middle">C</text>
+  <text x="1075" y="566" font-size="18" fill="#3a2a1c" text-anchor="middle">支え（三角）</text>
+  <text x="1075" y="590" font-size="18" fill="#3a2a1c" text-anchor="middle">高さ28cm×底12cm</text>
+
+  <!-- ===== 2 貼る ===== -->
+  <circle cx="84" cy="666" r="24" fill="#8e2c3a"/><text x="84" y="675" font-size="26" font-weight="900" fill="#fff" text-anchor="middle">2</text>
+  <text x="122" y="676" font-size="28" font-weight="900" fill="#3a2a1c">貼る</text>
+
+  <!-- 台紙に答え -->
+  <rect x="80" y="720" width="340" height="300" fill="#d2a66a" stroke="#8a6234" stroke-width="3"/>
+  <rect x="101" y="740" width="298" height="210" fill="#fff" stroke="#bbb" stroke-width="2"/>
+  <text x="250" y="835" font-size="22" font-weight="900" fill="#8e2c3a" text-anchor="middle">答えのグラレコ</text>
+  <text x="250" y="865" font-size="17" fill="#6b5a48" text-anchor="middle">（A4横）をのりで貼る</text>
+  <rect x="110" y="962" width="46" height="46" fill="#fff" stroke="#3a2a1c" stroke-width="2"/>
+  <path d="M116 968h12v12h-12z M138 968h12v12h-12z M116 990h12v12h-12z M134 986h6v6h-6z M144 996h6v6h-6z" fill="#3a2a1c"/>
+  <text x="168" y="982" font-size="16" font-weight="700" fill="#3a2a1c">もっと読みたい方へ</text>
+  <text x="168" y="1003" font-size="15" fill="#6b5a48">記事のQR（3cm角）</text>
+  <text x="250" y="1052" font-size="18" fill="#3a2a1c" text-anchor="middle">台紙：上と左右に2cm、下に7cmの余白</text>
+
+  <!-- フタに問い -->
+  <rect x="600" y="760" width="300" height="212" fill="#fff" stroke="#8a6234" stroke-width="3"/>
+  <rect x="900" y="930" width="32" height="42" fill="#e0b97f" stroke="#8a6234" stroke-width="3"/>
+  <text x="750" y="850" font-size="24" font-weight="900" fill="#3a2a1c" text-anchor="middle">好きなことばかりで、</text>
+  <text x="750" y="886" font-size="24" font-weight="900" fill="#3a2a1c" text-anchor="middle">大丈夫？</text>
+  <text x="884" y="958" font-size="14" fill="#8e2c3a" text-anchor="end">ひらいてみてください →</text>
+  <text x="750" y="1010" font-size="18" fill="#3a2a1c" text-anchor="middle">フタ：問いの紙（A4横）を表に貼る</text>
+  <text x="750" y="1036" font-size="18" fill="#3a2a1c" text-anchor="middle">つまみは色テープで巻くと目立つ</text>
+
+  <!-- ===== 3 つなぐ ===== -->
+  <circle cx="84" cy="1126" r="24" fill="#8e2c3a"/><text x="84" y="1135" font-size="26" font-weight="900" fill="#fff" text-anchor="middle">3</text>
+  <text x="122" y="1136" font-size="28" font-weight="900" fill="#3a2a1c">フタの左辺をテープでつなぐ（ドアのように開く）</text>
+
+  <!-- 閉じた状態 -->
+  <rect x="80" y="1180" width="340" height="300" fill="#d2a66a" stroke="#8a6234" stroke-width="3"/>
+  <rect x="101" y="1200" width="298" height="210" fill="#fff" stroke="#8a6234" stroke-width="3"/>
+  <rect x="90" y="1200" width="24" height="210" fill="#f0b968" opacity="0.85"/>
+  <rect x="399" y="1368" width="30" height="42" fill="#d9773a" stroke="#8a6234" stroke-width="2"/>
+  <text x="250" y="1300" font-size="22" font-weight="900" fill="#3a2a1c" text-anchor="middle">問い</text>
+  <text x="250" y="1330" font-size="17" fill="#6b5a48" text-anchor="middle">閉じたところ</text>
+  <text x="60" y="1512" font-size="17" fill="#3a2a1c">↑ 布テープを表と裏の両側から貼ると丈夫</text>
+
+  <!-- 開いた状態 -->
+  <rect x="700" y="1180" width="340" height="300" fill="#d2a66a" stroke="#8a6234" stroke-width="3"/>
+  <rect x="721" y="1200" width="298" height="210" fill="#fff" stroke="#bbb" stroke-width="2"/>
+  <text x="870" y="1300" font-size="22" font-weight="900" fill="#8e2c3a" text-anchor="middle">答えのグラレコ</text>
+  <text x="870" y="1330" font-size="17" fill="#6b5a48" text-anchor="middle">開いたところ</text>
+  <polygon points="721,1200 721,1410 560,1440 560,1170" fill="#e0b97f" stroke="#8a6234" stroke-width="3"/>
+  <text x="640" y="1312" font-size="18" font-weight="700" fill="#5a3d1a" text-anchor="middle">フタの裏</text>
+  <path d="M470 1300 C500 1260 520 1260 548 1290" fill="none" stroke="#8e2c3a" stroke-width="4"/><polygon points="548,1290 534,1284 544,1274" fill="#8e2c3a"/>
+  <text x="690" y="1512" font-size="17" fill="#3a2a1c">裏にCの支えを貼って、少し後ろに傾けて立てる</text>
+</svg>
