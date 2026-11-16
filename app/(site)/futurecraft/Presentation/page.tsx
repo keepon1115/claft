@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import NandemoClient from "./NandemoClient";
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "なんでも発表会",
@@ -16,5 +17,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <NandemoClient />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['なんでも発表会', '/futurecraft/Presentation']]} />
+      <NandemoClient />
+    </>
+  );
 }

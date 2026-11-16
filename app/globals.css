@@ -2329,13 +2329,14 @@ html {
 /* ---------- CoursePlans（コースと料金：通学／オンライン切替） ---------- */
 .hp-plans-tabs {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   margin-bottom: 28px;
 }
 
 .hp-plans-tab {
-  padding: 10px 26px;
+  padding: 10px 20px;
   background-color: var(--paper);
   background-image: var(--tex-grain);
   color: var(--ink-600);
@@ -2386,6 +2387,41 @@ html {
   margin-left: 4px;
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
+}
+
+.hp-plans-frame-area {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-600);
+}
+
+/* プランに含まれるもの（チェックリスト） */
+.hp-plans-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.hp-plans-features li {
+  padding: 5px 12px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-800);
+  background: rgb(var(--brand-rgb) / 0.1);
+  border-radius: 999px;
+}
+
+.hp-plans-features li::before {
+  content: '✓ ';
+  color: var(--brand-deep);
+}
+
+.hp-plans-panel[hidden] {
+  display: none;
 }
 
 .hp-plans-grid {

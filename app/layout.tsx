@@ -40,10 +40,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
         {/* サイト全体の一次情報。AI/検索が「CLAFTとは何者か」を確定するための JSON-LD。
-            ※ root layout の <head> は server 描画され、静的HTMLにクリーン出力される
-            （非JSのAIクローラも読める）。一方 (site) グループの本文に置いた <script> は
-            クライアント component SiteGrid を経由するため RSC へ退避され、静的HTMLに残らない。
-            よってサイト全体に効く Organization / WebSite / LocalBusiness はここで出力する。 */}
+            サイト全体に効く Organization / WebSite / 教室（LocalBusiness）はここで出力する。
+            ページ固有のもの（Course / FAQPage / Article / BreadcrumbList）は各ページ本文に <JsonLd> で置く。 */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

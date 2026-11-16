@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import SerialLpContent from './SerialLpContent'
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AIロボット社会、僕たちはどう生きるか ― 第1回の実況と、第2回参加募集',
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 }
 
 export default function SerialLpPage() {
-  return <SerialLpContent />
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['Yononaka', '/yononaka'], ['AIロボット社会、僕たちはどう生きるか', '/yononaka/ai-robot'], ['第1回の実況と第2回参加募集', '/yononaka/ai-robot/serial-lp']]} />
+      <SerialLpContent />
+    </>
+  );
 }

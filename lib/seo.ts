@@ -72,16 +72,45 @@ export const defaultMetadata: Metadata = {
   //   render 時に env を読んで明示出力している（ビルド時 env 評価の取りこぼしを避けるため）。
 };
 
-// Organization + WebSite の JSON-LD（AIが「CLAFTとは何者か」を確定するための一次情報）。
+// 組織エンティティの @id。各ページの JSON-LD（provider / publisher 等）はこの @id を参照する。
+export const ORG_ID = `${SITE_URL}/#organization`;
+export const PLACE_ID = `${SITE_URL}/#classroom`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+
+// 公式SNS（Footer と同じもの）。AI/検索が「同じ発信元」と判断する手がかり。
+export const SOCIAL_LINKS = [
+  'https://www.instagram.com/keepon.labo',
+  'https://note.com/yononaka_career',
+  'https://www.youtube.com/@CLAFT-keepon',
+];
+
+// 運営会社
+export const OPERATOR_NAME = 'キープオン株式会社';
+
+// ページ側の JSON-LD から組織を参照するときの短縮形（provider / publisher / author に使う）。
+export const ORG_REF = {
+  '@type': 'EducationalOrganization',
+  '@id': ORG_ID,
+  name: SITE_NAME,
+  url: SITE_URL,
+};
+
+// 組織＝CLAFT（ブランド）。名称は「CLAFT」に統一し、教室（場所）の名称とは混ぜない。
+// 教室は下の classroomJsonLd（別ノード）で表し、location で関連づける。
 export const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
+  '@id': ORG_ID,
   name: SITE_NAME,
   alternateName: 'クラフト',
   url: SITE_URL,
   logo: absoluteUrl(ORG_LOGO),
+  image: absoluteUrl(DEFAULT_OG_IMAGE),
   description: SITE_DESCRIPTION,
   areaServed: '日本',
+  sameAs: SOCIAL_LINKS,
+  parentOrganization: { '@type': 'Organization', name: OPERATOR_NAME },
+  location: { '@id': PLACE_ID },
   address: {
     '@type': 'PostalAddress',
     addressRegion: '大阪府',
@@ -93,10 +122,27 @@ export const organizationJsonLd = {
 export const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': WEBSITE_ID,
   name: SITE_NAME,
   url: SITE_URL,
   inLanguage: 'ja',
+  publisher: { '@id': ORG_ID },
 };
+
+// パンくず（BreadcrumbList）。trail は「ホーム」の次から [表示名, パス] を並べる。
+// 例: breadcrumbJsonLd([['Yononaka', '/yononaka'], ['団体向け', '/yononaka/kyoshitsu']])
+export function breadcrumbJsonLd(trail: [name: string, path: string][]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [['ホーム', '/'] as [string, string], ...trail].map(([name, path], i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name,
+      item: path === '/' ? SITE_URL : absoluteUrl(path),
+    })),
+  };
+}
 
 // 八尾の対面拠点（LocalBusiness）。
 // CLAFT はこの「ロボットプログラミング教室 キープオン（エジソンアカデミー本校）」の
@@ -120,20 +166,20 @@ export const BUSINESS = {
   geo: null as { latitude: number; longitude: number } | null,
 };
 
+// 八尾の教室（実在の場所）。名称は Googleマップ等と揃えるため教室の正式名のまま。
+// CLAFT との関係は parentOrganization（→ CLAFT）で表す。
 export const localBusinessJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'EducationalOrganization',
-  '@id': `${SITE_URL}/#localbusiness`,
+  '@type': ['LocalBusiness', 'EducationalOrganization'],
+  '@id': PLACE_ID,
   name: BUSINESS.locationName,
-  alternateName: `${SITE_NAME}（CLAFT）`,
+  description: `${SITE_NAME}の対面教室（${ORG_AREA}）。`,
+  parentOrganization: { '@id': ORG_ID },
   url: SITE_URL,
-  logo: absoluteUrl(ORG_LOGO),
   image: absoluteUrl(DEFAULT_OG_IMAGE),
-  description: SITE_DESCRIPTION,
   email: BUSINESS.email,
   ...(BUSINESS.telephone ? { telephone: BUSINESS.telephone } : {}),
   priceRange: BUSINESS.priceRange,
-  areaServed: '日本',
   address: {
     '@type': 'PostalAddress',
     ...(BUSINESS.postalCode ? { postalCode: BUSINESS.postalCode } : {}),

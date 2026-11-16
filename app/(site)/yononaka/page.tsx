@@ -4,6 +4,12 @@ import type { CSSProperties } from 'react';
 import { SectionTitle } from '@/components/craft/SectionTitle';
 import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
+import { getCourse, courseJsonLd } from '@/lib/courses';
+import { JsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
+
+const yononakaCourse = getCourse('yononaka-course');
+const claftOnsite = getCourse('claft-onsite');
+const claftOnline = getCourse('claft-online');
 
 export const metadata = {
   title: 'Yononaka（対話ワーク）',
@@ -193,6 +199,8 @@ const rules = [
 
 export default function YononakaPage(){
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['Yononaka', '/yononaka']]} />
     <MobileContainer>
       {/* ===== 冒頭（ヒーロー）===== */}
       <Section className="cd-hero">
@@ -511,6 +519,31 @@ export default function YononakaPage(){
         </div>
       </Section>
 
+      {/* ===== 料金（個人向け）===== 金額は lib/courses.ts が単一ソース */}
+      <Section>
+        <div className="craft-paper craft-tilt reveal" style={{ '--rot': '0.3deg' } as CSSProperties}>
+          <span className="craft-tape" aria-hidden="true" />
+          <h2 className="cd-card-title" style={{ marginBottom: '12px' }}>
+            料金
+          </h2>
+          <p className="body-base text-ink-700 mb-4">
+            <strong>
+              {yononakaCourse.title}　月額{yononakaCourse.priceFrom.toLocaleString('en-US')}円（税込）
+            </strong>
+            <br />
+            {(yononakaCourse.features ?? []).join('＋')}に参加できます。
+          </p>
+          <p className="body-base text-ink-700 mb-4">
+            {claftOnsite.title}（月額{claftOnsite.priceFrom.toLocaleString('en-US')}円）・{claftOnline.title}（月額
+            {claftOnline.priceFrom.toLocaleString('en-US')}円）の方は、コースの料金にYononakaが含まれています。
+          </p>
+          <Link href="/courses" className="cd-textlink">
+            コース・料金を見る
+            <ArrowRightDoodle width={22} />
+          </Link>
+        </div>
+      </Section>
+
       {/* ===== 法人・教室向けへの導線 ===== */}
       <Section>
         <div className="cd-banner craft-paper craft-paper--warm craft-tilt reveal" style={{ '--rot': '-0.4deg' } as CSSProperties}>
@@ -526,19 +559,9 @@ export default function YononakaPage(){
       </Section>
 
       {/* JSON-LD 構造化データ */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Course",
-            "name": "Yononaka（対話ワーク）",
-            "description": "お金や時間など、身近なテーマを入り口に、正解がひとつではない問いをみんなで話し合う学びです。",
-            "provider": { "@type": "Organization", "name": "CLAFT" }
-          })
-        }}
-      />
+      <JsonLd data={{ '@context': 'https://schema.org', ...courseJsonLd(yononakaCourse) }} />
     </MobileContainer>
+    </>
   );
 }
 

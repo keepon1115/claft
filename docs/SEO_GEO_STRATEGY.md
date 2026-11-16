@@ -1,6 +1,6 @@
 # CLAFT SEO / GEO 実装方針
 
-最終更新: 2026-06-20
+最終更新: 2026-11-16
 
 ## 確定した前提
 
@@ -56,19 +56,23 @@
 - `/courses` に per-page metadata（title/description/canonical）を付与。
 
 未実装（次フェーズ）:
-- BreadcrumbList（全階層）/ Article（news・student-story・monthly: 著者・公開日でE-E-A-T）
+- Article（student-story・monthly: 著者・公開日でE-E-A-T）
 
-### ★重要な技術的注意（構造化データの出力場所）
-`(site)` グループのページ本文は **client component `SiteGrid`（useSearchParams 使用）** を
-children として通過する。React はこの client サブツリー内の `<script>` を RSC ペイロードへ退避するため、
-**ページ本文に置いた JSON-LD は静的HTMLに残らず、JS実行後にのみ現れる**（既存の minecraft 等も同様だった）。
-- Google は JS を実行するため問題なし。
-- **非JSのAIクローラ（GPTBot等）は生HTMLしか読まない** → サイト全体に効く
-  Organization / WebSite / LocalBusiness は **root layout の `<head>`** に置いてクリーン出力している。
-- ページ固有の Course / FAQPage は現状ページ本文（=JS描画）。可視テキスト（料金・FAQ本文）は
-  静的HTMLにあるため GEO 上の情報欠落はない。
-- 将来、Course/FAQ も非JSクローラへ届けたい場合は、`SiteGrid` を「navのみ client・children は server 境界」に
-  分割するか、middleware でルートを `<head>` に渡す方式へ。次フェーズ候補。
+### ★重要な技術的注意（本文と構造化データをHTMLに出す）— 2026-11-16 解消
+以前は `(site)` の枠 `SiteGrid` が client component で `useSearchParams` を使っており、
+**全ページの本文・h1・ページ内JSON-LDが静的HTMLに出ていなかった**（`BAILOUT_TO_CLIENT_SIDE_RENDERING`）。
+`SiteGrid` をサーバー部品に戻し、`?embed=true` はインラインスクリプト＋CSS（`html[data-embed]`）で処理する形に変更済み。
+- ページ本文に置いた `<JsonLd>` はそのまま静的HTMLに出る（非JSのAIクローラも読める）。
+- **再発防止**: `app/(site)/layout.tsx` を `<Suspense>` で包まない／枠で `useSearchParams` を使わない。
+  確認は `curl -s <URL> | grep -c BAILOUT_TO_CLIENT_SIDE_RENDERING` が 0 であること。
+
+### 2026-11-16 の更新まとめ
+- canonical / og:url はルート既定 `./`（各ページ自身）。ページ側 title に「| CLAFT」は書かない。
+- 料金の単一ソースは `lib/courses.ts`（CLAFT通学 ¥7,700／CLAFTオンライン ¥4,400／Yononakaコース ¥2,200）。
+  表示（`lib/plans.ts` → `CoursePlans`）と Course JSON-LD の両方がここを参照。
+- 組織JSON-LD: CLAFT（`#organization`、sameAs=Instagram/note/YouTube）と八尾の教室（`#classroom`）を別ノードに分離。
+- BreadcrumbList: `<BreadcrumbJsonLd trail={...} />` を階層ページに設置。FAQPage: トップ・/courses・/yononaka/kyoshitsu。
+- 本番で vercel.app が出る場合は Vercel の環境変数 `NEXT_PUBLIC_SITE_URL` を確認（コード既定は正規ドメイン）。
 
 ★要記入（`lib/seo.ts` の `BUSINESS`）: streetAddress / postalCode / telephone / geo / openingHours。
 LocalBusiness のローカル露出を最大化するため、判明し次第ここへ。
@@ -125,8 +129,7 @@ LocalBusiness のローカル露出を最大化するため、判明し次第こ
 
 注意:
 - Notion画像のURLは約1時間で失効。ISR再取得で更新されるが、確実性を上げるなら将来は画像プロキシ化。
-- 記事の Article JSON-LD はページ本文（=JS描画）。可視テキストは静的HTMLにあり GEO 上は問題なし
-  （Phase 2 の SiteGrid 注記と同じ理由）。
+- 記事の Article / BreadcrumbList JSON-LD は静的HTMLに出力される（2026-11-16 確認）。
 
 ### 運用フロー（AI量産 + 品質ガード）
 AIで下書き → Notionに貼る → 人が一次情報（CLAFT独自の実例・数値）を1つ以上足し事実確認 →

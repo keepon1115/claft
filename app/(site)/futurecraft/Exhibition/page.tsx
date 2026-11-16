@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import NandemoTenjikaiContent from './NandemoTenjikaiContent';
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'なんでも展示会',
@@ -16,5 +17,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <NandemoTenjikaiContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['なんでも展示会', '/futurecraft/Exhibition']]} />
+      <NandemoTenjikaiContent />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Schedule2607Content from "./Schedule2607Content";
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "当日のタイムスケジュール | なんでも発表会",
@@ -15,5 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <Schedule2607Content />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['なんでも発表会', '/futurecraft/Presentation'], ['当日のタイムスケジュール', '/futurecraft/Presentation2607']]} />
+      <Schedule2607Content />
+    </>
+  );
 }

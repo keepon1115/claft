@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RobotWorks2608Content from "./RobotWorks2608Content";
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const dynamic = "force-dynamic";
 
@@ -17,5 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <RobotWorks2608Content />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['ロボット発表会', '/futurecraft/RobotPresentation'], ['8月の作品紹介', '/futurecraft/RobotPresentation2608']]} />
+      <RobotWorks2608Content />
+    </>
+  );
 }

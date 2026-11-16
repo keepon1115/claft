@@ -2,8 +2,8 @@ import { SectionTitle } from './craft/SectionTitle';
 import { faqs, faqPageJsonLd } from '@/lib/faq';
 import { JsonLd } from './JsonLd';
 
-// jsonLd: FAQPage 構造化データを出力するか。FAQ は複数ページに表示されるため、
-// 重複を避けて1ページ（トップ）でのみ true にする。
+// jsonLd: FAQPage 構造化データを出力するか。FAQ を主要コンテンツとして載せるページ
+// （トップ・コース料金）で true にする。
 export function FAQ({ jsonLd = false }: { jsonLd?: boolean }) {
   return (
     <section className="hp-section" id="faq">

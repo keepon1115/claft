@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { MobileContainer, Section } from '@/components/MobileContainer';
+import { faqItems } from './faqItems';
 
 const growthItems = [
   {
@@ -45,34 +46,6 @@ const voices = [
     grade: '高校1年生',
     title: '「言葉にする課題も見える」',
     text: '論理的なことを言われたら勉強になるし、自分がどう思うのかも理解できる場所。考えを見つけ出すのはできるようになった気がして、それを図化できるのに、言葉にはできず、語彙力が足りないことを実感しています。',
-  },
-];
-
-const faqItems = [
-  {
-    question: 'オンラインはどのツールで実施しますか？',
-    answer:
-      'Zoomを使用します。Zoomのアカウントをお持ちでなくても、リンクをクリックするだけでブラウザからご参加いただけます。',
-  },
-  {
-    question: '何名から開催できますか？定員は？',
-    answer:
-      '4名から開催可能です。定員は15名です。16名以上の場合は、ファシリテーターを1名追加して対応いたします。詳しくはご相談ください。',
-  },
-  {
-    question: '対象年齢は？',
-    answer:
-      '小学生から大人まで幅広い年齢の方にご参加いただけます。年齢・立場を超えた対話がYononakaの魅力のひとつです。',
-  },
-  {
-    question: '1回だけの利用でも大丈夫ですか？',
-    answer:
-      'はい、単発（1回）でのご利用も歓迎しております。まずはお試しで1回から始めていただけます。',
-  },
-  {
-    question: '参加に必要な準備は？',
-    answer:
-      'インターネット接続環境と、Zoomが使えるデバイス（PC・タブレット・スマートフォン）があれば大丈夫です。事前の専門知識や準備物は一切不要です。',
   },
 ];
 

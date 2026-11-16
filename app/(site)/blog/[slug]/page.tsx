@@ -8,7 +8,7 @@ import { FeedbackBlock } from '@/components/blog/FeedbackBlock';
 import { BlogCard } from '@/components/blog/BlogIndexClient';
 import { getPublishedPosts, getPostBySlug, getBlocks } from '@/lib/notion';
 import { getCategoryByName } from '@/lib/blogTaxonomy';
-import { SITE_NAME, SITE_URL, absoluteUrl, DEFAULT_OG_IMAGE } from '@/lib/seo';
+import { SITE_NAME, SITE_URL, ORG_ID, ORG_REF, absoluteUrl, DEFAULT_OG_IMAGE } from '@/lib/seo';
 
 export const revalidate = 60; // ISR
 
@@ -76,9 +76,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     image: post.coverImage ? [post.coverImage] : [absoluteUrl(DEFAULT_OG_IMAGE)],
     ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
     dateModified: post.updatedAt || post.publishedAt || undefined,
-    author: { '@type': post.author ? 'Person' : 'Organization', name: post.author ?? SITE_NAME },
+    author: post.author ? { '@type': 'Person', name: post.author, worksFor: { '@id': ORG_ID } } : ORG_REF,
     publisher: {
       '@type': 'Organization',
+      '@id': ORG_ID,
       name: SITE_NAME,
       logo: { '@type': 'ImageObject', url: absoluteUrl('/assets/images/common/logo.png') },
     },

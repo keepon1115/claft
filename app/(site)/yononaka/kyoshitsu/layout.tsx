@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { defaultOpenGraph } from '@/lib/seo';
+import { JsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
+import { faqItems } from './faqItems';
 
 // kyoshitsu/page.tsx は 'use client' のため metadata を持てない。ここ（server layout）で付与する。
 const TITLE = 'Yononakaを教室・コミュニティに導入する（運営者の方へ）';
@@ -13,5 +15,21 @@ export const metadata: Metadata = {
 };
 
 export default function KyoshitsuLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['Yononaka', '/yononaka'], ['団体向けYononaka', '/yononaka/kyoshitsu']]} />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqItems.map((f) => ({
+            '@type': 'Question',
+            name: f.question,
+            acceptedAnswer: { '@type': 'Answer', text: f.answer },
+          })),
+        }}
+      />
+      {children}
+    </>
+  );
 }

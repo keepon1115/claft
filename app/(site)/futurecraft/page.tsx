@@ -4,6 +4,8 @@ import { MobileContainer, Section } from '@/components/MobileContainer';
 import { SectionTitle } from '@/components/craft/SectionTitle';
 import { Underline, ArrowRightDoodle } from '@/components/craft/HandDrawn';
 import { DoodleIcon, type DoodleIconName } from '@/components/craft/DoodleIcon';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { ORG_REF } from '@/lib/seo';
 
 export const metadata = {
   title: 'ミライクラフト（実践）',
@@ -235,6 +237,8 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
 
 export default function FuturecraftPage() {
   return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft']]} />
     <MobileContainer>
       {/* ===== ヒーローセクション ===== */}
       <Section className="cd-hero">
@@ -498,10 +502,11 @@ export default function FuturecraftPage() {
             "@type": "Course",
             "name": "ミライクラフト（実践）",
             "description": "作品発表会、イベント企画、商品制作などに挑戦。自分の好きや得意を活かしながら、仲間と試行錯誤し、「仕事」を実感する学びです。",
-            "provider": { "@type": "Organization", "name": "CLAFT" }
+            "provider": ORG_REF
           })
         }}
       />
     </MobileContainer>
+    </>
   );
 }

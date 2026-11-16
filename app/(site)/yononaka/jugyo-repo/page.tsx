@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ReportContent from './ReportContent'
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'ゲームってなんでおもしろいの？ | Yononaka レポート',
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 }
 
 export default function ReportPage() {
-  return <ReportContent />
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['Yononaka', '/yononaka'], ['授業レポート：ゲームってなんでおもしろいの？', '/yononaka/jugyo-repo']]} />
+      <ReportContent />
+    </>
+  );
 }

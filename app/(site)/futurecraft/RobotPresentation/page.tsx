@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RobotPresentationContent from "./RobotPresentationContent";
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "ロボット発表会",
@@ -16,5 +17,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <RobotPresentationContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['ロボット発表会', '/futurecraft/RobotPresentation']]} />
+      <RobotPresentationContent />
+    </>
+  );
 }

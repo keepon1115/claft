@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ExhibitionWorks2611Content from "./ExhibitionWorks2611Content";
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const dynamic = "force-dynamic";
 
@@ -17,5 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ExhibitionWorks2611Content />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['なんでも展示会', '/futurecraft/Exhibition'], ['11月の作品一覧', '/futurecraft/Exhibition2611']]} />
+      <ExhibitionWorks2611Content />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { defaultOpenGraph } from '@/lib/seo'
 import AiRobotContent from './AiRobotContent'
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 const TITLE = 'AIロボット社会、僕たちはどう生きるか｜Yononaka 全6回の対話ワーク'
 const DESCRIPTION =
@@ -13,5 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default function AiRobotPage() {
-  return <AiRobotContent />
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['Yononaka', '/yononaka'], ['AIロボット社会、僕たちはどう生きるか', '/yononaka/ai-robot']]} />
+      <AiRobotContent />
+    </>
+  );
 }

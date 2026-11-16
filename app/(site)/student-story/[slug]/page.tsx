@@ -2,6 +2,7 @@ import { StudentDetailContent } from '@/components/student-story';
 import { getStudentBySlug, getAllStudentSlugs } from '@/lib/studentData';
 import { notFound } from 'next/navigation';
 import { defaultOpenGraph } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const dynamicParams = false;
 
@@ -18,7 +19,12 @@ export default async function StudentDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  return <StudentDetailContent student={student} />;
+  return (
+    <>
+      <BreadcrumbJsonLd trail={[['メンバーのストーリー', '/student-story'], [`${student.name}のストーリー`, `/student-story/${slug}`]]} />
+      <StudentDetailContent student={student} />
+    </>
+  );
 }
 
 // 静的生成のためのパスを生成
