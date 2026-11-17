@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2360" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8e2c3a"/></marker>
+    <g id="qr"><rect width="70" height="70" fill="#fff" stroke="#3a2a1c" stroke-width="2"/><path d="M8 8h18v18h-18z M44 8h18v18h-18z M8 44h18v18h-18z M34 34h8v8h-8z M50 50h10v10h-10z M34 54h6v6h-6z" fill="#3a2a1c"/></g>
+  </defs>
+  <rect width="1200" height="2360" fill="#fbf6ec"/>
+  <text x="50" y="62" font-size="38" font-weight="900" fill="#3a2a1c">コースの地図(A3横)デザイン3案</text>
+  <text x="50" y="98" font-size="19" fill="#6b5a48">ラフです。文字と配置を見るためのもので、絵柄は仕上げで変わります。</text>
+
+  <!-- ============ 案1 道の地図 ============ -->
+  <text x="50" y="160" font-size="28" font-weight="900" fill="#8e2c3a">案1 道の地図</text>
+  <text x="50" y="190" font-size="18" fill="#3a2a1c">入口から「その先」まで、1本の道でつなぐ。キービジュアル(扉と道)の世界と同じ絵になる。</text>
+  <rect x="50" y="210" width="1100" height="500" fill="#fff" stroke="#8a6234" stroke-width="3"/>
+  <text x="80" y="256" font-size="26" font-weight="900" fill="#3a2a1c">好きなことを探究する場所は、ここにあります。</text>
+  <path d="M110 640 C260 640 240 520 400 520 S560 430 700 430 S900 330 1040 300" fill="none" stroke="#e6cfa3" stroke-width="46" stroke-linecap="round"/>
+  <path d="M110 640 C260 640 240 520 400 520 S560 430 700 430 S900 330 1040 300" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="14 12"/>
+  <!-- 入口 -->
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <rect x="76" y="560" width="96" height="46" rx="8" fill="#9cc7e8"/><text x="124" y="580" fill="#1f4a6b">自考力キッズ</text><text x="124" y="598" fill="#1f4a6b">エジソン</text>
+    <rect x="182" y="560" width="96" height="46" rx="8" fill="#9cc7e8"/><text x="230" y="588" fill="#1f4a6b">キープオンラボ</text>
+    <rect x="288" y="590" width="80" height="46" rx="8" fill="#9cc7e8"/><text x="328" y="618" fill="#1f4a6b">英会話</text>
+  </g>
+  <text x="90" y="686" font-size="17" font-weight="900" fill="#1f4a6b">入口:まず夢中になる</text>
+  <!-- CLAFT -->
+  <rect x="440" y="330" width="310" height="84" rx="10" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/>
+  <text x="595" y="362" font-size="21" font-weight="900" fill="#6e1f2b" text-anchor="middle">CLAFT(通学・オンライン)</text>
+  <text x="595" y="392" font-size="15" fill="#6e1f2b" text-anchor="middle">好きなことを、自分のテーマで探究</text>
+  <text x="470" y="500" font-size="17" font-weight="900" fill="#6e1f2b">つづける:好きを深める</text>
+  <!-- Yononaka -->
+  <ellipse cx="840" cy="560" rx="170" ry="60" fill="#f3d27a" stroke="#b08a1e" stroke-width="2"/>
+  <text x="840" y="552" font-size="21" font-weight="900" fill="#6b5210" text-anchor="middle">Yononaka の広場</text>
+  <text x="840" y="580" font-size="15" fill="#6b5210" text-anchor="middle">正解のない問いを語り合う。どこからでも入れる</text>
+  <path d="M700 440 L760 510" stroke="#b08a1e" stroke-width="3" stroke-dasharray="6 6"/><path d="M400 530 L690 560" stroke="#b08a1e" stroke-width="3" stroke-dasharray="6 6"/>
+  <!-- その先 -->
+  <text x="1040" y="270" font-size="24" font-weight="900" fill="#2c5a24" text-anchor="middle">その先に…</text>
+  <text x="1040" y="350" font-size="15" fill="#2c5a24" text-anchor="middle">仕事・活動・進路</text>
+  <use href="#qr" x="1060" y="620"/><text x="1050" y="660" font-size="14" fill="#3a2a1c" text-anchor="end">くわしくは →</text>
+  <text x="50" y="744" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#2c5a24">○</tspan> 絵として楽しく、展示全体の世界観がそろう　<tspan font-weight="900" fill="#8e2c3a">△</tspan> 「うちの子はどれ？」の答えは、自分で読み取る必要がある</text>
+
+  <!-- ============ 案2 3つの段 ============ -->
+  <text x="50" y="830" font-size="28" font-weight="900" fill="#8e2c3a">案2 3つの段(はじめる・つづける・ひろげる)</text>
+  <text x="50" y="860" font-size="18" fill="#3a2a1c">コースを3段に整理し、それぞれ「何ができるか」を並べる。情報がいちばん整って見える。</text>
+  <rect x="50" y="880" width="1100" height="500" fill="#fff" stroke="#8a6234" stroke-width="3"/>
+  <text x="80" y="926" font-size="26" font-weight="900" fill="#3a2a1c">好きなことを探究する場所は、ここにあります。</text>
+  <!-- step1 -->
+  <rect x="80" y="1150" width="320" height="200" fill="#dcecf7" stroke="#5b8fb5" stroke-width="2"/>
+  <text x="100" y="1184" font-size="21" font-weight="900" fill="#1f4a6b">① はじめる</text>
+  <g font-size="15" fill="#1f4a6b"><text x="100" y="1216">・自考力キッズ／エジソン(ロボット)</text><text x="100" y="1242">・キープオンラボ</text><text x="100" y="1268">・英会話</text><text x="100" y="1310" font-weight="700">夢中になれるものに出会う</text></g>
+  <!-- step2 -->
+  <rect x="420" y="1050" width="340" height="300" fill="#f5dcdf" stroke="#8e2c3a" stroke-width="2"/>
+  <text x="440" y="1084" font-size="21" font-weight="900" fill="#6e1f2b">② つづける:CLAFT</text>
+  <g font-size="15" fill="#6e1f2b"><text x="440" y="1116" font-weight="700">通学</text><text x="440" y="1140">・教室 月2回</text><text x="440" y="1164">・Yononaka 月1回</text><text x="440" y="1188">・キャリア面談 年3回</text><text x="440" y="1212">・発表、展示の場</text><text x="440" y="1250" font-weight="700">オンライン</text><text x="440" y="1274">・Yononaka、キャリア面談、探究の伴走</text><text x="440" y="1316" font-weight="700">好きなことを、自分のテーマで深める</text></g>
+  <!-- step3 -->
+  <rect x="780" y="950" width="340" height="400" fill="#fbefc9" stroke="#b08a1e" stroke-width="2"/>
+  <text x="800" y="984" font-size="21" font-weight="900" fill="#6b5210">③ ひろげる:Yononaka</text>
+  <g font-size="15" fill="#6b5210"><text x="800" y="1016">・月1回の本編</text><text x="800" y="1040">・毎週のちょこっとYononaka</text><text x="800" y="1064">・オンラインで、どこからでも</text><text x="800" y="1106" font-weight="700">正解のない問いで、</text><text x="800" y="1130" font-weight="700">自分と違う考えに出会う</text><text x="800" y="1180">Yononakaだけの参加もできます</text></g>
+  <use href="#qr" x="1030" y="1260"/><text x="1020" y="1300" font-size="14" fill="#3a2a1c" text-anchor="end">料金とくわしい内容 →</text>
+  <path d="M250 1130 L420 1040" stroke="#8e2c3a" stroke-width="4" marker-end="url(#a)"/><path d="M600 1030 L780 950" stroke="#8e2c3a" stroke-width="4" marker-end="url(#a)"/>
+  <text x="50" y="1414" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#2c5a24">○</tspan> 各コースの中身が一目でわかる。料金表にも直しやすい　<tspan font-weight="900" fill="#8e2c3a">△</tspan> 「上へ進むのが正しい」と見える。Yononakaだけの人が下に見えやすい</text>
+
+  <!-- ============ 案3 うちの子はどこから ============ -->
+  <rect x="930" y="1474" width="220" height="40" rx="20" fill="#8e2c3a"/><text x="1040" y="1501" font-size="19" font-weight="900" fill="#fff" text-anchor="middle">おすすめ</text>
+  <text x="50" y="1500" font-size="28" font-weight="900" fill="#8e2c3a">案3 「うちの子は、いまどれ？」から選ぶ</text>
+  <text x="50" y="1530" font-size="18" fill="#3a2a1c">保護者が、わが子の今の様子から読みはじめる。左で当てはまるものを見つけ、右へたどる。</text>
+  <rect x="50" y="1550" width="1100" height="640" fill="#fff" stroke="#8e2c3a" stroke-width="4"/>
+  <text x="80" y="1596" font-size="26" font-weight="900" fill="#3a2a1c">うちの子は、いまどれ？</text>
+  <text x="640" y="1596" font-size="20" font-weight="900" fill="#3a2a1c">好きなことを探究する場所</text>
+  <g font-size="17" font-weight="700" fill="#3a2a1c">
+    <rect x="80" y="1620" width="470" height="76" rx="38" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/><text x="110" y="1652">ロボットやラボが、いま楽しい</text><text x="110" y="1678" font-size="14" font-weight="400" fill="#6b5a48">「次は何つくろう」と言っている</text>
+    <rect x="80" y="1716" width="470" height="76" rx="38" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/><text x="110" y="1748">ロボットはひと区切り。でも、何かつくりたい</text><text x="110" y="1774" font-size="14" font-weight="400" fill="#6b5a48">ゲーム、絵、音楽…別のことが気になっている</text>
+    <rect x="80" y="1812" width="470" height="76" rx="38" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/><text x="110" y="1844">続けたいけれど、通う時間がとれない</text><text x="110" y="1870" font-size="14" font-weight="400" fill="#6b5a48">塾や部活、送り迎えがむずかしい</text>
+    <rect x="80" y="1908" width="470" height="76" rx="38" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/><text x="110" y="1940">まずは、いろんな人の考えにふれてみたい</text><text x="110" y="1966" font-size="14" font-weight="400" fill="#6b5a48">つくるより、話すこと・聞くことが好き</text>
+  </g>
+  <g stroke="#8e2c3a" stroke-width="4" marker-end="url(#a)"><path d="M556 1658 L630 1658"/><path d="M556 1754 L630 1754"/><path d="M556 1850 L630 1850"/><path d="M556 1946 L630 1946"/></g>
+  <g font-size="19" font-weight="900">
+    <rect x="640" y="1620" width="480" height="76" rx="10" fill="#dcecf7" stroke="#5b8fb5" stroke-width="2"/><text x="662" y="1652" fill="#1f4a6b">そのまま、今のコースで</text><text x="662" y="1678" font-size="14" font-weight="400" fill="#1f4a6b">自考力キッズ／エジソン／キープオンラボ</text>
+    <rect x="640" y="1716" width="480" height="76" rx="10" fill="#f5dcdf" stroke="#8e2c3a" stroke-width="2"/><text x="662" y="1748" fill="#6e1f2b">CLAFT 通学</text><text x="662" y="1774" font-size="14" font-weight="400" fill="#6e1f2b">教室 月2回・Yononaka・キャリア面談・発表の場</text>
+    <rect x="640" y="1812" width="480" height="76" rx="10" fill="#f5dcdf" stroke="#8e2c3a" stroke-width="2"/><text x="662" y="1844" fill="#6e1f2b">CLAFT オンライン</text><text x="662" y="1870" font-size="14" font-weight="400" fill="#6e1f2b">おうちから。Yononaka・キャリア面談・探究の伴走</text>
+    <rect x="640" y="1908" width="480" height="76" rx="10" fill="#fbefc9" stroke="#b08a1e" stroke-width="2"/><text x="662" y="1940" fill="#6b5210">Yononaka コース</text><text x="662" y="1966" font-size="14" font-weight="400" fill="#6b5210">月1回の本編＋毎週のちょこっとYononaka</text>
+  </g>
+  <rect x="80" y="2010" width="900" height="150" rx="10" fill="#fbf6ec"/>
+  <text x="104" y="2046" font-size="19" font-weight="900" fill="#3a2a1c">次の一歩</text>
+  <g font-size="16" fill="#3a2a1c"><text x="104" y="2078">・近くのスタッフに声をかける(今日、その場で相談できます)</text><text x="104" y="2106">・Yononakaに1回参加してみる</text><text x="104" y="2134">・QRから、くわしい内容と料金を見る →</text></g>
+  <use href="#qr" x="1020" y="2050"/><text x="1055" y="2144" font-size="13" fill="#3a2a1c" text-anchor="middle">/festa/2611</text>
+  <text x="50" y="2224" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#2c5a24">○</tspan> 保護者が自分ごとで読める。スタッフが「どれに近いですか？」と声をかけやすい</text>
+  <text x="50" y="2252" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#8e2c3a">△</tspan> 絵の楽しさは弱い。4つのどれにも当てはまらない子が出る</text>
+  <text x="50" y="2310" font-size="17" fill="#6b5a48">※どの案も、料金は載せていません(QRの先で見せる前提)。載せる場合は各コースの箱に1行足せます。</text>
+</svg>

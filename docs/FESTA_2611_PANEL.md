@@ -142,13 +142,18 @@ Hand-drawn graphic recording style infographic on white paper, colorful marker p
 - 用意するもの:付箋2色、ペン、貼る台紙(段ボール)。
 - スタッフが最初に3〜4枚貼っておく。
 
-## D. コースの地図＋次の一歩
+## D. コースの地図＋次の一歩(A3横・デザイン未決定)
 
-見出し:**好きなことを探究する場所は、ここにあります。**
+【11/17変更】A4 → A3横で大きく見せる。
 
-- コースの地図 1枚(入口 → CLAFT → Yononaka の道筋)。料金は大きく載せず、QR先で見せる。
-- QR:https://claft.keeponlearning.fun/festa/2611
-- ひとこと:「気になったら、近くのスタッフに声をかけてください。」
+![コースの地図 デザイン3案](./festa-2611-course-map-options.png)
+
+- 案1 道の地図:入口から「その先」まで1本の道。キービジュアルと同じ世界。
+- 案2 3つの段:はじめる・つづける・ひろげる。中身が整って見える。
+- 案3 「うちの子は、いまどれ？」(おすすめ):子どもの今の様子から、合う場所へたどる。
+
+どの案も料金は載せず、QR(https://claft.keeponlearning.fun/festa/2611)の先で見せる前提。
+となりに、QRつきの持ち帰りカードを置く。
 
 ## 印刷物のまとめ(すべてA4横)
 
@@ -158,4 +163,4 @@ Hand-drawn graphic recording style infographic on white paper, colorful marker p
 | 扉のフタ | 4 | 文言確定。Canvaで文字組み |
 | 扉の中のグラレコ | 4 | 1枚は配信2枚目を再印刷、3枚は新規生成 |
 | 付箋コーナー見出し | 1 | 文言確定 |
-| コースの地図＋QR | 1 | 未着手 |
+| コースの地図＋QR(A3横) | 1 | デザイン3案を提案中 |
