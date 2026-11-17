@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680 1188" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8e2c3a"/></marker>
+  </defs>
+  <rect width="1680" height="1188" fill="#fffdf8"/>
+  <rect x="14" y="14" width="1652" height="1160" fill="none" stroke="#8a6234" stroke-width="4"/>
+
+  <!-- タイトル -->
+  <text x="70" y="96" font-size="54" font-weight="900" fill="#3a2a1c">好きなことを探究する場所は、ここにあります。</text>
+  <rect x="70" y="112" width="1010" height="12" fill="#f0b968" opacity="0.7"/>
+
+  <!-- 見出し -->
+  <text x="70" y="188" font-size="36" font-weight="900" fill="#8e2c3a">うちの子は、いまどれ？</text>
+  <text x="900" y="188" font-size="30" font-weight="900" fill="#3a2a1c">合いそうな場所</text>
+
+  <!-- 4行 -->
+  <g font-weight="900" fill="#3a2a1c">
+    <rect x="70" y="212" width="720" height="104" rx="52" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/>
+    <text x="112" y="258" font-size="29">パズルやロボットが、いま楽しい</text>
+    <text x="112" y="294" font-size="20" font-weight="400" fill="#6b5a48">「次は何つくろう」と言っている</text>
+
+    <rect x="70" y="332" width="720" height="104" rx="52" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/>
+    <text x="112" y="378" font-size="29">ロボットはひと区切り。でも、何かつくりたい</text>
+    <text x="112" y="414" font-size="20" font-weight="400" fill="#6b5a48">ゲーム、絵、音楽…別のことが気になっている</text>
+
+    <rect x="70" y="452" width="720" height="104" rx="52" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/>
+    <text x="112" y="498" font-size="29">続けたいけれど、通う時間がとれない</text>
+    <text x="112" y="534" font-size="20" font-weight="400" fill="#6b5a48">塾や部活、送り迎えがむずかしい</text>
+
+    <rect x="70" y="572" width="720" height="104" rx="52" fill="#fbf6ec" stroke="#cfc4b0" stroke-width="2"/>
+    <text x="112" y="618" font-size="29">まずは、いろんな人の考えにふれてみたい</text>
+    <text x="112" y="654" font-size="20" font-weight="400" fill="#6b5a48">つくるより、話すこと・聞くことが好き</text>
+  </g>
+  <g stroke="#8e2c3a" stroke-width="6" marker-end="url(#a)"><path d="M800 264 L880 264"/><path d="M800 384 L880 384"/><path d="M800 504 L880 504"/><path d="M800 624 L880 624"/></g>
+  <g font-weight="900">
+    <rect x="900" y="212" width="710" height="104" rx="12" fill="#dcecf7" stroke="#5b8fb5" stroke-width="3"/>
+    <text x="930" y="258" font-size="30" fill="#1f4a6b">そのまま、今のコースで</text>
+    <text x="930" y="294" font-size="20" font-weight="400" fill="#1f4a6b">自考力キッズ ／ エジソン ／ First STEAM</text>
+
+    <rect x="900" y="332" width="710" height="104" rx="12" fill="#f5dcdf" stroke="#8e2c3a" stroke-width="3"/>
+    <text x="930" y="378" font-size="30" fill="#6e1f2b">CLAFT 通学</text>
+    <text x="930" y="414" font-size="20" font-weight="400" fill="#6e1f2b">教室 月2回 ・ Yononaka ・ キャリア面談 ・ 発表の場</text>
+
+    <rect x="900" y="452" width="710" height="104" rx="12" fill="#f5dcdf" stroke="#8e2c3a" stroke-width="3"/>
+    <text x="930" y="498" font-size="30" fill="#6e1f2b">CLAFT オンライン</text>
+    <text x="930" y="534" font-size="20" font-weight="400" fill="#6e1f2b">おうちから。Yononaka ・ キャリア面談 ・ 探究の伴走</text>
+
+    <rect x="900" y="572" width="710" height="104" rx="12" fill="#fbefc9" stroke="#b08a1e" stroke-width="3"/>
+    <text x="930" y="618" font-size="30" fill="#6b5210">Yononaka コース</text>
+    <text x="930" y="654" font-size="20" font-weight="400" fill="#6b5210">月1回の本編 ＋ 毎週のちょこっとYononaka</text>
+  </g>
+
+  <!-- 道 -->
+  <path d="M90 880 C330 880 380 790 620 800 S960 860 1160 790 S1420 730 1560 740" fill="none" stroke="#e6cfa3" stroke-width="64" stroke-linecap="round"/>
+  <path d="M90 880 C330 880 380 790 620 800 S960 860 1160 790 S1420 730 1560 740" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="18 16"/>
+
+  <!-- 道の上の印 -->
+  <g font-weight="900" text-anchor="middle">
+    <circle cx="150" cy="876" r="16" fill="#5b8fb5"/>
+    <text x="210" y="944" font-size="24" fill="#1f4a6b">入口</text>
+    <text x="210" y="974" font-size="18" font-weight="400" fill="#1f4a6b">自考力キッズ・エジソン</text>
+    <text x="210" y="998" font-size="18" font-weight="400" fill="#1f4a6b">First STEAM・英会話</text>
+
+    <circle cx="620" cy="800" r="16" fill="#8e2c3a"/>
+    <text x="620" y="752" font-size="24" fill="#6e1f2b">CLAFT</text>
+    <text x="620" y="866" font-size="18" font-weight="400" fill="#6e1f2b">好きを、自分のテーマで深める</text>
+
+    <ellipse cx="960" cy="930" rx="190" ry="44" fill="#fbefc9" stroke="#b08a1e" stroke-width="3"/>
+    <text x="960" y="926" font-size="24" fill="#6b5210">Yononaka の広場</text>
+    <text x="960" y="954" font-size="17" font-weight="400" fill="#6b5210">どこからでも入れる、対話の場</text>
+    <path d="M960 884 L960 852" stroke="#b08a1e" stroke-width="4" stroke-dasharray="6 6"/>
+
+    <circle cx="1560" cy="740" r="18" fill="#4f8a45"/>
+    <text x="1500" y="812" font-size="30" fill="#2c5a24">その先に…</text>
+    <text x="1500" y="848" font-size="24" fill="#2c5a24">仕事・出会い・生活</text>
+  </g>
+
+  <!-- キャリアのことば -->
+  <rect x="70" y="1024" width="1100" height="126" rx="12" fill="#fbf6ec"/>
+  <text x="100" y="1068" font-size="30" font-weight="900" fill="#3a2a1c">この道ぜんぶを、キャリアと呼びます。</text>
+  <text x="100" y="1104" font-size="20" fill="#3a2a1c">キャリアは、仕事のことだけではありません。小さいころから「自分はどう生きていこう」と</text>
+  <text x="100" y="1132" font-size="20" fill="#3a2a1c">考えながら、未来へ進んでいく。好きなことから伸びていく、その歩みのすべてです。</text>
+
+  <!-- 次の一歩 + QR -->
+  <text x="1200" y="1060" font-size="24" font-weight="900" fill="#8e2c3a">次の一歩</text>
+  <text x="1200" y="1092" font-size="18" fill="#3a2a1c">・近くのスタッフに声をかける</text>
+  <text x="1200" y="1118" font-size="18" fill="#3a2a1c">・Yononakaに1回参加してみる</text>
+  <text x="1200" y="1144" font-size="18" fill="#3a2a1c">・QRでくわしく見る →</text>
+  <rect x="1500" y="1010" width="140" height="140" fill="#fff" stroke="#3a2a1c" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="1570" y="1076" font-size="20" font-weight="900" fill="#3a2a1c" text-anchor="middle">QR</text>
+  <text x="1570" y="1102" font-size="14" fill="#3a2a1c" text-anchor="middle">/festa/2611</text>
+</svg>
