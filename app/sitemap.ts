@@ -41,6 +41,10 @@ const STATIC_PATHS = [
   '/yononaka/ai-robot',
   '/yononaka/kyoshitsu',
   '/mujinto',
+  '/sensors',
+  '/sensors/puzzle',
+  '/sensors/mini',
+  '/sensors/shirei',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
