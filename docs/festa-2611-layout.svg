@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2284" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8e2c3a"/></marker>
+    <g id="person"><circle r="9" fill="#6b5a48"/><path d="M-13 26 a13 14 0 0 1 26 0z" fill="#6b5a48"/></g>
+  </defs>
+  <rect width="1200" height="2284" fill="#fbf6ec"/>
+  <text x="50" y="62" font-size="38" font-weight="900" fill="#3a2a1c">パネル展示コーナーの並べ方 3案</text>
+  <text x="50" y="98" font-size="19" fill="#6b5a48">上から見た図。どの案も机4台＋モニター1台。色はコーナーの種類です。</text>
+  <!-- legend -->
+  <g font-size="17" font-weight="700" fill="#3a2a1c">
+    <rect x="50" y="118" width="22" height="22" fill="#9cc7e8"/><text x="80" y="136">A 配信の4枚</text>
+    <rect x="230" y="118" width="22" height="22" fill="#e3a0a8"/><text x="260" y="136">B めくり扉×4</text>
+    <rect x="420" y="118" width="22" height="22" fill="#f3d27a"/><text x="450" y="136">C 付箋「夢中の木」</text>
+    <rect x="650" y="118" width="22" height="22" fill="#a9d6a0"/><text x="680" y="136">D コースの地図＋QR</text>
+    <rect x="890" y="118" width="22" height="22" fill="#3a2a1c"/><text x="920" y="136">モニター(PR動画)</text>
+  </g>
+
+  <!-- ===== 案1 ===== -->
+  <rect x="40" y="170" width="1120" height="330" rx="14" fill="#fff" stroke="#e2d6c2" stroke-width="2"/>
+  <text x="64" y="212" font-size="26" font-weight="900" fill="#8e2c3a">案1 一本道(横一列)</text>
+  <text x="64" y="240" font-size="17" fill="#3a2a1c">壁ぎわに一列。左から右へ読むだけなので、順番に迷わない。長さは約7.5m必要。</text>
+  <rect x="64" y="262" width="1072" height="14" fill="#cfc4b0"/><text x="1136" y="258" font-size="14" fill="#6b5a48" text-anchor="end">壁</text>
+  <rect x="80" y="290" width="70" height="56" fill="#3a2a1c"/><text x="115" y="324" font-size="13" fill="#fff" text-anchor="middle">モニター</text>
+  <rect x="170" y="290" width="220" height="70" fill="#9cc7e8" stroke="#5b8fb5" stroke-width="2"/><text x="280" y="332" font-size="19" font-weight="900" fill="#1f4a6b" text-anchor="middle">A 4枚</text>
+  <rect x="400" y="290" width="220" height="70" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/><text x="510" y="332" font-size="19" font-weight="900" fill="#6e1f2b" text-anchor="middle">B 扉1・2</text>
+  <rect x="630" y="290" width="220" height="70" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/><text x="740" y="332" font-size="19" font-weight="900" fill="#6e1f2b" text-anchor="middle">B 扉3・4</text>
+  <rect x="860" y="290" width="110" height="70" fill="#f3d27a" stroke="#b08a1e" stroke-width="2"/><text x="915" y="332" font-size="19" font-weight="900" fill="#6b5210" text-anchor="middle">C</text>
+  <rect x="970" y="290" width="110" height="70" fill="#a9d6a0" stroke="#4f8a45" stroke-width="2"/><text x="1025" y="332" font-size="19" font-weight="900" fill="#2c5a24" text-anchor="middle">D</text>
+  <line x1="120" y1="420" x2="1060" y2="420" stroke="#8e2c3a" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)"/>
+  <use href="#person" x="280" y="388"/><use href="#person" x="510" y="388"/><use href="#person" x="915" y="388"/>
+  <text x="64" y="476" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#2c5a24">○</tspan> 準備がいちばん簡単。混んでも横に流れる　<tspan font-weight="900" fill="#8e2c3a">△</tspan> 「コーナー」感が弱く、通りすぎやすい</text>
+
+  <!-- ===== 案2 ===== -->
+  <rect x="40" y="520" width="1120" height="600" rx="14" fill="#fff" stroke="#e2d6c2" stroke-width="2"/>
+  <text x="64" y="562" font-size="26" font-weight="900" fill="#8e2c3a">案2 島(机を四角く囲む)</text>
+  <text x="64" y="590" font-size="17" fill="#3a2a1c">机4台をロの字に組み、真ん中の高い台にモニター。外側をぐるっと一周して読む。約3m四方。</text>
+  <g transform="translate(330,690)">
+    <rect x="70" y="0" width="220" height="70" fill="#9cc7e8" stroke="#5b8fb5" stroke-width="2"/><text x="180" y="42" font-size="19" font-weight="900" fill="#1f4a6b" text-anchor="middle">A 4枚</text>
+    <rect x="290" y="0" width="70" height="220" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/><text x="325" y="105" font-size="17" font-weight="900" fill="#6e1f2b" text-anchor="middle">B</text><text x="325" y="128" font-size="15" font-weight="700" fill="#6e1f2b" text-anchor="middle">扉1・2</text>
+    <rect x="70" y="220" width="220" height="70" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/><text x="180" y="262" font-size="19" font-weight="900" fill="#6e1f2b" text-anchor="middle">B 扉3・4</text>
+    <rect x="0" y="70" width="70" height="110" fill="#f3d27a" stroke="#b08a1e" stroke-width="2"/><text x="35" y="132" font-size="19" font-weight="900" fill="#6b5210" text-anchor="middle">C</text>
+    <rect x="0" y="180" width="70" height="110" fill="#a9d6a0" stroke="#4f8a45" stroke-width="2"/><text x="35" y="242" font-size="19" font-weight="900" fill="#2c5a24" text-anchor="middle">D</text>
+    <rect x="140" y="112" width="80" height="60" fill="#3a2a1c"/><text x="180" y="147" font-size="13" fill="#fff" text-anchor="middle">モニター</text>
+    <path d="M180 100 L180 80" stroke="#3a2a1c" stroke-width="3" marker-end="url(#ar)"/>
+    <path d="M60 -30 H400 V330 H-40 V60" fill="none" stroke="#8e2c3a" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)"/>
+    <use href="#person" x="180" y="-62"/><use href="#person" x="432" y="110"/><use href="#person" x="180" y="350"/>
+    <text x="50" y="-24" font-size="15" font-weight="700" fill="#8e2c3a" text-anchor="end">スタート →</text>
+  </g>
+  <text x="64" y="1100" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#2c5a24">○</tspan> 会場の真ん中に置けて目立つ。四方から人が寄れる　<tspan font-weight="900" fill="#8e2c3a">△</tspan> モニターは1方向しか見えない。読む順番が伝わりにくい</text>
+
+  <g transform="translate(0,130)">
+  <!-- ===== 案3 ===== -->
+  <rect x="40" y="1010" width="1120" height="514" rx="14" fill="#fff" stroke="#8e2c3a" stroke-width="4"/>
+  <rect x="930" y="1028" width="206" height="40" rx="20" fill="#8e2c3a"/><text x="1033" y="1055" font-size="19" font-weight="900" fill="#fff" text-anchor="middle">おすすめ</text>
+  <text x="64" y="1052" font-size="26" font-weight="900" fill="#8e2c3a">案3 コの字(中に入る小部屋)</text>
+  <text x="64" y="1080" font-size="17" fill="#3a2a1c">コの字に組んで、中に入って読む。正面奥にモニター、その両わきに扉。約4m×2.5m。</text>
+  <g transform="translate(320,1110)">
+    <rect x="40" y="0" width="210" height="70" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/><text x="145" y="42" font-size="18" font-weight="900" fill="#6e1f2b" text-anchor="middle">B 扉1・2</text>
+    <rect x="250" y="-14" width="100" height="70" fill="#3a2a1c"/><text x="300" y="26" font-size="13" fill="#fff" text-anchor="middle">モニター</text>
+    <rect x="350" y="0" width="210" height="70" fill="#e3a0a8" stroke="#8e2c3a" stroke-width="2"/><text x="455" y="42" font-size="18" font-weight="900" fill="#6e1f2b" text-anchor="middle">B 扉3・4</text>
+    <rect x="-30" y="70" width="70" height="220" fill="#9cc7e8" stroke="#5b8fb5" stroke-width="2"/><text x="5" y="176" font-size="19" font-weight="900" fill="#1f4a6b" text-anchor="middle">A</text><text x="5" y="198" font-size="15" font-weight="700" fill="#1f4a6b" text-anchor="middle">4枚</text>
+    <rect x="560" y="70" width="70" height="110" fill="#f3d27a" stroke="#b08a1e" stroke-width="2"/><text x="595" y="132" font-size="19" font-weight="900" fill="#6b5210" text-anchor="middle">C</text>
+    <rect x="560" y="180" width="70" height="110" fill="#a9d6a0" stroke="#4f8a45" stroke-width="2"/><text x="595" y="242" font-size="19" font-weight="900" fill="#2c5a24" text-anchor="middle">D</text>
+    <path d="M90 330 V130 H510 V330" fill="none" stroke="#8e2c3a" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)"/>
+    <use href="#person" x="120" y="200"/><use href="#person" x="300" y="150"/><use href="#person" x="480" y="200"/>
+    <text x="90" y="356" font-size="15" font-weight="700" fill="#8e2c3a" text-anchor="middle">入口</text><text x="510" y="356" font-size="15" font-weight="700" fill="#8e2c3a" text-anchor="middle">出口</text>
+  </g>
+  <text x="64" y="1500" font-size="17" fill="#3a2a1c"><tspan font-weight="900" fill="#2c5a24">○</tspan> 左→奥→右で順番が自然。動画が人を引きこむ。出口にDがあり声をかけやすい　<tspan font-weight="900" fill="#8e2c3a">△</tspan> 中が混むと入りにくい</text>
+
+  <g transform="translate(0,34)">
+  <!-- ===== 各コーナーの作り ===== -->
+  <text x="50" y="1552" font-size="30" font-weight="900" fill="#3a2a1c">A・C・D の作り方(正面から見た図)</text>
+
+  <!-- A -->
+  <rect x="40" y="1580" width="360" height="500" rx="14" fill="#fff" stroke="#5b8fb5" stroke-width="3"/>
+  <text x="64" y="1620" font-size="24" font-weight="900" fill="#1f4a6b">A 段ボールのびょうぶ</text>
+  <polygon points="70,1680 148,1660 148,1830 70,1850" fill="#d2a66a" stroke="#8a6234" stroke-width="2"/>
+  <polygon points="148,1660 226,1680 226,1850 148,1830" fill="#c4975a" stroke="#8a6234" stroke-width="2"/>
+  <polygon points="226,1680 304,1660 304,1830 226,1850" fill="#d2a66a" stroke="#8a6234" stroke-width="2"/>
+  <polygon points="304,1660 382,1680 382,1850 304,1830" fill="#c4975a" stroke="#8a6234" stroke-width="2"/>
+  <g fill="#fff" stroke="#bbb"><polygon points="80,1722 138,1708 138,1764 80,1778"/><polygon points="158,1708 216,1722 216,1778 158,1764"/><polygon points="236,1722 294,1708 294,1764 236,1778"/><polygon points="314,1708 372,1722 372,1778 314,1764"/></g>
+  <g font-size="20" font-weight="900" fill="#8e2c3a" text-anchor="middle"><text x="109" y="1752">①</text><text x="187" y="1752">②</text><text x="265" y="1752">③</text><text x="343" y="1752">④</text></g>
+  <g font-size="16" fill="#3a2a1c"><text x="64" y="1900">・4枚の板をテープでつなぎ、</text><text x="64" y="1924">　ジグザグに折って立てる</text><text x="64" y="1956">・1面にA4横を1枚ずつ</text><text x="64" y="1988">・①〜④の番号と矢印を手描き</text><text x="64" y="2020">・板は1枚 34×45cm</text><text x="64" y="2052">・上に「まずはここから」の札</text></g>
+
+  <!-- C -->
+  <rect x="420" y="1580" width="360" height="500" rx="14" fill="#fff" stroke="#b08a1e" stroke-width="3"/>
+  <text x="444" y="1620" font-size="24" font-weight="900" fill="#6b5210">C 夢中の木</text>
+  <path d="M585 1850 V1760 L550 1720 M600 1770 L640 1725 M592 1760 V1700" stroke="#8a6234" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <rect x="560" y="1848" width="70" height="14" fill="#8a6234"/>
+  <g stroke="#b08a1e" stroke-width="1.5"><rect x="510" y="1684" width="40" height="40" fill="#f3d27a" transform="rotate(-8 530 1704)"/><rect x="572" y="1656" width="40" height="40" fill="#f6b6c0" transform="rotate(6 592 1676)"/><rect x="630" y="1690" width="40" height="40" fill="#f3d27a" transform="rotate(10 650 1710)"/><rect x="536" y="1740" width="40" height="40" fill="#f6b6c0" transform="rotate(4 556 1760)"/><rect x="618" y="1748" width="40" height="40" fill="#f3d27a" transform="rotate(-6 638 1768)"/></g>
+  <g font-size="16" fill="#3a2a1c"><text x="444" y="1900">・段ボールで木の幹と枝を切る</text><text x="444" y="1924">　(高さ60cmほど、足で自立)</text><text x="444" y="1956">・付箋が葉っぱになる</text><text x="444" y="1988">・黄:夢中になっていること</text><text x="444" y="2020">・ピンク:展示を見て思ったこと</text><text x="444" y="2052">・見出しA4、付箋、ペンを手前に</text></g>
+
+  <!-- D -->
+  <rect x="800" y="1580" width="360" height="500" rx="14" fill="#fff" stroke="#4f8a45" stroke-width="3"/>
+  <text x="824" y="1620" font-size="24" font-weight="900" fill="#2c5a24">D 地図と持ち帰りカード</text>
+  <polygon points="850,1660 1050,1660 1066,1820 834,1820" fill="#d2a66a" stroke="#8a6234" stroke-width="2"/>
+  <rect x="866" y="1676" width="168" height="118" fill="#fff" stroke="#bbb"/>
+  <path d="M880 1770 C910 1730 930 1760 955 1725 S1000 1700 1020 1692" fill="none" stroke="#4f8a45" stroke-width="4" stroke-dasharray="6 5"/>
+  <circle cx="880" cy="1770" r="6" fill="#4f8a45"/><circle cx="955" cy="1725" r="6" fill="#4f8a45"/><circle cx="1020" cy="1692" r="6" fill="#4f8a45"/>
+  <rect x="1076" y="1740" width="64" height="64" fill="#fff" stroke="#3a2a1c" stroke-width="2"/><path d="M1084 1748h16v16h-16z M1116 1748h16v16h-16z M1084 1780h16v16h-16z M1108 1772h8v8h-8z M1122 1786h8v8h-8z" fill="#3a2a1c"/>
+  <rect x="852" y="1832" width="84" height="26" fill="#fff" stroke="#4f8a45" stroke-width="2"/><rect x="858" y="1838" width="84" height="26" fill="#fff" stroke="#4f8a45" stroke-width="2"/><rect x="864" y="1844" width="84" height="26" fill="#fff" stroke="#4f8a45" stroke-width="2"/>
+  <g font-size="16" fill="#3a2a1c"><text x="824" y="1900">・コースの地図(A4横)を立てる</text><text x="824" y="1932">・QRは大きく(6cm角)</text><text x="824" y="1956">　→ /festa/2611</text><text x="824" y="1988">・名刺サイズの持ち帰りカード</text><text x="824" y="2012">　(QRつき)を箱に入れて置く</text><text x="824" y="2044">・スタッフが1人、近くに立つ</text></g>
+  </g>
+  </g>
+</svg>
