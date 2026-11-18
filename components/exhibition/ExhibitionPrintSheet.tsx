@@ -29,6 +29,7 @@ html, body { background: #fff !important; }
   padding: 2.5mm 6mm; border-radius: 3mm; }
 .ex-qr-hint { font-size: 12pt; color: #6b6259; font-weight: 700; }
 .ex-event { margin: 0 0 0 auto; text-align: right; font-weight: 800; color: #6b6259; line-height: 1.25; }
+.ex-event-no { display: block; font-size: 30pt; line-height: 1.1; color: #c8102e; letter-spacing: .04em; margin-bottom: 1.5mm; }
 .ex-event-date { display: block; font-size: 14pt; letter-spacing: .08em; }
 .ex-event-name { display: block; font-size: 20pt; color: #1f1810; }
 .ex-notice { max-width: 190mm; margin: 6mm auto; padding: 4mm 5mm; border: 1px solid #f0b429; border-radius: 3mm; background: #fff8e6; font-size: 10.5pt; line-height: 1.7; }
@@ -41,7 +42,7 @@ function imageSrc(url: string): string {
   return url.includes('microcms-assets.io') && !url.includes('?') ? `${url}?w=1600` : url;
 }
 
-export async function ExhibitionPrintSheet({ work }: { work: PrintWork }) {
+export async function ExhibitionPrintSheet({ work, no }: { work: PrintWork; no: number }) {
   const src = work.imageUrl
     ? imageSrc(work.imageUrl)
     : work.youtubeId
@@ -76,6 +77,7 @@ export async function ExhibitionPrintSheet({ work }: { work: PrintWork }) {
           </div>
         )}
         <p className="ex-event">
+          <span className="ex-event-no">No.{String(no).padStart(2, '0')}</span>
           <span className="ex-event-date">{EVENT_DATE}</span>
           <span className="ex-event-name">なんでも展示会</span>
         </p>
