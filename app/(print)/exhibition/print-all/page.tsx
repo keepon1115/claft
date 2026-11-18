@@ -26,8 +26,9 @@ export default async function ExhibitionPrintAllPage() {
         <br />
         印刷・PDF保存：ブラウザの印刷で、用紙「A4」・余白「既定」・「背景のグラフィック」オン。
       </div>
+      {/* 番号はシートの行順（画像・動画の無い行を除いて上から1, 2, 3…） */}
       {works.map((w, i) => (
-        <ExhibitionPrintSheet key={i} work={w} />
+        <ExhibitionPrintSheet key={i} work={w} no={i + 1} />
       ))}
     </div>
   );
