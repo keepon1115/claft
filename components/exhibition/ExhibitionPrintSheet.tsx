@@ -32,6 +32,7 @@ html, body { background: #fff !important; }
 .ex-event-no { display: block; font-size: 30pt; line-height: 1.1; color: #c8102e; letter-spacing: .04em; margin-bottom: 1.5mm; }
 .ex-event-date { display: block; font-size: 14pt; letter-spacing: .08em; }
 .ex-event-name { display: block; font-size: 20pt; color: #1f1810; }
+.ex-event-logo { display: block; width: 46mm; height: auto; margin: 2.5mm 0 0 auto; }
 .ex-notice { max-width: 190mm; margin: 6mm auto; padding: 4mm 5mm; border: 1px solid #f0b429; border-radius: 3mm; background: #fff8e6; font-size: 10.5pt; line-height: 1.7; }
 @media screen { .ex-sheet { outline: 1px dashed #ccc; margin: 8mm auto; } }
 @media print { .ex-notice { display: none; } }
@@ -80,6 +81,8 @@ export async function ExhibitionPrintSheet({ work, no }: { work: PrintWork; no: 
           <span className="ex-event-no">No.{String(no).padStart(2, '0')}</span>
           <span className="ex-event-date">{EVENT_DATE}</span>
           <span className="ex-event-name">なんでも展示会</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="ex-event-logo" src="/assets/images/keepon-logo.png" alt="Keepon キープオン" />
         </p>
       </footer>
     </section>
