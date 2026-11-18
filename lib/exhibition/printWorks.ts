@@ -6,12 +6,14 @@ import { extractYouTubeId } from './youtube';
    - 「作品管理シート」を表示のたびに直接読む（シートを直せばページも変わる）
    - シートを読めないとき（共有が「制限付き」など）は、Webの作品一覧と同じ
      Supabase の取り込み済みデータで代用する
-   展示会が替わったら、下の3つの定数を差し替える。
+   展示会が替わったら、下の4つの定数を差し替える。
 ============================================================ */
 
 const SHEET_ID = '1yAAM9b_eE5aR7NQ4esVQrUkBb828mbEVajkMH6PP_3I';
 const SHEET_GID = '394850179';
 const EXHIBITION_SLUG = 'nandemo-2026-11';
+/** 各ページ右下に出す開催年月 */
+export const EVENT_DATE = '2026.11';
 
 export const SHEET_EDIT_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?gid=${SHEET_GID}`;
 
