@@ -60,7 +60,7 @@ export const stories: StoryCategory[] = [
     ctaLabel: 'イベント一覧を見る →',
     cards: [
       { id: 'event-1028', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/7c1a71be96be4116848b0d4b0222c770/Event-1028.png' },
-      { id: 'event-1118', emoji: '🎪', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/52681ecd0eac4393b645158d451876ab/Event-1118.jpg' },
+      { id: 'event-1118', emoji: '🎪', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/52681ecd0eac4393b645158d451876ab/Event-1118.jpg', linkUrl: 'https://forms.gle/s8EJgzyAyw5hbQak6', linkLabel: '投票する →' },
       { id: 'event-1111', emoji: '🎪', theme: 'green', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/ff7f07835a7141189fb1d81a29914257/Event-1111-1.jpg' },
       { id: 'event-1111-2', emoji: '🎪', theme: 'orange', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/d3b18e16a8bd490a90b0744f217caf11/Event-1111-2.jpg' },
       { id: 'event-1111-3', emoji: '🎪', theme: 'navy', title: '', text: '', imageUrl: 'https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/2a9dff466a984010b3c9f59c2b3e3a5a/Event%EF%BD%B01111-3.jpg' },
