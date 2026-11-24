@@ -17,7 +17,8 @@ export async function generateStaticParams() {
   return months.map((month) => ({ month }));
 }
 
-export function generateMetadata({ params }: { params: { month: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ month: string }> }): Promise<Metadata> {
+  const params = await props.params;
   if (!MONTH_RE.test(params.month)) return { title: 'アーカイブが見つかりません' };
   const label = monthLabel(params.month);
   return {
@@ -27,7 +28,8 @@ export function generateMetadata({ params }: { params: { month: string } }): Met
   };
 }
 
-export default async function BlogArchivePage({ params }: { params: { month: string } }) {
+export default async function BlogArchivePage(props: { params: Promise<{ month: string }> }) {
+  const params = await props.params;
   if (!MONTH_RE.test(params.month)) notFound();
 
   const posts = await getPublishedPosts();

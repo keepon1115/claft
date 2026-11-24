@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { SensorId } from '@/lib/sensors/characters';
 
 // センサーズ5体のSVG。元イラスト（pukappy）の形・色に合わせて描き起こしたもの。
@@ -200,7 +201,7 @@ function Oton({ mood }: { mood: Mood }) {
   );
 }
 
-const PARTS: Record<SensorId, (p: { mood: Mood }) => JSX.Element> = {
+const PARTS: Record<SensorId, (p: { mood: Mood }) => React.JSX.Element> = {
   pochio: Pochio,
   kasso: Kasso,
   photon: Photon,

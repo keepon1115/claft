@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import type React from 'react';
 import { SENSOR_BY_ID, type SensorId } from '@/lib/sensors/characters';
 import { GameHeader, Stars } from './GameHeader';
 import { SensorChar, type Mood } from './SensorChar';
@@ -28,7 +29,7 @@ type InputState = 'idle' | 'on' | 'manual';
 function useLevelInput(kind: 'mic' | 'cam') {
   const value = useRef(0);
   const [state, setState] = useState<InputState>('idle');
-  const stopRef = useRef<() => void>();
+  const stopRef = useRef<(() => void) | undefined>(undefined);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const start = useCallback(async () => {
@@ -478,7 +479,7 @@ type MiniDef = {
   how: string;
   format: (score: number) => string;
   stars: (score: number) => number;
-  Game: (p: { onFinish: Finish }) => JSX.Element;
+  Game: (p: { onFinish: Finish }) => React.JSX.Element;
 };
 
 const MINIS: MiniDef[] = [

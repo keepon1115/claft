@@ -8,11 +8,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminLoginPage({
-  searchParams,
-}: {
-  searchParams: { error?: string };
-}) {
+export default async function AdminLoginPage(
+  props: {
+    searchParams: Promise<{ error?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   return (
     <main className="min-h-[70vh] flex items-center justify-center bg-[#FFF8EC] px-5">
       <div className="w-full max-w-sm rounded-2xl border-2 border-[#1F1810] bg-white p-8 shadow-[6px_6px_0_0_#1F1810]">

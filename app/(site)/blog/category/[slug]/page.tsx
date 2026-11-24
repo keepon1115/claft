@@ -14,7 +14,8 @@ export function generateStaticParams() {
   return BLOG_CATEGORIES.map((c) => ({ slug: c.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const cat = getCategoryBySlug(params.slug);
   if (!cat) return { title: 'カテゴリが見つかりません' };
   return {
@@ -24,7 +25,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default async function BlogCategoryPage({ params }: { params: { slug: string } }) {
+export default async function BlogCategoryPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const cat = getCategoryBySlug(params.slug);
   if (!cat) notFound();
 

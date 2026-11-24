@@ -8,8 +8,8 @@ import type { SupabaseClient, User } from '@supabase/supabase-js';
  * RSC からは cookie 書き込みができないため setAll は失敗を握りつぶす
  * （サーバーアクション / ルートハンドラからは正常に書き込まれる）。
  */
-export function getAdminClient(): SupabaseClient {
-  const cookieStore = cookies();
+export async function getAdminClient(): Promise<SupabaseClient> {
+  const cookieStore = await cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -34,7 +34,7 @@ export function getAdminClient(): SupabaseClient {
 
 /** ログイン中の運営ユーザーを返す。未ログインなら null */
 export async function getAdminUser(): Promise<User | null> {
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -9,14 +9,15 @@ import ScrollAnimInit from '@/components/monthly/ScrollAnimInit';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 interface Props {
-  params: { issue: string };
+  params: Promise<{ issue: string }>;
 }
 
 export function generateStaticParams() {
   return issues.map((i) => ({ issue: i.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const issue = getIssue(params.issue);
   if (!issue) return {};
   return {
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function IssuePage({ params }: Props) {
+export default async function IssuePage(props: Props) {
+  const params = await props.params;
   const issue = getIssue(params.issue);
   if (!issue) notFound();
 

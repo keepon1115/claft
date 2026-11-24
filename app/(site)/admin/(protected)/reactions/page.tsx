@@ -9,7 +9,7 @@ interface ExhibitionWithReactions extends Exhibition {
 }
 
 export default async function AdminReactionsPage() {
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   const { data } = await supabase
     .from('exhibitions')
     .select('*, reaction_types(*)')

@@ -17,11 +17,12 @@ export async function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const post = await getPostBySlug(params.slug);
   if (!post) return { title: '記事が見つかりません' };
   const url = `/blog/${post.slug}`;
@@ -54,7 +55,8 @@ function formatDate(iso: string | null) {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+export default async function BlogPost(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 

@@ -10,8 +10,9 @@ type WorkWithToken = Work & {
   work_access_tokens: { token: string }[] | null;
 };
 
-export default async function AdminWorksPage({ params }: { params: { id: string } }) {
-  const supabase = getAdminClient();
+export default async function AdminWorksPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const supabase = await getAdminClient();
   const { data: exhibitionRow } = await supabase
     .from('exhibitions')
     .select('*')

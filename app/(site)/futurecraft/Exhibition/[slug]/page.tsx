@@ -18,11 +18,12 @@ import type { Work } from '@/lib/exhibition/types';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const exhibition = await fetchExhibitionBySlug(params.slug).catch(() => null);
   return {
     title: exhibition ? `${exhibition.title} 作品一覧` : '展示会',
@@ -38,7 +39,8 @@ function coverImage(work: Work): string | null {
   return null;
 }
 
-export default async function WorksListPage({ params }: { params: { slug: string } }) {
+export default async function WorksListPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const exhibition = await fetchExhibitionBySlug(params.slug).catch(() => null);
   if (!exhibition) notFound();
   const works = await fetchWorks(exhibition.id);

@@ -26,14 +26,14 @@ async function requireAdmin() {
 export async function signIn(formData: FormData) {
   const email = String(formData.get('email') ?? '');
   const password = String(formData.get('password') ?? '');
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) redirect('/admin/login?error=1');
   redirect('/admin');
 }
 
 export async function signOut() {
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase.auth.signOut();
   redirect('/admin/login');
 }
@@ -43,7 +43,7 @@ export async function signOut() {
 // ---------------------------------------------------------------------------
 export async function approveComment(commentId: string) {
   await requireAdmin();
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase
     .from('comments')
     .update({ status: 'approved', reviewed_at: new Date().toISOString() })
@@ -53,7 +53,7 @@ export async function approveComment(commentId: string) {
 
 export async function rejectComment(commentId: string) {
   await requireAdmin();
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase
     .from('comments')
     .update({ status: 'rejected', reviewed_at: new Date().toISOString() })
@@ -70,14 +70,14 @@ export async function createExhibition(formData: FormData) {
   const title = String(formData.get('title') ?? '').trim();
   const theme = String(formData.get('theme') ?? '').trim() || null;
   if (!slug || !title) return;
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase.from('exhibitions').insert({ slug, title, theme });
   revalidatePath('/admin/exhibitions');
 }
 
 export async function setExhibitionStatus(exhibitionId: string, status: ExhibitionStatus) {
   await requireAdmin();
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase.from('exhibitions').update({ status }).eq('id', exhibitionId);
   revalidatePath('/admin/exhibitions');
 }
@@ -99,7 +99,7 @@ export async function createWork(exhibitionId: string, formData: FormData) {
   // 表示日（例: 2026-07-26）。未指定なら DB 既定値（登録した瞬間の日時）を使う。
   const eventDate = String(formData.get('event_date') ?? '').trim();
 
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   const { data: work, error } = await supabase
     .from('works')
     .insert({
@@ -131,7 +131,7 @@ export async function createWork(exhibitionId: string, formData: FormData) {
 
 export async function deleteWork(workId: string, exhibitionId: string) {
   await requireAdmin();
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase.from('works').delete().eq('id', workId);
   revalidatePath(`/admin/exhibitions/${exhibitionId}`);
 }
@@ -144,7 +144,7 @@ export async function createReactionType(exhibitionId: string, formData: FormDat
   const emoji = String(formData.get('emoji') ?? '').trim();
   const label = String(formData.get('label') ?? '').trim() || null;
   if (!emoji) return;
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase.from('reaction_types').insert({
     exhibition_id: exhibitionId,
     emoji,
@@ -156,7 +156,7 @@ export async function createReactionType(exhibitionId: string, formData: FormDat
 
 export async function deleteReactionType(reactionTypeId: string) {
   await requireAdmin();
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   await supabase.from('reaction_types').delete().eq('id', reactionTypeId);
   revalidatePath('/admin/reactions');
 }

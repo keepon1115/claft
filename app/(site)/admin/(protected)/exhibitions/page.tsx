@@ -19,7 +19,7 @@ const NEXT_ACTIONS: { status: ExhibitionStatus; label: string; color: string }[]
 ];
 
 export default async function AdminExhibitionsPage() {
-  const supabase = getAdminClient();
+  const supabase = await getAdminClient();
   const { data } = await supabase
     .from('exhibitions')
     .select('*')

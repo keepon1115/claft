@@ -15,14 +15,16 @@ export async function generateStaticParams() {
   return stories.map((s) => ({ category: s.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const stories = await getStories();
   const story = stories.find((s) => s.slug === params.category);
   const label = story ? story.label.replace('\n', '') : 'ストーリー';
   return { title: `${label} | キープオンラボ` };
 }
 
-export default async function StoryPage({ params }: { params: { category: string } }) {
+export default async function StoryPage(props: { params: Promise<{ category: string }> }) {
+  const params = await props.params;
   const stories = await getStories();
   const idx = stories.findIndex((s) => s.slug === params.category);
   if (idx === -1) notFound();

@@ -19,12 +19,13 @@ interface PendingComment {
 const STATUS_LABELS = { pending: '承認待ち', approved: '承認済み', rejected: '却下済み' };
 const PAGE_SIZE = 50;
 
-export default async function ModerationQueuePage({
-  searchParams,
-}: {
-  searchParams: { exhibition?: string; status?: string; page?: string };
-}) {
-  const supabase = getAdminClient();
+export default async function ModerationQueuePage(
+  props: {
+    searchParams: Promise<{ exhibition?: string; status?: string; page?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const supabase = await getAdminClient();
   const { data: exhibitions, error: exhibitionsError } = await supabase
     .from('exhibitions')
     .select('id, title')

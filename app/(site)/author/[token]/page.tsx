@@ -38,7 +38,8 @@ function formatDate(iso: string): string {
  * 作者には「承認済み（approved）のコメント」だけを見せる。
  * （承認前のコメントを見せると、モデレーション前の文章が子どもに届いてしまうため）
  */
-export default async function AuthorPage({ params }: { params: { token: string } }) {
+export default async function AuthorPage(props: { params: Promise<{ token: string }> }) {
+  const params = await props.params;
   const service = getServiceClient();
 
   const { data: tokenRow } = await service
