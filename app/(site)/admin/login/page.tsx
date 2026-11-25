@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { signIn } from '../actions';
 
 export const dynamic = 'force-dynamic';
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function AdminLoginPage(
   props: {
-    searchParams: Promise<{ error?: string }>;
+    searchParams: Promise<{ error?: string; reset?: string }>;
   }
 ) {
   const searchParams = await props.searchParams;
@@ -18,7 +19,11 @@ export default async function AdminLoginPage(
     <main className="min-h-[70vh] flex items-center justify-center bg-[#FFF8EC] px-5">
       <div className="w-full max-w-sm rounded-2xl border-2 border-[#1F1810] bg-white p-8 shadow-[6px_6px_0_0_#1F1810]">
         <h1 className="text-xl font-bold text-[#1F1810] mb-1">運営ログイン</h1>
-        <p className="text-xs text-[#1F1810]/60 mb-6">なんでも展示会 管理画面</p>
+        <p className="text-xs text-[#1F1810]/60 mb-6">CLAFT 管理画面</p>
+
+        {searchParams.reset === 'done' && (
+          <p role="status" className="mb-4 text-sm text-[#1F1810]">パスワードを変更しました。新しいパスワードでログインしてください。</p>
+        )}
 
         {searchParams.error && (
           <p className="mb-4 rounded-lg bg-[#E04E2C]/10 border border-[#E04E2C]/40 px-3 py-2 text-xs text-[#E04E2C]">
@@ -54,6 +59,9 @@ export default async function AdminLoginPage(
             ログイン
           </button>
         </form>
+        <Link href="/admin/reset-password" className="mt-5 inline-block text-sm font-medium underline underline-offset-4">
+          パスワードを忘れた方
+        </Link>
       </div>
     </main>
   );

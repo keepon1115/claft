@@ -1,12 +1,14 @@
 'use client';
 
 import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 
 // GA4。NEXT_PUBLIC_GA_ID（例: G-XXXXXXXXXX）が設定されているときのみ読み込む。
 // 未設定なら何も出力しないので、開発中やID未取得でも安全。
 export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  if (!gaId) return null;
+  const pathname = usePathname();
+  if (!gaId || pathname === '/admin/reset-password') return null;
 
   return (
     <>
