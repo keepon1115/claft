@@ -8,7 +8,7 @@ import { LabCampaignCard } from '@/components/lab/LabCampaignCard';
 import { LabFooterActions } from '@/components/lab/LabFooterActions';
 import { LabTabBar } from '@/components/lab/LabTabBar';
 import { LabTutorial } from '@/components/lab/LabTutorial';
-import { getStories } from '@/lib/lab/content';
+import { getStories } from '@/lib/lab/story-publication';
 import { getUpcomingEvents } from '@/lib/googleCalendar';
 
 // カレンダーの変更は最大10分後に反映（googleCalendar 側 ISR と揃える）

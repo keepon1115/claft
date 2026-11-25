@@ -1,11 +1,8 @@
 // ============================================================
 // キープオンラボ — コンテンツ取得API
 //
-// ストーリーは stories.data.ts を単一の真実のソースとして返す。
-// （microCMS 連携は廃止。週次更新は stories.data.ts を直接編集する）
+// 公開ページとクライアントで共通の定数・型。
 // ============================================================
-
-import { stories, type StoryCategory } from './stories.data';
 
 // ストーリー系の型は stories.data.ts に集約。利用側の import 互換のため再エクスポートする。
 export type { RingVariant, StoryCard, StoryCategory } from './stories.data';
@@ -45,10 +42,3 @@ export const EXTERNAL_LINKS = {
 
 /** ストーリーの円に「New」バッジを出す期間（日数）。StoryRail 側で updatedAt と比較する。 */
 export const STORY_NEW_BADGE_DAYS = 7;
-
-/** ストーリー一覧を返す（単一の真実のソース＝stories.data.ts）。
- * visibleUntil（JST）を過ぎたカテゴリは自動的に除外する。 */
-export async function getStories(): Promise<StoryCategory[]> {
-  const todayJst = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
-  return stories.filter((s) => !s.visibleUntil || s.visibleUntil >= todayJst);
-}

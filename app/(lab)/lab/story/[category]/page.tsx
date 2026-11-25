@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { StoryViewer } from '@/components/lab/StoryViewer';
-import { getStories } from '@/lib/lab/content';
+import { getStories } from '@/lib/lab/story-publication';
+import { stories } from '@/lib/lab/stories.data';
 
 // ② ストーリー閲覧：全画面スワイプビューア。
 // 最後のカードに「詳細ページを見る →」→ CLAFT HP の該当ページへ。
@@ -10,8 +11,7 @@ import { getStories } from '@/lib/lab/content';
 // visibleUntil で自動失効するカテゴリがあるため、ラボトップ（10分）と同じ間隔で再検証する。
 export const revalidate = 600;
 
-export async function generateStaticParams() {
-  const stories = await getStories();
+export function generateStaticParams() {
   return stories.map((s) => ({ category: s.slug }));
 }
 

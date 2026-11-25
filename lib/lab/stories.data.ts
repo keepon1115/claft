@@ -1,7 +1,7 @@
 // ============================================================
-// キープオンラボ — ストーリーデータ（単一の真実のソース）
+// キープオンラボ — 初回公開前に使うストーリーデータ
 //
-// 週次更新は Googleスプレッドシート → AI反映（手順は docs/LAB_STORIES_SHEET_RULES.md）。直接編集してもよいが、その場合はシートも合わせる。
+// 初回公開後は /admin/lab-stories から更新する。
 // 形式は固定：ラベル / 絵文字 / リング色 / CTAリンク+文言 / カード（画像・タイトル・本文）。
 // 画像は HP・外部アセットの URL を参照する（リポジトリに画像は置かない）。
 // ============================================================
@@ -12,6 +12,7 @@ export type RingVariant = 'default' | 'alt' | 'navy';
 /** 全画面ビューアの1枚 */
 export type StoryCard = {
   id: string;
+  date?: string;
   title: string;
   text: string;
   emoji: string;
@@ -48,7 +49,7 @@ export type StoryCategory = {
 };
 
 // 表示順は配列のとおり：① 募集イベント → ② 今週のフォト → ③ 発表会 → ④ Yononaka → ⑤ インタビュー → ⑥ スクール生紹介。
-// カテゴリに visibleUntil を設定すると、その日付（JST）を過ぎた時点で getStories() のフィルタで自動的に消える（lib/lab/content.ts 参照）。
+// カテゴリに visibleUntil を設定すると、その日付（JST）を過ぎた時点で getStories() のフィルタで自動的に消える。
 export const stories: StoryCategory[] = [
   {
     slug: 'event',

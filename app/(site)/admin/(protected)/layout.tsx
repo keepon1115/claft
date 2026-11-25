@@ -30,6 +30,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Link href="/admin/reactions" className="text-[#1F1810]/70 hover:text-[#E04E2C]">
               リアクション種類
             </Link>
+            <Link href="/admin/lab-stories" className="text-[#1F1810]/70 hover:text-[#E04E2C]">
+              ラボストーリーズ
+            </Link>
           </nav>
           <form action={signOut} className="ml-auto">
             <button type="submit" className="text-xs text-[#1F1810]/50 underline hover:text-[#E04E2C]">
