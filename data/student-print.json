@@ -1,0 +1,49 @@
+[
+  {
+    "slug": "akihito",
+    "name": "あきひと",
+    "grade": "中学2年生",
+    "avatarEmoji": "⛏️",
+    "iconUrl": "https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/bbe842e3b40a4f029011cd2a1bb7cf52/akki.png",
+    "shortIntro": "マインクラフトでオリジナルゲームを企画。「アイデアを実現する人」を目指す",
+    "likes": [
+      "ゲームづくり（マインクラフト）",
+      "アイデアを考えること",
+      "ニュースや社会の話",
+      "気になったことを質問すること",
+      "卓球"
+    ],
+    "character": "「自己効力感」が高い、現代の織田信長",
+    "strengths": "自己効力感、想像性、疑う力（「これどういう仕組み？」とすぐ聞ける）／自分では気づいていない強み：ストレス耐性"
+  },
+  {
+    "slug": "shogo",
+    "name": "しょうご",
+    "grade": "中学1年生",
+    "avatarEmoji": "🎨",
+    "iconUrl": "https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/92ad4e3dbfcb47d9819672bfb5b534ee/shogo.png",
+    "shortIntro": "思いついたときに描く。絵と英語を掛け合わせた作品に挑戦中",
+    "likes": [
+      "絵を描くこと",
+      "野球観戦",
+      "AIでの画像編集",
+      "友だちと話すこと"
+    ],
+    "character": "「柔軟性」が高い、現代の徳川家康（誕生日も家康と同じ）",
+    "strengths": "決断力、共感・傾聴力、柔軟性／人の話をしっかり聞ける"
+  },
+  {
+    "slug": "yushi",
+    "name": "ゆうし",
+    "grade": "中学1年生",
+    "avatarEmoji": "🎮",
+    "iconUrl": "https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/a288b38c2a6f470b8ab405124da70c4d/yushi.png",
+    "shortIntro": "アイデア無限大のゲームクリエイター。scratchのアカウント開設。",
+    "likes": [
+      "マイクラ",
+      "ゲームづくり"
+    ],
+    "character": "「共感・傾聴力」が高い、現代の聖徳太子",
+    "strengths": "アイデア、発想力、年下に対して優しく接することができる"
+  }
+]

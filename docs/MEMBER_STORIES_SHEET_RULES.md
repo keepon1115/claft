@@ -41,10 +41,10 @@
 - timeline は public が `○` の行だけ出る。
 - 空になった項目は、セクションごと出ない。
 
-### 印刷に出る項目
-- 表面：名前・学年、アイコン、shortIntro、好きなこと、自分のキャラ、強み、今挑戦していること、workUrl のQR
-- 裏面：なりたい姿（補足・今年の目標を含む）、スクールでの歩み（最後にNOW）、ストーリーページのQR
-- `quote`・`laterConnection`・`visitorQuestion` はWebページにだけ出る。
+### 印刷に出る項目（A5片面・1人1枚）
+- 名前・学年、アイコン画像（大きく）、shortIntro、好きなこと、自分のキャラ、強み。QRコードは出さない。
+- 印刷のデータは HP とは別ファイル（`data/student-print.json`）。**印刷だけ更新するときは `--print-only`** を付ける（HPの `data/student-stories.json` は変わらない。members タブだけ書き出せばよい）。
+- 2026-11-27 時点：HPは以前の取り込みのまま、印刷はシートで「公開」の3人（あきひと・しょうご・ゆうし）。
 
 ## AIが守る手順
 
@@ -64,4 +64,4 @@
 - slug は URL になるので、一度決めたら変えない。
 - 文言は1文字も変えない。誤字に気づいても直さず、オーナーに報告する。
 - 一覧の表示順は members の行の並び順。しょういちろう（CLAFT代表）はシートに入れず、`lib/studentData.ts` に手書きで持つ。
-- 印刷は `/student-story/{slug}/print`（1人）と `/student-story/print-all`（全員）。Chromeで A5・縦・両面（長辺とじ）・余白「なし」または「デフォルト」（@pageで6mm指定済み）・ヘッダーとフッターなし・背景のグラフィックあり。
+- 印刷は `/student-story/{slug}/print`（1人）と `/student-story/print-all`（全員）。Chromeで A5・縦・片面・余白「なし」または「デフォルト」（@pageで6mm指定済み）・ヘッダーとフッターなし・背景のグラフィックあり。

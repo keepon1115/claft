@@ -1,13 +1,17 @@
-// メンバーストーリー公開用シート(CSV) → data/student-stories.json
-// 使い方: npm run import:stories -- <CSVフォルダ> --dry-run   ← 書き込まず、差分だけ表示
-//         npm run import:stories -- <CSVフォルダ>             ← 実際に反映
-// フォルダには members.csv / timeline.csv / likesHistory.csv を置く。運用は docs/MEMBER_STORIES_SHEET_RULES.md
+// メンバーストーリー公開用シート(CSV) → data/student-stories.json(HP) と data/student-print.json(印刷)
+// 使い方: npm run import:stories -- <CSVフォルダ> --dry-run     ← 書き込まず、差分だけ表示
+//         npm run import:stories -- <CSVフォルダ>               ← HPと印刷の両方に反映
+//         npm run import:stories -- <CSVフォルダ> --print-only  ← 印刷だけに反映（HPは変えない）
+// フォルダには members.csv / timeline.csv / likesHistory.csv を置く（--print-only は members.csv だけでよい）。
+// 運用は docs/MEMBER_STORIES_SHEET_RULES.md
 import fs from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
 
 const MARK = '【要確認】';
 const OUT = path.resolve(process.cwd(), 'data/student-stories.json');
+const PRINT_OUT = path.resolve(process.cwd(), 'data/student-print.json');
+const PRINT_KEYS = ['slug', 'name', 'grade', 'avatarEmoji', 'iconUrl', 'shortIntro', 'likes', 'character', 'strengths'];
 
 type Row = Record<string, string>;
 
@@ -116,13 +120,16 @@ function printDiff(prev: Story[], next: Story[]) {
 function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
+  const printOnly = args.includes('--print-only');
   const dir = args.find((a) => !a.startsWith('--'));
-  if (!dir) throw new Error('使い方: npm run import:stories -- <CSVフォルダ> [--dry-run]');
+  if (!dir) throw new Error('使い方: npm run import:stories -- <CSVフォルダ> [--dry-run] [--print-only]');
 
   const members = readSheet(dir, 'members');
-  const timelineRows = readSheet(dir, 'timeline');
-  const likesRows = readSheet(dir, 'likesHistory');
-  const prev: Story[] = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : [];
+  const timelineRows = printOnly ? [] : readSheet(dir, 'timeline');
+  const likesRows = printOnly ? [] : readSheet(dir, 'likesHistory');
+  const readJson = (file: string): Story[] => (fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []);
+  const prev = readJson(OUT);
+  const prevPrint = readJson(PRINT_OUT);
 
   const drafts: string[] = [];
   const stories: Story[] = [];
@@ -136,7 +143,7 @@ function main() {
     }
     const hs = new Set(split(m.hiddenFields ?? ''));
     const g = (f: string) => clean(slug, f, m[f], hs);
-    const old = prev.find((s) => s.slug === slug);
+    const old = (printOnly ? prevPrint : prev).find((s) => s.slug === slug);
 
     // 読み取りで絵文字が文字化けしていたら、今の値を保つ
     const emoji = (field: string, current: unknown, fallback: string) => {
@@ -217,8 +224,17 @@ function main() {
     });
   }
 
-  console.log(`公開 ${stories.length} 人\n\n【差分】`);
-  printDiff(prev, stories);
+  const prints = stories.map((s) => Object.fromEntries(PRINT_KEYS.filter((k) => k in s).map((k) => [k, s[k]])) as Story);
+  const targets = [
+    ...(printOnly ? [] : [{ label: 'HP', file: OUT, before: prev, after: stories }]),
+    { label: '印刷', file: PRINT_OUT, before: prevPrint, after: prints },
+  ];
+
+  console.log(`公開 ${stories.length} 人`);
+  for (const t of targets) {
+    console.log(`\n【差分：${t.label}】`);
+    printDiff(t.before, t.after);
+  }
   if (warnings.length) console.log(`\n【警告】\n${warnings.map((w) => `  ${w}`).join('\n')}`);
 
   console.log('\n【要確認】/hiddenFields で非公開にした項目:');
@@ -232,9 +248,12 @@ function main() {
     console.log('\nお試し実行のため、書き込んでいません。');
     return;
   }
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify(stories, null, 2) + '\n', 'utf8');
-  console.log(`\n出力: ${path.relative(process.cwd(), OUT)}`);
+  console.log('');
+  for (const t of targets) {
+    fs.mkdirSync(path.dirname(t.file), { recursive: true });
+    fs.writeFileSync(t.file, JSON.stringify(t.after, null, 2) + '\n', 'utf8');
+    console.log(`出力: ${path.relative(process.cwd(), t.file)}`);
+  }
 }
 
 try {
