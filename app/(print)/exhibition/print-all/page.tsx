@@ -7,7 +7,10 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'なんでも展示会 印刷用（全作品）', robots: { index: false, follow: false } };
 
 export default async function ExhibitionPrintAllPage() {
-  const { works, source, sheetError } = await fetchPrintWorks();
+  const { works, source, sheetError, onlineLookupFailed } = await fetchPrintWorks();
+  const missingQr = works
+    .map((work, index) => work.qrUrl ? null : `No.${String(index + 1).padStart(2, '0')}「${work.title}」`)
+    .filter(Boolean);
 
   return (
     <div className="ex-root">
@@ -22,6 +25,11 @@ export default async function ExhibitionPrintAllPage() {
             <br />
             理由：{sheetError}
           </>
+        )}
+        {onlineLookupFailed ? (
+          <p>オンライン展示を取得できなかったため、作品のQRコードを表示できません。時間をおいてページを開き直してください。</p>
+        ) : missingQr.length > 0 && (
+          <p>オンライン展示で作品を確認できなかったため、次の作品のQRコードは表示していません。<br />{missingQr.join('、')}</p>
         )}
         <br />
         印刷・PDF保存：ブラウザの印刷で、用紙「A4」・余白「既定」・「背景のグラフィック」オン。

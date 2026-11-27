@@ -62,7 +62,7 @@ function PageHeader({ live }: { live: boolean }) {
   );
 }
 
-function WorkCard({ item, index }: { item: WorkItem; index: number }) {
+function WorkCard({ item, index, selected }: { item: WorkItem; index: number; selected: boolean }) {
   const { work, tally } = item;
   // 作品URL（ゲーム・アプリ等）は works.story_made に入っている（scripts/import-nandemo-works.mjs が保存）。
   // 作者の名前（author_nickname）は非公開のため、ここでは表示しない。
@@ -73,8 +73,8 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   return (
     <div
       id={`work-${work.id}`}
-      className="rp-work nd-course-anchor reveal"
-      style={{ transitionDelay: `${index * 70}ms` } as CSSProperties}
+      className={selected ? "rp-work nd-course-anchor" : "rp-work nd-course-anchor reveal"}
+      style={selected ? undefined : { transitionDelay: `${index * 70}ms` } as CSSProperties}
     >
       <div className="nd-exhibit-head">
         <h3 className="nd-exhibit-title">{work.title}</h3>
@@ -126,7 +126,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   );
 }
 
-export default async function ExhibitionWorks2611Content() {
+export default async function ExhibitionWorks2611Content({ selectedWorkId }: { selectedWorkId?: string }) {
   let items: WorkItem[] = [];
 
   try {
@@ -151,6 +151,10 @@ export default async function ExhibitionWorks2611Content() {
     [items[i], items[j]] = [items[j], items[i]];
   }
 
+  // QRで開く作品を先頭に置き、先行する画像の読み込みでアンカーの位置がずれるのを防ぐ。
+  const selectedIndex = items.findIndex(({ work }) => work.id === selectedWorkId);
+  if (selectedIndex > 0) items.unshift(...items.splice(selectedIndex, 1));
+
   const live = items.length > 0;
 
   return (
@@ -170,7 +174,7 @@ export default async function ExhibitionWorks2611Content() {
             )}
             <div className="rp-works">
               {items.map((item, i) => (
-                <WorkCard key={item.work.id} item={item} index={i} />
+                <WorkCard key={item.work.id} item={item} index={i} selected={item.work.id === selectedWorkId} />
               ))}
             </div>
           </div>
