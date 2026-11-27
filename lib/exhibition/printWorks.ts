@@ -51,7 +51,9 @@ function toPrintWork(raw: RawWork, onlineId: string | null): PrintWork | null {
   const imageUrl = raw.imageUrl || (raw.videoUrl && !youtubeId ? raw.videoUrl : '') || null;
   if (!raw.title || (!imageUrl && !youtubeId)) return null;
 
-  const qrUrl = onlineId ? absoluteUrl(`${EXHIBITION_PATH}#work-${onlineId}`) : null;
+  const qrUrl = onlineId
+    ? absoluteUrl(`${EXHIBITION_PATH}?work=${encodeURIComponent(onlineId)}#work-${onlineId}`)
+    : null;
   return { title: raw.title, description: raw.description, imageUrl, youtubeId, qrUrl };
 }
 
