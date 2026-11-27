@@ -21,14 +21,14 @@ html, body { background: #fff !important; }
 .ex-desc--s { font-size: 16pt; line-height: 1.6; }
 .ex-foot { flex: 0 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 6mm;
   margin-top: 4mm; padding: 5mm 2mm 0; border-top: .6mm solid #e6ded2; }
-.ex-qr { display: flex; align-items: center; gap: 5mm; }
+.ex-qr { display: flex; align-items: center; gap: 4mm; }
 .ex-qr-img { flex: 0 0 auto; background: #fff; border: 1.2mm solid #c8102e; border-radius: 3mm; }
 .ex-qr-img svg { display: block; width: 34mm; height: 34mm; }
 .ex-qr-text { display: flex; flex-direction: column; gap: 2mm; }
 .ex-qr-label { align-self: flex-start; background: #c8102e; color: #fff; font-weight: 800; font-size: 17pt; line-height: 1.2;
-  padding: 2.5mm 6mm; border-radius: 3mm; }
-.ex-qr-hint { font-size: 12pt; color: #6b6259; font-weight: 700; }
-.ex-event { margin: 0 0 0 auto; text-align: right; font-weight: 800; color: #6b6259; line-height: 1.25; }
+  padding: 2.5mm 5mm; border-radius: 3mm; white-space: nowrap; }
+.ex-qr-hint { font-size: 12pt; color: #6b6259; font-weight: 700; white-space: nowrap; }
+.ex-event { flex: 0 0 auto; margin: 0 0 0 auto; text-align: right; font-weight: 800; color: #6b6259; line-height: 1.25; white-space: nowrap; }
 .ex-event-no { display: block; font-size: 30pt; line-height: 1.1; color: #c8102e; letter-spacing: .04em; margin-bottom: 1.5mm; }
 .ex-event-date { display: block; font-size: 14pt; letter-spacing: .08em; }
 .ex-event-name { display: block; font-size: 20pt; color: #1f1810; }
