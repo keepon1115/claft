@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { ArrowRightDoodle } from "@/components/craft/HandDrawn";
 
 /* ============================================================
@@ -11,18 +12,18 @@ import { ArrowRightDoodle } from "@/components/craft/HandDrawn";
 // メインビジュアル（16:9）
 export const FESTA_HERO_IMG = "/assets/festa/hero.webp";
 const FESTA_DATE = "2026.11.29（日）";
-// 「詳細はこちら」の行き先（今回の参加申し込みフォーム）
-const DETAIL_URL = "https://forms.gle/6oY7gJT1XhenFQEz7";
+// 「詳細はこちら」の行き先（今回の詳細ページ。申し込みフォームはその中）
+const DETAIL_HREF = "/festa/2611";
 const PAST_URL = "https://spring-schoolfesta2026.figma.site/";
 const PAST_LABEL_1 = "前回(2026/3)の";
 const PAST_LABEL_2 = "スクールフェスタはこちら";
 
 function DetailButton() {
   return (
-    <a href={DETAIL_URL} target="_blank" rel="noopener noreferrer" className="craft-sticker">
+    <Link href={DETAIL_HREF} className="craft-sticker">
       詳細はこちら
       <ArrowRightDoodle width={24} />
-    </a>
+    </Link>
   );
 }
 

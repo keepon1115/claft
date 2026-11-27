@@ -7537,3 +7537,1200 @@ html[data-embed] .site-main::before,
 html[data-embed] .site-main::after {
   content: none !important;
 }
+
+/* =========================================
+   スクールフェスタ 2611 (fs-*) — /festa/2611 専用
+   中央カラム480px基準。ビューポート分岐は使わない。
+   ========================================= */
+
+.fs-events {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  margin-top: 26px;
+}
+
+.fs-event {
+  position: relative;
+  padding: 30px 20px 22px;
+  border-top: 5px solid rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.fs-event-tagline {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.fs-event-name {
+  margin: 4px 0 12px;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  line-height: 1.35;
+  color: var(--ink-900);
+}
+
+.fs-event-lead,
+.fs-event-point {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.fs-event-sub {
+  display: inline-block;
+  margin: 22px 0 10px;
+  padding: 3px 12px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+  letter-spacing: 0.06em;
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+  background: rgb(var(--accent-rgb, var(--brand-rgb)) / 0.13);
+  border-radius: 999px;
+}
+
+.fs-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fs-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.fs-step-no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: #fff;
+  background: rgb(var(--accent-rgb, var(--brand-rgb)));
+  border-radius: 50%;
+}
+
+.fs-step-title {
+  margin: 2px 0 2px;
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  line-height: 1.45;
+  color: var(--ink-900);
+}
+
+.fs-step-desc {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-700);
+}
+
+.fs-facts {
+  margin: 22px 0 0;
+  border-top: 1.5px dashed rgb(var(--accent-rgb, var(--brand-rgb)) / 0.4);
+}
+
+.fs-fact {
+  display: flex;
+  gap: 14px;
+  padding: 10px 2px;
+  border-bottom: 1.5px dashed rgb(var(--accent-rgb, var(--brand-rgb)) / 0.4);
+}
+
+.fs-fact dt {
+  flex: none;
+  width: 3.2em;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: rgb(var(--accent-rgb, var(--brand-rgb)));
+}
+
+.fs-fact dd {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  line-height: 1.6;
+  color: var(--ink-900);
+}
+
+/* 本文中の文字リンク */
+.fs-textlink {
+  color: var(--brand-deep);
+  font-weight: var(--font-bold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 目次（ヒーローの下） */
+.fs-toc {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+  margin-top: 26px;
+}
+
+.fs-toc .nd-chip {
+  padding: 7px 14px;
+  text-decoration: none;
+}
+
+/* 当日のようす（Coming Soon） */
+.fs-soon {
+  border: 2px dashed rgb(var(--brand-rgb) / 0.35);
+}
+
+/* 短いせりふ・見出しは文節で折り返す（「どうつく/ろう？」のような語中改行を防ぐ。非対応ブラウザは通常の折り返し） */
+.fs-pn-scene-line,
+.fs-pn-need-q,
+.fs-pn-path-q,
+.fs-pn-quote,
+.fs-pn-strong,
+.fs-pn-fig figcaption,
+.fs-pn-dialog dd,
+.fs-sh-sky,
+.fs-sh-band-title,
+.fs-sh-prog-sub,
+.fs-sh-prog-text,
+.fs-final .nd-final-title,
+.fs-final .nd-final-body,
+.fs-final .nd-cta-note {
+  word-break: auto-phrase;
+}
+
+/* ---------- パネル展示（PanelSection.tsx） ---------- */
+.fs-qindex {
+  margin: 0;
+  padding: 6px 18px;
+  list-style: none;
+}
+
+.fs-qindex li + li {
+  border-top: 2px dashed rgba(92, 77, 42, 0.18);
+}
+
+.fs-qindex a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  line-height: 1.5;
+  color: var(--ink-800);
+  text-decoration: none;
+}
+
+.fs-qindex-no {
+  flex: none;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--brand);
+}
+
+.fs-qindex-q {
+  flex: 1;
+  min-width: 0;
+}
+
+.fs-qindex a > span:last-child {
+  flex: none;
+  color: var(--brand);
+}
+
+.fs-theme {
+  margin-top: 72px;
+}
+
+.fs-theme-no {
+  margin: 0;
+  font-size: 52px;
+  font-weight: var(--font-black);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--brand);
+}
+
+.fs-theme-q {
+  margin: 12px 0 0;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-black);
+  line-height: 1.55;
+  color: var(--ink-900);
+  word-break: auto-phrase;
+}
+
+.fs-theme-cover-img {
+  margin: 22px 0 0;
+  padding: 8px 8px 12px;
+}
+
+.fs-theme-cover-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+/* 中身のパネル1枚ぶん */
+.fs-pn {
+  margin-top: 26px;
+  padding: 26px 20px 24px;
+}
+
+.fs-pn-kicker {
+  margin: 0 0 4px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  letter-spacing: 0.04em;
+  color: var(--brand-deep);
+}
+
+.fs-pn-title {
+  margin: 0 0 16px;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  line-height: 1.5;
+  color: var(--ink-900);
+  word-break: auto-phrase;
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--brand-rgb) / 0.55);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 8px;
+}
+
+.fs-pn-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 14px 0;
+  border-radius: 6px;
+}
+
+.fs-pn-text {
+  margin: 0 0 12px;
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+  color: var(--ink-700);
+}
+
+.fs-pn-sub {
+  margin: 22px 0 8px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  line-height: 1.5;
+  color: var(--ink-900);
+  word-break: auto-phrase;
+}
+
+.fs-pn-sub small {
+  margin-left: 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--brand-deep);
+}
+
+.fs-pn-strong {
+  margin: 16px 0 0;
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  line-height: 1.7;
+  color: var(--ink-900);
+}
+
+.fs-pn-cite {
+  margin: 10px 0 0;
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+/* 話し手（子ども・おうちの人・妹） */
+.fs-pn-who {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--brand-deep);
+  background: rgb(var(--brand-rgb) / 0.12);
+  border-radius: 4px;
+  vertical-align: 2px;
+}
+
+/* 番号つきの場面 */
+.fs-pn-scenes {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fs-pn-scenes li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.fs-pn-scene-no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+}
+
+.fs-pn-scene-label {
+  margin: 0 0 2px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: var(--brand-deep);
+}
+
+.fs-pn-scene-line {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  line-height: 1.7;
+  color: var(--ink-900);
+}
+
+/* パネルの下の一文 */
+.fs-pn-bottom {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 2px dashed rgba(92, 77, 42, 0.18);
+  text-align: center;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  line-height: 1.8;
+  color: var(--ink-900);
+  word-break: auto-phrase;
+}
+
+/* 自己決定理論の三つ */
+.fs-pn-needs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fs-pn-needs li {
+  padding: 12px 14px;
+  background: rgb(var(--brand-rgb) / 0.08);
+  border-bottom: 3px solid rgb(var(--brand-rgb) / 0.45);
+  border-radius: 4px 4px 2px 2px;
+}
+
+.fs-pn-need-h {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.fs-pn-need-h small {
+  margin-left: 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--brand-deep);
+}
+
+.fs-pn-need-q {
+  margin: 4px 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-700);
+}
+
+/* タグ＋絵＋ひとこと */
+.fs-pn-fig {
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+.fs-pn-fig-tag {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 14px;
+  background: rgb(var(--cream-rgb) / 0.6);
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.fs-pn-fig .fs-pn-img {
+  max-width: 300px;
+  margin: 8px auto;
+}
+
+.fs-pn-fig figcaption {
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  color: var(--brand-deep);
+}
+
+/* 心理学へ／ものづくりへ */
+.fs-pn-paths {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.fs-pn-paths > div {
+  padding-top: 12px;
+  border-top: 4px solid rgb(var(--brand-rgb) / 0.6);
+}
+
+.fs-pn-paths > div.is-make {
+  border-top-color: rgb(224 158 22 / 0.6);
+}
+
+.fs-pn-path-h {
+  margin: 0 0 4px;
+  font-size: var(--text-xl);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.fs-pn-path-q {
+  margin: 0 0 8px;
+  font-size: var(--text-base);
+  font-weight: var(--font-black);
+  line-height: 1.6;
+  color: var(--ink-800);
+}
+
+/* 黄色の線の引用 */
+.fs-pn-quote {
+  margin: 14px 0;
+  padding: 4px 0 4px 14px;
+  border-left: 4px solid rgb(var(--cream-rgb));
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  line-height: 1.8;
+  color: var(--ink-900);
+}
+
+/* 自分とAIのやりとり */
+.fs-pn-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 8px;
+}
+
+.fs-pn-dialog > div {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.fs-pn-dialog dt {
+  flex: none;
+  width: 3em;
+  margin-top: 2px;
+  padding: 2px 0;
+  border-radius: 4px;
+  text-align: center;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--brand-deep);
+  background: rgb(var(--brand-rgb) / 0.12);
+}
+
+.fs-pn-dialog .is-ai dt {
+  color: rgb(150 104 12);
+  background: rgb(224 158 22 / 0.16);
+}
+
+.fs-pn-dialog dd {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--ink-900);
+}
+
+.fs-pn-dialog .is-me dd {
+  font-weight: var(--font-bold);
+}
+
+/* 店の表示／AIが計算した例 */
+.fs-pn-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fs-pn-facts > div {
+  padding: 12px 16px;
+  background: rgb(var(--brand-rgb) / 0.08);
+  border-left: 4px solid rgb(var(--brand-rgb) / 0.6);
+}
+
+.fs-pn-facts > div.is-ai {
+  background: rgb(224 158 22 / 0.1);
+  border-left-color: rgb(224 158 22 / 0.7);
+}
+
+.fs-pn-fact-label {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--ink-600);
+}
+
+.fs-pn-fact-value {
+  margin: 0 0 4px;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-black);
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.fs-pn-fact-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-700);
+}
+
+.fs-pn-split {
+  margin: 26px 0 22px;
+  border: 0;
+  border-top: 2px dashed rgba(92, 77, 42, 0.22);
+}
+
+.fs-pn-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--paper-warm);
+  border-radius: 6px;
+}
+
+.fs-pn-note-h {
+  margin: 0 0 4px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: var(--brand-deep);
+}
+
+.fs-pn-note p:last-child {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-700);
+}
+
+/* 絵＋文を横に並べる（ジョブズさん） */
+.fs-pn-media {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.fs-pn-media .fs-pn-img {
+  flex: none;
+  width: 42%;
+  margin: 4px 0 0;
+}
+
+.fs-pn-media .fs-pn-text {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.75;
+}
+
+/* 出典・もっと読む／パネルを画像で見る */
+.fs-theme-foot {
+  margin-top: 20px;
+  padding: 0 4px;
+}
+
+.fs-theme-foot-h {
+  margin: 18px 0 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+  letter-spacing: 0.08em;
+  color: var(--ink-500);
+}
+
+.fs-more {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fs-more a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background-color: var(--paper);
+  background-image: var(--tex-grain);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px 8px 5px 9px / 8px 4px 9px 5px;
+  box-shadow: var(--shadow-paper);
+  text-decoration: none;
+}
+
+.fs-more-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+  color: var(--brand-deep);
+}
+
+.fs-more-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  line-height: 1.6;
+  color: var(--ink-800);
+}
+
+.fs-more a:hover .fs-more-title {
+  text-decoration: underline;
+}
+
+.fs-thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.fs-thumbs a {
+  display: block;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid var(--paper-edge);
+  box-shadow: var(--shadow-paper);
+}
+
+.fs-thumbs img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- PR動画と展示シート（SheetSection.tsx） ---------- */
+.fs-sheet {
+  /* 色の家族（このセクションの中だけで使う） */
+  --fam-pbl: #3cb3d1;
+  --fam-yononaka: #ee9c22;
+  --fam-try: #8b72c6;
+  --fam-career: #5aab7b;
+  --fs-should: #e6ded2;
+}
+
+.fs-sh-brand {
+  color: var(--brand);
+}
+
+.fs-sh-video .nd-note {
+  margin-top: 12px;
+}
+
+/* 表（朝） */
+.fs-sh-am {
+  margin-top: 16px;
+  padding: 26px 0;
+  overflow: hidden;
+}
+
+.fs-sh-sky {
+  margin: 0;
+  padding: 0 20px;
+  text-align: center;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  line-height: 1.5;
+  color: var(--ink-900);
+}
+
+.fs-sh-pano {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -4px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 86%, transparent 100%);
+}
+
+.fs-sh-am-body {
+  padding: 6px 20px 0;
+}
+
+.fs-sh-band-title {
+  margin: 0 0 10px;
+  font-size: var(--text-xl);
+  font-weight: var(--font-black);
+  line-height: 1.6;
+  color: var(--ink-900);
+}
+
+.fs-sh-mark {
+  background: linear-gradient(transparent 50%, rgb(var(--brand-rgb) / 0.3) 50%, rgb(var(--brand-rgb) / 0.3) 85%, transparent 85%);
+}
+
+.fs-sh-legend {
+  display: flex;
+  gap: 16px;
+  margin: 0 0 6px;
+  font-size: var(--text-xs);
+  color: var(--ink-600);
+}
+
+.fs-sh-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fs-sh-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.fs-sh-legend i.is-want,
+.fs-sh-band-claft-mark {
+  background: var(--brand);
+  fill: var(--brand);
+}
+
+.fs-sh-legend i.is-should {
+  background: var(--fs-should);
+}
+
+.fs-sh-band {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.fs-sh-band-want {
+  fill: var(--brand);
+}
+
+.fs-sh-band-should {
+  fill: var(--fs-should);
+}
+
+.fs-sh-band-grade {
+  font-size: 12.5px;
+  font-weight: 700;
+  fill: var(--ink-900);
+}
+
+.fs-sh-band-claft {
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--brand-deep);
+}
+
+.fs-sh-band-note {
+  margin: 4px 0 0;
+  text-align: right;
+  font-size: var(--text-xs);
+  color: var(--ink-500);
+}
+
+.fs-sh-why {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 2px dashed rgba(92, 77, 42, 0.18);
+}
+
+.fs-sh-why-h {
+  margin: 0 0 8px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+.fs-sh-why ol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: why;
+}
+
+.fs-sh-why li {
+  display: flex;
+  gap: 10px;
+  counter-increment: why;
+  font-size: var(--text-base);
+  line-height: 1.75;
+  color: var(--ink-700);
+}
+
+.fs-sh-why li::before {
+  content: counter(why);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--font-black);
+}
+
+/* 裏（夕方） */
+.fs-sh-pm {
+  margin-top: 28px;
+  padding: 30px 20px 26px;
+}
+
+.fs-sh-pm-title,
+.fs-sh-always {
+  margin: 0;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-black);
+  line-height: 1.55;
+  color: var(--ink-900);
+}
+
+.fs-sh-always {
+  margin-top: 8px;
+}
+
+.fs-sh-house {
+  position: relative;
+  margin: 12px -8px 0;
+}
+
+.fs-sh-house::before {
+  content: "";
+  position: absolute;
+  inset: -6% -4%;
+  background: radial-gradient(closest-side, rgb(255 214 107 / 0.45), rgb(255 214 107 / 0));
+}
+
+.fs-sh-house img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.fs-sh-seeds {
+  margin: 34px 0 6px;
+  padding-top: 24px;
+  border-top: 2px solid rgb(15 36 34 / 0.1);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-black);
+  color: var(--ink-900);
+}
+
+/* 4つの場（--c に色の家族が入る） */
+.fs-sh-prog {
+  margin-top: 22px;
+}
+
+.fs-sh-prog-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-black);
+  color: color-mix(in srgb, var(--c) 80%, var(--ink-900));
+}
+
+.fs-sh-prog-tag i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.fs-sh-prog-tag small {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--ink-500);
+}
+
+.fs-sh-prog-name {
+  margin: 4px 0 6px;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-black);
+  line-height: 1.2;
+  color: var(--ink-900);
+}
+
+.fs-sh-prog-sub {
+  margin: 0 0 12px;
+  padding-left: 10px;
+  border-left: 4px solid var(--c);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  line-height: 1.6;
+  color: var(--ink-900);
+}
+
+.fs-sh-prog-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.fs-sh-prog-body > img {
+  flex: none;
+  width: 38%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fs-sh-prog-text {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-700);
+}
+
+.fs-sh-prog-text p {
+  margin: 0 0 8px;
+}
+
+.fs-sh-prog-text strong {
+  color: var(--ink-900);
+}
+
+.fs-sh-cycle {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 0 18px;
+  list-style: none;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+.fs-sh-cycle::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 10px;
+  border-left: 1.5px dashed var(--c);
+}
+
+.fs-sh-cycle li {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.fs-sh-cycle li::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--c);
+  background: #fff;
+}
+
+.fs-sh-cycle li:last-child {
+  font-weight: var(--font-bold);
+  color: var(--ink-900);
+}
+
+.fs-sh-cycle li:last-child::after {
+  content: " ↻";
+  color: var(--c);
+}
+
+.fs-sh-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.fs-sh-chips span {
+  padding: 1px 9px;
+  border: 1.5px solid var(--c);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.6);
+  font-size: var(--text-xs);
+  color: var(--ink-900);
+}
+
+.fs-sh-bridge {
+  margin: 30px 0 6px;
+  padding: 12px 0;
+  border-top: 1.5px dashed #c9b9a3;
+  border-bottom: 1.5px dashed #c9b9a3;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  line-height: 1.8;
+  color: var(--ink-600);
+}
+
+.fs-sh-dots {
+  display: inline-flex;
+  gap: 4px;
+  margin: 0 8px;
+  vertical-align: 1px;
+}
+
+.fs-sh-dots i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.fs-sh-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.fs-sh-two img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fs-sh-tries {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--ink-700);
+}
+
+.fs-sh-tries li::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--c);
+  vertical-align: 2px;
+}
+
+.fs-sh-tries b {
+  margin-right: 6px;
+  color: var(--ink-900);
+}
+
+.fs-sh-asks {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fs-sh-asks span {
+  padding: 2px 8px;
+  background: rgb(255 255 255 / 0.7);
+  border-left: 3px solid var(--c);
+  border-radius: 0 4px 4px 0;
+  color: var(--ink-900);
+}
+
+.fs-sh-em {
+  font-size: var(--text-lg);
+  font-weight: var(--font-black);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--c) 80%, var(--ink-900));
+}
+
+.fs-sh-dl {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.fs-sh-dl ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fs-sh-dl a {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--brand-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- 締め ---------- */
+.fs-final-split {
+  width: 60%;
+  margin: 28px auto 20px;
+  border: 0;
+  border-top: 2px dashed rgba(92, 77, 42, 0.22);
+}
+
+.fs-final-more {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--ink-600);
+}
