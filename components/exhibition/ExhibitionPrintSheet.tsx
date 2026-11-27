@@ -22,10 +22,10 @@ html, body { background: #fff !important; }
 .ex-foot { flex: 0 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 6mm;
   margin-top: 4mm; padding: 5mm 2mm 0; border-top: .6mm solid #e6ded2; }
 .ex-qr { display: flex; align-items: center; gap: 5mm; }
-.ex-qr-img { background: #fff; border: 1.2mm solid #c8102e; border-radius: 3mm; padding: 2.5mm; }
+.ex-qr-img { flex: 0 0 auto; background: #fff; border: 1.2mm solid #c8102e; border-radius: 3mm; }
 .ex-qr-img svg { display: block; width: 34mm; height: 34mm; }
 .ex-qr-text { display: flex; flex-direction: column; gap: 2mm; }
-.ex-qr-label { align-self: flex-start; background: #c8102e; color: #fff; font-weight: 800; font-size: 22pt; line-height: 1.2;
+.ex-qr-label { align-self: flex-start; background: #c8102e; color: #fff; font-weight: 800; font-size: 17pt; line-height: 1.2;
   padding: 2.5mm 6mm; border-radius: 3mm; }
 .ex-qr-hint { font-size: 12pt; color: #6b6259; font-weight: 700; }
 .ex-event { margin: 0 0 0 auto; text-align: right; font-weight: 800; color: #6b6259; line-height: 1.25; }
@@ -50,7 +50,7 @@ export async function ExhibitionPrintSheet({ work, no }: { work: PrintWork; no: 
       ? await youTubeThumbnailForPrint(work.youtubeId)
       : null;
   const qrSvg = work.qrUrl
-    ? await QRCode.toString(work.qrUrl, { type: 'svg', margin: 0, errorCorrectionLevel: 'M' })
+    ? await QRCode.toString(work.qrUrl, { type: 'svg', margin: 4, errorCorrectionLevel: 'M' })
     : null;
 
   const titleSize = work.title.length > 12 ? 'ex-title--l' : '';
@@ -72,7 +72,7 @@ export async function ExhibitionPrintSheet({ work, no }: { work: PrintWork; no: 
           <div className="ex-qr">
             <div className="ex-qr-img" dangerouslySetInnerHTML={{ __html: qrSvg }} />
             <div className="ex-qr-text">
-              <span className="ex-qr-label">{work.qrLabel}</span>
+              <span className="ex-qr-label">オンライン展示で作品を見る</span>
               <span className="ex-qr-hint">スマホのカメラで読み取ってね</span>
             </div>
           </div>
