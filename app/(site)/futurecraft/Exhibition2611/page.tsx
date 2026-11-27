@@ -17,11 +17,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ work?: string | string[] }>;
+}) {
+  const { work } = await searchParams;
   return (
     <>
       <BreadcrumbJsonLd trail={[['ミライクラフト', '/futurecraft'], ['なんでも展示会', '/futurecraft/Exhibition'], ['11月の作品一覧', '/futurecraft/Exhibition2611']]} />
-      <ExhibitionWorks2611Content />
+      <ExhibitionWorks2611Content selectedWorkId={typeof work === "string" ? work : undefined} />
     </>
   );
 }
