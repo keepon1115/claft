@@ -1,4 +1,6 @@
+import { absoluteUrl } from '../seo';
 import { fetchExhibitionBySlug, fetchWorks } from './queries';
+import type { Work } from './types';
 import { extractYouTubeId } from './youtube';
 
 /* ============================================================
@@ -6,12 +8,13 @@ import { extractYouTubeId } from './youtube';
    - 「作品管理シート」を表示のたびに直接読む（シートを直せばページも変わる）
    - シートを読めないとき（共有が「制限付き」など）は、Webの作品一覧と同じ
      Supabase の取り込み済みデータで代用する
-   展示会が替わったら、下の4つの定数を差し替える。
+   展示会が替わったら、下の展示会設定を差し替える。
 ============================================================ */
 
 const SHEET_ID = '1yAAM9b_eE5aR7NQ4esVQrUkBb828mbEVajkMH6PP_3I';
 const SHEET_GID = '394850179';
 const EXHIBITION_SLUG = 'nandemo-2026-11';
+const EXHIBITION_PATH = '/futurecraft/Exhibition2611';
 /** 各ページ右下に出す開催年月 */
 export const EVENT_DATE = '2026.11';
 
@@ -23,9 +26,8 @@ export interface PrintWork {
   /** 上に大きく出す画像。無ければ YouTube のサムネイルを使う */
   imageUrl: string | null;
   youtubeId: string | null;
-  /** QRコードの行き先（作品URLがあればそれ、無ければ動画） */
+  /** オンライン展示内の作品へのリンク */
   qrUrl: string | null;
-  qrLabel: string;
 }
 
 export interface PrintWorksResult {
@@ -33,6 +35,7 @@ export interface PrintWorksResult {
   source: 'sheet' | 'supabase';
   /** シートを読めなかった理由（source が supabase のときだけ入る） */
   sheetError: string | null;
+  onlineLookupFailed: boolean;
 }
 
 interface RawWork {
@@ -40,26 +43,16 @@ interface RawWork {
   description: string;
   imageUrl: string;
   videoUrl: string;
-  workUrl: string;
-  buttonLabel: string;
 }
 
-function toPrintWork(raw: RawWork): PrintWork | null {
+function toPrintWork(raw: RawWork, onlineId: string | null): PrintWork | null {
   const youtubeId = raw.videoUrl ? extractYouTubeId(raw.videoUrl) : null;
   // 動画URLの列に画像のURLが入っている行は、画像として扱う
   const imageUrl = raw.imageUrl || (raw.videoUrl && !youtubeId ? raw.videoUrl : '') || null;
   if (!raw.title || (!imageUrl && !youtubeId)) return null;
 
-  let qrUrl: string | null = null;
-  let qrLabel = '';
-  if (raw.workUrl) {
-    qrUrl = raw.workUrl;
-    qrLabel = raw.buttonLabel || '作品をみる';
-  } else if (youtubeId) {
-    qrUrl = `https://youtu.be/${youtubeId}`;
-    qrLabel = '動画をみる';
-  }
-  return { title: raw.title, description: raw.description, imageUrl, youtubeId, qrUrl, qrLabel };
+  const qrUrl = onlineId ? absoluteUrl(`${EXHIBITION_PATH}#work-${onlineId}`) : null;
+  return { title: raw.title, description: raw.description, imageUrl, youtubeId, qrUrl };
 }
 
 // RFC4180 の簡易CSVパーサ（引用符・""エスケープ・セル内改行に対応）
@@ -101,39 +94,49 @@ function parseCsv(text: string): string[][] {
   return rows;
 }
 
-export function worksFromCsv(text: string): PrintWork[] {
+export function worksFromCsv(text: string, onlineWorks: Work[]): PrintWork[] {
   const rows = parseCsv(text);
   const header = (rows[0] ?? []).map((h) => h.trim());
   const col = (...names: string[]) => header.findIndex((h) => names.includes(h));
   const idx = {
     title: col('作品名'),
+    author: col('名前', 'ニックネーム'),
     description: col('説明文'),
     imageUrl: col('画像URL', '画像 URL'),
     videoUrl: col('動画URL'),
-    workUrl: col('作品URL', '作品リンク'),
-    buttonLabel: col('ボタン文言'),
     remove: col('削除'),
   };
   if (idx.title < 0) throw new Error('見出し行に「作品名」が見つかりません');
+
+  // CSV取り込み時と同じ「作品名＋名前」で照合する。候補が複数ある場合はリンクを付けない。
+  const onlineIds = new Map<string, string | null>();
+  for (const work of onlineWorks) {
+    const key = `${work.title}\u0000${work.author_nickname}`;
+    onlineIds.set(key, onlineIds.has(key) ? null : work.id);
+  }
 
   const cell = (r: string[], i: number) => (i >= 0 ? (r[i] ?? '').trim() : '');
   const works: PrintWork[] = [];
   for (const r of rows.slice(1)) {
     if (cell(r, idx.remove) === '削除') continue;
-    const work = toPrintWork({
-      title: cell(r, idx.title),
-      description: cell(r, idx.description),
-      imageUrl: cell(r, idx.imageUrl),
-      videoUrl: cell(r, idx.videoUrl),
-      workUrl: cell(r, idx.workUrl),
-      buttonLabel: cell(r, idx.buttonLabel),
-    });
+    const title = cell(r, idx.title);
+    const author = cell(r, idx.author);
+    const onlineId = author ? onlineIds.get(`${title}\u0000${author}`) ?? null : null;
+    const work = toPrintWork(
+      {
+        title,
+        description: cell(r, idx.description),
+        imageUrl: cell(r, idx.imageUrl),
+        videoUrl: cell(r, idx.videoUrl),
+      },
+      onlineId,
+    );
     if (work) works.push(work);
   }
   return works;
 }
 
-async function fetchFromSheet(): Promise<PrintWork[]> {
+async function fetchFromSheet(onlineWorks: Promise<Work[]>): Promise<PrintWork[]> {
   const res = await fetch(
     `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`,
     { cache: 'no-store' },
@@ -142,35 +145,46 @@ async function fetchFromSheet(): Promise<PrintWork[]> {
   if (!res.ok || !(res.headers.get('content-type') ?? '').includes('text/csv')) {
     throw new Error(`シートが「リンクを知っている全員が閲覧可」になっていません（HTTP ${res.status}）`);
   }
-  return worksFromCsv(await res.text());
+  return worksFromCsv(await res.text(), await onlineWorks);
 }
 
-async function fetchFromSupabase(): Promise<PrintWork[]> {
+async function fetchOnlineWorks(): Promise<Work[]> {
   const exhibition = await fetchExhibitionBySlug(EXHIBITION_SLUG);
   if (!exhibition) return [];
   const works = await fetchWorks(exhibition.id);
+  return works.filter((w) => w.thumbnail_url || w.youtube_url || w.story_made);
+}
+
+function printWorksFromOnline(works: Work[]): PrintWork[] {
   // 列の対応は scripts/import-nandemo-works.mjs を参照
   return works
     .map((w) =>
-      toPrintWork({
-        title: w.title,
-        description: w.author_intro ?? '',
-        imageUrl: w.thumbnail_url ?? '',
-        videoUrl: w.youtube_url ?? '',
-        workUrl: w.story_made ?? '',
-        buttonLabel: w.story_devised ?? '',
-      }),
+      toPrintWork(
+        {
+          title: w.title,
+          description: w.author_intro ?? '',
+          imageUrl: w.thumbnail_url ?? '',
+          videoUrl: w.youtube_url ?? '',
+        },
+        w.id,
+      ),
     )
     .filter((w): w is PrintWork => w !== null);
 }
 
 export async function fetchPrintWorks(): Promise<PrintWorksResult> {
+  let onlineLookupFailed = false;
+  const onlineWorks = fetchOnlineWorks().catch(() => {
+    onlineLookupFailed = true;
+    return [];
+  });
   try {
-    return { works: await fetchFromSheet(), source: 'sheet', sheetError: null };
+    const works = await fetchFromSheet(onlineWorks);
+    return { works, source: 'sheet', sheetError: null, onlineLookupFailed };
   } catch (e) {
     const sheetError = e instanceof Error ? e.message : String(e);
-    const works = await fetchFromSupabase().catch(() => []);
-    return { works, source: 'supabase', sheetError };
+    const works = printWorksFromOnline(await onlineWorks);
+    return { works, source: 'supabase', sheetError, onlineLookupFailed };
   }
 }
 
