@@ -33,6 +33,25 @@
     "strengths": "決断力、共感・傾聴力、柔軟性／人の話をしっかり聞ける"
   },
   {
+    "slug": "keisuke",
+    "name": "けいすけ",
+    "grade": "中学1年生",
+    "avatarEmoji": "🌟",
+    "iconUrl": "https://images.microcms-assets.io/assets/92234aa873d84cb78f184180fd146a62/327cb1d62acc4980bc5765e67429c98e/ChatGPT%20%E7%94%BB%E5%83%8F%202026%E5%B9%B411%E6%9C%8828%E6%97%A5%2012_24_30.png",
+    "shortIntro": "サバゲーのことなら任せろ！今はVTuber イラスト制作中。",
+    "likes": [
+      "サバゲー",
+      "ミリタリー（銃器）",
+      "ゲーム",
+      "PC",
+      "ロボット",
+      "Vtuber",
+      "アニメ"
+    ],
+    "character": "協調性・行動力・想像力が高いモブ",
+    "strengths": "周りに合わせること、話を聞くこと"
+  },
+  {
     "slug": "yushi",
     "name": "ゆうし",
     "grade": "中学1年生",
